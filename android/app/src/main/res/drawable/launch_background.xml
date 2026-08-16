@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Flutter ilk kareyi cizene kadar gorunen ekran. Uygulamanin acilis
+     ekraniyla ayni olsun diye marka rengi + logo kullaniyoruz; aksi halde
+     koyu modda siyah bir bosluk yanip sonuyordu. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/launch_background" />
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@mipmap/ic_launcher" />
+    </item>
+</layer-list>
