@@ -74,8 +74,12 @@ void main() {
       );
 
   /// Açılış animasyonunu atlayıp doğrudan sekmelere geçer.
+  ///
+  /// Süre, açılış ekranının animasyonu (1,5 sn) + tanıtım metni okunsun diye
+  /// eklenen duruşu (1,4 sn) + geçiş animasyonunu (0,42 sn) kapsıyor.
   Future<void> boot(WidgetTester tester) async {
     await tester.pumpWidget(harness());
+    await tester.pump(const Duration(seconds: 2));
     await tester.pump(const Duration(seconds: 2));
     await tester.pumpAndSettle();
   }

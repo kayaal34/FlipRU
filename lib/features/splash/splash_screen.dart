@@ -33,11 +33,20 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
     curve: const Interval(0.35, 0.75, curve: Curves.easeOut),
   );
 
+  /// Animasyon bittikten sonraki bekleme.
+  ///
+  /// Animasyonun kendi süresini uzatmak yerine sonuna duruş ekliyoruz: logo
+  /// ve yazı aynı tempoda geliyor, sadece ekran biraz daha kalıyor ki tanıtım
+  /// metni okunabilsin.
+  static const _hold = Duration(milliseconds: 1400);
+
   @override
   void initState() {
     super.initState();
     _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) _open();
+      if (status == AnimationStatus.completed) {
+        Future.delayed(_hold, _open);
+      }
     });
   }
 
