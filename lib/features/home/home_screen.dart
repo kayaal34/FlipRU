@@ -238,8 +238,8 @@ class _HomeHeader extends ConsumerWidget {
                         color: palette.learned,
                       )
                     : Text(
-                        '${daily.today}',
-                        style: textTheme.labelLarge
+                        '%${(daily.ratio * 100).round()}',
+                        style: textTheme.labelMedium
                             ?.copyWith(color: palette.textPrimary),
                       ),
               ),
@@ -257,9 +257,20 @@ class _HomeHeader extends ConsumerWidget {
                     ),
                     const SizedBox(height: 3),
                     Text(
+                      // Teşvik mesajı günün ilerlemesine göre değişiyor.
                       daily.goalReached
                           ? s.comeBackTomorrow
-                          : '${s.words(overall.learned)} ${s.learnedWords}',
+                          : switch (daily.ratio) {
+                              >= 0.5 => s.encourageAlmost,
+                              > 0 => s.encourageGoing,
+                              _ => s.encourageStart,
+                            },
+                      style: textTheme.bodySmall
+                          ?.copyWith(color: palette.textSecondary),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      '${s.words(overall.learned)} ${s.learnedWords}',
                       style: textTheme.bodySmall
                           ?.copyWith(color: palette.textTertiary),
                     ),

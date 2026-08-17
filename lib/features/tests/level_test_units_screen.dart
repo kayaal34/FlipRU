@@ -7,8 +7,7 @@ import '../../core/utils/haptics.dart';
 import '../../core/widgets/pressable.dart';
 import '../../data/models/deck.dart';
 import '../../data/models/study_unit.dart';
-import '../../providers/library_providers.dart';
-import '../../providers/premium_provider.dart';
+import '../../data/models/word.dart';
 import '../../providers/settings_provider.dart';
 import '../../providers/unit_providers.dart';
 import '../quiz/quiz_screen.dart';
@@ -29,16 +28,8 @@ class LevelTestUnitsScreen extends ConsumerWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final units = ref.watch(deckUnitsProvider(deck.id));
-    final words = ref.watch(deckWordsProvider(deck.id));
-    final learned = ref.watch(learnedProvider);
-    final premium = ref.watch(isPremiumProvider);
     final s = ref.watch(stringsProvider);
 
-    final known = words.where((w) => learned.contains(w.id)).toList();
-    // Ucretsiz surumde test yalnizca ogrenilmis kelimeleri sorar; premium'da
-    // butun seviye acik. Bolum testlerinde de ayni kural gecerli.
-    final wholePool = premium ? words : known;
-    final passed = units.where((u) => u.passed).length;
 
     return Scaffold(
       appBar: AppBar(
@@ -60,21 +51,6 @@ class LevelTestUnitsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        _WholeLevelCard(
-                          deck: deck,
-                          title: s.wholeLevelTest,
-                          subtitle: wholePool.length < 4
-                              ? s.levelTestNeed
-                              : '${s.words(wholePool.length)} · '
-                                  '$passed/${units.length} ${s.unitsDone}',
-                          enabled: wholePool.length >= 4,
-                          onTap: () => _startQuiz(
-                            context,
-                            title: '${deck.titleOf(s)} · ${s.test}',
-                            words: wholePool,
-                          ),
-                        ),
-                        const SizedBox(height: 22),
                         Text(
                           s.unitTestsTitle,
                           style: textTheme.labelSmall
@@ -125,25 +101,14 @@ class LevelTestUnitsScreen extends ConsumerWidget {
       return;
     }
 
-    // Ucretsiz surumde bolum testi de yalnizca ogrenilmis kelimeleri sorar.
-    final premium = ref.read(isPremiumProvider);
-    final learned = ref.read(learnedProvider);
-    final pool = premium
-        ? progress.unit.words
-        : progress.unit.words
-            .where((w) => learned.contains(w.id))
-            .toList(growable: false);
-
-    if (pool.length < 4) {
-      Haptics.medium();
-      _warn(context, s.levelTestNeed);
-      return;
-    }
-
+    // Bolum testi bolumun butun kelimelerini soruyor: "20/20" ancak boyle
+    // anlamli oluyor. Celdiriciler sozlugun tamamindan geldigi icin kelime
+    // sayisi sinirina gerek yok.
     _startQuiz(
       context,
       title: '${progress.unit.titleOf(s)} · ${s.test}',
-      words: pool,
+      words: progress.unit.words,
+      questionCount: progress.unit.words.length,
       // Bolum testini gecmek bolumu tamamlamis sayar ve sonrakini acar —
       // calisma tarafindaki testle ayni davranis.
       unitId: progress.unit.id,
@@ -159,102 +124,18 @@ class LevelTestUnitsScreen extends ConsumerWidget {
   void _startQuiz(
     BuildContext context, {
     required String title,
-    required List<dynamic> words,
+    required List<Word> words,
+    required int questionCount,
     String? unitId,
   }) {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => QuizScreen(
           title: title,
-          words: List.from(words),
+          words: words,
           accent: deck.tint,
+          questionCount: questionCount,
           unitId: unitId,
-        ),
-      ),
-    );
-  }
-}
-
-/// "Seviyenin tamamı" seçeneği: eski davranışı koruyor.
-class _WholeLevelCard extends StatelessWidget {
-  const _WholeLevelCard({
-    required this.deck,
-    required this.title,
-    required this.subtitle,
-    required this.enabled,
-    required this.onTap,
-  });
-
-  final Deck deck;
-  final String title;
-  final String subtitle;
-  final bool enabled;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    final textTheme = Theme.of(context).textTheme;
-
-    return Pressable(
-      onTap: () {
-        if (!enabled) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(SnackBar(content: Text(subtitle)));
-          return;
-        }
-        onTap();
-      },
-      child: Opacity(
-        opacity: enabled ? 1 : 0.72,
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            color: palette.surface,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: palette.separator),
-          ),
-          child: Row(
-            children: [
-              Container(
-                width: 44,
-                height: 44,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: deck.tint.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(13),
-                ),
-                child: Icon(
-                  Icons.all_inclusive_rounded,
-                  color: deck.tint,
-                  size: 22,
-                ),
-              ),
-              const SizedBox(width: 13),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title, style: textTheme.titleMedium),
-                    const SizedBox(height: 2),
-                    Text(
-                      subtitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textTertiary),
-                    ),
-                  ],
-                ),
-              ),
-              Icon(
-                Icons.chevron_right_rounded,
-                size: 24,
-                color: palette.textTertiary,
-              ),
-            ],
-          ),
         ),
       ),
     );

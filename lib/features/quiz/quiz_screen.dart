@@ -35,12 +35,10 @@ class QuizScreen extends ConsumerStatefulWidget {
   final Color? accent;
   final int questionCount;
 
-  /// Bölüm testiyse: %70 ve üzeri sonuçta bu bölüm geçilmiş sayılır ve
-  /// sonraki bölümün kilidi açılır.
+  /// Bölüm testiyse: bütün sorular doğru cevaplanınca bu bölüm geçilmiş
+  /// sayılır ve sonraki bölümün kilidi açılır. Yanlışı olan kullanıcı
+  /// "Yanlışlarına dön" ile eksiklerini kapatıp bölümü açabilir.
   final String? unitId;
-
-  /// Bölümün geçilmiş sayılması için gereken oran.
-  static const passRatio = 0.7;
 
   @override
   ConsumerState<QuizScreen> createState() => _QuizScreenState();
@@ -52,6 +50,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   int _index = 0;
   int _correct = 0;
+
+  /// Yanlis cevaplanan kelimeler. Test sonunda "Yanlislarina don" bu listeyi
+  /// yeni bir tur olarak aciyor.
+  final _wrong = <Word>[];
   String? _picked;
   bool _revealed = false;
 
@@ -85,7 +87,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     setState(() {
       _picked = option.turkish;
       _revealed = true;
-      if (isCorrect) _correct++;
+      if (isCorrect) {
+        _correct++;
+      } else {
+        _wrong.add(question.word);
+      }
     });
   }
 
@@ -108,8 +114,8 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
     final unitId = widget.unitId;
     if (unitId == null || _questions.isEmpty) return;
-    final ratio = _correct / _questions.length;
-    if (ratio >= QuizScreen.passRatio) {
+    // Tam puan sarti: bolumu gecmek icin her soruyu dogru bilmek gerekiyor.
+    if (_correct == _questions.length) {
       ref.read(passedUnitsProvider.notifier).markPassed(unitId);
       _unlockedUnit = true;
     }
@@ -166,6 +172,22 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         accent: tint,
         unlockedUnit: _unlockedUnit,
         strings: s,
+        wrong: _wrong,
+        // Yanlislari tekrar ederken de bolum kimligi tasiniyor: hepsini
+        // dogru yapan kullanici bolumu acabilsin.
+        onRetryWrong: _wrong.isEmpty
+            ? null
+            : () => Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(
+                    builder: (_) => QuizScreen(
+                      title: widget.title,
+                      words: List.of(_wrong),
+                      accent: widget.accent,
+                      questionCount: _wrong.length,
+                      unitId: widget.unitId,
+                    ),
+                  ),
+                ),
       );
     }
 
@@ -448,7 +470,9 @@ class _QuizResult extends StatelessWidget {
     required this.total,
     required this.accent,
     required this.strings,
+    required this.wrong,
     this.unlockedUnit = false,
+    this.onRetryWrong,
   });
 
   final String title;
@@ -456,53 +480,93 @@ class _QuizResult extends StatelessWidget {
   final int total;
   final Color accent;
   final Strings strings;
+  final List<Word> wrong;
   final bool unlockedUnit;
+  final VoidCallback? onRetryWrong;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final ratio = total == 0 ? 0.0 : correct / total;
+    final perfect = total > 0 && correct == total;
 
     return Scaffold(
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 440),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Spacer(),
-                  ProgressRing(
-                    value: ratio,
-                    color: ratio >= 0.7 ? palette.learned : palette.review,
-                    size: 164,
-                    strokeWidth: 12,
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(
-                          '%${(ratio * 100).round()}',
-                          style: textTheme.displayLarge,
-                        ),
-                        Text(
-                          '$correct / $total ${strings.correctOf}',
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: palette.textTertiary),
-                        ),
-                      ],
+                  // Tam puanda halka yerine kocaman bir onay isareti: sonuc
+                  // tek bakista anlasilsin.
+                  if (perfect)
+                    Container(
+                      width: 164,
+                      height: 164,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: palette.learnedSoft,
+                        shape: BoxShape.circle,
+                        border: Border.all(color: palette.learned, width: 4),
+                      ),
+                      child: Icon(
+                        Icons.check_rounded,
+                        size: 96,
+                        color: palette.learned,
+                      ),
+                    )
+                  else
+                    ProgressRing(
+                      value: ratio,
+                      color: ratio >= 0.7 ? palette.learned : palette.review,
+                      size: 164,
+                      strokeWidth: 12,
+                      child: Text(
+                        '%${(ratio * 100).round()}',
+                        style: textTheme.displayLarge,
+                      ),
+                    ),
+                  const SizedBox(height: 20),
+                  // Buyuk skor: "18 / 20"
+                  Text(
+                    '$correct / $total',
+                    style: textTheme.displayLarge?.copyWith(
+                      color: perfect ? palette.learned : palette.textPrimary,
+                      fontSize: 46,
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _ScoreChip(
+                        icon: Icons.check_circle_rounded,
+                        color: palette.learned,
+                        label: '$correct ${strings.correctOf}',
+                      ),
+                      if (wrong.isNotEmpty) ...[
+                        const SizedBox(width: 10),
+                        _ScoreChip(
+                          icon: Icons.cancel_rounded,
+                          color: palette.review,
+                          label: '${wrong.length} ${strings.quizWrong}',
+                        ),
+                      ],
+                    ],
+                  ),
+                  const SizedBox(height: 20),
                   Text(
-                    switch (ratio) {
-                      >= 0.9 => strings.resultGreat,
-                      >= 0.7 => strings.resultGood,
-                      >= 0.4 => strings.resultHalf,
-                      _ => strings.resultPoor,
-                    },
+                    perfect
+                        ? strings.perfectScore
+                        : switch (ratio) {
+                            >= 0.7 => strings.resultGood,
+                            >= 0.4 => strings.resultHalf,
+                            _ => strings.resultPoor,
+                          },
                     textAlign: TextAlign.center,
                     style: textTheme.headlineMedium,
                   ),
@@ -540,18 +604,77 @@ class _QuizResult extends StatelessWidget {
                       ),
                     ),
                   ],
-                  const Spacer(),
-                  FilledButton(
-                    style: FilledButton.styleFrom(backgroundColor: accent),
-                    onPressed: () => Navigator.of(context).maybePop(),
-                    child: Text(strings.finish),
-                  ),
+                  const SizedBox(height: 28),
+                  if (onRetryWrong != null) ...[
+                    FilledButton.icon(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: palette.review,
+                        minimumSize: const Size.fromHeight(52),
+                      ),
+                      onPressed: onRetryWrong,
+                      icon: const Icon(Icons.replay_rounded, size: 20),
+                      label: Text(strings.retryWrong),
+                    ),
+                    const SizedBox(height: 10),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(52),
+                        side: BorderSide(color: palette.separator),
+                        foregroundColor: palette.textPrimary,
+                      ),
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      child: Text(strings.finish),
+                    ),
+                  ] else
+                    FilledButton(
+                      style: FilledButton.styleFrom(
+                        backgroundColor: accent,
+                        minimumSize: const Size.fromHeight(52),
+                      ),
+                      onPressed: () => Navigator.of(context).maybePop(),
+                      child: Text(strings.finish),
+                    ),
                   const SizedBox(height: 14),
                 ],
               ),
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+/// Sonuc ekranindaki "18 dogru" / "2 yanlis" etiketi.
+class _ScoreChip extends StatelessWidget {
+  const _ScoreChip({
+    required this.icon,
+    required this.color,
+    required this.label,
+  });
+
+  final IconData icon;
+  final Color color;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+      decoration: BoxDecoration(
+        color: color.withValues(alpha: 0.13),
+        borderRadius: BorderRadius.circular(13),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 19, color: color),
+          const SizedBox(width: 7),
+          Text(
+            label,
+            style:
+                Theme.of(context).textTheme.labelLarge?.copyWith(color: color),
+          ),
+        ],
       ),
     );
   }

@@ -114,10 +114,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   const SizedBox(height: 5),
                   Text(
                     ref.watch(stringsProvider).splashTagline,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium
-                        ?.copyWith(color: palette.textTertiary),
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: palette.textTertiary,
+                          height: 1.45,
+                        ),
                   ),
                 ],
               ),
