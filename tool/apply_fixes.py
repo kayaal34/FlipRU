@@ -39,6 +39,12 @@ from report4_fixes import (  # noqa: E402
     REPORT4_EXTRA,
     REPORT4_TR,
 )
+from report5_fixes import (  # noqa: E402
+    REPORT5_EXAMPLE,
+    REPORT5_MANUAL,
+    REPORT5_POS,
+    REPORT5_TR,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -108,7 +114,8 @@ def main():
         # Once elle bulunanlar, sonra rapor: rapor daha kapsamli, o kazansin.
         new_tr = FIXES.get(bare)
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
-                       REPORT4_TR, REPORT4_EXTRA):
+                       REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
+                       REPORT5_MANUAL):
             report = source.get(wid)
             if not report:
                 continue
@@ -135,7 +142,7 @@ def main():
             row[idx['tr']] = new_tr
             changed += 1
 
-        new_pos = REPORT_POS.get(wid)
+        new_pos = REPORT_POS.get(wid) or REPORT5_POS.get(wid)
         if new_pos and row[idx['pos']] != new_pos:
             row[idx['pos']] = new_pos
             pos_fixed += 1
@@ -147,7 +154,7 @@ def main():
 
         # Cumle yazmak silmekten once gelir: ikinci tur, birinci turda
         # silinmis bir cumlenin yerine dogrusunu koyabiliyor.
-        new_example = REPORT2_EXAMPLE.get(wid)
+        new_example = REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
         if new_example:
             ex_ru, ex_tr = new_example
             if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
@@ -170,7 +177,8 @@ def main():
 
     known_ids = set(REPORT_TR) | set(REPORT2_TR) | set(REPORT2_EXAMPLE) \
         | set(REPORT2_TRANSLIT) | set(REPORT3_TR) | set(REPORT3_EXTRA) \
-        | set(REPORT4_TR) | set(REPORT4_EXTRA)
+        | set(REPORT4_TR) | set(REPORT4_EXTRA) | set(REPORT5_TR) \
+        | set(REPORT5_MANUAL)
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
