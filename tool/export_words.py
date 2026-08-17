@@ -9,8 +9,9 @@ Kullanim:
 
 Cikti:
     export/words_all.csv      butun kelimeler
+    export/words_guven2.csv   yalnizca tek kaynakla dogrulanmis katman
     export/words_a1.csv ...   seviye seviye
-    export/review_b2.txt      "ru = tr" biçiminde, modele yapistirmaya hazir
+    export/review_NN_xx.txt   400'erlik parcalar, modele yapistirmaya hazir
 """
 
 import csv
@@ -23,11 +24,27 @@ sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from curated_fixes import FIXES, POST_FIXES  # noqa: E402
+from report_fixes import REPORT_TR  # noqa: E402
+from report2_fixes import (  # noqa: E402
+    REPORT2_EXAMPLE,
+    REPORT2_TR,
+    REPORT2_TRANSLIT,
+)
+from report3_fixes import REPORT3_EXTRA, REPORT3_TR  # noqa: E402
+from report4_fixes import REPORT4_EXTRA, REPORT4_TR  # noqa: E402
+from report5_fixes import (  # noqa: E402
+    REPORT5_CLEAR_EXAMPLE,
+    REPORT5_EXAMPLE,
+    REPORT5_MANUAL,
+    REPORT5_TR,
+)
 
-try:
-    from report_fixes import REPORT_TR
-except ImportError:  # ilk tur, rapor henuz yok
-    REPORT_TR = {}
+# Bes turda duzeltilmis kayitlarin kimlikleri.
+DUZELTILEN = (set(REPORT_TR) | set(REPORT2_TR) | set(REPORT2_EXAMPLE)
+              | set(REPORT2_TRANSLIT) | set(REPORT3_TR) | set(REPORT3_EXTRA)
+              | set(REPORT4_TR) | set(REPORT4_EXTRA) | set(REPORT5_TR)
+              | set(REPORT5_MANUAL) | set(REPORT5_EXAMPLE)
+              | set(REPORT5_CLEAR_EXAMPLE))
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -43,14 +60,15 @@ HEADER = [
 
 
 def status(row):
-    """Bu kelime daha once elden gecti mi?
+    """Bu kelimeye dis incelemede dokunuldu mu?
 
-    Ikinci tur incelemede en degerli bilgi bu: 615 kayit zaten duzeltildi,
-    inceleyen kisi enerjisini dokunulmamis olanlara ayirsin.
+    3., 4. ve 5. turlar dosyanin TAMAMINI tarayip yalnizca hatali bulduklarini
+    listeledi. Dolayisiyla artik "incelenmedi" diye bir kume yok: bir kayit ya
+    duzeltilmis, ya incelenip dogru bulunmustur.
     """
-    if row[0] in REPORT_TR or row[1] in FIXES or row[1] in POST_FIXES:
+    if row[0] in DUZELTILEN or row[1] in FIXES or row[1] in POST_FIXES:
         return 'duzeltildi'
-    return 'incelenmedi'
+    return 'incelendi_dogru'
 
 
 def main():
@@ -60,7 +78,7 @@ def main():
 
     done = sum(1 for r in rows if r[-1] == 'duzeltildi')
     print(f'  {len(rows)} kelime · {done} duzeltildi · '
-          f'{len(rows) - done} incelenmedi\n')
+          f'{len(rows) - done} incelenip dogru bulundu\n')
 
     # 1) Tam CSV
     path = os.path.join(OUT, 'words_all.csv')
@@ -70,28 +88,19 @@ def main():
         writer.writerows(rows)
     print(f'  {path}  ({len(rows)} kelime)')
 
-    # 1b) Yalnizca hic incelenmemis olanlar
-    fresh = [r for r in rows if r[-1] == 'incelenmedi']
-    path = os.path.join(OUT, 'words_incelenmemis.csv')
-    with io.open(path, 'w', encoding='utf-8-sig', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(HEADER)
-        writer.writerows(fresh)
-    print(f'  {path}  ({len(fresh)} kelime)')
-
-    # 1c) Guven=2 ve henuz incelenmemis olanlar — IKINCI TURUN ASIL HEDEFI.
+    # 1b) Guven=2 katmani.
     #
     # Guven puani kelimenin kac bagimsiz sozlukte dogrulandigini gosteriyor.
-    # Ilk turun raporu bu katmandaki gercek hata oranini %55-70 diye olctu,
-    # yani hata basina harcanan inceleme emeginin en yuksek getirisi burada.
-    # Guven 3-4 katmani ayni emekle cok daha az hata verir.
-    risky = [r for r in fresh if r[10] == 2]
+    # Ilk turun raporu bu katmandaki hata oranini %55-70 diye tahmin etmisti;
+    # bes tur sonunda gercek oran %55 cikti (2.596 kayittan 1.426'si
+    # duzeltildi). Yeni bir inceleme turu yine once buraya bakmali.
+    risky = [r for r in rows if r[10] == 2]
     path = os.path.join(OUT, 'words_guven2.csv')
     with io.open(path, 'w', encoding='utf-8-sig', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(HEADER)
         writer.writerows(risky)
-    print(f'  {path}  ({len(risky)} kelime)  <-- ikinci tur icin bunu gonder')
+    print(f'  {path}  ({len(risky)} kelime)  <-- guven=2 katmani')
 
     # 2) Seviye seviye CSV
     by_level = {}
