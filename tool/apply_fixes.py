@@ -33,6 +33,7 @@ from report2_fixes import (  # noqa: E402
     REPORT2_TR,
     REPORT2_TRANSLIT,
 )
+from report3_fixes import REPORT3_EXTRA, REPORT3_TR  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -101,7 +102,7 @@ def main():
 
         # Once elle bulunanlar, sonra rapor: rapor daha kapsamli, o kazansin.
         new_tr = FIXES.get(bare)
-        for source in (REPORT_TR, REPORT2_TR):
+        for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA):
             report = source.get(wid)
             if not report:
                 continue
@@ -162,7 +163,7 @@ def main():
         print('\nveri setinde bulunamadi:', ', '.join(missing))
 
     known_ids = set(REPORT_TR) | set(REPORT2_TR) | set(REPORT2_EXAMPLE) \
-        | set(REPORT2_TRANSLIT)
+        | set(REPORT2_TRANSLIT) | set(REPORT3_TR) | set(REPORT3_EXTRA)
     lost = sorted(known_ids - seen_ids - REPORT2_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
