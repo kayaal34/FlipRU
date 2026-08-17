@@ -62,9 +62,10 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
     ];
   }
 
-  // Geçilen son bölümden sonra iki bölüm açık kalıyor: kullanıcı bir bölümü
-  // bitirdiğinde önünde her zaman seçenek olsun, tek bir dar yol olmasın.
-  const lookahead = 2;
+  // Sirali ilerleme: bir onceki bolum gecilmeden sonraki acilmaz. Onceden
+  // iki bolum birden acikti; kullanici "neden ikisi de acik" diye sordu ve
+  // hakliydi — bolum testi tam puan istiyorsa yol da tek olmali.
+  const lookahead = 1;
   var lastPassed = -1;
   final passedFlags = <bool>[];
   for (var i = 0; i < units.length; i++) {

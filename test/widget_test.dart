@@ -225,7 +225,7 @@ void main() {
       expect(units.first.unit.words.first.id, 'w040');
     });
 
-    test('baştan iki bölüm açık, gerisi kilitli', () {
+    test('baştan yalnızca ilk bölüm açık, gerisi kilitli', () {
       final c = container();
       // Yıldızlı deste 100 kelime alacak sekilde dolduruluyor.
       for (var i = 0; i < 100; i++) {
@@ -233,10 +233,9 @@ void main() {
       }
       final units = c.read(deckUnitsProvider('starred'));
       expect(units, hasLength(5));
-      // Hiçbiri geçilmemişken iki bölüm açık.
+      // Sıralı ilerleme: hiçbiri geçilmemişken yalnızca ilk bölüm açık.
       expect(units[0].unlocked, isTrue);
-      expect(units[1].unlocked, isTrue);
-      expect(units[2].unlocked, isFalse);
+      expect(units[1].unlocked, isFalse);
     });
 
     test('bölüm geçilince açık pencere bir bölüm ilerler', () {
@@ -251,11 +250,11 @@ void main() {
         c.read(learnedProvider.notifier).markLearned(word.id);
       }
 
-      // 1. bölüm geçilince 2 ve 3 açılır.
+      // 1. bölüm geçilince yalnızca 2. bölüm açılır.
       final units = c.read(deckUnitsProvider('starred'));
       expect(units[0].passed, isTrue);
-      expect(units[2].unlocked, isTrue);
-      expect(units[3].unlocked, isFalse);
+      expect(units[1].unlocked, isTrue);
+      expect(units[2].unlocked, isFalse);
     });
   });
 
@@ -343,7 +342,7 @@ void main() {
       for (var i = 0; i < 100; i++) {
         c.read(starredProvider.notifier).toggle('w${i.toString().padLeft(3, '0')}');
       }
-      expect(c.read(deckUnitsProvider('starred'))[2].unlocked, isFalse);
+      expect(c.read(deckUnitsProvider('starred'))[1].unlocked, isFalse);
 
       final first = c.read(deckUnitsProvider('starred')).first.unit;
       c.read(passedUnitsProvider.notifier).markPassed(first.id);
@@ -351,7 +350,8 @@ void main() {
       final units = c.read(deckUnitsProvider('starred'));
       expect(units[0].testPassed, isTrue);
       expect(units[0].passed, isTrue);
-      expect(units[2].unlocked, isTrue);
+      expect(units[1].unlocked, isTrue);
+      expect(units[2].unlocked, isFalse);
     });
   });
 

@@ -252,6 +252,12 @@ class Strings {
     required this.starredScreenEmptyBody,
     required this.studyAll,
     required this.splashTagline,
+    required this.retryWrong,
+    required this.quizWrong,
+    required this.perfectScore,
+    required this.encourageStart,
+    required this.encourageGoing,
+    required this.encourageAlmost,
     required this.notificationTitle,
     required this.notificationBody,
     required this.notifChannel,
@@ -348,6 +354,8 @@ class Strings {
   final String reportsSend, reportsClear, reportRemove;
   final String starredScreenEmpty, starredScreenEmptyBody, studyAll;
   final String splashTagline, notificationTitle, notificationBody;
+  final String retryWrong, quizWrong, perfectScore;
+  final String encourageStart, encourageGoing, encourageAlmost;
   final String notifChannel, notifChannelDesc;
   final String levelTestAll;
   final String widgetSection, widgetRefreshTitle, widgetRefreshSub;
@@ -630,7 +638,14 @@ class Strings {
     starredScreenEmptyBody: 'Çalışırken zorlandığın kelimenin yıldızına dokun; '
         'hepsi burada toplansın.',
     studyAll: 'Hepsini çalış',
-    splashTagline: 'Rusça kelime öğren',
+    splashTagline: 'En kapsamlı Rusça kelime uygulaması\n'
+        '8.000+ kelime, örnek cümlelerle',
+    retryWrong: 'Yanlışlarına dön',
+    quizWrong: 'yanlış',
+    perfectScore: 'Kusursuz! Hepsi doğru.',
+    encourageStart: 'Bugüne başlamadın, hadi bir kelime!',
+    encourageGoing: 'İyi gidiyorsun, devam et',
+    encourageAlmost: 'Harika gidiyorsun, az kaldı!',
     notificationTitle: 'Bugünkü çalışman seni bekliyor',
     notificationBody: '{} kelimelik günlük setini henüz tamamlamadın.',
     wordForms: ['kelime', 'kelime', 'kelime'],
@@ -938,7 +953,14 @@ class Strings {
     starredScreenEmptyBody: 'Нажимай на звёздочку у трудных слов — они '
         'соберутся здесь.',
     studyAll: 'Учить все',
-    splashTagline: 'Учи русские слова',
+    splashTagline: 'Самое полное приложение русских слов\n'
+        '8.000+ слов с примерами',
+    retryWrong: 'Вернуться к ошибкам',
+    quizWrong: 'неверно',
+    perfectScore: 'Безупречно! Всё верно.',
+    encourageStart: 'Сегодня ещё не начинал — вперёд!',
+    encourageGoing: 'Хорошо идёшь, продолжай',
+    encourageAlmost: 'Отлично идёшь, немного осталось!',
     notificationTitle: 'Твоё занятие ждёт',
     notificationBody: 'Дневная норма ({} слов) ещё не выполнена.',
     wordForms: ['слово', 'слова', 'слов'],

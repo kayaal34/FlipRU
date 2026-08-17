@@ -151,8 +151,11 @@ class UnitDetailScreen extends ConsumerWidget {
                           title: unit.titleOf(s),
                           words: unit.words,
                           accent: deck.tint,
-                          // Testi geçmek bu bölümü tamamlamış sayar ve
-                          // sonrakinin kilidini açar.
+                          // Bölümün bütün kelimeleri soruluyor: sonuçta
+                          // "20/20" görünsün ve tam puan şartı anlamlı olsun.
+                          questionCount: unit.words.length,
+                          // Testi tam puanla geçmek bu bölümü tamamlamış
+                          // sayar ve sonrakinin kilidini açar.
                           unitId: unit.id,
                         ),
                       ),
