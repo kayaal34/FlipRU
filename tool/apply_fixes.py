@@ -27,6 +27,12 @@ from report_fixes import (  # noqa: E402
     REPORT_POS,
     REPORT_TR,
 )
+from report2_fixes import (  # noqa: E402
+    REPORT2_DROP,
+    REPORT2_EXAMPLE,
+    REPORT2_TR,
+    REPORT2_TRANSLIT,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -81,6 +87,7 @@ def main():
 
     kept = []
     changed = dropped = cleared = pos_fixed = 0
+    translit_fixed = examples_set = 0
     seen = set()
     seen_ids = set()
     mismatched = []
@@ -88,21 +95,22 @@ def main():
     for row in rows:
         bare = row[idx['ru']]
         wid = row[idx['id']]
-        if bare in DROP:
+        if bare in DROP or wid in REPORT2_DROP:
             dropped += 1
             continue
 
         # Once elle bulunanlar, sonra rapor: rapor daha kapsamli, o kazansin.
         new_tr = FIXES.get(bare)
-        report = REPORT_TR.get(wid)
-        if report:
+        for source in (REPORT_TR, REPORT2_TR):
+            report = source.get(wid)
+            if not report:
+                continue
             report_ru, report_tr = report
             # Kimlikler kaymis olabilir; Rusca kelime tutmuyorsa dokunma.
             if report_ru != bare:
                 mismatched.append((wid, bare, report_ru))
-                report_tr = None
-            if report_tr:
-                new_tr = report_tr
+                continue
+            new_tr = report_tr
 
         # Kaba icerik taramasindan cikanlar en son sozu soyler.
         new_tr = POST_FIXES.get(bare, new_tr)
@@ -125,7 +133,21 @@ def main():
             row[idx['pos']] = new_pos
             pos_fixed += 1
 
-        if (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE) \
+        new_translit = REPORT2_TRANSLIT.get(wid)
+        if new_translit and row[idx['translit']] != new_translit:
+            row[idx['translit']] = new_translit
+            translit_fixed += 1
+
+        # Cumle yazmak silmekten once gelir: ikinci tur, birinci turda
+        # silinmis bir cumlenin yerine dogrusunu koyabiliyor.
+        new_example = REPORT2_EXAMPLE.get(wid)
+        if new_example:
+            ex_ru, ex_tr = new_example
+            if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
+                row[idx['exRu']] = ex_ru
+                row[idx['exTr']] = ex_tr
+                examples_set += 1
+        elif (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE) \
                 and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
@@ -139,7 +161,9 @@ def main():
     if missing:
         print('\nveri setinde bulunamadi:', ', '.join(missing))
 
-    lost = sorted(set(REPORT_TR) - seen_ids)
+    known_ids = set(REPORT_TR) | set(REPORT2_TR) | set(REPORT2_EXAMPLE) \
+        | set(REPORT2_TRANSLIT)
+    lost = sorted(known_ids - seen_ids - REPORT2_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
               % (len(lost), ', '.join(lost[:10])))
@@ -150,6 +174,8 @@ def main():
 
     print('\nduzeltilen ceviri : %d' % changed)
     print('duzeltilen tur    : %d' % pos_fixed)
+    print('duzeltilen okunus : %d' % translit_fixed)
+    print('yazilan ornek     : %d' % examples_set)
     print('cikarilan kelime  : %d' % dropped)
     print('silinen ornek     : %d' % cleared)
     print('kalan kelime      : %d' % len(kept))
