@@ -309,7 +309,6 @@ void main() {
       expect(c.read(deckLockedProvider('level_a2')), isFalse);
       expect(c.read(deckLockedProvider('level_b1')), isTrue);
       expect(c.read(deckLockedProvider('level_c1')), isTrue);
-      expect(c.read(generalTestsLockedProvider), isTrue);
     });
 
     test('premium etkinleşince tüm desteler açılır', () {
@@ -318,7 +317,6 @@ void main() {
 
       expect(c.read(isPremiumProvider), isTrue);
       expect(c.read(deckLockedProvider('level_c1')), isFalse);
-      expect(c.read(generalTestsLockedProvider), isFalse);
     });
 
     test('abonelik süresi biterse premium düşer', () {

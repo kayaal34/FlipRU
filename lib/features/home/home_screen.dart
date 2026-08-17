@@ -5,9 +5,9 @@ import '../../core/theme/app_palette.dart';
 import '../../core/i18n/strings.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/utils/haptics.dart';
-import '../../core/widgets/pressable.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/segmented_switch.dart';
+import '../../core/widgets/starred_hero_card.dart';
 import '../../data/models/deck.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
@@ -67,8 +67,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 children: [
                   const _HomeHeader(),
                   const SizedBox(height: 22),
-                  _StarredHeroCard(
-                    count: starredCount,
+                  StarredHeroCard(
+                    title: s.starredTitle,
+                    subtitle: starredCount == 0
+                        ? s.starredEmptyHint
+                        : '${s.words(starredCount)} ${s.starredWaiting}',
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => const StarredScreen(),
@@ -394,86 +397,3 @@ class _PremiumButton extends ConsumerWidget {
 }
 
 /// Ana ekranın öne çıkan kartı: yıldızlı kelimeler.
-class _StarredHeroCard extends ConsumerWidget {
-  const _StarredHeroCard({required this.count, required this.onTap});
-
-  final int count;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
-    final textTheme = Theme.of(context).textTheme;
-    final s = ref.watch(stringsProvider);
-
-    return Pressable(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(18),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              palette.accent,
-              Color.lerp(palette.accent, palette.star, 0.45)!,
-            ],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: palette.accent.withValues(alpha: 0.32),
-              blurRadius: 26,
-              offset: const Offset(0, 12),
-              spreadRadius: -8,
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.22),
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: const Icon(
-                Icons.star_rounded,
-                color: Colors.white,
-                size: 27,
-              ),
-            ),
-            const SizedBox(width: 15),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    s.starredTitle,
-                    style: textTheme.titleLarge?.copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(height: 3),
-                  Text(
-                    count == 0
-                        ? s.starredEmptyHint
-                        : '${s.words(count)} ${s.starredWaiting}',
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.85),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.chevron_right_rounded,
-              color: Colors.white.withValues(alpha: 0.9),
-              size: 26,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}

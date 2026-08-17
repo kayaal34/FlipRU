@@ -108,7 +108,9 @@ class Strings {
     required this.myStarred,
     required this.fromWords,
     required this.needFourLearned,
-    required this.needFourStarred,
+    required this.starredTestSub,
+    required this.wholeLevelTest,
+    required this.unitTestsTitle,
     required this.levelTests,
     required this.levelTestNeed,
     required this.levelTestKnown,
@@ -298,7 +300,8 @@ class Strings {
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
-  final String needFourLearned, needFourStarred;
+  final String needFourLearned, starredTestSub;
+  final String wholeLevelTest, unitTestsTitle;
   final String levelTests, levelTestNeed, levelTestKnown, unitTestInfo;
   final String statsTitle, statLearned, statStreak, statWeek, statMonth;
   final String last7, last30, bestDay, activeDays, dailyAverage;
@@ -471,12 +474,14 @@ class Strings {
     myStarred: 'Yıldızlı kelimelerim',
     fromWords: 'öğrenildi',
     needFourLearned: 'En az 4 kelime öğrenince açılır',
-    needFourStarred: 'En az 4 kelime yıldızlayınca açılır',
+    starredTestSub: 'Yıldızladığın kelimelerle test',
+    wholeLevelTest: 'Seviyenin tamamı',
+    unitTestsTitle: 'BÖLÜM TESTLERİ',
     levelTests: 'SEVİYE TESTLERİ',
     levelTestNeed: 'Bu seviyeden en az 4 kelime öğren',
     levelTestKnown: 'öğrenilmiş kelime',
-    unitTestInfo: 'Her bölümün kendi testi de var: bölümü açıp alttaki "Test" '
-        'düğmesine dokun. Testi geçersen sonraki bölüm açılır.',
+    unitTestInfo: 'Seviye testine dokununca bölümler açılır. Bir bölüm '
+        'testini geçersen sonraki bölüm de açılır.',
     statsTitle: 'İstatistikler',
     statLearned: 'Öğrenilen kelime',
     statStreak: 'Günlük seri',
@@ -777,12 +782,14 @@ class Strings {
     myStarred: 'Избранные слова',
     fromWords: 'выучено',
     needFourLearned: 'Откроется после 4 выученных слов',
-    needFourStarred: 'Откроется после 4 избранных слов',
+    starredTestSub: 'Тест по избранным словам',
+    wholeLevelTest: 'Весь уровень',
+    unitTestsTitle: 'ТЕСТЫ ПО РАЗДЕЛАМ',
     levelTests: 'ТЕСТЫ ПО УРОВНЯМ',
     levelTestNeed: 'Выучи хотя бы 4 слова этого уровня',
     levelTestKnown: 'выученных слов',
-    unitTestInfo: 'У каждого раздела есть свой тест: открой раздел и нажми '
-        '«Тест» внизу. Пройдёшь — откроется следующий раздел.',
+    unitTestInfo: 'Нажми на тест уровня — откроются разделы. Пройдёшь тест '
+        'раздела, откроется следующий.',
     statsTitle: 'Статистика',
     statLearned: 'Выучено слов',
     statStreak: 'Дней подряд',
