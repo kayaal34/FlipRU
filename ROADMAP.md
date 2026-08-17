@@ -27,9 +27,10 @@ cümlesi var. Eklenmesi gerekenler:
 - Aynı kökten kelimeler (работа / работать / рабочий)
 - Bu kelimeyi içeren diğer örnek cümleler
 
-### 1.3 Arama
-`WordRepository.search()` yazıldı ama hiçbir ekran kullanmıyor. Ana ekrana bir
-arama çubuğu: Rusça, Türkçe ya da okunuş üzerinden 8.996 kelimede anlık arama.
+### 1.3 Sözlüğün tamamında arama
+"Öğrendiğim Kelimeler" ekranına arama çubuğu eklendi ama yalnızca öğrenilen
+kelimelerde arıyor. Eksik olan: 8.992 kelimenin tamamında arama — kullanıcı
+aklına gelen bir kelimeyi bulup doğrudan detayına gidebilsin.
 
 ### 1.4 "Zorlandıklarım" otomatik listesi
 Sola kaydırılan ve testte yanlış yapılan kelimeler kendiliğinden bir listede

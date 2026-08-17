@@ -76,10 +76,18 @@ class TestsScreen extends ConsumerWidget {
                   icon: Icons.check_circle_rounded,
                   tint: palette.learned,
                   title: t.myLearned,
-                  subtitle: '${t.words(learned.length)} ${t.fromWords}',
+                  subtitle: learned.length < 4
+                      ? t.needFourLearned
+                      : t.learnedMixedSub,
                   enabled: learned.length >= 4,
-                  onTap: () =>
-                      _start(context, ref, t.myLearned, learned),
+                  // Her acilista yeniden karistiriliyor: ayni sirayla tekrar
+                  // etmek ezberletir, olcmez.
+                  onTap: () => _start(
+                    context,
+                    ref,
+                    t.myLearned,
+                    _shuffled(learned, learned.length),
+                  ),
                 ),
                 const SizedBox(height: 14),
                 // Ana ekrandaki kartin aynisi. Onceden burada duz bir satirdi,
