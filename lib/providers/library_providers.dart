@@ -72,12 +72,6 @@ class LearnedNotifier extends Notifier<Set<String>> {
     ref.read(dailyProgressProvider.notifier).record(delta: -1);
   }
 
-  void resetDeck(Iterable<String> wordIds) {
-    final next = {...state}..removeAll(wordIds);
-    state = next;
-    _persist(next);
-  }
-
   void clear() {
     state = const {};
     _persist(const {});

@@ -15,12 +15,10 @@ import '../models/word.dart';
 /// isolate'te yapılıyor.
 class WordRepository {
   WordRepository._(this._words)
-      : _byId = {for (final w in _words) w.id: w},
-        _byLevel = _groupBy(_words, (w) => w.level),
+      : _byLevel = _groupBy(_words, (w) => w.level),
         _byTheme = _groupByTheme(_words);
 
   final List<Word> _words;
-  final Map<String, Word> _byId;
   final Map<WordLevel, List<Word>> _byLevel;
   final Map<WordTheme, List<Word>> _byTheme;
 
@@ -68,12 +66,6 @@ class WordRepository {
     return out;
   }
 
-  int get totalCount => _words.length;
-
-  /// Birden fazla sözlüğün üzerinde anlaştığı kelimeler.
-  late final int verifiedCount =
-      _words.where((w) => w.confidence >= 3).length;
-
   List<Word> get allWords => List.unmodifiable(_words);
 
   /// Yalnızca kelime içeren temalar deste olarak gösterilir.
@@ -98,9 +90,9 @@ class WordRepository {
     };
   }
 
-  Word? byId(String id) => _byId[id];
-
   /// Rusça, okunuş veya Türkçe karşılık üzerinden arama.
+  ///
+  /// Henüz hiçbir ekran çağırmıyor; arama çubuğu eklenince bağlanacak.
   List<Word> search(String query, {int limit = 60}) {
     final needle = query.trim().toLowerCase();
     if (needle.isEmpty) return const [];

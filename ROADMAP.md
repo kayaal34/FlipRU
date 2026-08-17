@@ -18,10 +18,10 @@ Ana ekranda "Bugün tekrar edilecek: 23 kelime" kartı, uygulamayı her gün aç
 için tek başına yeterli sebep olur. Seri (streak) mekanizması zaten var; SRS
 onu anlamlı kılar.
 
-### 1.2 Kelime detay sayfası
-Listede bir kelimeye dokunmak şu an hiçbir şey yapmıyor. Açılması gereken sayfa:
-- Vurgulu hâli, okunuşu, dinleme
-- Bütün anlamları ve örnek cümle
+### 1.2 Kelime detay sayfasının eksikleri
+Sayfanın kendisi yapıldı (`word_detail_screen.dart`): bölüm listesinden ve
+yıldızlılardan açılıyor, vurgulu hâli, okunuşu, dinleme, anlamı ve örnek
+cümlesi var. Eklenmesi gerekenler:
 - **Çekim tablosu** — Badestrand verisinde isim hâlleri ve fiil çekimleri
   zaten var, sadece derleyiciye eklenmesi gerekiyor
 - Aynı kökten kelimeler (работа / работать / рабочий)
@@ -29,7 +29,7 @@ Listede bir kelimeye dokunmak şu an hiçbir şey yapmıyor. Açılması gereken
 
 ### 1.3 Arama
 `WordRepository.search()` yazıldı ama hiçbir ekran kullanmıyor. Ana ekrana bir
-arama çubuğu: Rusça, Türkçe ya da okunuş üzerinden 14.500 kelimede anlık arama.
+arama çubuğu: Rusça, Türkçe ya da okunuş üzerinden 8.996 kelimede anlık arama.
 
 ### 1.4 "Zorlandıklarım" otomatik listesi
 Sola kaydırılan ve testte yanlış yapılan kelimeler kendiliğinden bir listede

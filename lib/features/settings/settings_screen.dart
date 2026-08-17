@@ -6,8 +6,6 @@ import '../../core/theme/app_palette.dart';
 import '../../core/utils/haptics.dart';
 import '../../data/models/app_settings.dart';
 import '../../providers/app_providers.dart';
-import '../../providers/daily_provider.dart';
-import '../../providers/library_providers.dart';
 import '../../providers/report_provider.dart';
 import '../../providers/settings_provider.dart';
 import '../../core/widgets/pressable.dart';
@@ -30,9 +28,6 @@ class SettingsScreen extends ConsumerWidget {
     final reports = ref.watch(reportProvider);
     final premium = ref.watch(premiumProvider);
     final t = ref.watch(stringsProvider);
-    final learnedCount = ref.watch(learnedProvider).length;
-    final starredCount = ref.watch(starredProvider).length;
-    final streakCount = ref.watch(streakProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -262,27 +257,8 @@ class SettingsScreen extends ConsumerWidget {
                   ],
                 ),
 
-                SettingsSection(
-                  title: t.myData,
-                  children: [
-                    SettingsRow(
-                      title: t.statLearned,
-                      icon: Icons.check_circle_rounded,
-                      trailing: '$learnedCount',
-                    ),
-                    SettingsRow(
-                      title: t.myStarred,
-                      icon: Icons.star_rounded,
-                      trailing: '$starredCount',
-                    ),
-                    SettingsRow(
-                      title: t.statStreak,
-                      icon: Icons.local_fire_department_rounded,
-                      trailing: t.days(streakCount),
-                    ),
-                  ],
-                ),
-
+                // Öğrenilen / yıldızlı / seri sayıları İstatistik ekranında
+                // duruyor; aynı veriyi iki yerde göstermek kafa karıştırıyordu.
                 SettingsSection(
                   title: t.accountAndData,
                   children: [
