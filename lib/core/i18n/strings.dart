@@ -93,7 +93,12 @@ class Strings {
     required this.quizQuestion,
     required this.quizProgress,
     required this.quizCorrect,
-    required this.hint,
+    required this.joker,
+    required this.learnedMixedSub,
+    required this.learnedListSub,
+    required this.searchLearned,
+    required this.searchNoResult,
+    required this.learnedEmpty,
     required this.nextQuestion,
     required this.seeResult,
     required this.finish,
@@ -109,7 +114,6 @@ class Strings {
     required this.fromWords,
     required this.needFourLearned,
     required this.starredTestSub,
-    required this.wholeLevelTest,
     required this.unitTestsTitle,
     required this.levelTests,
     required this.levelTestNeed,
@@ -301,13 +305,15 @@ class Strings {
   final String wordsCounter, sessionLearned, sessionReview, percentLearned;
   final String sessionSummary, studyReviewWords, backHome;
   final String resultGreat, resultGood, resultHalf, resultPoor;
-  final String quizQuestion, quizProgress, quizCorrect, hint;
+  final String quizQuestion, quizProgress, quizCorrect, joker;
+  final String learnedMixedSub, learnedListSub;
+  final String searchLearned, searchNoResult, learnedEmpty;
   final String nextQuestion, seeResult, finish, unitUnlocked, correctOf;
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
   final String needFourLearned, starredTestSub;
-  final String wholeLevelTest, unitTestsTitle;
+  final String unitTestsTitle;
   final String levelTests, levelTestNeed, levelTestKnown, unitTestInfo;
   final String statsTitle, statLearned, statStreak, statWeek, statMonth;
   final String last7, last30, bestDay, activeDays, dailyAverage;
@@ -467,7 +473,13 @@ class Strings {
     quizQuestion: 'Bu kelimenin anlamı ne?',
     quizProgress: 'Soru',
     quizCorrect: 'doğru',
-    hint: 'İpucu',
+    joker: 'Joker',
+    learnedMixedSub: 'Öğrendiğin kelimelerden karışık tekrar',
+    learnedListSub: 'Öğrendiğin kelimelerin listesi',
+    searchLearned: 'Öğrendiğin kelimelerde ara',
+    searchNoResult: 'Eşleşen kelime yok',
+    learnedEmpty: 'Henüz kelime öğrenmedin. Bir bölüm çalış, '
+        'öğrendiklerin burada birikir.',
     nextQuestion: 'Sonraki soru',
     seeResult: 'Sonucu gör',
     finish: 'Bitir',
@@ -478,12 +490,11 @@ class Strings {
     testsSubtitle: 'Bildiklerini ölç, eksiklerini gör',
     dailyTest: 'Günün testi',
     dailyTestSub: 'Öğrendiklerinden 15 rastgele soru',
-    myLearned: 'Öğrendiklerim',
+    myLearned: 'Öğrendiğim Kelimeler',
     myStarred: 'Yıldızlı kelimelerim',
     fromWords: 'öğrenildi',
     needFourLearned: 'En az 4 kelime öğrenince açılır',
     starredTestSub: 'Yıldızladığın kelimelerle test',
-    wholeLevelTest: 'Seviyenin tamamı',
     unitTestsTitle: 'BÖLÜM TESTLERİ',
     levelTests: 'SEVİYE TESTLERİ',
     levelTestNeed: 'Bu seviyeden en az 4 kelime öğren',
@@ -589,12 +600,12 @@ class Strings {
         'test ipuçları premium ile açılır.',
     benefitAllWords: 'Kelimelerin tamamı',
     benefitAllWordsSub: 'Ücretsiz sürümde yalnızca A1 ve A2 açık',
-    benefitSentences: 'Tüm örnek cümleler',
-    benefitSentencesSub: 'Her kelimenin gerçek metinlerden alınmış cümlesi',
+    benefitSentences: 'Sırasız ilerleme',
+    benefitSentencesSub: 'Bölümleri sırayla açmak zorunda kalmazsın',
     benefitTests: 'Sınırsız test',
-    benefitTestsSub: 'Yıldızlılar testi ve seviye testleri',
-    benefitHints: 'Testlerde ipucu',
-    benefitHintsSub: 'Takıldığında şıkları eleyip ipucu al',
+    benefitTestsSub: 'Seviyenin tamamından sınav ol, yalnızca öğrendiklerinden değil',
+    benefitHints: 'Testlerde joker',
+    benefitHintsSub: 'Takıldığında iki yanlış şıkkı ele',
     benefitThemes: '30 tema',
     benefitThemesSub: 'Siyaset, ekonomi, hukuk, tıp ve fazlası',
     planMonthly: '1 Ay',
@@ -782,7 +793,13 @@ class Strings {
     quizQuestion: 'Что означает это слово?',
     quizProgress: 'Вопрос',
     quizCorrect: 'верно',
-    hint: 'Подсказка',
+    joker: 'Джокер',
+    learnedMixedSub: 'Повторение выученных слов вперемешку',
+    learnedListSub: 'Список выученных слов',
+    searchLearned: 'Поиск среди выученных',
+    searchNoResult: 'Ничего не найдено',
+    learnedEmpty: 'Ты ещё не выучил слов. Позанимайся разделом — '
+        'выученное соберётся здесь.',
     nextQuestion: 'Следующий вопрос',
     seeResult: 'Посмотреть результат',
     finish: 'Завершить',
@@ -798,7 +815,6 @@ class Strings {
     fromWords: 'выучено',
     needFourLearned: 'Откроется после 4 выученных слов',
     starredTestSub: 'Тест по избранным словам',
-    wholeLevelTest: 'Весь уровень',
     unitTestsTitle: 'ТЕСТЫ ПО РАЗДЕЛАМ',
     levelTests: 'ТЕСТЫ ПО УРОВНЯМ',
     levelTestNeed: 'Выучи хотя бы 4 слова этого уровня',
@@ -904,12 +920,12 @@ class Strings {
         'подсказки в тестах открываются с Премиумом.',
     benefitAllWords: 'Все слова',
     benefitAllWordsSub: 'В бесплатной версии открыты только A1 и A2',
-    benefitSentences: 'Все примеры',
-    benefitSentencesSub: 'Живые примеры из реальных текстов',
+    benefitSentences: 'Свободный порядок',
+    benefitSentencesSub: 'Разделы не нужно открывать по порядку',
     benefitTests: 'Тесты без ограничений',
-    benefitTestsSub: 'Тест по избранному и тесты по уровням',
-    benefitHints: 'Подсказки в тестах',
-    benefitHintsSub: 'Убирай неверные варианты, когда застрял',
+    benefitTestsSub: 'Проверяй весь уровень, а не только выученное',
+    benefitHints: 'Джокер в тестах',
+    benefitHintsSub: 'Убирает два неверных варианта',
     benefitThemes: '30 тем',
     benefitThemesSub: 'Политика, экономика, право, медицина и другие',
     planMonthly: '1 месяц',

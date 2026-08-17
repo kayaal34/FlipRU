@@ -5,6 +5,7 @@ import '../../core/theme/app_palette.dart';
 import '../../core/i18n/strings.dart';
 import '../../core/theme/app_typography.dart';
 import '../../core/utils/haptics.dart';
+import '../../core/widgets/pressable.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/segmented_switch.dart';
 import '../../core/widgets/starred_hero_card.dart';
@@ -13,6 +14,7 @@ import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/premium_provider.dart';
 import '../premium/premium_screen.dart';
+import '../learned/learned_screen.dart';
 import '../starred/starred_screen.dart';
 import '../units/unit_list_screen.dart';
 import 'widgets/deck_tiles.dart';
@@ -75,6 +77,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => const StarredScreen(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _LearnedCard(
+                    count: ref.watch(overallProgressProvider).learned,
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const LearnedScreen(),
                       ),
                     ),
                   ),
@@ -408,3 +419,71 @@ class _PremiumButton extends ConsumerWidget {
 }
 
 /// Ana ekranın öne çıkan kartı: yıldızlı kelimeler.
+
+/// Ana ekrandaki "Öğrendiğim Kelimeler" kartı.
+///
+/// Yıldızlı kart kadar baskın değil: yıldızlı bir eylem çağrısı, bu ise
+/// arşiv. Bu yüzden sade yüzey, degrade yok.
+class _LearnedCard extends ConsumerWidget {
+  const _LearnedCard({required this.count, required this.onTap});
+
+  final int count;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+
+    return Pressable(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: palette.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: palette.separator),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: palette.learned.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(13),
+              ),
+              child: Icon(
+                Icons.check_circle_rounded,
+                color: palette.learned,
+                size: 22,
+              ),
+            ),
+            const SizedBox(width: 13),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(s.myLearned, style: textTheme.titleMedium),
+                  const SizedBox(height: 2),
+                  Text(
+                    count == 0 ? s.learnedListSub : s.words(count),
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: palette.textTertiary),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 24,
+              color: palette.textTertiary,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -40,6 +40,7 @@ from report4_fixes import (  # noqa: E402
     REPORT4_TR,
 )
 from report5_fixes import (  # noqa: E402
+    REPORT5_CLEAR_EXAMPLE,
     REPORT5_EXAMPLE,
     REPORT5_MANUAL,
     REPORT5_POS,
@@ -161,8 +162,8 @@ def main():
                 row[idx['exRu']] = ex_ru
                 row[idx['exTr']] = ex_tr
                 examples_set += 1
-        elif (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE) \
-                and row[idx['exRu']]:
+        elif (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE
+                or wid in REPORT5_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1

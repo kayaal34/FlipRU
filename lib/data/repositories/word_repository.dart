@@ -90,29 +90,6 @@ class WordRepository {
     };
   }
 
-  /// Rusça, okunuş veya Türkçe karşılık üzerinden arama.
-  ///
-  /// Henüz hiçbir ekran çağırmıyor; arama çubuğu eklenince bağlanacak.
-  List<Word> search(String query, {int limit = 60}) {
-    final needle = query.trim().toLowerCase();
-    if (needle.isEmpty) return const [];
-
-    final starts = <Word>[];
-    final contains = <Word>[];
-    for (final word in _words) {
-      final ru = word.russian;
-      if (ru.startsWith(needle)) {
-        starts.add(word);
-      } else if (ru.contains(needle) ||
-          word.turkish.toLowerCase().contains(needle) ||
-          word.transliteration.toLowerCase().contains(needle)) {
-        contains.add(word);
-      }
-      if (starts.length >= limit) break;
-    }
-    return [...starts, ...contains].take(limit).toList();
-  }
-
   /// Quiz çeldiricileri: aynı seviyeden rastgele kelimeler (yakın seviye,
   /// şıkları makul zorlukta tutuyor).
   List<Word> randomDistractors(Word target, int count, Random random) {

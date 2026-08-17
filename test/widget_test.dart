@@ -120,11 +120,6 @@ void main() {
       expect(ids, {WordTheme.economy});
     });
 
-    test('arama rusça ve türkçe tarafta çalışır', () {
-      expect(repository.search('слово3'), isNotEmpty);
-      expect(repository.search('kelime7'), isNotEmpty);
-      expect(repository.search('zzzz'), isEmpty);
-    });
   });
 
   group('kütüphane mantığı', () {

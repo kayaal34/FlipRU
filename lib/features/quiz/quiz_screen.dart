@@ -105,6 +105,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       _index++;
       _picked = null;
       _revealed = false;
+      // Joker her soru icin yeniden hakki: onceden bir kez kullanilinca
+      // testin sonuna kadar kapali kaliyordu.
+      _jokerUsed = false;
+      _eliminated = const {};
     });
   }
 
@@ -123,9 +127,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   bool _unlockedUnit = false;
 
-  /// İpucu: yanlış şıklardan ikisini eler. Premium özelliği.
-  void _useHint() {
-    if (_revealed || _hintUsed) return;
+  /// Joker: yanlış şıklardan ikisini eler. Premium özelliği.
+  ///
+  /// Adı önce "İpucu" idi ama ipucu vermiyor, şıkları ikiye düşürüyor —
+  /// yarışma programlarındaki joker gibi. Her soruda bir hak.
+  void _useJoker() {
+    if (_revealed || _jokerUsed) return;
     final question = _questions[_index];
     final wrong = question.options
         .where((o) => o.turkish != question.word.turkish)
@@ -134,12 +141,12 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
     Haptics.light();
     setState(() {
-      _hintUsed = true;
+      _jokerUsed = true;
       _eliminated = wrong.take(2).map((o) => o.turkish).toSet();
     });
   }
 
-  bool _hintUsed = false;
+  bool _jokerUsed = false;
   Set<String> _eliminated = const {};
 
   @override
@@ -233,10 +240,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                           ),
                           Row(
                             children: [
-                              _HintButton(
-                                used: _hintUsed,
+                              _JokerButton(
+                                used: _jokerUsed,
                                 disabled: _revealed,
-                                onTap: _useHint,
+                                onTap: _useJoker,
                               ),
                               const SizedBox(width: 12),
                               Text(
@@ -333,8 +340,8 @@ class _Question {
 }
 
 /// İpucu düğmesi. Premium değilse ödeme ekranına yönlendirir.
-class _HintButton extends ConsumerWidget {
-  const _HintButton({
+class _JokerButton extends ConsumerWidget {
+  const _JokerButton({
     required this.used,
     required this.disabled,
     required this.onTap,
@@ -375,7 +382,7 @@ class _HintButton extends ConsumerWidget {
             ),
             const SizedBox(width: 4),
             Text(
-              ref.watch(stringsProvider).hint,
+              ref.watch(stringsProvider).joker,
               style: Theme.of(context)
                   .textTheme
                   .bodySmall
