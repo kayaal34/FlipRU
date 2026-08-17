@@ -34,6 +34,11 @@ from report2_fixes import (  # noqa: E402
     REPORT2_TRANSLIT,
 )
 from report3_fixes import REPORT3_EXTRA, REPORT3_TR  # noqa: E402
+from report4_fixes import (  # noqa: E402
+    REPORT4_DROP,
+    REPORT4_EXTRA,
+    REPORT4_TR,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -96,13 +101,14 @@ def main():
     for row in rows:
         bare = row[idx['ru']]
         wid = row[idx['id']]
-        if bare in DROP or wid in REPORT2_DROP:
+        if bare in DROP or wid in REPORT2_DROP or wid in REPORT4_DROP:
             dropped += 1
             continue
 
         # Once elle bulunanlar, sonra rapor: rapor daha kapsamli, o kazansin.
         new_tr = FIXES.get(bare)
-        for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA):
+        for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
+                       REPORT4_TR, REPORT4_EXTRA):
             report = source.get(wid)
             if not report:
                 continue
@@ -163,8 +169,9 @@ def main():
         print('\nveri setinde bulunamadi:', ', '.join(missing))
 
     known_ids = set(REPORT_TR) | set(REPORT2_TR) | set(REPORT2_EXAMPLE) \
-        | set(REPORT2_TRANSLIT) | set(REPORT3_TR) | set(REPORT3_EXTRA)
-    lost = sorted(known_ids - seen_ids - REPORT2_DROP)
+        | set(REPORT2_TRANSLIT) | set(REPORT3_TR) | set(REPORT3_EXTRA) \
+        | set(REPORT4_TR) | set(REPORT4_EXTRA)
+    lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
               % (len(lost), ', '.join(lost[:10])))
