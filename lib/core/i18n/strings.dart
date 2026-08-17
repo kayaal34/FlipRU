@@ -4,13 +4,12 @@ import '../../data/models/word.dart';
 
 /// Arayüz dili.
 enum AppLanguage {
-  tr('Türkçe', 'tr'),
-  ru('Русский', 'ru');
+  tr('Türkçe'),
+  ru('Русский');
 
-  const AppLanguage(this.label, this.code);
+  const AppLanguage(this.label);
 
   final String label;
-  final String code;
 
   static AppLanguage byKey(String? key) {
     for (final language in values) {
@@ -134,8 +133,6 @@ class Strings {
     required this.advancedStats,
     required this.advancedStatsSub,
     required this.unlockWithPremium,
-    required this.wordsUnit,
-    required this.daysUnit,
     required this.settingsTitle,
     required this.appearance,
     required this.theme,
@@ -190,7 +187,6 @@ class Strings {
     required this.privacy,
     required this.terms,
     required this.aboutFooter,
-    required this.subscription,
     required this.premiumActive,
     required this.premiumDaysLeft,
     required this.premiumPitch,
@@ -312,7 +308,6 @@ class Strings {
   /// Pazartesiden pazara, grafik ekseninde kullanılıyor.
   final List<String> weekdays;
   final String advancedStats, advancedStatsSub, unlockWithPremium;
-  final String wordsUnit, daysUnit;
   final String settingsTitle, appearance, theme;
   final String themeSystem, themeLight, themeDark, language;
   final String study, direction, dirRuTr, dirTrRu;
@@ -328,7 +323,7 @@ class Strings {
   final String soundFooter;
   final String myData, accountAndData, reports, account, accountSub;
   final String about, appSubtitle, version, privacy, terms, aboutFooter;
-  final String subscription, premiumActive, premiumDaysLeft, premiumPitch;
+  final String premiumActive, premiumDaysLeft, premiumPitch;
   final String deleteOps, deleteOpsFooter;
   final String clearStars, clearStarsSub, resetProgress, resetProgressSub;
   final String resetSettings, resetSettingsSub, deleteAll, deleteAllSub;
@@ -389,8 +384,6 @@ class Strings {
 
   /// Sayiyi kendin yazdiginda ("3 / 20 слов") yalnizca ismin dogru bicimi.
   String wordUnit(int count) => _agree(wordForms, count);
-
-  String dayUnit(int count) => _agree(dayForms, count);
 
   static Strings of(AppLanguage language) =>
       language == AppLanguage.ru ? _ru : _tr;
@@ -504,8 +497,6 @@ class Strings {
     advancedStats: 'İleri istatistikler',
     advancedStatsSub: 'Aylık grafik, günlük ortalama ve verimlilik analizi',
     unlockWithPremium: 'Premium ile aç',
-    wordsUnit: 'kelime',
-    daysUnit: 'gün',
     settingsTitle: 'Ayarlar',
     appearance: 'Görünüm',
     theme: 'Tema',
@@ -562,7 +553,6 @@ class Strings {
     aboutFooter: 'Sözlük verisi Vikisözlük (WikDict) ve Badestrand Rusça '
         'sözlüğünden; örnek cümleler Tatoeba, TED2020, WikiMatrix ve '
         'OpenSubtitles derlemlerinden derlenmiştir.',
-    subscription: 'Abonelik',
     premiumActive: 'Premium aktif',
     premiumDaysLeft: 'gün kaldı',
     premiumPitch: 'Tüm seviyeler, temalar ve test ipuçları',
@@ -813,8 +803,6 @@ class Strings {
     advancedStats: 'Расширенная статистика',
     advancedStatsSub: 'Месячный график, среднее за день и анализ прогресса',
     unlockWithPremium: 'Открыть с Премиумом',
-    wordsUnit: 'слов',
-    daysUnit: 'дн.',
     settingsTitle: 'Настройки',
     appearance: 'Внешний вид',
     theme: 'Тема',
@@ -871,7 +859,6 @@ class Strings {
     aboutFooter: 'Словарные данные — из Викисловаря (WikDict) и русского '
         'словаря Badestrand; примеры — из корпусов Tatoeba, TED2020, '
         'WikiMatrix и OpenSubtitles.',
-    subscription: 'Подписка',
     premiumActive: 'Премиум активен',
     premiumDaysLeft: 'дн. осталось',
     premiumPitch: 'Все уровни, темы и подсказки в тестах',

@@ -70,7 +70,7 @@ def main():
         writer.writerows(rows)
     print(f'  {path}  ({len(rows)} kelime)')
 
-    # 1b) Yalnizca hic incelenmemis olanlar — ikinci turun asil hedefi
+    # 1b) Yalnizca hic incelenmemis olanlar
     fresh = [r for r in rows if r[-1] == 'incelenmedi']
     path = os.path.join(OUT, 'words_incelenmemis.csv')
     with io.open(path, 'w', encoding='utf-8-sig', newline='') as f:
@@ -78,6 +78,20 @@ def main():
         writer.writerow(HEADER)
         writer.writerows(fresh)
     print(f'  {path}  ({len(fresh)} kelime)')
+
+    # 1c) Guven=2 ve henuz incelenmemis olanlar — IKINCI TURUN ASIL HEDEFI.
+    #
+    # Guven puani kelimenin kac bagimsiz sozlukte dogrulandigini gosteriyor.
+    # Ilk turun raporu bu katmandaki gercek hata oranini %55-70 diye olctu,
+    # yani hata basina harcanan inceleme emeginin en yuksek getirisi burada.
+    # Guven 3-4 katmani ayni emekle cok daha az hata verir.
+    risky = [r for r in fresh if r[10] == 2]
+    path = os.path.join(OUT, 'words_guven2.csv')
+    with io.open(path, 'w', encoding='utf-8-sig', newline='') as f:
+        writer = csv.writer(f)
+        writer.writerow(HEADER)
+        writer.writerows(risky)
+    print(f'  {path}  ({len(risky)} kelime)  <-- ikinci tur icin bunu gonder')
 
     # 2) Seviye seviye CSV
     by_level = {}

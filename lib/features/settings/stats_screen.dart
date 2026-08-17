@@ -85,6 +85,25 @@ class StatsScreen extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 26),
+                // Yıldızlı sayısı eskiden Ayarlar'da duruyordu. Kullanıcının
+                // kendi verisi olduğu için premium arkasında değil, burada
+                // ücretsiz görünüyor.
+                Text(
+                  t.myData,
+                  style: textTheme.labelSmall
+                      ?.copyWith(color: palette.textTertiary),
+                ),
+                const SizedBox(height: 12),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: palette.surface,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: palette.separator),
+                  ),
+                  child: _InfoRow(label: t.myStarred, value: '$starred'),
+                ),
+                const SizedBox(height: 26),
                 Text(
                   t.last7,
                   style: textTheme.labelSmall
@@ -185,11 +204,6 @@ class StatsScreen extends ConsumerWidget {
                             _InfoRow(
                               label: t.activeDays,
                               value: t.days(stats.activeDays),
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.myStarred,
-                              value: '$starred',
                             ),
                             Divider(color: palette.separator, height: 22),
                             _InfoRow(

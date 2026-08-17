@@ -86,22 +86,3 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
       ),
   ];
 });
-
-/// Destede kaç bölümün geçildiği — deste kartında gösteriliyor.
-final deckUnitSummaryProvider = Provider.family<({int passed, int total}), String>(
-  (ref, deckId) {
-    final units = ref.watch(deckUnitsProvider(deckId));
-    return (
-      passed: units.where((u) => u.passed).length,
-      total: units.length,
-    );
-  },
-);
-
-/// Kullanıcının çalışabileceği ilk açık bölüm.
-final nextUnitProvider = Provider.family<UnitProgress?, String>((ref, deckId) {
-  for (final unit in ref.watch(deckUnitsProvider(deckId))) {
-    if (unit.unlocked && !unit.passed) return unit;
-  }
-  return null;
-});

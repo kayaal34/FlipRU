@@ -75,7 +75,4 @@ class UnitProgress {
   /// Kelimeleri tek tek öğrenmek ya da bölüm testini geçmek — ikisi de yeterli.
   bool get passed => testPassed || learned >= unit.passThreshold;
   bool get completed => learned == total;
-
-  /// Kilidin açılması için önceki bölümde kaç kelime kaldığı.
-  int get remainingToPass => (unit.passThreshold - learned).clamp(0, total);
 }

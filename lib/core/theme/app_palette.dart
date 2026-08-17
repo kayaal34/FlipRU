@@ -221,6 +221,4 @@ class AppPalette extends ThemeExtension<AppPalette> {
 extension AppPaletteX on BuildContext {
   /// `context.palette.accent` şeklinde kısa erişim.
   AppPalette get palette => Theme.of(this).extension<AppPalette>()!;
-
-  bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
 }
