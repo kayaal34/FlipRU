@@ -66,8 +66,3 @@ int _themeIndex(Ref ref, WordTheme theme) {
   final decks = ref.watch(themeDecksProvider);
   return decks.indexWhere((d) => d.theme == theme);
 }
-
-/// Genel testler (bölüm testi dışındakiler) premium gerektiriyor.
-final generalTestsLockedProvider = Provider<bool>(
-  (ref) => FreeLimits.generalTestsRequirePremium && !ref.watch(isPremiumProvider),
-);

@@ -56,6 +56,4 @@ abstract final class FreeLimits {
   /// Ücretsiz kullanıcıya açık tema sayısı (listenin başından).
   static const openThemes = 5;
 
-  /// Bölüm testleri herkese açık; genel testler premium.
-  static const generalTestsRequirePremium = true;
 }

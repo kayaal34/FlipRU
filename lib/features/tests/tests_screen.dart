@@ -12,8 +12,9 @@ import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/premium_provider.dart';
-import '../premium/premium_screen.dart';
+import '../../core/widgets/starred_hero_card.dart';
 import '../quiz/quiz_screen.dart';
+import 'level_test_units_screen.dart';
 
 /// Testler sekmesi: kullanıcının kendini ölçebileceği bütün yollar.
 class TestsScreen extends ConsumerWidget {
@@ -26,7 +27,6 @@ class TestsScreen extends ConsumerWidget {
     final repository = ref.watch(wordRepositoryProvider);
     final learnedIds = ref.watch(learnedProvider);
     final starredIds = ref.watch(starredProvider);
-    final locked = ref.watch(generalTestsLockedProvider);
     final t = ref.watch(stringsProvider);
 
     final learned = repository.allWords
@@ -63,7 +63,6 @@ class TestsScreen extends ConsumerWidget {
                   subtitle: learned.length < 4
                       ? t.needFourLearned
                       : t.dailyTestSub,
-                  locked: false,
                   enabled: learned.length >= 4,
                   onTap: () => _start(
                     context,
@@ -78,22 +77,33 @@ class TestsScreen extends ConsumerWidget {
                   tint: palette.learned,
                   title: t.myLearned,
                   subtitle: '${t.words(learned.length)} ${t.fromWords}',
-                  locked: false,
                   enabled: learned.length >= 4,
                   onTap: () =>
                       _start(context, ref, t.myLearned, learned),
                 ),
-                const SizedBox(height: 10),
-                _TestCard(
-                  icon: Icons.star_rounded,
-                  tint: palette.star,
-                  title: t.myStarred,
-                  subtitle: starred.length < 4
-                      ? t.needFourStarred
-                      : '${t.words(starred.length)} ${t.fromWords}',
-                  locked: locked,
-                  enabled: starred.length >= 4,
-                  onTap: () => _start(context, ref, t.myStarred, starred),
+                const SizedBox(height: 14),
+                // Ana ekrandaki kartin aynisi. Onceden burada duz bir satirdi,
+                // ustelik premium kilidi ve "4 kelime" siniri vardi; ana
+                // ekrandaki ayni kart ise acikti. Quiz'in celdiricileri
+                // sozlugun tamamindan geliyor (bkz. randomDistractors), yani
+                // tek yildizli kelimeyle bile test kurulabiliyor — o sinir
+                // gereksizdi.
+                StarredHeroCard(
+                  title: t.starredTitle,
+                  subtitle: starred.isEmpty
+                      ? t.starredEmptyHint
+                      : t.starredTestSub,
+                  onTap: () {
+                    if (starred.isEmpty) {
+                      ScaffoldMessenger.of(context)
+                        ..hideCurrentSnackBar()
+                        ..showSnackBar(
+                          SnackBar(content: Text(t.starredEmptyHint)),
+                        );
+                      return;
+                    }
+                    _start(context, ref, t.myStarred, starred);
+                  },
                 ),
 
                 const SizedBox(height: 26),
@@ -193,16 +203,13 @@ class _LevelTestRow extends ConsumerWidget {
           : (known.length < 4
               ? t.levelTestNeed
               : '${known.length} ${t.levelTestKnown}'),
-      locked: false,
       enabled: enabled,
       compact: true,
+      // Dogrudan teste girmek yerine bolum listesine gidiyoruz: B2'de 2.500
+      // kelimeyi tek testte sormak ogretici degil.
       onTap: () => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => QuizScreen(
-            title: '${deck.titleOf(t)} · ${t.test}',
-            words: pool,
-            accent: deck.tint,
-          ),
+          builder: (_) => LevelTestUnitsScreen(deck: deck),
         ),
       ),
       trailing: Text(
@@ -219,7 +226,6 @@ class _TestCard extends StatelessWidget {
     required this.tint,
     required this.title,
     required this.subtitle,
-    required this.locked,
     required this.enabled,
     required this.onTap,
     this.compact = false,
@@ -231,7 +237,6 @@ class _TestCard extends StatelessWidget {
   final Color tint;
   final String title;
   final String subtitle;
-  final bool locked;
   final bool enabled;
   final VoidCallback onTap;
   final bool compact;
@@ -248,16 +253,10 @@ class _TestCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
-    final active = enabled && !locked;
+    final active = enabled;
 
     return Pressable(
       onTap: () {
-        if (locked) {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const PremiumScreen()),
-          );
-          return;
-        }
         if (!enabled) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -324,9 +323,9 @@ class _TestCard extends StatelessWidget {
               ],
               const SizedBox(width: 4),
               Icon(
-                locked ? Icons.lock_rounded : Icons.chevron_right_rounded,
-                size: locked ? 19 : 24,
-                color: locked ? palette.star : palette.textTertiary,
+                Icons.chevron_right_rounded,
+                size: 24,
+                color: palette.textTertiary,
               ),
             ],
           ),
