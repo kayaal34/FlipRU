@@ -134,6 +134,7 @@ class Strings {
     required this.bestDay,
     required this.activeDays,
     required this.dailyAverage,
+    required this.goalHitDays,
     required this.quizSection,
     required this.quizCount,
     required this.quizAccuracy,
@@ -296,6 +297,7 @@ class Strings {
   final String levelTests, levelTestNeed, levelTestKnown, unitTestInfo;
   final String statsTitle, statLearned, statStreak, statWeek, statMonth;
   final String last7, last30, bestDay, activeDays, dailyAverage;
+  final String goalHitDays;
   final String allTime, statsNoData;
   final String quizSection, quizCount, quizAccuracy, quizBest, quizLast;
   final String quizNone;
@@ -489,6 +491,7 @@ class Strings {
     bestDay: 'En verimli gün',
     activeDays: 'Çalışılan gün sayısı',
     dailyAverage: 'Günlük ortalama',
+    goalHitDays: 'Hedefe ulaşılan gün',
     quizSection: 'TESTLER',
     quizCount: 'Çözülen test',
     quizAccuracy: 'Doğruluk oranı',
@@ -786,6 +789,7 @@ class Strings {
     bestDay: 'Лучший день',
     activeDays: 'Дней занятий',
     dailyAverage: 'В среднем за день',
+    goalHitDays: 'Дней с выполненной целью',
     quizSection: 'ТЕСТЫ',
     quizCount: 'Пройдено тестов',
     quizAccuracy: 'Точность',

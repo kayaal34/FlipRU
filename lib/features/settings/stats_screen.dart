@@ -45,6 +45,11 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final starred = ref.watch(starredProvider).length;
     final t = ref.watch(stringsProvider);
     final quiz = ref.watch(quizSummaryProvider);
+    final hedef = ref.watch(settingsProvider).dailyGoal;
+    final gunlukTestSayisi = ref
+        .watch(quizStatsProvider)
+        .where((r) => r.kind == 'daily')
+        .length;
 
     // Secilen donemin ham gunluk serisi. Ozet sayilar hep bundan cikiyor.
     final seri = switch (_range) {
@@ -56,6 +61,8 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final enIyi = seri.isEmpty ? 0 : seri.reduce((a, b) => a > b ? a : b);
     final aktif = seri.where((v) => v > 0).length;
     final ortalama = seri.isEmpty ? 0.0 : toplam / seri.length;
+    // Secilen donemde gunluk hedefin tutturuldugu gun sayisi.
+    final hedefTutan = seri.where((v) => v >= hedef).length;
 
     return Scaffold(
       appBar: AppBar(
@@ -184,6 +191,11 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                       _InfoRow(label: t.activeDays, value: t.days(aktif)),
                       Divider(color: palette.separator, height: 22),
                       _InfoRow(
+                        label: t.goalHitDays,
+                        value: t.days(hedefTutan),
+                      ),
+                      Divider(color: palette.separator, height: 22),
+                      _InfoRow(
                         label: t.dailyAverage,
                         value: '${ortalama.toStringAsFixed(1)} '
                             '${t.wordUnit(ortalama.round())}',
@@ -226,6 +238,11 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                             _InfoRow(
                               label: t.quizCount,
                               value: '${quiz.count}',
+                            ),
+                            Divider(color: palette.separator, height: 22),
+                            _InfoRow(
+                              label: t.dailyTest,
+                              value: '$gunlukTestSayisi',
                             ),
                             Divider(color: palette.separator, height: 22),
                             _InfoRow(

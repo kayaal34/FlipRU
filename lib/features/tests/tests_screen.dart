@@ -75,6 +75,7 @@ class TestsScreen extends ConsumerWidget {
                     ref,
                     t.dailyTest,
                     _shuffled(learned, 15),
+                    kind: 'daily',
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -191,11 +192,12 @@ class TestsScreen extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
     String title,
-    List<Word> words,
-  ) {
+    List<Word> words, {
+    String kind = '',
+  }) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => QuizScreen(title: title, words: words),
+        builder: (_) => QuizScreen(title: title, words: words, kind: kind),
       ),
     );
   }

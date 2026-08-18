@@ -91,6 +91,28 @@ def shorten(text):
     return (stripped or parts)[0]
 
 
+def tek_anlam(text):
+    """Ikinci anlami atar.
+
+    Veri setinin %47'sinde iki Turkce karsilik vardi ve bunlarin buyuk
+    cogunlugu ayni seyin ikinci bir soylenisiydi: "denklem, muadele",
+    "tarla kusu, turgay", "amator, ozenci", "kurt, bori". Ikinci karsilik
+    yeni bir sey ogretmiyor, karti kalabaliklastiriyordu.
+
+    Parantezli aciklama tasiyanlar korunuyor: orada ikinci karsilik gercek
+    bir anlam ayrimi ("papaz, popo (argo)", "not (okul notu), degerlendirme").
+
+    Ilk karsilik oldugu gibi kaldigi icin hicbir kart yanlis hale gelmiyor;
+    yalnizca eksiliyor.
+    """
+    parts = _split(text)
+    if len(parts) < 2:
+        return text
+    if any('(' in p for p in parts):
+        return text
+    return parts[0]
+
+
 def main():
     dry = '--dry' in sys.argv
 
@@ -101,7 +123,7 @@ def main():
 
     kept = []
     changed = dropped = cleared = pos_fixed = 0
-    translit_fixed = examples_set = 0
+    translit_fixed = examples_set = tekilendi = 0
     seen = set()
     seen_ids = set()
     mismatched = []
@@ -170,6 +192,11 @@ def main():
             row[idx['exTr']] = ''
             cleared += 1
 
+        sadelesmis = tek_anlam(row[idx['tr']])
+        if sadelesmis != row[idx['tr']]:
+            row[idx['tr']] = sadelesmis
+            tekilendi += 1
+
         seen.add(bare)
         seen_ids.add(wid)
         kept.append(row)
@@ -197,6 +224,7 @@ def main():
     print('yazilan ornek     : %d' % examples_set)
     print('cikarilan kelime  : %d' % dropped)
     print('silinen ornek     : %d' % cleared)
+    print('tek anlama dusen  : %d' % tekilendi)
     print('kalan kelime      : %d' % len(kept))
 
     if dry:
