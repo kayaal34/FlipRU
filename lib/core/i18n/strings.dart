@@ -705,7 +705,10 @@ class Strings {
     widgetEvery6h: '6 saatte bir',
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
-    widgetFooter: 'Widget yalnızca uygulamayı açtığında tazelenir.',
+    widgetFooter: 'Widget’ı ana ekranına eklersen her gün yeni bir kelimeyi '
+        've günlük serini uygulamayı açmadan görürsün. Eklemek için ana '
+        'ekranına uzun bas, widget listesinden FlipRU’yu seç. Widget '
+        'yalnızca uygulamayı açtığında tazelenir.',
     benefitOpenAll: 'Her şey en baştan açık',
     benefitOpenAllSub: 'Bölüm ve seviye testleri sırayla ilerlemeni beklemez',
     testModeOn: 'Test modu açık — tüm içerik erişilebilir',
@@ -1042,7 +1045,10 @@ class Strings {
     widgetEvery6h: 'Каждые 6 часов',
     widgetEvery12h: 'Каждые 12 часов',
     widgetDaily: 'Раз в день',
-    widgetFooter: 'Виджет обновляется при открытии приложения.',
+    widgetFooter: 'Добавь виджет на главный экран — каждый день новое слово '
+        'и твоя серия будут видны без запуска приложения. Долгое нажатие '
+        'на главном экране, затем FlipRU в списке виджетов. Виджет '
+        'обновляется при открытии приложения.',
     benefitOpenAll: 'Всё открыто сразу',
     benefitOpenAllSub: 'Разделы и тесты уровней не ждут твоего прогресса',
     testModeOn: 'Тестовый режим включён — доступен весь контент',
