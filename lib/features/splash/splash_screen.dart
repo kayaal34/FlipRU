@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
 import '../../core/widgets/flip_logo.dart';
-import '../onboarding/onboarding_screen.dart';
+import '../onboarding/language_screen.dart';
 import '../shell/app_shell.dart';
 import '../../providers/settings_provider.dart';
 
@@ -54,13 +54,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   void _open() {
     if (!mounted) return;
-    // Ilk acilista tanitim; sonrakilerde dogrudan uygulama.
+    // Ilk acilista dil secimi + tanitim; sonrakilerde dogrudan uygulama.
     final done = ref.read(settingsProvider).onboardingDone;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 420),
         pageBuilder: (_, _, _) =>
-            done ? const AppShell() : const OnboardingScreen(),
+            done ? const AppShell() : const LanguageScreen(),
         transitionsBuilder: (_, animation, _, child) =>
             FadeTransition(opacity: animation, child: child),
       ),

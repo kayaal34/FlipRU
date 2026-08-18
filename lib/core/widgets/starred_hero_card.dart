@@ -9,6 +9,12 @@ import 'pressable.dart';
 /// bileşeni kullanıyor. Daha önce Testler ekranı düz bir liste satırıydı,
 /// ana ekran ise degradeli bu kart — aynı şeyin iki farklı görünmesi
 /// kullanıcıyı yanıltıyordu.
+///
+/// Kart eskiden baştan sona degrade ve parlamalıydı; yanındaki "Öğrendiğim
+/// Kelimeler" kartı ise düz zeminliydi. Aynı düzeydeki iki girişten birinin
+/// bu kadar öne çıkması gereksiz bir vurguydu ve asıl içeriğe (seviyeler ve
+/// temalar) giden yolu gölgeliyordu. Artık ikisi de aynı dili konuşuyor:
+/// düz zemin, ince çerçeve, rengi yalnızca simgesinde.
 class StarredHeroCard extends StatelessWidget {
   const StarredHeroCard({
     required this.title,
@@ -29,65 +35,47 @@ class StarredHeroCard extends StatelessWidget {
     return Pressable(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(18),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(24),
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              palette.accent,
-              Color.lerp(palette.accent, palette.star, 0.45)!,
-            ],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: palette.accent.withValues(alpha: 0.32),
-              blurRadius: 26,
-              offset: const Offset(0, 12),
-              spreadRadius: -8,
-            ),
-          ],
+          color: palette.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: palette.separator),
         ),
         child: Row(
           children: [
             Container(
-              width: 48,
-              height: 48,
+              width: 44,
+              height: 44,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: Colors.white.withValues(alpha: 0.22),
-                borderRadius: BorderRadius.circular(15),
+                color: palette.star.withValues(alpha: 0.14),
+                borderRadius: BorderRadius.circular(13),
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.star_rounded,
-                color: Colors.white,
-                size: 27,
+                color: palette.star,
+                size: 23,
               ),
             ),
-            const SizedBox(width: 15),
+            const SizedBox(width: 13),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    title,
-                    style: textTheme.titleLarge?.copyWith(color: Colors.white),
-                  ),
-                  const SizedBox(height: 3),
+                  Text(title, style: textTheme.titleMedium),
+                  const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: textTheme.bodySmall?.copyWith(
-                      color: Colors.white.withValues(alpha: 0.85),
-                    ),
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: palette.textTertiary),
                   ),
                 ],
               ),
             ),
             Icon(
               Icons.chevron_right_rounded,
-              color: Colors.white.withValues(alpha: 0.9),
-              size: 26,
+              size: 24,
+              color: palette.textTertiary,
             ),
           ],
         ),

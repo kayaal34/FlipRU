@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flipru/app.dart';
 import 'package:flipru/data/models/app_settings.dart';
+import 'package:flipru/core/i18n/strings.dart';
 import 'package:flipru/data/models/deck.dart';
 import 'package:flipru/data/models/word.dart';
 import 'package:flipru/data/models/word_report.dart';
@@ -384,6 +385,13 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pumpAndSettle();
 
+      // Once dil sorulur; secenekler kendi dillerinde yazili.
+      expect(find.text('Türkçe'), findsOneWidget);
+      expect(find.text('Русский'), findsOneWidget);
+
+      await tester.tap(find.text('Türkçe'));
+      await tester.pumpAndSettle();
+
       expect(find.text('Atla'), findsOneWidget);
 
       await tester.tap(find.text('Atla'));
@@ -393,6 +401,25 @@ void main() {
       expect(find.text('Atla'), findsNothing);
       final c = container();
       expect(c.read(settingsProvider).onboardingDone, isTrue);
+    });
+
+    testWidgets('Rusça seçilince tanıtım da Rusça gelir', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      prefs = await SharedPreferences.getInstance();
+
+      await tester.pumpWidget(harness());
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Русский'));
+      await tester.pumpAndSettle();
+
+      // Tanitim metinleri secilen dile gecti.
+      expect(find.text('Пропустить'), findsOneWidget);
+      expect(find.text('Atla'), findsNothing);
+      final c = container();
+      expect(c.read(settingsProvider).language, AppLanguage.ru);
     });
   });
 
