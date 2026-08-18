@@ -47,29 +47,66 @@ class _AppShellState extends ConsumerState<AppShell> {
       bottomNavigationBar: DecoratedBox(
         decoration: BoxDecoration(
           color: palette.surface,
-          border: Border(top: BorderSide(color: palette.separator)),
+          // Sert cizgi yerine yumusak bir yukselti: menu icerigin uzerinde
+          // duruyormus gibi duruyor.
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.14),
+              blurRadius: 18,
+              offset: const Offset(0, -6),
+              spreadRadius: -6,
+            ),
+          ],
         ),
         child: SafeArea(
           top: false,
           child: SizedBox(
-            height: 60,
-            child: Row(
-              children: [
-                for (var i = 0; i < _tabIcons.length; i++)
-                  Expanded(
-                    child: _NavItem(
-                      filled: _tabIcons[i].$1,
-                      outlined: _tabIcons[i].$2,
-                      label: labels[i],
-                      selected: _index == i,
-                      onTap: () {
-                        if (_index == i) return;
-                        Haptics.selection();
-                        setState(() => _index = i);
-                      },
+            height: 64,
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final tab = constraints.maxWidth / _tabIcons.length;
+                const pillW = 60.0;
+                const pillH = 32.0;
+                return Stack(
+                  children: [
+                    // Secili sekmenin arkasindaki hap, sekmeler arasinda
+                    // kayiyor. Ayni hareket ana ekrandaki seviye/tema
+                    // secicisinde de var; menu ondan ayri bir dil konusmasin.
+                    AnimatedPositioned(
+                      duration: const Duration(milliseconds: 340),
+                      curve: Curves.easeOutQuint,
+                      left: tab * _index + (tab - pillW) / 2,
+                      top: 7,
+                      width: pillW,
+                      height: pillH,
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          color: palette.accentSoft,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
                     ),
-                  ),
-              ],
+                    Row(
+                      children: [
+                        for (var i = 0; i < _tabIcons.length; i++)
+                          Expanded(
+                            child: _NavItem(
+                              filled: _tabIcons[i].$1,
+                              outlined: _tabIcons[i].$2,
+                              label: labels[i],
+                              selected: _index == i,
+                              onTap: () {
+                                if (_index == i) return;
+                                Haptics.selection();
+                                setState(() => _index = i);
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         ),
@@ -104,16 +141,32 @@ class _NavItem extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(selected ? filled : outlined, size: 23, color: color),
-          const SizedBox(height: 3),
-          Text(
-            label,
-            style: Theme.of(context).textTheme.labelSmall?.copyWith(
+          // Secili simge bir tik buyuyor; hap ile birlikte sekmenin secildigi
+          // tek bakista anlasiliyor.
+          AnimatedScale(
+            scale: selected ? 1.08 : 1,
+            duration: const Duration(milliseconds: 260),
+            curve: Curves.easeOutBack,
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 200),
+              child: Icon(
+                selected ? filled : outlined,
+                key: ValueKey(selected),
+                size: 23,
+                color: color,
+              ),
+            ),
+          ),
+          const SizedBox(height: 4),
+          AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 220),
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
                   color: color,
                   fontSize: 10.5,
                   letterSpacing: 0.1,
                   fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
                 ),
+            child: Text(label),
           ),
         ],
       ),

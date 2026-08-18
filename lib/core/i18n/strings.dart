@@ -92,6 +92,9 @@ class Strings {
     required this.quizQuestion,
     required this.quizProgress,
     required this.quizCorrect,
+    required this.writingTest,
+    required this.writingTestSub,
+    required this.writingPrompt,
     required this.joker,
     required this.learnedMixedSub,
     required this.learnedListSub,
@@ -150,7 +153,6 @@ class Strings {
     required this.dirTrRu,
     required this.dirRuTrDesc,
     required this.dirTrRuDesc,
-    required this.directionFooter,
     required this.sessionSize,
     required this.sessionSizeSub,
     required this.allCards,
@@ -252,6 +254,7 @@ class Strings {
     required this.singleSourceWarning,
     required this.wordForms,
     required this.dayForms,
+    required this.letterForms,
     required this.widgetSection,
     required this.widgetRefreshTitle,
     required this.widgetRefreshSub,
@@ -279,6 +282,7 @@ class Strings {
   final String sessionSummary, studyReviewWords, backHome;
   final String resultGreat, resultGood, resultHalf, resultPoor;
   final String quizQuestion, quizProgress, quizCorrect, joker;
+  final String writingTest, writingTestSub, writingPrompt;
   final String learnedMixedSub, learnedListSub;
   final String searchLearned, searchNoResult, learnedEmpty;
   final String nextQuestion, seeResult, finish, unitUnlocked, correctOf;
@@ -299,7 +303,7 @@ class Strings {
   final String settingsTitle, appearance, theme;
   final String themeSystem, themeLight, themeDark, language;
   final String study, direction, dirRuTr, dirTrRu;
-  final String dirRuTrDesc, dirTrRuDesc, directionFooter;
+  final String dirRuTrDesc, dirTrRuDesc;
   final String sessionSize, sessionSizeSub, allCards, cards;
   final String dailyGoal, dailyGoalSub, shuffle, shuffleSub;
   final String skipLearned, skipLearnedSub;
@@ -346,7 +350,7 @@ class Strings {
   /// Rusca'da sayidan sonraki isim ucе ayrilir: 1 слово, 2 слова, 5 слов.
   /// Turkce'de üçü de ayni, ama alan yine uc elemanli — boylece cagri yeri
   /// dilden bagimsiz kaliyor.
-  final List<String> wordForms, dayForms;
+  final List<String> wordForms, dayForms, letterForms;
 
   /// Rusca sayi uyumu kurali.
   static String _agree(List<String> forms, int count) {
@@ -363,6 +367,9 @@ class Strings {
   /// "5 дней" / "5 gün"
   String days(int count) => '$count ${_agree(dayForms, count)}';
 
+  /// "7 harf" / "7 букв"
+  String letters(int count) => '$count ${_agree(letterForms, count)}';
+
   /// Sayiyi kendin yazdiginda ("3 / 20 слов") yalnizca ismin dogru bicimi.
   String wordUnit(int count) => _agree(wordForms, count);
 
@@ -372,7 +379,7 @@ class Strings {
   // ───────────────────────────── Türkçe ─────────────────────────────
   static const _tr = Strings(
     tabHome: 'Ana ekran',
-    tabTests: 'Testler',
+    tabTests: 'Pratik',
     tabStats: 'İstatistik',
     tabSettings: 'Ayarlar',
     greetingNight: 'İyi geceler',
@@ -436,6 +443,9 @@ class Strings {
     quizQuestion: 'Bu kelimenin anlamı ne?',
     quizProgress: 'Soru',
     quizCorrect: 'doğru',
+    writingTest: 'Kelimeyi yaz',
+    writingTestSub: 'Türkçesini gör, Rusçasını harf harf yaz',
+    writingPrompt: 'Bu kelimenin Rusçası',
     joker: 'Joker',
     learnedMixedSub: 'Öğrendiğin kelimelerden karışık tekrar',
     learnedListSub: 'Öğrendiğin kelimelerin listesi',
@@ -449,8 +459,8 @@ class Strings {
     unitUnlocked: 'Bu bölümü geçtin — sonraki bölüm açıldı.',
     correctOf: 'doğru',
     quizNotEnough: 'Test için yeterli kelime yok. Önce birkaç kelime öğren.',
-    testsTitle: 'Testler',
-    testsSubtitle: 'Bildiklerini ölç, eksiklerini gör',
+    testsTitle: 'Pratik',
+    testsSubtitle: 'Bildiklerini ölç, yazarak pekiştir',
     dailyTest: 'Günün testi',
     dailyTestSub: 'Öğrendiklerinden 15 rastgele soru',
     myLearned: 'Öğrendiğim Kelimeler',
@@ -496,7 +506,6 @@ class Strings {
     dirTrRu: 'Türkçe → Rusça',
     dirRuTrDesc: 'Rusça kelimeyi görüp anlamını hatırla',
     dirTrRuDesc: 'Türkçe anlamı görüp Rusçasını hatırla',
-    directionFooter: 'Yön ayarı kartın ön yüzünde neyin görüneceğini belirler.',
     sessionSize: 'Seans uzunluğu',
     sessionSizeSub: 'Bir oturumda kaç kart gelsin',
     allCards: 'Tümü',
@@ -600,6 +609,7 @@ class Strings {
     notificationBody: '{} kelimelik günlük setini henüz tamamlamadın.',
     wordForms: ['kelime', 'kelime', 'kelime'],
     dayForms: ['gün', 'gün', 'gün'],
+    letterForms: ['harf', 'harf', 'harf'],
     widgetSection: 'Ana ekran widget’ı',
     widgetRefreshTitle: 'Kelime yenileme',
     widgetRefreshSub: 'Widget’taki kelime kaç saatte bir değişsin',
@@ -665,7 +675,7 @@ class Strings {
   // ───────────────────────────── Русский ────────────────────────────
   static const _ru = Strings(
     tabHome: 'Главная',
-    tabTests: 'Тесты',
+    tabTests: 'Практика',
     tabStats: 'Статистика',
     tabSettings: 'Настройки',
     greetingNight: 'Доброй ночи',
@@ -729,6 +739,9 @@ class Strings {
     quizQuestion: 'Что означает это слово?',
     quizProgress: 'Вопрос',
     quizCorrect: 'верно',
+    writingTest: 'Напиши слово',
+    writingTestSub: 'Видишь перевод — пишешь слово по буквам',
+    writingPrompt: 'Как это будет по-русски',
     joker: 'Джокер',
     learnedMixedSub: 'Повторение выученных слов вперемешку',
     learnedListSub: 'Список выученных слов',
@@ -742,8 +755,8 @@ class Strings {
     unitUnlocked: 'Раздел пройден — следующий открыт.',
     correctOf: 'верно',
     quizNotEnough: 'Слов недостаточно. Сначала выучи несколько слов.',
-    testsTitle: 'Тесты',
-    testsSubtitle: 'Проверь, что знаешь',
+    testsTitle: 'Практика',
+    testsSubtitle: 'Проверяй знания и закрепляй письмом',
     dailyTest: 'Тест дня',
     dailyTestSub: '15 случайных вопросов из выученного',
     myLearned: 'Выученные слова',
@@ -789,7 +802,6 @@ class Strings {
     dirTrRu: 'Турецкий → Русский',
     dirRuTrDesc: 'Видишь русское слово, вспоминаешь значение',
     dirTrRuDesc: 'Видишь перевод, вспоминаешь русское слово',
-    directionFooter: 'Настройка определяет, что показано на лицевой стороне.',
     sessionSize: 'Длина сессии',
     sessionSizeSub: 'Сколько карточек за один раз',
     allCards: 'Все',
@@ -892,6 +904,7 @@ class Strings {
     notificationTitle: 'Твоё занятие ждёт',
     notificationBody: 'Дневная норма ({} слов) ещё не выполнена.',
     wordForms: ['слово', 'слова', 'слов'],
+    letterForms: ['буква', 'буквы', 'букв'],
     dayForms: ['день', 'дня', 'дней'],
     widgetSection: 'Виджет на экране',
     widgetRefreshTitle: 'Обновление слова',
