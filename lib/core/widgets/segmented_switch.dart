@@ -25,8 +25,8 @@ class SegmentedSwitch extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return Container(
-      height: 42,
-      padding: const EdgeInsets.all(3),
+      height: 46,
+      padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: palette.surfaceSunken,
         borderRadius: BorderRadius.circular(13),
@@ -49,9 +49,16 @@ class SegmentedSwitch extends StatelessWidget {
                   width: segmentWidth,
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    color: palette.surface,
-                    borderRadius: BorderRadius.circular(10),
-                    boxShadow: palette.ambientShadow,
+                    color: palette.accent,
+                    borderRadius: BorderRadius.circular(11),
+                    boxShadow: [
+                      BoxShadow(
+                        color: palette.accent.withValues(alpha: 0.3),
+                        blurRadius: 12,
+                        offset: const Offset(0, 4),
+                        spreadRadius: -4,
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -70,9 +77,9 @@ class SegmentedSwitch extends StatelessWidget {
                           child: AnimatedDefaultTextStyle(
                             duration: const Duration(milliseconds: 220),
                             style: textTheme.labelLarge!.copyWith(
-                              fontSize: 14.5,
+                              fontSize: 15,
                               color: i == selectedIndex
-                                  ? palette.textPrimary
+                                  ? Colors.white
                                   : palette.textSecondary,
                               fontWeight: i == selectedIndex
                                   ? FontWeight.w700

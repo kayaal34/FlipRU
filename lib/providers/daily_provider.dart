@@ -119,18 +119,21 @@ class LearningStats {
     required this.last30,
     required this.thisWeek,
     required this.thisMonth,
-    required this.bestDay,
-    required this.activeDays,
+    required this.allTimeDaily,
   });
 
   /// Son 7 ve 30 günün gün gün sayıları (en eski → en yeni).
   final List<int> last7;
   final List<int> last30;
 
+  /// İlk kayıtlı günden bugüne, gün gün. Hiç çalışılmadıysa boş.
+  ///
+  /// Uzunluğu sabit değil; istatistik ekranı bunu çizime sığacak kadar kovaya
+  /// bölüyor ama özet sayıları ham hâlinden hesaplıyor.
+  final List<int> allTimeDaily;
+
   final int thisWeek;
   final int thisMonth;
-  final int bestDay;
-  final int activeDays;
 }
 
 final learningStatsProvider = Provider<LearningStats>((ref) {
@@ -145,13 +148,24 @@ final learningStatsProvider = Provider<LearningStats>((ref) {
   final week = window(7);
   final month = window(30);
 
+  // Tum zamanlar: ilk kayitli gunden bugune. Saat degisikligi yuzunden
+  // ileri tarihli bir anahtar kalmis olabilir, bu yuzden alt sinir 0.
+  final keys = history.keys.toList()..sort();
+  var allTime = const <int>[];
+  if (keys.isNotEmpty) {
+    final ilk = DateTime.parse(keys.first);
+    final gun = DateTime(now.year, now.month, now.day)
+        .difference(DateTime(ilk.year, ilk.month, ilk.day))
+        .inDays;
+    allTime = window(gun < 0 ? 1 : gun + 1);
+  }
+
   return LearningStats(
     last7: week,
     last30: month,
+    allTimeDaily: allTime,
     thisWeek: week.fold(0, (a, b) => a + b),
     thisMonth: month.fold(0, (a, b) => a + b),
-    bestDay: history.values.fold(0, (a, b) => b > a ? b : a),
-    activeDays: history.values.where((v) => v > 0).length,
   );
 });
 

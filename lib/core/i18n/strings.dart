@@ -125,6 +125,8 @@ class Strings {
     required this.statMonth,
     required this.last7,
     required this.last30,
+    required this.allTime,
+    required this.statsNoData,
     required this.bestDay,
     required this.activeDays,
     required this.dailyAverage,
@@ -288,6 +290,7 @@ class Strings {
   final String levelTests, levelTestNeed, levelTestKnown, unitTestInfo;
   final String statsTitle, statLearned, statStreak, statWeek, statMonth;
   final String last7, last30, bestDay, activeDays, dailyAverage;
+  final String allTime, statsNoData;
   final String quizSection, quizCount, quizAccuracy, quizBest, quizLast;
   final String quizNone;
 
@@ -466,8 +469,10 @@ class Strings {
     statStreak: 'Günlük seri',
     statWeek: 'Son 7 gün',
     statMonth: 'Son 30 gün',
-    last7: 'SON 7 GÜN',
-    last30: 'SON 30 GÜN',
+    last7: '7 gün',
+    last30: '30 gün',
+    allTime: 'Tüm zamanlar',
+    statsNoData: 'Henüz kayıtlı gün yok',
     bestDay: 'En verimli gün',
     activeDays: 'Çalışılan gün sayısı',
     dailyAverage: 'Günlük ortalama',
@@ -757,8 +762,10 @@ class Strings {
     statStreak: 'Дней подряд',
     statWeek: 'За 7 дней',
     statMonth: 'За 30 дней',
-    last7: 'ПОСЛЕДНИЕ 7 ДНЕЙ',
-    last30: 'ПОСЛЕДНИЕ 30 ДНЕЙ',
+    last7: '7 дней',
+    last30: '30 дней',
+    allTime: 'Всё время',
+    statsNoData: 'Пока нет данных',
     bestDay: 'Лучший день',
     activeDays: 'Дней занятий',
     dailyAverage: 'В среднем за день',

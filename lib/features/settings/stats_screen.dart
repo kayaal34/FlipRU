@@ -3,17 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
+import '../../core/widgets/segmented_switch.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/quiz_stats_provider.dart';
 import '../../providers/settings_provider.dart';
 
-/// Öğrenme istatistikleri: haftalık/aylık toplam ve gün gün dağılım.
-class StatsScreen extends ConsumerWidget {
+/// Öğrenme istatistikleri: toplamlar ve seçilen dönemin gün gün dağılımı.
+class StatsScreen extends ConsumerStatefulWidget {
   const StatsScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<StatsScreen> createState() => _StatsScreenState();
+}
+
+class _StatsScreenState extends ConsumerState<StatsScreen> {
+  /// 0: son 7 gün, 1: son 30 gün, 2: tüm zamanlar.
+  int _range = 0;
+
+  /// Uzun serileri çizime sığacak kadar kovaya böler.
+  ///
+  /// Tüm zamanlar seçilince seri yüzlerce güne çıkabiliyor; her güne bir çubuk
+  /// düşerse çubuklar bir piksele iner. Özet sayılar ham seriden hesaplandığı
+  /// için bu bölme yalnızca görünümü etkiliyor.
+  static List<int> _bucket(List<int> values, int maxBars) {
+    if (values.length <= maxBars) return values;
+    final size = (values.length / maxBars).ceil();
+    return [
+      for (var i = 0; i < values.length; i += size)
+        values.skip(i).take(size).fold(0, (a, b) => a + b),
+    ];
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final stats = ref.watch(learningStatsProvider);
@@ -22,6 +45,17 @@ class StatsScreen extends ConsumerWidget {
     final starred = ref.watch(starredProvider).length;
     final t = ref.watch(stringsProvider);
     final quiz = ref.watch(quizSummaryProvider);
+
+    // Secilen donemin ham gunluk serisi. Ozet sayilar hep bundan cikiyor.
+    final seri = switch (_range) {
+      0 => stats.last7,
+      1 => stats.last30,
+      _ => stats.allTimeDaily,
+    };
+    final toplam = seri.fold(0, (a, b) => a + b);
+    final enIyi = seri.isEmpty ? 0 : seri.reduce((a, b) => a > b ? a : b);
+    final aktif = seri.where((v) => v > 0).length;
+    final ortalama = seri.isEmpty ? 0.0 : toplam / seri.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -97,16 +131,65 @@ class StatsScreen extends ConsumerWidget {
                   child: _InfoRow(label: t.myStarred, value: '$starred'),
                 ),
                 const SizedBox(height: 26),
-                Text(
-                  t.last7,
-                  style: textTheme.labelSmall
-                      ?.copyWith(color: palette.textTertiary),
+                SegmentedSwitch(
+                  labels: [t.last7, t.last30, t.allTime],
+                  selectedIndex: _range,
+                  onChanged: (i) => setState(() => _range = i),
                 ),
-                const SizedBox(height: 12),
-                _BarChart(
-                  values: stats.last7,
-                  labels: _weekLabels(t.weekdays),
-                  color: palette.accent,
+                const SizedBox(height: 16),
+                if (seri.isEmpty)
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: palette.surface,
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(color: palette.separator),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.bar_chart_rounded,
+                          size: 19,
+                          color: palette.textTertiary,
+                        ),
+                        const SizedBox(width: 11),
+                        Text(
+                          t.statsNoData,
+                          style: textTheme.bodyMedium
+                              ?.copyWith(color: palette.textTertiary),
+                        ),
+                      ],
+                    ),
+                  )
+                else
+                  _BarChart(
+                    values: _bucket(seri, 30),
+                    // Gun adlari yalnizca yedi gunluk gorunumde anlamli.
+                    labels: _range == 0 ? _weekLabels(t.weekdays) : null,
+                    color: palette.accent,
+                    compact: _range != 0,
+                  ),
+                const SizedBox(height: 22),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: palette.surface,
+                    borderRadius: BorderRadius.circular(18),
+                    border: Border.all(color: palette.separator),
+                  ),
+                  child: Column(
+                    children: [
+                      _InfoRow(label: t.bestDay, value: t.words(enIyi)),
+                      Divider(color: palette.separator, height: 22),
+                      _InfoRow(label: t.activeDays, value: t.days(aktif)),
+                      Divider(color: palette.separator, height: 22),
+                      _InfoRow(
+                        label: t.dailyAverage,
+                        value: '${ortalama.toStringAsFixed(1)} '
+                            '${t.wordUnit(ortalama.round())}',
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 26),
                 Text(
@@ -161,52 +244,6 @@ class StatsScreen extends ConsumerWidget {
                             ),
                           ],
                         ),
-                ),
-                const SizedBox(height: 26),
-              Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      t.last30,
-                      style: textTheme.labelSmall
-                          ?.copyWith(color: palette.textTertiary),
-                    ),
-                    const SizedBox(height: 12),
-                    _BarChart(
-                      values: stats.last30,
-                      color: palette.learned,
-                      compact: true,
-                    ),
-                    const SizedBox(height: 22),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: palette.surface,
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: palette.separator),
-                      ),
-                      child: Column(
-                        children: [
-                          _InfoRow(
-                            label: t.bestDay,
-                            value: t.words(stats.bestDay),
-                          ),
-                          Divider(color: palette.separator, height: 22),
-                          _InfoRow(
-                            label: t.activeDays,
-                            value: t.days(stats.activeDays),
-                          ),
-                          Divider(color: palette.separator, height: 22),
-                          _InfoRow(
-                            label: t.dailyAverage,
-                            value:
-                                '${(stats.thisMonth / 30).toStringAsFixed(1)} '
-                                '${t.wordUnit(stats.thisMonth ~/ 30)}',
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),
