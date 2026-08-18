@@ -9,10 +9,7 @@ import '../../core/i18n/strings.dart';
 import '../../data/models/study_unit.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/unit_providers.dart';
-import '../../providers/premium_provider.dart';
-import '../premium/premium_screen.dart';
 import 'unit_detail_screen.dart';
-import 'widgets/locked_deck_preview.dart';
 import '../../providers/settings_provider.dart';
 
 /// Bir destenin bölümleri. Bölümler kolaydan zora sıralı ve sırayla açılıyor.
@@ -28,7 +25,6 @@ class UnitListScreen extends ConsumerWidget {
     final units = ref.watch(deckUnitsProvider(deck.id));
     final progress = ref.watch(deckProgressProvider(deck.id));
     final passed = units.where((u) => u.passed).length;
-    final locked = ref.watch(deckLockedProvider(deck.id));
     final s = ref.watch(stringsProvider);
 
     final appBar = AppBar(
@@ -40,21 +36,6 @@ class UnitListScreen extends ConsumerWidget {
         onPressed: () => Navigator.of(context).maybePop(),
       ),
     );
-
-    if (locked) {
-      final words = ref.watch(deckWordsProvider(deck.id));
-      return Scaffold(
-        appBar: appBar,
-        body: LockedDeckPreview(
-          deck: deck,
-          sample: words.isEmpty ? null : words.first,
-          totalWords: words.length,
-          onUnlock: () => Navigator.of(context).push(
-            MaterialPageRoute(builder: (_) => const PremiumScreen()),
-          ),
-        ),
-      );
-    }
 
     return Scaffold(
       appBar: appBar,

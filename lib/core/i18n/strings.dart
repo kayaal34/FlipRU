@@ -37,7 +37,6 @@ class Strings {
     required this.greetingEvening,
     required this.streakDays,
     required this.streakNone,
-    required this.premium,
     required this.todayProgress,
     required this.goalDone,
     required this.comeBackTomorrow,
@@ -136,9 +135,6 @@ class Strings {
     required this.quizLast,
     required this.quizNone,
     required this.weekdays,
-    required this.advancedStats,
-    required this.advancedStatsSub,
-    required this.unlockWithPremium,
     required this.settingsTitle,
     required this.appearance,
     required this.theme,
@@ -193,10 +189,6 @@ class Strings {
     required this.privacy,
     required this.terms,
     required this.aboutFooter,
-    required this.premiumActive,
-    required this.premiumDaysLeft,
-    required this.premiumPitch,
-    required this.premiumSoon,
     required this.onboardSkip,
     required this.onboardNext,
     required this.onboardStart,
@@ -222,34 +214,6 @@ class Strings {
     required this.cancel,
     required this.confirmDelete,
     required this.uninstallNote,
-    required this.premiumTitle,
-    required this.premiumHeadline,
-    required this.premiumSub,
-    required this.benefitAllWords,
-    required this.benefitAllWordsSub,
-    required this.benefitSentences,
-    required this.benefitSentencesSub,
-    required this.benefitTests,
-    required this.benefitTestsSub,
-    required this.benefitHints,
-    required this.benefitHintsSub,
-    required this.benefitThemes,
-    required this.benefitThemesSub,
-    required this.planMonthly,
-    required this.planQuarterly,
-    required this.planYearly,
-    required this.perMonth,
-    required this.discount,
-    required this.renewNote,
-    required this.paymentPendingTitle,
-    required this.paymentPendingBody,
-    required this.understood,
-    required this.restorePurchase,
-    required this.restoreTitle,
-    required this.restoreBody,
-    required this.deckLockedTitle,
-    required this.deckLockedBody,
-    required this.deckSample,
     required this.reportTitle,
     required this.reportSubmit,
     required this.reportNote,
@@ -286,7 +250,6 @@ class Strings {
     required this.singleSourceWarning,
     required this.wordForms,
     required this.dayForms,
-    required this.levelTestAll,
     required this.widgetSection,
     required this.widgetRefreshTitle,
     required this.widgetRefreshSub,
@@ -294,15 +257,11 @@ class Strings {
     required this.widgetEvery12h,
     required this.widgetDaily,
     required this.widgetFooter,
-    required this.benefitOpenAll,
-    required this.benefitOpenAllSub,
-    required this.testModeOn,
-    required this.testModeOff,
   });
 
   final String tabHome, tabTests, tabStats, tabSettings;
   final String greetingNight, greetingMorning, greetingDay, greetingEvening;
-  final String streakDays, streakNone, premium;
+  final String streakDays, streakNone;
   final String todayProgress, goalDone, comeBackTomorrow, learnedWords;
   final String starredTitle, starredEmptyHint, starredWaiting;
   final String levels, themes, swipeHint, deckEmpty;
@@ -334,7 +293,6 @@ class Strings {
 
   /// Pazartesiden pazara, grafik ekseninde kullanılıyor.
   final List<String> weekdays;
-  final String advancedStats, advancedStatsSub, unlockWithPremium;
   final String settingsTitle, appearance, theme;
   final String themeSystem, themeLight, themeDark, language;
   final String study, direction, dirRuTr, dirTrRu;
@@ -350,8 +308,6 @@ class Strings {
   final String soundFooter;
   final String myData, accountAndData, reports, account, accountSub;
   final String about, appSubtitle, version, privacy, terms, aboutFooter;
-  final String premiumActive, premiumDaysLeft, premiumPitch;
-  final String premiumSoon;
   final String onboardSkip, onboardNext, onboardStart;
   final String onboardTitle1, onboardBody1;
   final String onboardTitle2, onboardBody2;
@@ -361,16 +317,6 @@ class Strings {
   final String clearStars, clearStarsSub, resetProgress, resetProgressSub;
   final String resetSettings, resetSettingsSub, deleteAll, deleteAllSub;
   final String irreversible, cancel, confirmDelete, uninstallNote;
-  final String premiumTitle, premiumHeadline, premiumSub;
-  final String benefitAllWords, benefitAllWordsSub;
-  final String benefitSentences, benefitSentencesSub;
-  final String benefitTests, benefitTestsSub;
-  final String benefitHints, benefitHintsSub;
-  final String benefitThemes, benefitThemesSub;
-  final String planMonthly, planQuarterly, planYearly, perMonth, discount;
-  final String renewNote, paymentPendingTitle, paymentPendingBody, understood;
-  final String restorePurchase, restoreTitle, restoreBody;
-  final String deckLockedTitle, deckLockedBody, deckSample;
   final String reportTitle, reportSubmit, reportNote, reportSaved;
   final String reportReasonTranslation, reportReasonExample;
   final String reportReasonPronunciation, reportReasonOther;
@@ -381,11 +327,8 @@ class Strings {
   final String retryWrong, quizWrong, perfectScore;
   final String encourageStart, encourageGoing, encourageAlmost;
   final String notifChannel, notifChannelDesc;
-  final String levelTestAll;
   final String widgetSection, widgetRefreshTitle, widgetRefreshSub;
   final String widgetEvery6h, widgetEvery12h, widgetDaily, widgetFooter;
-  final String benefitOpenAll, benefitOpenAllSub;
-  final String testModeOn, testModeOff;
   final String deckEmptyHint, singleSourceWarning;
 
   /// Tema destesinin alt basligi; `{}` yerine tema adi gelir.
@@ -435,7 +378,6 @@ class Strings {
     greetingEvening: 'İyi akşamlar',
     streakDays: 'günlük seri',
     streakNone: 'seri yok',
-    premium: 'Premium',
     todayProgress: 'Bugün',
     goalDone: 'Günlük hedefin tamam!',
     comeBackTomorrow: 'Yarın tekrar gel — seriyi bozma.',
@@ -536,9 +478,6 @@ class Strings {
     quizLast: 'Son test',
     quizNone: 'Henüz test çözmedin',
     weekdays: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
-    advancedStats: 'İleri istatistikler',
-    advancedStatsSub: 'Aylık grafik, günlük ortalama ve verimlilik analizi',
-    unlockWithPremium: 'Premium ile aç',
     settingsTitle: 'Ayarlar',
     appearance: 'Görünüm',
     theme: 'Tema',
@@ -595,8 +534,6 @@ class Strings {
     aboutFooter: 'Sözlük verisi Vikisözlük (WikDict) ve Badestrand Rusça '
         'sözlüğünden; örnek cümleler Tatoeba, TED2020, WikiMatrix ve '
         'OpenSubtitles derlemlerinden derlenmiştir.',
-    premiumActive: 'Premium aktif',
-    premiumDaysLeft: 'gün kaldı',
     onboardSkip: 'Atla',
     onboardNext: 'Devam',
     onboardStart: 'Başlayalım',
@@ -613,8 +550,6 @@ class Strings {
     onboardTitle3: 'Günlük hedefin ne olsun?',
     onboardBody3: 'Her gün bu kadar yeni kelime. Sonradan ayarlardan '
         'değiştirebilirsin.',
-    premiumSoon: 'Abonelik yakında açılıyor. Şimdilik A1 ve A2 seviyelerinin tamamı ücretsiz.',
-    premiumPitch: 'Tüm seviyeler, temalar ve test ipuçları',
     deleteOps: 'Silme işlemleri',
     deleteOpsFooter: 'Buradaki işlemlerin hiçbiri geri alınamaz.',
     clearStars: 'Yıldızları temizle',
@@ -629,41 +564,6 @@ class Strings {
     cancel: 'Vazgeç',
     confirmDelete: 'Sil',
     uninstallNote: 'Uygulamayı telefondan kaldırmak da bütün veriyi siler.',
-    premiumTitle: 'FlipRU Premium',
-    premiumHeadline: 'Bütün dağarcığı aç',
-    premiumSub: 'B1, B2 ve C1 seviyeleri, 30 tema, ileri istatistikler ve '
-        'testlerde joker premium ile açılır.',
-    benefitAllWords: 'Kelimelerin tamamı',
-    benefitAllWordsSub: 'Ücretsiz sürümde yalnızca A1 ve A2 açık',
-    benefitSentences: 'Sırasız ilerleme',
-    benefitSentencesSub: 'Bölümleri sırayla açmak zorunda kalmazsın',
-    benefitTests: 'Sınırsız test',
-    benefitTestsSub: 'Seviyenin tamamından sınav ol, yalnızca öğrendiklerinden değil',
-    benefitHints: 'Testlerde joker',
-    benefitHintsSub: 'Takıldığında iki yanlış şıkkı ele',
-    benefitThemes: '30 tema',
-    benefitThemesSub: 'Siyaset, ekonomi, hukuk, tıp ve fazlası',
-    planMonthly: '1 Ay',
-    planQuarterly: '3 Ay',
-    planYearly: '12 Ay',
-    perMonth: '/ ay',
-    discount: 'indirim',
-    renewNote: 'Abonelik seçtiğin süre sonunda kendiliğinden yenilenir. '
-        'Dilediğin zaman mağaza hesabından iptal edebilirsin.',
-    paymentPendingTitle: 'Ödeme henüz bağlı değil',
-    paymentPendingBody: 'Satın alma için mağaza üzerinde abonelik ürünlerinin '
-        'tanımlanması gerekiyor. Hazır olduğunda bu ekran doğrudan çalışır.',
-    understood: 'Anladım',
-    restorePurchase: 'Satın alımlarımı geri yükle',
-    restoreTitle: 'Hesap açmana gerek yok',
-    restoreBody: 'Aboneliğin mağaza hesabına bağlı. Telefonunu değiştirsen ya '
-        'da uygulamayı silip yeniden kursan bile, aynı mağaza hesabıyla giriş '
-        'yapıp buraya dokunman yeterli — premium geri gelir. '
-        'Mağaza bağlantısı kurulduğunda bu düğme çalışır hâle gelecek.',
-    deckLockedTitle: 'kilitli',
-    deckLockedBody: 'Bu destedeki kelimeler, örnek cümleleri ve testleriyle '
-        'birlikte premium ile açılıyor.',
-    deckSample: 'BU DESTEDEN BİR ÖRNEK',
     reportTitle: 'Neyi bildirmek istiyorsun?',
     reportSubmit: 'Bildir',
     reportNote: 'İstersen doğrusunu yaz (isteğe bağlı)',
@@ -695,7 +595,6 @@ class Strings {
     notificationBody: '{} kelimelik günlük setini henüz tamamlamadın.',
     wordForms: ['kelime', 'kelime', 'kelime'],
     dayForms: ['gün', 'gün', 'gün'],
-    levelTestAll: 'seviyenin tamamı açık',
     widgetSection: 'Ana ekran widget’ı',
     widgetRefreshTitle: 'Kelime yenileme',
     widgetRefreshSub: 'Widget’taki kelime kaç saatte bir değişsin',
@@ -706,10 +605,6 @@ class Strings {
         've günlük serini uygulamayı açmadan görürsün. Eklemek için ana '
         'ekranına uzun bas, widget listesinden FlipRU’yu seç. Widget '
         'yalnızca uygulamayı açtığında tazelenir.',
-    benefitOpenAll: 'Her şey en baştan açık',
-    benefitOpenAllSub: 'Bölüm ve seviye testleri sırayla ilerlemeni beklemez',
-    testModeOn: 'Test modu açık — tüm içerik erişilebilir',
-    testModeOff: 'Test modu kapandı',
     notifChannel: 'Günlük hatırlatma',
     notifChannelDesc: 'Çalışma setini tamamlamadığında hatırlatır',
     deckEmptyHint: 'Kartların üzerindeki yıldıza dokunarak kelime ekleyebilirsin.',
@@ -774,7 +669,6 @@ class Strings {
     greetingEvening: 'Добрый вечер',
     streakDays: 'дней подряд',
     streakNone: 'нет серии',
-    premium: 'Премиум',
     todayProgress: 'Сегодня',
     goalDone: 'Дневная цель выполнена!',
     comeBackTomorrow: 'Возвращайся завтра — не прерывай серию.',
@@ -875,9 +769,6 @@ class Strings {
     quizLast: 'Последний тест',
     quizNone: 'Тестов пока не было',
     weekdays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
-    advancedStats: 'Расширенная статистика',
-    advancedStatsSub: 'Месячный график, среднее за день и анализ прогресса',
-    unlockWithPremium: 'Открыть с Премиумом',
     settingsTitle: 'Настройки',
     appearance: 'Внешний вид',
     theme: 'Тема',
@@ -934,8 +825,6 @@ class Strings {
     aboutFooter: 'Словарные данные — из Викисловаря (WikDict) и русского '
         'словаря Badestrand; примеры — из корпусов Tatoeba, TED2020, '
         'WikiMatrix и OpenSubtitles.',
-    premiumActive: 'Премиум активен',
-    premiumDaysLeft: 'дн. осталось',
     onboardSkip: 'Пропустить',
     onboardNext: 'Далее',
     onboardStart: 'Начнём',
@@ -952,8 +841,6 @@ class Strings {
     onboardTitle3: 'Какая у тебя дневная цель?',
     onboardBody3: 'Столько новых слов каждый день. Потом можно изменить '
         'в настройках.',
-    premiumSoon: 'Подписка скоро появится. Пока уровни A1 и A2 открыты полностью.',
-    premiumPitch: 'Все уровни, темы и подсказки в тестах',
     deleteOps: 'Удаление данных',
     deleteOpsFooter: 'Ни одно из этих действий нельзя отменить.',
     clearStars: 'Очистить избранное',
@@ -968,41 +855,6 @@ class Strings {
     cancel: 'Отмена',
     confirmDelete: 'Удалить',
     uninstallNote: 'Удаление приложения также стирает все данные.',
-    premiumTitle: 'FlipRU Премиум',
-    premiumHeadline: 'Открой весь словарь',
-    premiumSub: 'Уровни B1, B2 и C1, 30 тем, расширенная статистика и '
-        'джокер в тестах открываются с Премиумом.',
-    benefitAllWords: 'Все слова',
-    benefitAllWordsSub: 'В бесплатной версии открыты только A1 и A2',
-    benefitSentences: 'Свободный порядок',
-    benefitSentencesSub: 'Разделы не нужно открывать по порядку',
-    benefitTests: 'Тесты без ограничений',
-    benefitTestsSub: 'Проверяй весь уровень, а не только выученное',
-    benefitHints: 'Джокер в тестах',
-    benefitHintsSub: 'Убирает два неверных варианта',
-    benefitThemes: '30 тем',
-    benefitThemesSub: 'Политика, экономика, право, медицина и другие',
-    planMonthly: '1 месяц',
-    planQuarterly: '3 месяца',
-    planYearly: '12 месяцев',
-    perMonth: '/ мес.',
-    discount: 'скидка',
-    renewNote: 'Подписка продлевается автоматически. Отменить можно в любой '
-        'момент в аккаунте магазина.',
-    paymentPendingTitle: 'Оплата пока не подключена',
-    paymentPendingBody: 'Для покупки нужно создать товары подписки в магазине '
-        'приложений. После этого экран заработает сразу.',
-    understood: 'Понятно',
-    restorePurchase: 'Восстановить покупки',
-    restoreTitle: 'Аккаунт не нужен',
-    restoreBody: 'Подписка привязана к твоему аккаунту в магазине приложений. '
-        'Даже если сменишь телефон или переустановишь приложение, достаточно '
-        'войти под тем же аккаунтом и нажать сюда — Премиум вернётся. '
-        'Кнопка заработает после подключения магазина.',
-    deckLockedTitle: 'закрыто',
-    deckLockedBody: 'Слова этой колоды вместе с примерами и тестами '
-        'открываются с Премиумом.',
-    deckSample: 'ПРИМЕР ИЗ КОЛОДЫ',
     reportTitle: 'О чём хочешь сообщить?',
     reportSubmit: 'Отправить',
     reportNote: 'Напиши верный вариант (необязательно)',
@@ -1034,7 +886,6 @@ class Strings {
     notificationBody: 'Дневная норма ({} слов) ещё не выполнена.',
     wordForms: ['слово', 'слова', 'слов'],
     dayForms: ['день', 'дня', 'дней'],
-    levelTestAll: 'весь уровень открыт',
     widgetSection: 'Виджет на экране',
     widgetRefreshTitle: 'Обновление слова',
     widgetRefreshSub: 'Как часто меняется слово в виджете',
@@ -1045,10 +896,6 @@ class Strings {
         'и твоя серия будут видны без запуска приложения. Долгое нажатие '
         'на главном экране, затем FlipRU в списке виджетов. Виджет '
         'обновляется при открытии приложения.',
-    benefitOpenAll: 'Всё открыто сразу',
-    benefitOpenAllSub: 'Разделы и тесты уровней не ждут твоего прогресса',
-    testModeOn: 'Тестовый режим включён — доступен весь контент',
-    testModeOff: 'Тестовый режим выключен',
     notifChannel: 'Ежедневное напоминание',
     notifChannelDesc: 'Напоминает, если занятие не завершено',
     deckEmptyHint: 'Нажми на звёздочку на карточке, чтобы добавить слово.',

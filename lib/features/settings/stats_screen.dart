@@ -1,16 +1,12 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
-import '../../core/utils/haptics.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
-import '../../providers/premium_provider.dart';
 import '../../providers/quiz_stats_provider.dart';
 import '../../providers/settings_provider.dart';
-import '../premium/premium_screen.dart';
 
 /// Öğrenme istatistikleri: haftalık/aylık toplam ve gün gün dağılım.
 class StatsScreen extends ConsumerWidget {
@@ -24,7 +20,6 @@ class StatsScreen extends ConsumerWidget {
     final streak = ref.watch(streakProvider);
     final total = ref.watch(overallProgressProvider).learned;
     final starred = ref.watch(starredProvider).length;
-    final premium = ref.watch(isPremiumProvider);
     final t = ref.watch(stringsProvider);
     final quiz = ref.watch(quizSummaryProvider);
 
@@ -75,19 +70,17 @@ class StatsScreen extends ConsumerWidget {
                     const SizedBox(width: 10),
                     Expanded(
                       child: _StatBox(
-                        value: premium ? '${stats.thisMonth}' : '—',
+                        value: '${stats.thisMonth}',
                         label: t.statMonth,
                         color: palette.accent,
                         icon: Icons.calendar_month_rounded,
-                        locked: !premium,
                       ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 26),
-                // Yıldızlı sayısı eskiden Ayarlar'da duruyordu. Kullanıcının
-                // kendi verisi olduğu için premium arkasında değil, burada
-                // ücretsiz görünüyor.
+                // Yıldızlı sayısı eskiden Ayarlar'da duruyordu; kullanıcının
+                // kendi verisi olduğu için istatistiğe taşındı.
                 Text(
                   t.myData,
                   style: textTheme.labelSmall
@@ -170,53 +163,50 @@ class StatsScreen extends ConsumerWidget {
                         ),
                 ),
                 const SizedBox(height: 26),
-                _AdvancedSection(
-                  premium: premium,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        t.last30,
-                        style: textTheme.labelSmall
-                            ?.copyWith(color: palette.textTertiary),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      t.last30,
+                      style: textTheme.labelSmall
+                          ?.copyWith(color: palette.textTertiary),
+                    ),
+                    const SizedBox(height: 12),
+                    _BarChart(
+                      values: stats.last30,
+                      color: palette.learned,
+                      compact: true,
+                    ),
+                    const SizedBox(height: 22),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: palette.surface,
+                        borderRadius: BorderRadius.circular(18),
+                        border: Border.all(color: palette.separator),
                       ),
-                      const SizedBox(height: 12),
-                      _BarChart(
-                        values: stats.last30,
-                        color: palette.learned,
-                        compact: true,
+                      child: Column(
+                        children: [
+                          _InfoRow(
+                            label: t.bestDay,
+                            value: t.words(stats.bestDay),
+                          ),
+                          Divider(color: palette.separator, height: 22),
+                          _InfoRow(
+                            label: t.activeDays,
+                            value: t.days(stats.activeDays),
+                          ),
+                          Divider(color: palette.separator, height: 22),
+                          _InfoRow(
+                            label: t.dailyAverage,
+                            value:
+                                '${(stats.thisMonth / 30).toStringAsFixed(1)} '
+                                '${t.wordUnit(stats.thisMonth ~/ 30)}',
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 22),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: palette.surface,
-                          borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: palette.separator),
-                        ),
-                        child: Column(
-                          children: [
-                            _InfoRow(
-                              label: t.bestDay,
-                              value: t.words(stats.bestDay),
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.activeDays,
-                              value: t.days(stats.activeDays),
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.dailyAverage,
-                              value:
-                                  '${(stats.thisMonth / 30).toStringAsFixed(1)} '
-                                  '${t.wordUnit(stats.thisMonth ~/ 30)}',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -320,14 +310,12 @@ class _StatBox extends StatelessWidget {
     required this.label,
     required this.color,
     required this.icon,
-    this.locked = false,
   });
 
   final String value;
   final String label;
   final Color color;
   final IconData icon;
-  final bool locked;
 
   @override
   Widget build(BuildContext context) {
@@ -344,8 +332,8 @@ class _StatBox extends StatelessWidget {
       child: Column(
         children: [
           Icon(
-            locked ? Icons.lock_rounded : icon,
-            color: locked ? palette.star : color,
+            icon,
+            color: color,
             size: 21,
           ),
           const SizedBox(height: 9),
@@ -376,93 +364,6 @@ class _InfoRow extends StatelessWidget {
       children: [
         Text(label, style: textTheme.bodyLarge),
         Text(value, style: textTheme.titleMedium),
-      ],
-    );
-  }
-}
-
-
-/// İleri istatistikler premium arkasında: temel görünüm herkese açık kalıyor,
-/// derinlemesine analiz aboneliğe bağlı. İçerik silinmiyor, bulanıklaşıyor —
-/// kullanıcı neyin açılacağını görsün.
-class _AdvancedSection extends ConsumerWidget {
-  const _AdvancedSection({required this.premium, required this.child});
-
-  final bool premium;
-  final Widget child;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
-    final textTheme = Theme.of(context).textTheme;
-    final s = ref.watch(stringsProvider);
-
-    if (premium) return child;
-
-    return Stack(
-      children: [
-        ImageFiltered(
-          imageFilter: ImageFilter.blur(sigmaX: 6, sigmaY: 6),
-          child: IgnorePointer(child: Opacity(opacity: 0.6, child: child)),
-        ),
-        Positioned.fill(
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: palette.canvas.withValues(alpha: 0.45),
-              borderRadius: BorderRadius.circular(18),
-            ),
-          ),
-        ),
-        Positioned.fill(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 46,
-                    height: 46,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: palette.star.withValues(alpha: 0.16),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.lock_rounded,
-                      size: 22,
-                      color: palette.star,
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(s.advancedStats, style: textTheme.titleLarge),
-                  const SizedBox(height: 5),
-                  Text(
-                    s.advancedStatsSub,
-                    textAlign: TextAlign.center,
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
-                  ),
-                  const SizedBox(height: 14),
-                  FilledButton(
-                    style: FilledButton.styleFrom(
-                      minimumSize: const Size(200, 44),
-                    ),
-                    onPressed: () {
-                      Haptics.light();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const PremiumScreen(),
-                        ),
-                      );
-                    },
-                    child: Text(s.unlockWithPremium),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }

@@ -90,12 +90,6 @@ class LegalScreen extends StatelessWidget {
           'roadmap.',
     ),
     (
-      'Subscription and billing',
-      'Purchases are handled by the app store, so refunds and cancellations '
-          'go through your store account. If something looks wrong on our '
-          'side, write to us with the date of the purchase.',
-    ),
-    (
       'Data requests',
       'FlipRU stores nothing on a server, so there is no account to export or '
           'delete. Everything lives on your device and can be erased from '
@@ -166,14 +160,6 @@ class LegalScreen extends StatelessWidget {
       'Error reports',
       'You can report a translation you believe is wrong from inside the app. '
           'Reports are used to correct the content.',
-    ),
-    (
-      'Premium subscription',
-      'Premium unlocks additional levels, all themes, tests and test hints. '
-          'The subscription renews automatically at the end of the selected '
-          'period; cancellations and refunds follow the rules of the store you '
-          'downloaded the app from. You can cancel at any time from the '
-          'subscriptions section of your store account.',
     ),
     (
       'Limitation of liability',
