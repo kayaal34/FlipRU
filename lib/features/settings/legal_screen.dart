@@ -73,7 +73,7 @@ class LegalScreen extends StatelessWidget {
     (
       'Write to us',
       'Questions, suggestions and bug reports are welcome at:\n\n'
-          'flipru.app@gmail.com\n\n'
+          'kodmod034@gmail.com\n\n'
           'We read every message, though a reply may take a few days.',
     ),
     (
@@ -143,7 +143,7 @@ class LegalScreen extends StatelessWidget {
     ),
     (
       'Contact',
-      'For questions or data requests, write to flipru.app@gmail.com.',
+      'For questions or data requests, write to kodmod034@gmail.com.',
     ),
   ];
 

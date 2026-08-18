@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
+import '../../core/widgets/flip_logo.dart';
 import '../onboarding/onboarding_screen.dart';
 import '../shell/app_shell.dart';
 import '../../providers/settings_provider.dart';
@@ -87,8 +88,6 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
               child: FadeTransition(
                 opacity: _logoScale,
                 child: Container(
-                  width: 124,
-                  height: 124,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30),
                     boxShadow: [
@@ -100,15 +99,8 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                       ),
                     ],
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
-                    child: Image.asset(
-                      'assets/images/logo.png',
-                      width: 124,
-                      height: 124,
-                      filterQuality: FilterQuality.high,
-                    ),
-                  ),
+                  // Sabit PNG yerine canli logo: kartlar yer degistiriyor.
+                  child: const FlipLogo(size: 124),
                 ),
               ),
             ),
