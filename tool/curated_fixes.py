@@ -209,6 +209,8 @@ DROP_EXAMPLE = {
 #   аборт  "kurtaj"          — tibbi terim; Play'in derecelendirme
 #                              baslıklarindan biri degil
 CONTENT_DROP = {
+    # Ogrenciye gerekmeyen tek acik terim; icerik derecelendirmesi icin.
+    'эрекция',
     # cinsel
     'секс', 'сексуальный', 'гомосексуальность', 'гомосексуалист',
     'гомосексуал', 'проститутка', 'проституция', 'шлюха', 'сутенёр',

@@ -150,31 +150,6 @@ class TestsScreen extends ConsumerWidget {
                     child: _LevelTestRow(deck: deck),
                   ),
 
-                const SizedBox(height: 8),
-                Container(
-                  padding: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                    color: palette.surfaceSunken,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.info_outline_rounded,
-                        size: 19,
-                        color: palette.textTertiary,
-                      ),
-                      const SizedBox(width: 11),
-                      Expanded(
-                        child: Text(
-                          t.unitTestInfo,
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: palette.textTertiary),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),

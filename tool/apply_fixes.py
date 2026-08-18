@@ -40,6 +40,7 @@ from report4_fixes import (  # noqa: E402
     REPORT4_EXTRA,
     REPORT4_TR,
 )
+from meaning_fixes import MEANING_FIXES, TRANSLIT_FIXES  # noqa: E402
 from report5_fixes import (  # noqa: E402
     REPORT5_CLEAR_EXAMPLE,
     REPORT5_EXAMPLE,
@@ -123,7 +124,7 @@ def main():
 
     kept = []
     changed = dropped = cleared = pos_fixed = 0
-    translit_fixed = examples_set = tekilendi = 0
+    translit_fixed = examples_set = tekilendi = anlam_fixed = 0
     seen = set()
     seen_ids = set()
     mismatched = []
@@ -172,6 +173,10 @@ def main():
             row[idx['pos']] = new_pos
             pos_fixed += 1
 
+        elle_okunus = TRANSLIT_FIXES.get(wid)
+        if elle_okunus and elle_okunus[0] == bare:
+            row[idx['translit']] = elle_okunus[1]
+
         new_translit = REPORT2_TRANSLIT.get(wid)
         if new_translit and row[idx['translit']] != new_translit:
             row[idx['translit']] = new_translit
@@ -196,6 +201,16 @@ def main():
         if sadelesmis != row[idx['tr']]:
             row[idx['tr']] = sadelesmis
             tekilendi += 1
+
+        # Ilk karsiligi eskil ya da hantal olanlar en son sozu soyler.
+        elle = MEANING_FIXES.get(wid)
+        if elle:
+            beklenen, yeni = elle
+            if beklenen != bare:
+                mismatched.append((wid, bare, beklenen))
+            elif row[idx['tr']] != yeni:
+                row[idx['tr']] = yeni
+                anlam_fixed += 1
 
         seen.add(bare)
         seen_ids.add(wid)
@@ -225,6 +240,7 @@ def main():
     print('cikarilan kelime  : %d' % dropped)
     print('silinen ornek     : %d' % cleared)
     print('tek anlama dusen  : %d' % tekilendi)
+    print('karsiligi duzelen : %d' % anlam_fixed)
     print('kalan kelime      : %d' % len(kept))
 
     if dry:
