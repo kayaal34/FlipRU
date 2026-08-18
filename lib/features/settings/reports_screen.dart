@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../../core/app_info.dart';
 
 import '../../core/theme/app_palette.dart';
 import '../../core/i18n/strings.dart';
@@ -158,11 +161,25 @@ class ReportsScreen extends ConsumerWidget {
                       Haptics.light();
                       final text =
                           ref.read(reportProvider.notifier).asText();
+                      const konu = 'FlipRU — hatalı kelime bildirimleri';
+
+                      // Once posta uygulamasi, alici hazir gelsin diye.
+                      //
+                      // Onceden dogrudan paylasim sayfasi aciliyordu: dugme
+                      // "Bize gonder" diyor ama "biz"in kim oldugunu
+                      // soylemiyordu, kullanicinin adresi kendisinin bilmesi
+                      // ve yazmasi gerekiyordu. Bildirimler bu yuzden bize
+                      // hic ulasmiyordu.
+                      final posta = Uri(
+                        scheme: 'mailto',
+                        path: kIletisimAdresi,
+                        query: Uri.encodeFull('subject=$konu&body=$text'),
+                      );
+                      if (await launchUrl(posta)) return;
+
+                      // Posta uygulamasi yoksa paylasim sayfasina dusuyoruz.
                       await SharePlus.instance.share(
-                        ShareParams(
-                          text: text,
-                          subject: 'FlipRU — hatalı kelime bildirimleri',
-                        ),
+                        ShareParams(text: text, subject: konu),
                       );
                     },
                     child: Text('${t.reportsSend} (${reports.length})'),
