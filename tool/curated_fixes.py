@@ -99,6 +99,8 @@ FIXES = {
 # Raporun kapsamadigi, kaba icerik taramasinda cikan kayitlar.
 # Rapordan SONRA uygulanir, yani son sozu bunlar soyler.
 POST_FIXES = {
+    # Ikisi de gercek kelime ama agiz/eskil; ogrenci hicbirini gormez.
+    'тесло': 'keser (marangoz aleti)',   # "aydemir, kerki" idi
     'заворачивать': 'sarmak, paketlemek',   # "bitirmek, sikmek" idi
     'яичко': 'yumurtacık, testis',          # "taşak" idi
     'скверный': 'kötü, berbat',             # "fena, açık saçık" idi

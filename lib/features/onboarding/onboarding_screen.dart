@@ -26,7 +26,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _controller = PageController();
   int _page = 0;
 
-  static const _pages = 3;
+  static const _pages = 4;
 
   @override
   void dispose() {
@@ -96,6 +96,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         tint: palette.learned,
                         title: s.onboardTitle2,
                         body: s.onboardBody2,
+                      ),
+                      _Slide(
+                        icon: Icons.widgets_rounded,
+                        // Hedef sayfasi zaten altin; iki sayfa arka arkaya
+                        // ayni renk olmasin diye burada mor kullaniliyor.
+                        tint: palette.accent,
+                        title: s.onboardTitleWidget,
+                        body: s.onboardBodyWidget,
                       ),
                       _GoalSlide(
                         strings: s,
