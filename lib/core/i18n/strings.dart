@@ -95,6 +95,7 @@ class Strings {
     required this.writingTest,
     required this.writingTestSub,
     required this.writingPrompt,
+    required this.writingOpenKeyboard,
     required this.joker,
     required this.learnedMixedSub,
     required this.learnedListSub,
@@ -283,6 +284,7 @@ class Strings {
   final String resultGreat, resultGood, resultHalf, resultPoor;
   final String quizQuestion, quizProgress, quizCorrect, joker;
   final String writingTest, writingTestSub, writingPrompt;
+  final String writingOpenKeyboard;
   final String learnedMixedSub, learnedListSub;
   final String searchLearned, searchNoResult, learnedEmpty;
   final String nextQuestion, seeResult, finish, unitUnlocked, correctOf;
@@ -446,6 +448,7 @@ class Strings {
     writingTest: 'Kelimeyi yaz',
     writingTestSub: 'Türkçesini gör, Rusçasını harf harf yaz',
     writingPrompt: 'Bu kelimenin Rusçası',
+    writingOpenKeyboard: 'Klavyeyi aç',
     joker: 'Joker',
     learnedMixedSub: 'Öğrendiğin kelimelerden karışık tekrar',
     learnedListSub: 'Öğrendiğin kelimelerin listesi',
@@ -742,6 +745,7 @@ class Strings {
     writingTest: 'Напиши слово',
     writingTestSub: 'Видишь перевод — пишешь слово по буквам',
     writingPrompt: 'Как это будет по-русски',
+    writingOpenKeyboard: 'Открыть клавиатуру',
     joker: 'Джокер',
     learnedMixedSub: 'Повторение выученных слов вперемешку',
     learnedListSub: 'Список выученных слов',
