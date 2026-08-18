@@ -148,37 +148,68 @@ class _PremiumScreenState extends ConsumerState<PremiumScreen> {
                     ),
                   ),
                 const SizedBox(height: 14),
-                for (final plan in PremiumPlan.values)
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: _PlanTile(
-                      plan: plan,
-                      strings: s,
-                      selected: _selected == plan,
-                      onTap: () {
-                        Haptics.selection();
-                        setState(() => _selected = plan);
-                      },
+                // Mağaza bağlanana kadar fiyat ve satın alma düğmesi
+                // gösterilmiyor: karşılığı olmayan bir satın alma sunmak
+                // Play politikasına aykırı. Ayrıcalıklar yukarıda anlatılıyor,
+                // burada yalnızca "yakında" deniyor.
+                if (!kBillingConnected)
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: palette.surfaceSunken,
+                      borderRadius: BorderRadius.circular(18),
                     ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.schedule_rounded,
+                          size: 20,
+                          color: palette.textTertiary,
+                        ),
+                        const SizedBox(width: 12),
+                        Expanded(
+                          child: Text(
+                            s.premiumSoon,
+                            style: textTheme.bodyMedium
+                                ?.copyWith(color: palette.textSecondary),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                else ...[
+                  for (final plan in PremiumPlan.values)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: _PlanTile(
+                        plan: plan,
+                        strings: s,
+                        selected: _selected == plan,
+                        onTap: () {
+                          Haptics.selection();
+                          setState(() => _selected = plan);
+                        },
+                      ),
+                    ),
+                  const SizedBox(height: 12),
+                  FilledButton(
+                    onPressed: () => _purchase(context, s),
+                    child: Text('${_planLabel(plan: _selected, strings: s)} · '
+                        '${_selected.price}'),
                   ),
-                const SizedBox(height: 12),
-                FilledButton(
-                  onPressed: () => _purchase(context, s),
-                  child: Text('${_planLabel(plan: _selected, strings: s)} · '
-                      '${_selected.price}'),
-                ),
-                const SizedBox(height: 6),
-                TextButton(
-                  onPressed: () => _restore(context, s),
-                  child: Text(s.restorePurchase),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  s.renewNote,
-                  textAlign: TextAlign.center,
-                  style:
-                      textTheme.bodySmall?.copyWith(color: palette.textTertiary),
-                ),
+                  const SizedBox(height: 6),
+                  TextButton(
+                    onPressed: () => _restore(context, s),
+                    child: Text(s.restorePurchase),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    s.renewNote,
+                    textAlign: TextAlign.center,
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: palette.textTertiary),
+                  ),
+                ],
               ],
             ),
           ),

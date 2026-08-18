@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
+import '../onboarding/onboarding_screen.dart';
 import '../shell/app_shell.dart';
 import '../../providers/settings_provider.dart';
 
@@ -52,10 +53,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
 
   void _open() {
     if (!mounted) return;
+    // Ilk acilista tanitim; sonrakilerde dogrudan uygulama.
+    final done = ref.read(settingsProvider).onboardingDone;
     Navigator.of(context).pushReplacement(
       PageRouteBuilder(
         transitionDuration: const Duration(milliseconds: 420),
-        pageBuilder: (_, _, _) => const AppShell(),
+        pageBuilder: (_, _, _) =>
+            done ? const AppShell() : const OnboardingScreen(),
         transitionsBuilder: (_, animation, _, child) =>
             FadeTransition(opacity: animation, child: child),
       ),

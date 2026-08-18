@@ -1,5 +1,5 @@
-name: leksika
-description: "Rusca kelime ogrenme uygulamasi"
+name: flipru
+description: "FlipRU — cevrimdisi Rusca-Turkce kelime ogrenme uygulamasi"
 
 # Uygulama, pub.dev'e paket olarak yayinlanmiyor.
 publish_to: 'none'

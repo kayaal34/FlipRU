@@ -4,20 +4,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:leksika/app.dart';
-import 'package:leksika/data/models/app_settings.dart';
-import 'package:leksika/data/models/deck.dart';
-import 'package:leksika/data/models/word.dart';
-import 'package:leksika/data/models/word_report.dart';
-import 'package:leksika/data/repositories/word_repository.dart';
-import 'package:leksika/data/models/premium.dart';
-import 'package:leksika/providers/premium_provider.dart';
-import 'package:leksika/providers/report_provider.dart';
-import 'package:leksika/providers/unit_providers.dart';
-import 'package:leksika/providers/app_providers.dart';
-import 'package:leksika/providers/daily_provider.dart';
-import 'package:leksika/providers/library_providers.dart';
-import 'package:leksika/providers/settings_provider.dart';
+import 'package:flipru/app.dart';
+import 'package:flipru/data/models/app_settings.dart';
+import 'package:flipru/data/models/deck.dart';
+import 'package:flipru/data/models/word.dart';
+import 'package:flipru/data/models/word_report.dart';
+import 'package:flipru/data/repositories/word_repository.dart';
+import 'package:flipru/data/models/premium.dart';
+import 'package:flipru/providers/premium_provider.dart';
+import 'package:flipru/providers/report_provider.dart';
+import 'package:flipru/providers/unit_providers.dart';
+import 'package:flipru/providers/app_providers.dart';
+import 'package:flipru/providers/daily_provider.dart';
+import 'package:flipru/providers/library_providers.dart';
+import 'package:flipru/providers/settings_provider.dart';
 
 /// Testler asset'e bağlı kalmasın diye sentetik bir havuz kuruyoruz.
 Word _word(int i, WordLevel level, WordTheme? theme) => Word(
@@ -53,7 +53,11 @@ void main() {
   late WordRepository repository;
 
   setUp(() async {
-    SharedPreferences.setMockInitialValues({});
+    // Tanitim ekrani gorulmus sayiliyor: ekran testleri dogrudan uygulamaya
+    // acilsin. Tanitimin kendisi ayri bir testte deneniyor.
+    SharedPreferences.setMockInitialValues({
+      'app_settings': '{"onboardingDone":true}',
+    });
     prefs = await SharedPreferences.getInstance();
     repository = WordRepository.fromWords(_buildWords());
   });
@@ -379,6 +383,30 @@ void main() {
 
       notifier.reset();
       expect(c.read(settingsProvider).dailyGoal, const AppSettings().dailyGoal);
+    });
+  });
+
+  group('tanıtım ekranı', () {
+    testWidgets('ilk açılışta gösterilir, atlanınca bir daha çıkmaz',
+        (tester) async {
+      // Varsayilan: onboardingDone = false
+      SharedPreferences.setMockInitialValues({});
+      prefs = await SharedPreferences.getInstance();
+
+      await tester.pumpWidget(harness());
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Atla'), findsOneWidget);
+
+      await tester.tap(find.text('Atla'));
+      await tester.pumpAndSettle();
+
+      // Uygulamaya girildi ve ayar kalici olarak isaretlendi.
+      expect(find.text('Atla'), findsNothing);
+      final c = container();
+      expect(c.read(settingsProvider).onboardingDone, isTrue);
     });
   });
 

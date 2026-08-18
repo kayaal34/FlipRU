@@ -48,6 +48,7 @@ class AppSettings {
     this.showStressMarks = true,
     this.hideLearned = false,
     this.hideLowConfidence = false,
+    this.onboardingDone = false,
     this.reminderEnabled = false,
     this.reminderHour = 20,
     this.reminderMinute = 0,
@@ -82,6 +83,9 @@ class AppSettings {
   /// Açıksa yalnızca birden fazla sözlüğün doğruladığı kelimeler gösterilir.
   final bool hideLowConfidence;
 
+  /// Tanitim ekrani bir kez gosterildi mi?
+  final bool onboardingDone;
+
   /// Ana ekran widget'ındaki kelime kaç saatte bir değişsin.
   final WidgetRefresh widgetRefresh;
 
@@ -111,6 +115,7 @@ class AppSettings {
     bool? showStressMarks,
     bool? hideLearned,
     bool? hideLowConfidence,
+    bool? onboardingDone,
     bool? reminderEnabled,
     int? reminderHour,
     int? reminderMinute,
@@ -130,6 +135,7 @@ class AppSettings {
       showStressMarks: showStressMarks ?? this.showStressMarks,
       hideLearned: hideLearned ?? this.hideLearned,
       hideLowConfidence: hideLowConfidence ?? this.hideLowConfidence,
+      onboardingDone: onboardingDone ?? this.onboardingDone,
       reminderEnabled: reminderEnabled ?? this.reminderEnabled,
       reminderHour: reminderHour ?? this.reminderHour,
       reminderMinute: reminderMinute ?? this.reminderMinute,
@@ -151,6 +157,7 @@ class AppSettings {
         'showStress': showStressMarks,
         'hideLearned': hideLearned,
         'hideLowConf': hideLowConfidence,
+        'onboardingDone': onboardingDone,
         'reminderOn': reminderEnabled,
         'reminderHour': reminderHour,
         'reminderMinute': reminderMinute,
@@ -180,6 +187,7 @@ class AppSettings {
       showStressMarks: map['showStress'] as bool? ?? true,
       hideLearned: map['hideLearned'] as bool? ?? false,
       hideLowConfidence: map['hideLowConf'] as bool? ?? false,
+      onboardingDone: map['onboardingDone'] as bool? ?? false,
       reminderEnabled: map['reminderOn'] as bool? ?? false,
       reminderHour: map['reminderHour'] as int? ?? 20,
       reminderMinute: map['reminderMinute'] as int? ?? 0,
