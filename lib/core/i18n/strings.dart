@@ -72,7 +72,6 @@ class Strings {
     required this.markReview,
     required this.tapForMeaning,
     required this.tapForRussian,
-    required this.swipeLegend,
     required this.badgeLearned,
     required this.badgeReview,
     required this.undo,
@@ -276,7 +275,7 @@ class Strings {
   final String meaning, example, status;
   final String learnedYes, learnedNo, starredYes, starredNo;
   final String markLearned, markReview;
-  final String tapForMeaning, tapForRussian, swipeLegend;
+  final String tapForMeaning, tapForRussian;
   final String badgeLearned, badgeReview, undo, flip;
   final String wordsCounter, sessionLearned, sessionReview, percentLearned;
   final String sessionSummary, studyReviewWords, backHome;
@@ -425,7 +424,6 @@ class Strings {
     markReview: 'Tekrara al',
     tapForMeaning: 'Anlamı için karta dokun',
     tapForRussian: 'Rusçası için karta dokun',
-    swipeLegend: 'Sağa: öğrendim · Sola: tekrar et',
     badgeLearned: 'ÖĞRENDİM',
     badgeReview: 'TEKRAR',
     undo: 'Son kartı geri al',
@@ -720,7 +718,6 @@ class Strings {
     markReview: 'На повтор',
     tapForMeaning: 'Нажми на карточку, чтобы увидеть значение',
     tapForRussian: 'Нажми, чтобы увидеть слово по-русски',
-    swipeLegend: 'Вправо — выучил · Влево — повторить',
     badgeLearned: 'ВЫУЧИЛ',
     badgeReview: 'ПОВТОР',
     undo: 'Вернуть карточку',
