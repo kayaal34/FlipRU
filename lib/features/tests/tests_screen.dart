@@ -17,6 +17,12 @@ import '../quiz/writing_quiz_screen.dart';
 import 'level_test_units_screen.dart';
 
 /// Testler sekmesi: kullanıcının kendini ölçebileceği bütün yollar.
+/// Bir testin acilmasi icin gereken en az ogrenilmis kelime sayisi.
+///
+/// Onceden dortdu; dort kelimeyle kurulan test bir bolumun bes soruluk
+/// parcasi kadar bile degil, olcmuyor. Bir bolum 20 kelime, esik de o.
+const _minLearned = 20;
+
 class TestsScreen extends ConsumerWidget {
   const TestsScreen({super.key});
 
@@ -60,10 +66,10 @@ class TestsScreen extends ConsumerWidget {
                   icon: Icons.today_rounded,
                   tint: palette.accent,
                   title: t.dailyTest,
-                  subtitle: learned.length < 4
+                  subtitle: learned.length < _minLearned
                       ? t.needFourLearned
                       : t.dailyTestSub,
-                  enabled: learned.length >= 4,
+                  enabled: learned.length >= _minLearned,
                   onTap: () => _start(
                     context,
                     ref,
@@ -76,10 +82,10 @@ class TestsScreen extends ConsumerWidget {
                   icon: Icons.keyboard_rounded,
                   tint: palette.star,
                   title: t.writingTest,
-                  subtitle: learned.length < 4
+                  subtitle: learned.length < _minLearned
                       ? t.needFourLearned
                       : t.writingTestSub,
-                  enabled: learned.length >= 4,
+                  enabled: learned.length >= _minLearned,
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (_) => WritingQuizScreen(
@@ -94,10 +100,10 @@ class TestsScreen extends ConsumerWidget {
                   icon: Icons.check_circle_rounded,
                   tint: palette.learned,
                   title: t.myLearned,
-                  subtitle: learned.length < 4
+                  subtitle: learned.length < _minLearned
                       ? t.needFourLearned
                       : t.learnedMixedSub,
-                  enabled: learned.length >= 4,
+                  enabled: learned.length >= _minLearned,
                   // Her acilista yeniden karistiriliyor: ayni sirayla tekrar
                   // etmek ezberletir, olcmez.
                   onTap: () => _start(
@@ -213,14 +219,14 @@ class _LevelTestRow extends ConsumerWidget {
     // Test yalnizca ogrenilmis kelimeleri sorar — bilmedigin seyden sinava
     // girmek ogretici degil.
     final pool = known;
-    final enabled = pool.length >= 4;
+    final enabled = pool.length >= _minLearned;
 
     return _TestCard(
       badge: deck.level?.label,
       icon: deck.icon,
       tint: deck.tint,
       title: '${deck.titleOf(t)} · ${deck.subtitleOf(t)}',
-      subtitle: known.length < 4
+      subtitle: known.length < _minLearned
           ? t.levelTestNeed
           : '${known.length} ${t.levelTestKnown}',
       enabled: enabled,

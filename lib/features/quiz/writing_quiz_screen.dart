@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -15,12 +14,13 @@ import '../../providers/settings_provider.dart';
 ///
 /// Çoktan seçmeli test tanımayı ölçüyor: doğru karşılık ekranda duruyor,
 /// kullanıcı yalnızca seçiyor. Burada kelimeyi baştan kurmak gerekiyor —
-/// Türkçe anlamı veriliyor, Rusçası harf harf yazılıyor. Yazılışı
-/// hatırlamadan yapılamaz.
+/// Türkçe anlamı veriliyor, Rusçası harf harf yazılıyor.
 ///
-/// Yazma telefonun kendi klavyesiyle: kutuların üzerinde görünmez bir metin
-/// alanı duruyor, basılan harfi alıp kutulara dağıtıyor. Alan boşken de geri
-/// silme tuşunun haber verebilmesi için içinde görünmez bir karakter tutuluyor.
+/// Klavye uygulamanın kendi klavyesi ve tüm alfabeyi değil, yalnızca o
+/// kelimenin harfleri ile birkaç çeldirici harfi gösteriyor. İki sebeple:
+/// telefonda Rusça klavye kurulu olmayabilir (Android'de uygulama sistem
+/// klavyesinin dilini seçemez), ve 33 harf arasından harf aramak alıştırmayı
+/// yavaşlatıyor. Ölçtüğümüz şey yazma hızı değil, kelimenin yazılışı.
 class WritingQuizScreen extends ConsumerStatefulWidget {
   const WritingQuizScreen({
     required this.title,
@@ -36,18 +36,12 @@ class WritingQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
+  static const _alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+
   /// Kullanıcıdan beklenmeyen, hazır gelen karakterler.
   static bool _isSeparator(String ch) => ch == ' ' || ch == '-';
 
-  /// Metin alanında hep duran görünmez karakter.
-  ///
-  /// Alan tamamen boş olsaydı geri silme tuşuna basıldığında metin değişmez,
-  /// bizim de haberimiz olmazdı.
-  static const _sentinel = '​';
-
   final _random = Random();
-  final _controller = TextEditingController(text: _sentinel);
-  final _focus = FocusNode();
 
   late List<Word> _questions = widget.words;
   int _index = 0;
@@ -56,6 +50,9 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
 
   /// Kutulara yazılanlar. Ayraçlar baştan dolu.
   late List<String?> _slots;
+
+  /// Klavyede gösterilen harfler: cevabın harfleri + çeldiriciler, karışık.
+  late List<String> _keys;
 
   /// Joker'in açtığı kutular; geri silme bunlara dokunmuyor.
   var _revealed = <int>{};
@@ -75,22 +72,15 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
   /// Joker en fazla harflerin yarısını açabilir; yoksa kelimeyi o çözer.
   int get _jokerLimit => max(1, _letterSlots.length ~/ 2);
 
+  int get _jokerLeft => _jokerLimit - _revealed.length;
+
   bool get _jokerAvailable =>
-      !_checked &&
-      _revealed.length < _jokerLimit &&
-      _letterSlots.any((i) => _slots[i] == null);
+      !_checked && _jokerLeft > 0 && _letterSlots.any((i) => _slots[i] == null);
 
   @override
   void initState() {
     super.initState();
     _reset();
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focus.dispose();
-    super.dispose();
   }
 
   void _reset() {
@@ -101,35 +91,33 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     _revealed = {};
     _checked = false;
     _wasCorrect = false;
+    _keys = _buildKeys();
   }
 
-  /// Klavyeden gelen değişikliği harf ya da silme olarak yorumlar.
-  void _onChanged(String value) {
-    if (_checked) {
-      _resetField();
-      return;
-    }
-    if (value.length > _sentinel.length) {
-      for (final ch in value.substring(_sentinel.length).split('')) {
-        _type(ch.toLowerCase());
-      }
-    } else if (value.length < _sentinel.length) {
-      _backspace();
-    }
-    _resetField();
-  }
+  /// Klavye harfleri.
+  ///
+  /// Cevabın harfleri mutlaka var; üstüne çeldirici ekleniyor ki kelime
+  /// klavyeye bakarak çözülemesin. Toplam beşin katına tamamlanıyor, klavye
+  /// eksik satırla bitmesin.
+  List<String> _buildKeys() {
+    final gerekli = <String>{
+      for (final ch in _answer.split(''))
+        if (!_isSeparator(ch)) ch,
+    };
+    final hedef = min(20, max(10, ((gerekli.length + 5) / 5).ceil() * 5));
 
-  void _resetField() {
-    _controller.value = const TextEditingValue(
-      text: _sentinel,
-      selection: TextSelection.collapsed(offset: _sentinel.length),
-    );
+    final havuz = _alphabet.split('')..removeWhere(gerekli.contains);
+    havuz.shuffle(_random);
+
+    final tuslar = [...gerekli, ...havuz.take(hedef - gerekli.length)];
+    return tuslar..shuffle(_random);
   }
 
   void _type(String letter) {
-    if (_isSeparator(letter)) return;
+    if (_checked) return;
     final bos = _letterSlots.where((i) => _slots[i] == null);
     if (bos.isEmpty) return;
+    Haptics.light();
     setState(() => _slots[bos.first] = letter);
     // Son kutu dolunca kendiliğinden kontrol ediliyor; ayrıca bir "kontrol et"
     // düğmesine bastırmak alıştırmayı yavaşlatıyordu.
@@ -137,10 +125,12 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
   }
 
   void _backspace() {
+    if (_checked) return;
     final dolu = _letterSlots
         .where((i) => _slots[i] != null && !_revealed.contains(i))
         .toList();
     if (dolu.isEmpty) return;
+    Haptics.light();
     setState(() => _slots[dolu.last] = null);
   }
 
@@ -148,7 +138,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     final kapali = _letterSlots.where((i) => _slots[i] == null).toList();
     if (kapali.isEmpty) return;
     final secilen = kapali[_random.nextInt(kapali.length)];
-    Haptics.light();
+    Haptics.medium();
     setState(() {
       _slots[secilen] = _answer[secilen];
       _revealed.add(secilen);
@@ -165,9 +155,6 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       Haptics.heavy();
       _wrong.add(_word);
     }
-    // Cevap verilince klavye kapanıyor: doğru yazılış ve "sonraki soru"
-    // düğmesi klavyenin arkasında kalmasın.
-    _focus.unfocus();
     setState(() {
       _checked = true;
       _wasCorrect = dogru;
@@ -184,7 +171,6 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       _index++;
       _reset();
     });
-    _focus.requestFocus();
   }
 
   void _retryWrong() {
@@ -195,7 +181,6 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       _correct = 0;
       _reset();
     });
-    _focus.requestFocus();
   }
 
   @override
@@ -203,8 +188,6 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
-    // Klavye zaten aciksa "Klavyeyi ac" dugmesi yer israfi.
-    final klavyeAcik = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     if (_questions.isEmpty || _index >= _questions.length) {
       return QuizResultView(
@@ -229,7 +212,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 560),
+            constraints: const BoxConstraints(maxWidth: 480),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -252,12 +235,6 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                         ),
                       ),
                       const Spacer(),
-                      _JokerChip(
-                        label: s.joker,
-                        enabled: _jokerAvailable,
-                        onTap: _joker,
-                      ),
-                      const SizedBox(width: 14),
                       Text(
                         '$_correct ${s.quizCorrect}',
                         style: textTheme.bodySmall?.copyWith(
@@ -266,115 +243,92 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                       ),
                     ],
                   ),
+                  // Icerik dikey ortada: kutular yukari yapisinca klavye ile
+                  // arasinda kocaman bir bosluk kaliyordu.
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const SizedBox(height: 22),
-                          Text(
-                            s.writingPrompt,
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: palette.textTertiary,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            _word.turkish,
-                            textAlign: TextAlign.center,
-                            style: textTheme.displaySmall,
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            s.letters(_letterSlots.length),
-                            style: textTheme.bodySmall?.copyWith(
-                              color: palette.textTertiary,
-                            ),
-                          ),
-                          const SizedBox(height: 22),
-                          Stack(
-                            children: [
-                              _Slots(
-                                answer: _answer,
-                                slots: _slots,
-                                revealed: _revealed,
-                                checked: _checked,
-                                correct: _wasCorrect,
-                              ),
-                              // Telefonun kendi klavyesini açan görünmez alan;
-                              // kutulara dokunmak klavyeyi açıyor.
-                              Positioned.fill(
-                                child: Opacity(
-                                  opacity: 0,
-                                  child: TextField(
-                                    controller: _controller,
-                                    focusNode: _focus,
-                                    autofocus: true,
-                                    onChanged: _onChanged,
-                                    autocorrect: false,
-                                    enableSuggestions: false,
-                                    showCursor: false,
-                                    textCapitalization: TextCapitalization.none,
-                                    inputFormatters: [
-                                      FilteringTextInputFormatter.deny(
-                                        RegExp(r'\s'),
-                                      ),
-                                    ],
-                                    decoration: const InputDecoration.collapsed(
-                                      hintText: '',
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          if (_checked && !_wasCorrect) ...[
-                            const SizedBox(height: 18),
+                    child: Center(
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const SizedBox(height: 20),
                             Text(
-                              _word.accented.isEmpty
-                                  ? _word.russian
-                                  : _word.accented,
-                              style: textTheme.titleLarge?.copyWith(
-                                color: palette.learned,
+                              s.writingPrompt,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: palette.textTertiary,
                               ),
                             ),
-                            const SizedBox(height: 2),
+                            const SizedBox(height: 8),
                             Text(
-                              _word.transliteration,
+                              _word.turkish,
+                              textAlign: TextAlign.center,
+                              style: textTheme.displaySmall,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              s.letters(_letterSlots.length),
                               style: textTheme.bodySmall?.copyWith(
                                 color: palette.textTertiary,
                               ),
                             ),
+                            const SizedBox(height: 20),
+                            _Slots(
+                              answer: _answer,
+                              slots: _slots,
+                              revealed: _revealed,
+                              checked: _checked,
+                              correct: _wasCorrect,
+                            ),
+                            if (_checked && !_wasCorrect) ...[
+                              const SizedBox(height: 16),
+                              Text(
+                                _word.accented.isEmpty
+                                    ? _word.russian
+                                    : _word.accented,
+                                style: textTheme.titleLarge?.copyWith(
+                                  color: palette.learned,
+                                ),
+                              ),
+                              const SizedBox(height: 2),
+                              Text(
+                                _word.transliteration,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: palette.textTertiary,
+                                ),
+                              ),
+                            ],
+                            const SizedBox(height: 16),
                           ],
-                          const SizedBox(height: 20),
-                        ],
+                        ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: _checked
-                          ? FilledButton(
-                              onPressed: _next,
-                              child: Text(
-                                _index + 1 >= _questions.length
-                                    ? s.seeResult
-                                    : s.nextQuestion,
-                              ),
-                            )
-                          : klavyeAcik
-                          ? const SizedBox.shrink()
-                          : OutlinedButton.icon(
-                              onPressed: _focus.requestFocus,
-                              icon: const Icon(
-                                Icons.keyboard_rounded,
-                                size: 19,
-                              ),
-                              label: Text(s.writingOpenKeyboard),
-                            ),
+                  if (_checked)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: _next,
+                          child: Text(
+                            _index + 1 >= _questions.length
+                                ? s.seeResult
+                                : s.nextQuestion,
+                          ),
+                        ),
+                      ),
+                    )
+                  else
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 10),
+                      child: _Keyboard(
+                        keys: _keys,
+                        onLetter: _type,
+                        onBackspace: _backspace,
+                        onJoker: _jokerAvailable ? _joker : null,
+                        jokerLeft: _jokerLeft,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
@@ -522,39 +476,137 @@ class _Slot extends StatelessWidget {
   }
 }
 
-/// Joker: rastgele bir harfi açar.
-class _JokerChip extends StatelessWidget {
-  const _JokerChip({
-    required this.label,
-    required this.enabled,
-    required this.onTap,
+/// Kelimeye özel klavye: beşli satırlar, sonda geri silme ve joker.
+class _Keyboard extends StatelessWidget {
+  const _Keyboard({
+    required this.keys,
+    required this.onLetter,
+    required this.onBackspace,
+    required this.onJoker,
+    required this.jokerLeft,
   });
 
-  final String label;
-  final bool enabled;
-  final VoidCallback onTap;
+  static const _columns = 5;
+
+  final List<String> keys;
+  final ValueChanged<String> onLetter;
+  final VoidCallback onBackspace;
+  final VoidCallback? onJoker;
+  final int jokerLeft;
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
 
-    return GestureDetector(
-      behavior: HitTestBehavior.opaque,
-      onTap: enabled ? onTap : null,
-      child: Opacity(
-        opacity: enabled ? 1 : 0.4,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.lightbulb_rounded, size: 16, color: palette.star),
-            const SizedBox(width: 4),
-            Text(
-              label,
-              style: Theme.of(
-                context,
-              ).textTheme.bodySmall?.copyWith(color: palette.star),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (var satir = 0; satir * _columns < keys.length; satir++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6),
+            child: Row(
+              children: [
+                for (var s = 0; s < _columns; s++)
+                  Expanded(
+                    child: satir * _columns + s < keys.length
+                        ? _Key(
+                            label: keys[satir * _columns + s],
+                            onTap: () => onLetter(keys[satir * _columns + s]),
+                          )
+                        : const SizedBox.shrink(),
+                  ),
+              ],
             ),
+          ),
+        Row(
+          children: [
+            Expanded(
+              child: _Key(
+                icon: Icons.backspace_outlined,
+                tint: palette.review,
+                onTap: onBackspace,
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: _Key(
+                icon: Icons.lightbulb_rounded,
+                tint: palette.star,
+                badge: '$jokerLeft',
+                onTap: onJoker,
+              ),
+            ),
+            const Expanded(child: SizedBox.shrink()),
           ],
+        ),
+      ],
+    );
+  }
+}
+
+class _Key extends StatelessWidget {
+  const _Key({
+    required this.onTap,
+    this.label,
+    this.icon,
+    this.tint,
+    this.badge,
+  });
+
+  final String? label;
+  final IconData? icon;
+  final Color? tint;
+  final String? badge;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final aktif = onTap != null;
+    final renk = tint ?? palette.textPrimary;
+
+    return Opacity(
+      opacity: aktif ? 1 : 0.35,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: onTap,
+        child: Container(
+          height: 50,
+          margin: const EdgeInsets.symmetric(horizontal: 3),
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: tint == null
+                ? palette.surface
+                : renk.withValues(alpha: 0.13),
+            borderRadius: BorderRadius.circular(11),
+            border: Border.all(
+              color: tint == null
+                  ? palette.separator
+                  : renk.withValues(alpha: 0.45),
+            ),
+          ),
+          child: icon != null
+              ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(icon, size: 21, color: renk),
+                    if (badge != null) ...[
+                      const SizedBox(width: 6),
+                      Text(
+                        badge!,
+                        style: textTheme.labelLarge?.copyWith(color: renk),
+                      ),
+                    ],
+                  ],
+                )
+              : Text(
+                  label!,
+                  style: textTheme.titleLarge?.copyWith(
+                    fontSize: 21,
+                    color: renk,
+                  ),
+                ),
         ),
       ),
     );
