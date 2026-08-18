@@ -4,9 +4,13 @@ import 'package:flutter/material.dart';
 
 /// Açılış ekranındaki canlı logo.
 ///
-/// Simgenin PNG hâli sabit duruyordu; burada aynı tasarım widget'larla
-/// çiziliyor ve kartlar yer değiştiriyor: arkadaki TR öne geliyor, öndeki RU
-/// arkaya gidiyor. Uygulamanın adı da zaten bu — "flip".
+/// Kartlar yerinde duruyor, kendi eksenlerinde dönüyor: her kartın arka
+/// yüzünde öteki dil var. Uygulamanın yaptığı iş de tam olarak bu — kart
+/// çevirmek. Dönüş gerçek perspektifle yapılıyor, sahte ölçek büyütmesiyle
+/// değil; kart dönerken doğal olarak kısalıp uzuyor.
+///
+/// Kartların yeri hiç değişmediği için kompozisyon her an simgeyle aynı
+/// kalıyor ve iki kartın üst üste binmesi diye bir sorun oluşmuyor.
 ///
 /// Renkler, ölçüler ve açılar `tool/make_icon.py` ile aynı; simge ve açılış
 /// logosu birbirinden ayrışmasın.
@@ -26,23 +30,44 @@ class _FlipLogoState extends State<FlipLogo>
   static const _bgBottom = Color(0xFFEC4899);
   static const _ruInk = Color(0xFF5B3CDC);
 
-  /// Kartların yörüngesi: yatayda bu kadar açılıyor, dikeyde bu kadar yay
-  /// çiziyorlar. Yatay değer simgedeki kart aralığının aynısı.
-  static const _spreadX = 0.185;
-  static const _arcY = 0.155;
+  /// Kartların simgedeki yerleri. Öndeki kart merkeze daha yakın; ikisi bir
+  /// parça üst üste biniyor, deste hissini veren şey bu.
+  static const _backX = 0.185;
+  static const _frontX = -0.115;
+
+  /// Perspektifin gücü. Büyütülürse dönüş abartılı, sıfırlanırsa kart düz bir
+  /// dikdörtgen gibi ezilerek döner.
+  static const _perspective = 0.0016;
 
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 1500),
+    duration: const Duration(milliseconds: 1600),
+  );
+
+  /// Öndeki kart önce dönüyor, arkadaki biraz sonra. İkisinin aynı anda
+  /// dönmesi mekanik duruyordu; bu kayma sahneye ritim veriyor.
+  late final Animation<double> _frontFlip = CurvedAnimation(
+    parent: _controller,
+    curve: const Interval(0, 0.52, curve: Curves.easeInOutCubic),
+  );
+
+  late final Animation<double> _backFlip = CurvedAnimation(
+    parent: _controller,
+    curve: const Interval(0.10, 0.62, curve: Curves.easeInOutCubic),
+  );
+
+  /// Dönüş bittikten sonra yüzeyin üstünden geçen ışık şeridi.
+  late final Animation<double> _sheen = CurvedAnimation(
+    parent: _controller,
+    curve: const Interval(0.58, 1, curve: Curves.easeOut),
   );
 
   @override
   void initState() {
     super.initState();
     // Açılış ekranının kendi giriş animasyonu (büyüme + solma) 1500 ms
-    // sürüyor. Takas eskiden onun tam ortasına denk geliyordu; iki animasyon
-    // aynı karelerde üst üste binince geçiş ağırlaşıyordu. Artık giriş
-    // bittikten sonra başlıyor, ikisi hiç çakışmıyor.
+    // sürüyor. Kartların dönüşü onunla aynı karelerde çalışmasın diye giriş
+    // bittikten sonra başlıyor.
     Future.delayed(const Duration(milliseconds: 800), () {
       if (mounted) _controller.forward();
     });
@@ -78,21 +103,15 @@ class _FlipLogoState extends State<FlipLogo>
             child: AnimatedBuilder(
               animation: _controller,
               builder: (context, _) {
-                final t = Curves.easeInOutCubic.transform(_controller.value);
-                // Derinlik: 0 tam önde, 1 tam arkada. RU önde başlayıp arkaya
-                // geçiyor, TR arkada başlayıp öne geliyor.
-                final trDepth = 1 - t;
-                final ruDepth = t;
-                final tr = _card(s, t, back: true);
-                final ru = _card(s, t, back: false);
                 return Stack(
                   alignment: Alignment.center,
-                  // Derinliği büyük olan önce boyanır, yani arkada kalır.
-                  // Kartların anahtarı olduğu için bu sıra değişimi onları
-                  // yeniden kurmuyor; yalnızca boyama sırası değişiyor.
-                  children: trDepth >= ruDepth
-                      ? <Widget>[tr, ru]
-                      : <Widget>[ru, tr],
+                  children: [
+                    // Sıra sabit: yarı saydam kart hep arkada, opak kart hep
+                    // önde. Yer değiştirmedikleri için sıra hiç değişmiyor.
+                    _card(s, _backFlip.value, back: true),
+                    _card(s, _frontFlip.value, back: false),
+                    _lightSweep(s, _sheen.value),
+                  ],
                 );
               },
             ),
@@ -104,42 +123,34 @@ class _FlipLogoState extends State<FlipLogo>
 
   /// Tek bir kart.
   ///
-  /// [back] true ise TR kartı: sağdan başlar, üstten dolanıp sola geçer.
-  /// false ise RU kartı: soldan başlar, alttan dolanıp sağa geçer.
+  /// [flip] 0'dan 1'e giderken kart kendi dikey ekseninde yarım tur atıyor.
+  /// Yarıyı geçince arka yüz görünür; oradaki yazı ayna görüntüsü olmasın diye
+  /// yüz bir tur daha çevriliyor.
   ///
-  /// Eskiden ikisi de düz bir çizgide gidiyor ve tam ortada aynı noktada
-  /// buluşuyordu: yarı saydam TR kartı o anda opak RU kartının üstüne biniyor,
-  /// altındaki "RU" yazısı saydamlıktan sızdığı için renk bulanıyordu. Derinlik
-  /// sırası da tam o karede değiştiği için göz bunu bir takılma gibi okuyordu.
-  /// Yollar artık kesişmiyor: kartlar birbirinin etrafından dolanıyor ve sıra
-  /// değişimi ikisinin en ayrık olduğu anda oluyor.
-  Widget _card(double s, double t, {required bool back}) {
-    // TR sağdan sola ve yukarıdan, RU soldan sağa ve aşağıdan.
-    final dir = back ? 1.0 : -1.0;
-    final theta = math.pi * t;
-    final dx = dir * math.cos(theta) * s * _spreadX;
-    // Yayın üstüne simgedeki küçük dikey kaçıklık ekleniyor.
-    final dy = -dir * math.sin(theta) * s * _arcY - dir * s * 0.02;
+  /// Kartın rengi yerine bağlı, harfi ise dönüşe: arkadaki kart hep yarı
+  /// saydam kalıyor, üstündeki yazı TR'den RU'ya geçiyor. Böylece diziliş
+  /// simgeyle aynı kalırken iki dil yer değiştirmiş oluyor.
+  Widget _card(double s, double flip, {required bool back}) {
+    final angle = math.pi * flip;
+    final showFront = math.cos(angle) >= 0;
+    final letter = back
+        ? (showFront ? 'TR' : 'RU')
+        : (showFront ? 'RU' : 'TR');
 
-    // Öndeki kart büyük, arkadaki küçük. Eskiden bu ters kuruluydu: başlangıçta
-    // arkadaki TR kartı öndeki RU kartından büyük çiziliyordu.
-    final depth = back ? 1 - t : t;
-    final scale = 1.0 - 0.12 * depth;
-
-    // Kartlar iki uçta simgedeki açılarında duruyor, yol boyunca düzleşiyor.
-    final angle = (back ? 15.0 : -7.0) * math.pi / 180 * (1 - 2 * depth).abs();
+    final transform = Matrix4.identity()
+      ..setEntry(3, 2, _perspective)
+      ..rotateY(showFront ? angle : angle + math.pi);
 
     return Transform.translate(
-      // Anahtar, yığındaki sıra değiştiğinde kartın kendi öğesinin korunmasını
-      // sağlıyor. Anahtarsız hâlde Flutter sırayı konuma göre eşleştirdiği için
-      // takas karesinde kartın rengi ve yazısı değişiyor, metin yeniden
-      // yerleşiyordu — takılmanın bir sebebi de buydu.
-      key: back ? const ValueKey('tr') : const ValueKey('ru'),
-      offset: Offset(dx, dy),
+      offset: Offset(
+        s * (back ? _backX : _frontX),
+        s * (back ? -0.02 : 0.02),
+      ),
       child: Transform.rotate(
-        angle: angle,
-        child: Transform.scale(
-          scale: scale,
+        angle: (back ? 15.0 : -7.0) * math.pi / 180,
+        child: Transform(
+          transform: transform,
+          alignment: Alignment.center,
           child: Container(
             width: s * 0.35,
             height: s * 0.48,
@@ -156,12 +167,41 @@ class _FlipLogoState extends State<FlipLogo>
               ],
             ),
             child: Text(
-              back ? 'TR' : 'RU',
+              letter,
               style: TextStyle(
                 fontFamily: 'Inter',
                 fontWeight: FontWeight.w800,
                 fontSize: s * 0.13,
                 color: back ? Colors.white.withValues(alpha: 0.92) : _ruInk,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Yüzeyin üstünden bir kez geçen ışık şeridi.
+  ///
+  /// Kartlar durduktan sonra geliyor ve kenardan girip kenardan çıkıyor;
+  /// köşeleri kırpan [ClipRRect] sayesinde başlangıç ve bitişte görünmüyor.
+  Widget _lightSweep(double s, double t) {
+    return Positioned(
+      left: (-0.45 + 1.9 * t) * s,
+      top: -s * 0.35,
+      child: IgnorePointer(
+        child: Transform.rotate(
+          angle: 0.32,
+          child: Container(
+            width: s * 0.26,
+            height: s * 1.7,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [
+                  Colors.white.withValues(alpha: 0),
+                  Colors.white.withValues(alpha: 0.24),
+                  Colors.white.withValues(alpha: 0),
+                ],
               ),
             ),
           ),
