@@ -17,6 +17,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from curated_fixes import (  # noqa: E402
+    CONTENT_DROP,
     DROP,
     DROP_EXAMPLE,
     FIXES,
@@ -108,7 +109,8 @@ def main():
     for row in rows:
         bare = row[idx['ru']]
         wid = row[idx['id']]
-        if bare in DROP or wid in REPORT2_DROP or wid in REPORT4_DROP:
+        if (bare in DROP or bare in CONTENT_DROP
+                or wid in REPORT2_DROP or wid in REPORT4_DROP):
             dropped += 1
             continue
 

@@ -119,6 +119,12 @@ POST_FIXES = {
     'донос': 'ihbar',                       # "itham" idi
     'наряжать': 'giydirmek, süslemek',      # "aranjman" idi
 
+    # Icerik temizligi: birincil anlami notr olan kelimelerde kelimeyi
+    # cikarmak yerine karsiligi sadelestiriliyor.
+    'семя': 'tohum',                        # "tohum, meni" idi
+    'вожделение': 'arzu, tutku',            # "arzu, şehvet" idi
+    'живчик': 'canlı kişi, hareketli',      # "sperm hücresi" idi
+
     # Raporun oneri sutunu bu ikisinde serbest metin; mevcut ceviri dogru
     # oldugu icin oneriyi degil dogru olani yaziyoruz.
     'мазать': 'sürmek, bulaştırmak',
@@ -171,4 +177,31 @@ DROP_EXAMPLE = {
     'идеологический',  # kelimeyle alakasiz mecaz
     'сыночек',        # cocuk olumu iceren cumle
     'оплодотворение',  # cumle ortasindan baslayan bozuk metin
+}
+
+# ── Icerik derecelendirmesi icin cikarilan kayitlar ──
+#
+# Google Play'in IARC derecelendirme anketi cinsel icerik ve uyusturucu
+# gondermeleri soruyor. Sozluk maddesi olmalari bunlari mesru kiliyor ama
+# kullanici tereddutsuz bir derecelendirme istedi: bu kelimeler cikariliyor.
+#
+# BILEREK BIRAKILANLAR (cikarmak sozluge zarar verir, dereceye katkisi yok):
+#   член   "uye, aza"        — A1 kelimesi (aile uyesi); cevirisi notr
+#   голый  "ciplak"          — siradan sifat (ciplak gercek)
+#   нагой  "ciplak"          — ayni, edebi kullanim
+#   притон "batakhane"       — sucla ilgili, cinsel degil
+#   аборт  "kurtaj"          — tibbi terim; Play'in derecelendirme
+#                              baslıklarindan biri degil
+CONTENT_DROP = {
+    # cinsel
+    'секс', 'сексуальный', 'гомосексуальность', 'гомосексуалист',
+    'гомосексуал', 'проститутка', 'проституция', 'шлюха', 'сутенёр',
+    'порнография', 'порнуха', 'насиловать', 'влагалище', 'мастурбация',
+    'похоть', 'блуд', 'титька', 'бордель', 'инцест',
+    # anatomi (ogrenci icin dusuk deger, derecelendirmede riskli)
+    'сосок', 'сперма', 'яичко',
+    # uyusturucu
+    'наркотик', 'наркоман', 'героин', 'кокаин',
+    # tek anlami ureme hucresi olan tibbi terim
+    'сперматозоид',
 }
