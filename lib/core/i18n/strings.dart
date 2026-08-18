@@ -606,9 +606,9 @@ class Strings {
     onboardSkip: 'Atla',
     onboardNext: 'Devam',
     onboardStart: 'Başlayalım',
-    onboardTitle1: 'Rusça kelime, cebinde',
+    onboardTitle1: 'Rusça öğrenmeye başla',
     onboardBody1: '8.000 kelimeden fazlası, okunuşu ve örnek cümlesiyle. '
-        'Tamamen çevrimdışı — internet gerekmiyor.',
+        'Başlangıçtan ileri seviyeye, adım adım.',
     onboardTitle2: 'Kartı çevir, kaydır',
     onboardBody2: 'Karta dokun, anlamı görün. Bildiğin kelimeyi sağa kaydır, '
         'tekrar etmen gerekeni sola. Her bölüm 20 kelime.',
@@ -943,9 +943,9 @@ class Strings {
     onboardSkip: 'Пропустить',
     onboardNext: 'Далее',
     onboardStart: 'Начнём',
-    onboardTitle1: 'Русские слова в кармане',
+    onboardTitle1: 'Начни учить слова',
     onboardBody1: 'Более 8.000 слов с произношением и примерами. '
-        'Полностью офлайн — интернет не нужен.',
+        'От начального уровня до продвинутого, шаг за шагом.',
     onboardTitle2: 'Переверни карточку, свайпни',
     onboardBody2: 'Нажми на карточку, чтобы увидеть значение. Знаешь слово — '
         'свайп вправо, нужно повторить — влево. В разделе 20 слов.',
