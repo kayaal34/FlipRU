@@ -443,28 +443,6 @@ class _MeaningFace extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 10),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.swipe_rounded,
-                      size: 15,
-                      color: palette.textTertiary,
-                    ),
-                    const SizedBox(width: 6),
-                    Flexible(
-                      child: Text(
-                        strings.swipeLegend,
-                        style: textTheme.bodySmall?.copyWith(
-                          color: palette.textTertiary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
             ],
           ),
         ),
