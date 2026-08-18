@@ -1,5 +1,14 @@
 import 'package:flutter/foundation.dart';
 
+/// Mağaza satın alma altyapısı bağlı mı?
+///
+/// Google Play Billing bağlanana kadar `false`. Karşılığı olmayan bir fiyatı
+/// ekranda göstermek Play politikasına aykırı; bu bayrak kapalıyken premium
+/// ekranı fiyatları ve satın alma düğmesini gizleyip "yakında" diyor.
+/// Ürün kimlikleri tanımlanıp akış bağlandığında tek yapılacak: burayı
+/// `true` yapmak.
+const kBillingConnected = false;
+
 /// Satın alınabilir abonelik süreleri.
 enum PremiumPlan {
   monthly(1, '₺79,90', null),

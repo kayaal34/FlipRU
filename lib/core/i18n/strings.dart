@@ -97,6 +97,10 @@ class Strings {
     required this.learnedMixedSub,
     required this.learnedListSub,
     required this.searchLearned,
+    required this.searchTitle,
+    required this.searchAllHint,
+    required this.searchStart,
+    required this.searchTooMany,
     required this.searchNoResult,
     required this.learnedEmpty,
     required this.nextQuestion,
@@ -196,6 +200,16 @@ class Strings {
     required this.premiumActive,
     required this.premiumDaysLeft,
     required this.premiumPitch,
+    required this.premiumSoon,
+    required this.onboardSkip,
+    required this.onboardNext,
+    required this.onboardStart,
+    required this.onboardTitle1,
+    required this.onboardBody1,
+    required this.onboardTitle2,
+    required this.onboardBody2,
+    required this.onboardTitle3,
+    required this.onboardBody3,
     required this.deleteOps,
     required this.deleteOpsFooter,
     required this.clearStars,
@@ -308,6 +322,7 @@ class Strings {
   final String quizQuestion, quizProgress, quizCorrect, joker;
   final String learnedMixedSub, learnedListSub;
   final String searchLearned, searchNoResult, learnedEmpty;
+  final String searchTitle, searchAllHint, searchStart, searchTooMany;
   final String nextQuestion, seeResult, finish, unitUnlocked, correctOf;
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
@@ -339,6 +354,11 @@ class Strings {
   final String myData, accountAndData, reports, account, accountSub;
   final String about, appSubtitle, version, privacy, terms, aboutFooter;
   final String premiumActive, premiumDaysLeft, premiumPitch;
+  final String premiumSoon;
+  final String onboardSkip, onboardNext, onboardStart;
+  final String onboardTitle1, onboardBody1;
+  final String onboardTitle2, onboardBody2;
+  final String onboardTitle3, onboardBody3;
   final String deleteOps, deleteOpsFooter;
   final String clearStars, clearStarsSub, resetProgress, resetProgressSub;
   final String resetSettings, resetSettingsSub, deleteAll, deleteAllSub;
@@ -477,6 +497,10 @@ class Strings {
     learnedMixedSub: 'Öğrendiğin kelimelerden karışık tekrar',
     learnedListSub: 'Öğrendiğin kelimelerin listesi',
     searchLearned: 'Öğrendiğin kelimelerde ara',
+    searchTitle: 'Sözlükte ara',
+    searchAllHint: 'Rusça, Türkçe ya da okunuş',
+    searchStart: 'Aramak için en az iki harf yaz.',
+    searchTooMany: 'İlk 80 sonuç gösteriliyor',
     searchNoResult: 'Eşleşen kelime yok',
     learnedEmpty: 'Henüz kelime öğrenmedin. Bir bölüm çalış, '
         'öğrendiklerin burada birikir.',
@@ -579,6 +603,19 @@ class Strings {
         'OpenSubtitles derlemlerinden derlenmiştir.',
     premiumActive: 'Premium aktif',
     premiumDaysLeft: 'gün kaldı',
+    onboardSkip: 'Atla',
+    onboardNext: 'Devam',
+    onboardStart: 'Başlayalım',
+    onboardTitle1: 'Rusça kelime, cebinde',
+    onboardBody1: '8.000 kelimeden fazlası, okunuşu ve örnek cümlesiyle. '
+        'Tamamen çevrimdışı — internet gerekmiyor.',
+    onboardTitle2: 'Kartı çevir, kaydır',
+    onboardBody2: 'Karta dokun, anlamı görün. Bildiğin kelimeyi sağa kaydır, '
+        'tekrar etmen gerekeni sola. Her bölüm 20 kelime.',
+    onboardTitle3: 'Günlük hedefin ne olsun?',
+    onboardBody3: 'Her gün bu kadar yeni kelime. Sonradan ayarlardan '
+        'değiştirebilirsin.',
+    premiumSoon: 'Abonelik yakında açılıyor. Şimdilik A1 ve A2 seviyelerinin tamamı ücretsiz.',
     premiumPitch: 'Tüm seviyeler, temalar ve test ipuçları',
     deleteOps: 'Silme işlemleri',
     deleteOpsFooter: 'Buradaki işlemlerin hiçbiri geri alınamaz.',
@@ -797,6 +834,10 @@ class Strings {
     learnedMixedSub: 'Повторение выученных слов вперемешку',
     learnedListSub: 'Список выученных слов',
     searchLearned: 'Поиск среди выученных',
+    searchTitle: 'Поиск по словарю',
+    searchAllHint: 'Русский, турецкий или произношение',
+    searchStart: 'Введи хотя бы две буквы.',
+    searchTooMany: 'Показаны первые 80 результатов',
     searchNoResult: 'Ничего не найдено',
     learnedEmpty: 'Ты ещё не выучил слов. Позанимайся разделом — '
         'выученное соберётся здесь.',
@@ -899,6 +940,19 @@ class Strings {
         'WikiMatrix и OpenSubtitles.',
     premiumActive: 'Премиум активен',
     premiumDaysLeft: 'дн. осталось',
+    onboardSkip: 'Пропустить',
+    onboardNext: 'Далее',
+    onboardStart: 'Начнём',
+    onboardTitle1: 'Русские слова в кармане',
+    onboardBody1: 'Более 8.000 слов с произношением и примерами. '
+        'Полностью офлайн — интернет не нужен.',
+    onboardTitle2: 'Переверни карточку, свайпни',
+    onboardBody2: 'Нажми на карточку, чтобы увидеть значение. Знаешь слово — '
+        'свайп вправо, нужно повторить — влево. В разделе 20 слов.',
+    onboardTitle3: 'Какая у тебя дневная цель?',
+    onboardBody3: 'Столько новых слов каждый день. Потом можно изменить '
+        'в настройках.',
+    premiumSoon: 'Подписка скоро появится. Пока уровни A1 и A2 открыты полностью.',
     premiumPitch: 'Все уровни, темы и подсказки в тестах',
     deleteOps: 'Удаление данных',
     deleteOpsFooter: 'Ни одно из этих действий нельзя отменить.',
