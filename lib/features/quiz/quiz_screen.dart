@@ -9,10 +9,8 @@ import '../../core/widgets/progress_ring.dart';
 import '../../core/i18n/strings.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
-import '../../providers/premium_provider.dart';
 import '../../providers/quiz_stats_provider.dart';
 import '../../providers/unit_providers.dart';
-import '../premium/premium_screen.dart';
 import '../../providers/settings_provider.dart';
 
 /// Çoktan seçmeli test.
@@ -127,7 +125,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   bool _unlockedUnit = false;
 
-  /// Joker: yanlış şıklardan ikisini eler. Premium özelliği.
+  /// Joker: yanlış şıklardan ikisini eler.
   ///
   /// Adı önce "İpucu" idi ama ipucu vermiyor, şıkları ikiye düşürüyor —
   /// yarışma programlarındaki joker gibi. Her soruda bir hak.
@@ -339,7 +337,7 @@ class _Question {
   final List<Word> options;
 }
 
-/// İpucu düğmesi. Premium değilse ödeme ekranına yönlendirir.
+/// Joker düğmesi. Her soruda bir kez basılabilir.
 class _JokerButton extends ConsumerWidget {
   const _JokerButton({
     required this.used,
@@ -354,29 +352,18 @@ class _JokerButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = context.palette;
-    final premium = ref.watch(isPremiumProvider);
     final spent = used || disabled;
 
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      onTap: spent
-          ? null
-          : () {
-              if (!premium) {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => const PremiumScreen()),
-                );
-                return;
-              }
-              onTap();
-            },
+      onTap: spent ? null : onTap,
       child: Opacity(
         opacity: spent ? 0.4 : 1,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(
-              premium ? Icons.lightbulb_rounded : Icons.lock_rounded,
+              Icons.lightbulb_rounded,
               size: 16,
               color: palette.star,
             ),

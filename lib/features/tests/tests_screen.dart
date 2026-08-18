@@ -11,7 +11,6 @@ import '../../data/models/deck.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
-import '../../providers/premium_provider.dart';
 import '../../core/widgets/starred_hero_card.dart';
 import '../quiz/quiz_screen.dart';
 import 'level_test_units_screen.dart';
@@ -90,12 +89,10 @@ class TestsScreen extends ConsumerWidget {
                   ),
                 ),
                 const SizedBox(height: 14),
-                // Ana ekrandaki kartin aynisi. Onceden burada duz bir satirdi,
-                // ustelik premium kilidi ve "4 kelime" siniri vardi; ana
-                // ekrandaki ayni kart ise acikti. Quiz'in celdiricileri
-                // sozlugun tamamindan geliyor (bkz. randomDistractors), yani
-                // tek yildizli kelimeyle bile test kurulabiliyor — o sinir
-                // gereksizdi.
+                // Ana ekrandaki kartin aynisi. Onceden burada duz bir satirdi
+                // ve "4 kelime" siniri vardi; quiz'in celdiricileri sozlugun
+                // tamamindan geldigi icin (bkz. randomDistractors) tek yildizli
+                // kelimeyle bile test kurulabiliyor — o sinir gereksizdi.
                 StarredHeroCard(
                   title: t.starredTitle,
                   subtitle: starred.isEmpty
@@ -190,15 +187,13 @@ class _LevelTestRow extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final words = ref.watch(deckWordsProvider(deck.id));
     final learned = ref.watch(learnedProvider);
-    final premium = ref.watch(isPremiumProvider);
     final t = ref.watch(stringsProvider);
 
     final known = words.where((w) => learned.contains(w.id)).toList();
 
-    // Ucretsiz surumde test yalnizca ogrenilmis kelimeleri sorar — bilmedigin
-    // seyden sinava girmek ogretici degil. Premium'da butun seviye acik:
-    // abone, hic calismamis olsa bile seviyeyi bastan sona olcebilir.
-    final pool = premium ? words : known;
+    // Test yalnizca ogrenilmis kelimeleri sorar — bilmedigin seyden sinava
+    // girmek ogretici degil.
+    final pool = known;
     final enabled = pool.length >= 4;
 
     return _TestCard(
@@ -206,11 +201,9 @@ class _LevelTestRow extends ConsumerWidget {
       icon: deck.icon,
       tint: deck.tint,
       title: '${deck.titleOf(t)} · ${deck.subtitleOf(t)}',
-      subtitle: premium
-          ? '${t.words(words.length)} · ${t.levelTestAll}'
-          : (known.length < 4
-              ? t.levelTestNeed
-              : '${known.length} ${t.levelTestKnown}'),
+      subtitle: known.length < 4
+          ? t.levelTestNeed
+          : '${known.length} ${t.levelTestKnown}',
       enabled: enabled,
       compact: true,
       // Dogrudan teste girmek yerine bolum listesine gidiyoruz: B2'de 2.500

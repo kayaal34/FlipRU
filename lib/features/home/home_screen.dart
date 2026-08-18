@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/i18n/strings.dart';
 import '../../core/theme/app_typography.dart';
-import '../../core/utils/haptics.dart';
 import '../../core/widgets/pressable.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/segmented_switch.dart';
@@ -12,8 +11,6 @@ import '../../core/widgets/starred_hero_card.dart';
 import '../../data/models/deck.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
-import '../../providers/premium_provider.dart';
-import '../premium/premium_screen.dart';
 import '../learned/learned_screen.dart';
 import '../starred/starred_screen.dart';
 import '../units/unit_list_screen.dart';
@@ -31,8 +28,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   int _tab = 0;
 
   void _openDeck(Deck deck) {
-    // Kilitli deste de açılıyor: içerideki önizleme neyin kilitli olduğunu
-    // gösterip premium'a yönlendiriyor.
     final words = ref.read(deckWordsProvider(deck.id));
     if (words.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -123,8 +118,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     deck: deck,
                                     progress:
                                         ref.watch(deckProgressProvider(deck.id)),
-                                    locked: ref
-                                        .watch(deckLockedProvider(deck.id)),
                                     onTap: () => _openDeck(deck),
                                   ),
                                   const SizedBox(height: 10),
@@ -145,8 +138,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     deck: deck,
                                     progress:
                                         ref.watch(deckProgressProvider(deck.id)),
-                                    locked: ref
-                                        .watch(deckLockedProvider(deck.id)),
                                     onTap: () => _openDeck(deck),
                                   ),
                               ],
@@ -202,12 +193,6 @@ class _HomeHeader extends ConsumerWidget {
           children: [
             _StreakBadge(days: streak),
             const Spacer(),
-            _PremiumButton(
-              active: ref.watch(isPremiumProvider),
-              onTap: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const PremiumScreen()),
-              ),
-            ),
           ],
         ),
         const SizedBox(height: 10),
@@ -360,70 +345,6 @@ class _StreakBadge extends ConsumerWidget {
   }
 }
 
-/// Ana ekranın sağ üstündeki premium girişi.
-class _PremiumButton extends ConsumerWidget {
-  const _PremiumButton({required this.active, required this.onTap});
-
-  final bool active;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
-    final textTheme = Theme.of(context).textTheme;
-    final s = ref.watch(stringsProvider);
-
-    return Tooltip(
-      message: s.premium,
-      child: GestureDetector(
-        behavior: HitTestBehavior.opaque,
-        onTap: () {
-          Haptics.light();
-          onTap();
-        },
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(13),
-            gradient: LinearGradient(
-              colors: active
-                  ? [palette.learned, palette.learned]
-                  : [
-                      palette.accent,
-                      Color.lerp(palette.accent, palette.star, 0.5)!,
-                    ],
-            ),
-          ),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.workspace_premium_rounded,
-                size: 17,
-                color: Colors.white,
-              ),
-              const SizedBox(width: 5),
-              Text(
-                s.premium,
-                style: textTheme.labelMedium?.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-/// Ana ekranın öne çıkan kartı: yıldızlı kelimeler.
-
-/// Ana ekrandaki "Öğrendiğim Kelimeler" kartı.
-///
-/// Yıldızlı kart kadar baskın değil: yıldızlı bir eylem çağrısı, bu ise
-/// arşiv. Bu yüzden sade yüzey, degrade yok.
 class _LearnedCard extends ConsumerWidget {
   const _LearnedCard({required this.count, required this.onTap});
 

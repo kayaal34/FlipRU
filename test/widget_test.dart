@@ -10,8 +10,6 @@ import 'package:flipru/data/models/deck.dart';
 import 'package:flipru/data/models/word.dart';
 import 'package:flipru/data/models/word_report.dart';
 import 'package:flipru/data/repositories/word_repository.dart';
-import 'package:flipru/data/models/premium.dart';
-import 'package:flipru/providers/premium_provider.dart';
 import 'package:flipru/providers/report_provider.dart';
 import 'package:flipru/providers/unit_providers.dart';
 import 'package:flipru/providers/app_providers.dart';
@@ -303,39 +301,27 @@ void main() {
     });
   });
 
-  group('premium', () {
-    test('varsayılan olarak premium yok ve üst seviyeler kilitli', () {
+  group('icerik erisimi', () {
+    // Premium kaldirildi: butun seviyeler ve temalar herkese acik. Bunu test
+    // altina aliyoruz ki ileride yanlislikla yeniden kilitlenmesin.
+    test('her seviyenin kelimeleri ve ilk bolumu acik', () {
       final c = container();
-      expect(c.read(isPremiumProvider), isFalse);
-      expect(c.read(deckLockedProvider('level_a1')), isFalse);
-      expect(c.read(deckLockedProvider('level_a2')), isFalse);
-      expect(c.read(deckLockedProvider('level_b1')), isTrue);
-      expect(c.read(deckLockedProvider('level_c1')), isTrue);
+      for (final id in ['level_a1', 'level_a2', 'level_b1', 'level_b2',
+                        'level_c1']) {
+        expect(c.read(deckWordsProvider(id)), isNotEmpty, reason: id);
+        expect(c.read(deckUnitsProvider(id)).first.unlocked, isTrue,
+            reason: id);
+      }
     });
 
-    test('premium etkinleşince tüm desteler açılır', () {
+    test('butun temalar acik', () {
       final c = container();
-      c.read(premiumProvider.notifier).activate(PremiumPlan.monthly);
-
-      expect(c.read(isPremiumProvider), isTrue);
-      expect(c.read(deckLockedProvider('level_c1')), isFalse);
-    });
-
-    test('abonelik süresi biterse premium düşer', () {
-      final c = container();
-      c.read(premiumProvider.notifier).activate(PremiumPlan.yearly);
-      expect(c.read(premiumProvider).remainingDays, greaterThan(300));
-
-      c.read(premiumProvider.notifier).deactivate();
-      expect(c.read(isPremiumProvider), isFalse);
-    });
-
-    test('yıldızlı kelimeleri toplu çalışmak premium gerektirir', () {
-      final c = container();
-      expect(c.read(deckLockedProvider('starred')), isTrue);
-
-      c.read(premiumProvider.notifier).activate(PremiumPlan.monthly);
-      expect(c.read(deckLockedProvider('starred')), isFalse);
+      final temalar = c.read(themeDecksProvider);
+      expect(temalar, isNotEmpty);
+      for (final deck in temalar) {
+        expect(c.read(deckUnitsProvider(deck.id)).first.unlocked, isTrue,
+            reason: deck.id);
+      }
     });
   });
 

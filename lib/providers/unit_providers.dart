@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../data/models/study_unit.dart';
 import 'app_providers.dart';
 import 'library_providers.dart';
-import 'premium_provider.dart';
 
 /// Testi geçilerek tamamlanan bölümler.
 ///
@@ -45,22 +44,7 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
   final words = ref.watch(deckWordsProvider(deckId));
   final learned = ref.watch(learnedProvider);
   final passedByTest = ref.watch(passedUnitsProvider);
-  final premium = ref.watch(isPremiumProvider);
   final units = StudyUnit.split(deckId, words);
-
-  // Premium'da sirali ilerleme sarti yok: abone olan her bolume istedigi an
-  // girebilsin, "once sunu bitir" duvariyla karsilasmasin.
-  if (premium) {
-    return [
-      for (final unit in units)
-        UnitProgress(
-          unit: unit,
-          learned: unit.words.where((w) => learned.contains(w.id)).length,
-          unlocked: true,
-          testPassed: passedByTest.contains(unit.id),
-        ),
-    ];
-  }
 
   // Sirali ilerleme: bir onceki bolum gecilmeden sonraki acilmaz. Onceden
   // iki bolum birden acikti; kullanici "neden ikisi de acik" diye sordu ve

@@ -14,16 +14,12 @@ class DeckRow extends ConsumerWidget {
     required this.deck,
     required this.progress,
     required this.onTap,
-    this.locked = false,
     super.key,
   });
 
   final Deck deck;
   final DeckProgress progress;
   final VoidCallback onTap;
-
-  /// Premium gerektiren desteler kilit rozetiyle gösterilir.
-  final bool locked;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -79,9 +75,6 @@ class DeckRow extends ConsumerWidget {
               ),
             ),
             const SizedBox(width: 10),
-            if (locked)
-              Icon(Icons.lock_rounded, size: 21, color: palette.star)
-            else
             ProgressRing(
               value: progress.ratio,
               color: deck.tint,
@@ -111,16 +104,12 @@ class DeckCard extends ConsumerWidget {
     required this.deck,
     required this.progress,
     required this.onTap,
-    this.locked = false,
     super.key,
   });
 
   final Deck deck;
   final DeckProgress progress;
   final VoidCallback onTap;
-
-  /// Premium gerektiren desteler kilit rozetiyle gösterilir.
-  final bool locked;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -153,9 +142,6 @@ class DeckCard extends ConsumerWidget {
                   ),
                   child: Icon(deck.icon, size: 21, color: deck.tint),
                 ),
-                const Spacer(),
-                if (locked)
-                  Icon(Icons.lock_rounded, size: 17, color: palette.star),
               ],
             ),
             const Spacer(),
