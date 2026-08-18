@@ -45,7 +45,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
     final s = ref.watch(stringsProvider);
     final levelDecks = ref.watch(levelDecksProvider);
     final themeDecks = ref.watch(themeDecksProvider);
@@ -142,16 +141,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   ),
                               ],
                             ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Center(
-                    child: Text(
-                      s.swipeHint,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall
-                          ?.copyWith(color: palette.textTertiary),
                     ),
                   ),
                 ],

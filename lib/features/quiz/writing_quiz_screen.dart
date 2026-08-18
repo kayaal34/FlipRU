@@ -331,7 +331,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                     )
                   else
                     Padding(
-                      padding: const EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 32),
                       child: _Keyboard(
                         keys: _keys,
                         needed: _needed,
@@ -399,12 +399,16 @@ class _Slots extends StatelessWidget {
     final textTheme = Theme.of(context).textTheme;
     final parcalar = _parts;
 
-    // Kutu boyu en uzun parçaya göre; en uzun kayıt 20 harf.
+    // Kutu boyu en uzun parçanın ekrana sığmasına göre.
+    //
+    // Sabit genişlikteyken 13 harfli bir kelimede son kutu tek başına alt
+    // satıra düşüyordu; artık satır daralıyor, kelime tek satırda kalıyor.
     final enUzun = parcalar.fold<int>(
       0,
       (a, p) => p.$2.length > a ? p.$2.length : a,
     );
-    final genis = enUzun > 12 ? 27.0 : 34.0;
+    final alan = MediaQuery.sizeOf(context).width - 40;
+    final genis = ((alan - (enUzun - 1) * 5) / enUzun).clamp(20.0, 34.0);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -523,7 +527,7 @@ class _Keyboard extends StatelessWidget {
       children: [
         for (var satir = 0; satir * _columns < keys.length; satir++)
           Padding(
-            padding: const EdgeInsets.only(bottom: 6),
+            padding: const EdgeInsets.only(bottom: 9),
             child: Row(
               children: [
                 for (var s = 0; s < _columns; s++)
@@ -539,6 +543,7 @@ class _Keyboard extends StatelessWidget {
                                 // yazip gectigini sanmasin.
                                 badge: kac >= 2 ? '×$kac' : null,
                                 dim: spent(harf),
+                                height: 48,
                                 onTap: () => onLetter(harf),
                               );
                             },
@@ -548,7 +553,9 @@ class _Keyboard extends StatelessWidget {
               ],
             ),
           ),
-        const SizedBox(height: 2),
+        // Harf takimi ile kontrol tuslari arasinda belirgin bir bosluk:
+        // ayni blok gibi gorununce yanlislikla gonder tusuna basiliyordu.
+        const SizedBox(height: 20),
         Row(
           children: [
             Expanded(
@@ -588,6 +595,7 @@ class _Key extends StatelessWidget {
     this.tint,
     this.badge,
     this.dim = false,
+    this.height = 52,
   });
 
   final String? label;
@@ -595,6 +603,7 @@ class _Key extends StatelessWidget {
   final Color? tint;
   final String? badge;
   final bool dim;
+  final double height;
   final VoidCallback? onTap;
 
   @override
@@ -610,8 +619,8 @@ class _Key extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: Container(
-          height: 52,
-          margin: const EdgeInsets.symmetric(horizontal: 3),
+          height: height,
+          margin: const EdgeInsets.symmetric(horizontal: 5),
           alignment: Alignment.center,
           decoration: BoxDecoration(
             color: tint == null
@@ -638,9 +647,11 @@ class _Key extends StatelessWidget {
                     ],
                   ],
                 )
-              // Harf ortada, "×2" sağ üst köşede.
-              : Stack(
-                  alignment: Alignment.center,
+              // Harf ve "×2" yan yana. Once kose yazisiydi ama tuslar
+              // kuculunce harfin uzerine biniyor, okunmuyordu.
+              : Row(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       label!,
@@ -649,19 +660,17 @@ class _Key extends StatelessWidget {
                         color: renk,
                       ),
                     ),
-                    if (badge != null)
-                      Positioned(
-                        top: 4,
-                        right: 6,
-                        child: Text(
-                          badge!,
-                          style: textTheme.labelSmall?.copyWith(
-                            fontSize: 10.5,
-                            color: palette.accent,
-                            fontWeight: FontWeight.w700,
-                          ),
+                    if (badge != null) ...[
+                      const SizedBox(width: 3),
+                      Text(
+                        badge!,
+                        style: textTheme.labelSmall?.copyWith(
+                          fontSize: 11,
+                          color: palette.accent,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
+                    ],
                   ],
                 ),
         ),

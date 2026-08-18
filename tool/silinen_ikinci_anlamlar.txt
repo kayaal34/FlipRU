@@ -1,0 +1,4109 @@
+w00000|привет|merhaba|selam|a1
+w00002|спасибо|teşekkür ederim|sağ ol|a1
+w00003|пожалуйста|lütfen|rica ederim|a1
+w00005|нет|hayır|yok|a1
+w00006|извините|affedersiniz|özür dilerim|a1
+w00007|до свидания|hoşça kal|görüşürüz|a1
+w00013|хорошо|iyi|peki|a1
+w00014|плохо|kötü|fena|a1
+w00016|прекрасно|harika|mükemmel|a1
+w00018|имя|ad|isim|a1
+w00019|друг|arkadaş|dost|a1
+w00025|еда|yemek|yiyecek|a1
+w00026|дом|ev|hane|a1
+w00027|город|şehir|kent|a1
+w00028|улица|sokak|cadde|a1
+w00030|день|gün|gündüz|a1
+w00034|время|zaman|vakit|a1
+w00035|год|yıl|sene|a1
+w00039|много|çok|pek|a1
+w00041|большой|büyük|iri|a1
+w00042|маленький|küçük|ufak|a1
+w00044|старый|yaşlı|eski|a1
+w00046|иметь|sahip olmak|olmak|a1
+w00047|делать|yapmak|etmek|a1
+w00048|знать|bilmek|tanımak|a1
+w00049|думать|düşünmek|aklından geçirmek|a1
+w00051|сказать|söylemek|demek|a1
+w00053|слышать|duymak|işitmek|a1
+w00054|хотеть|istemek|arzulamak|a1
+w00055|мочь|yapabilmek|-ebilmek|a1
+w00056|идти|gitmek|yürümek|a1
+w00057|жить|yaşamak|oturmak|a1
+w00068|в|içinde|-e|a1
+w00069|и|ve|ile|a1
+w00071|на|üstünde|-e|a1
+w00072|с|ile|-den|a1
+w00073|как|nasıl|gibi|a1
+w00074|но|ama|fakat|a1
+w00075|весь|bütün|tüm|a1
+w00076|тот|şu|o|a1
+w00077|мой|benim|benimki|a1
+w00078|должный|gerekli|borçlu|a1
+w00082|такой|böyle|öyle bir|a1
+w00083|который|ki|hangi|a1
+w00085|нужный|gerekli|lazım|a1
+w00086|или|veya|ya da|a1
+w00087|какой|hangi|nasıl|a1
+w00088|раз|kere|kez|a1
+w00089|сам|kendisi|bizzat|a1
+w00090|жизнь|hayat|yaşam|a1
+w00092|правда|hakikat|gerçek|a1
+w00093|другой|başka|diğer|a1
+w00096|парень|delikanlı|erkek arkadaş|a1
+w00101|взять|almak|tutmak|a1
+w00103|порядок|düzen|sıra|a1
+w00104|самый|en|ta kendisi|a1
+w00107|понять|anlamak|kavramak|a1
+w00112|собираться|toplanmak|niyet etmek|a1
+w00116|первый|birinci|ilk|a1
+w00117|рука|el|kol|a1
+w00118|случиться|olmak|meydana gelmek|a1
+w00120|каждый|her|her bir|a1
+w00121|получить|almak|elde etmek|a1
+w00123|узнать|öğrenmek|tanımak|a1
+w00124|пытаться|denemek|çalışmak|a1
+w00125|машина|araba|makine|a1
+w00126|проблема|problem|sorun|a1
+w00128|женщина|kadın|bayan|a1
+w00131|прийти|gelmek|varmak|a1
+w00134|пора|vakit|zaman|a1
+w00138|конечный|nihai|son|a1
+w00139|вопрос|soru|sual|a1
+w00141|слово|kelime|söz|a1
+w00146|чувствовать|hissetmek|duymak|a1
+w00147|помнить|hatırlamak|anımsamak|a1
+w00149|добрый|iyi kalpli|nazik|a1
+w00151|плохой|kötü|fena|a1
+w00153|стоять|durmak|ayakta durmak|a1
+w00157|отличный|mükemmel|harika|a1
+w00158|конец|son|bitim|a1
+w00161|выйти|çıkmak|dışarı çıkmak|a1
+w00162|вид|görünüm|manzara|a1
+w00163|брат|kardeş|erkek kardeş|a1
+w00169|голова|baş|kafa|a1
+w00173|что|ne|ki|a1
+w00175|извинить|affetmek|bağışlamak|a1
+w00179|происходить|olmak|meydana gelmek|a1
+w00180|это|bu|bu şey|a1
+w00183|считать|saymak|kabul etmek|a1
+w00186|смерть|ölüm|vefat|a1
+w00188|мир|dünya|barış|a1
+w00189|играть|oynamak|çalmak|a1
+w00194|а|ise|oysa|a1
+w00196|мать|anne|ana|a1
+w00200|о|hakkında|dair|a1
+w00201|дорогой|pahalı|değerli|a1
+w00202|если|eğer|şayet|a1
+w00203|посол|büyükelçi|elçi|a1
+w00204|помощь|yardım|imdat|a1
+w00205|за|arkasında|için|a1
+w00206|возможный|mümkün|olası|a1
+w00207|любой|herhangi bir|her|a1
+w00210|мужчина|erkek|adam|a1
+w00211|чтобы|-mek için|diye|a1
+w00212|поехать|yola çıkmak|gitmeye başlamak|a1
+w00213|просто|sadece|basitçe|a1
+w00215|из|-den|içinden|a1
+w00216|школа|okul|mektep|a1
+w00217|перед|önünde|-den önce|a1
+w00218|к|-e doğru|-e|a1
+w00219|сторона|taraf|yön|a1
+w00222|случай|durum|vaka|a1
+w00223|когда|-diğinde|ne zaman|a1
+w00224|единственный|tek|yegâne|a1
+w00225|здесь|burada|burası|a1
+w00226|история|tarih|hikâye|a1
+w00227|быстрый|çabuk|hızlı|a1
+w00228|по|boyunca|-e göre|a1
+w00231|только|sadece|ancak|a1
+w00234|все|hepsi|herkes|a1
+w00236|заниматься|uğraşmak|meşgul olmak|a1
+w00237|лицо|yüz|surat|a1
+w00239|от|-den|-dan|a1
+w00241|любовь|aşk|sevgi|a1
+w00242|почему|neden|niçin|a1
+w00245|очень|çok|pek|a1
+w00247|следующий|sonraki|ertesi|a1
+w00249|там|orada|şurada|a1
+w00250|милый|sevimli|tatlı|a1
+w00251|сейчас|şimdi|şu anda|a1
+w00253|точный|kesin|tam|a1
+w00254|до|-e kadar|-den önce|a1
+w00255|вещь|şey|nesne|a1
+w00256|теперь|artık|şimdi|a1
+w00258|прекрасный|harika|muhteşem|a1
+w00259|смысл|anlam|mana|a1
+w00263|номер|numara|sayı|a1
+w00265|тело|beden|gövde|a1
+w00268|сильный|güçlü|kuvvetli|a1
+w00270|произойти|olmak|meydana gelmek|a1
+w00271|ещё|daha|hâlâ|a1
+w00272|счастливый|mesut|mutlu|a1
+w00273|пока|-ken|-e kadar|a1
+w00274|бросить|bırakmak|terk etmek|a1
+w00275|даже|bile|hatta|a1
+w00278|план|plan|tasarı|a1
+w00280|себя|kendini|kendine|a1
+w00281|настоящий|gerçek|şimdiki|a1
+w00284|сердце|kalp|yürek|a1
+w00288|никогда|asla|hiçbir zaman|a1
+w00289|сила|kuvvet|güç|a1
+w00290|купить|satın almak|almak|a1
+w00291|сестра|kız kardeş|abla|a1
+w00293|живой|canlı|diri|a1
+w00294|тогда|o zaman|öyleyse|a1
+w00296|скорый|hızlı|çabuk|a1
+w00297|дочь|kız evlat|kız|a1
+w00299|прямой|düz|doğrudan|a1
+w00301|ходить|yürümek|gitmek|a1
+w00302|причина|sebep|neden|a1
+w00303|отношение|ilişki|tutum|a1
+w00304|земля|yer|toprak|a1
+w00309|мальчик|erkek çocuk|oğlan|a1
+w00310|нога|bacak|ayak|a1
+w00311|проверить|kontrol etmek|doğrulamak|a1
+w00312|сюда|buraya|burasına|a1
+w00313|принять|kabul etmek|almak|a1
+w00315|забрать|almak|geri almak|a1
+w00317|всегда|her zaman|daima|a1
+w00319|можно|mümkün|olabilir|a1
+w00320|продолжать|devam etmek|sürdürmek|a1
+w00322|без|-sız|olmadan|a1
+w00324|попросить|istemek|rica etmek|a1
+w00327|волноваться|heyecanlanmak|endişelenmek|a1
+w00329|свет|ışık|dünya|a1
+w00330|команда|takım|komut|a1
+w00335|ужасный|berbat|korkunç|a1
+w00336|встретиться|buluşmak|karşılaşmak|a1
+w00337|ведь|ya|hani|a1
+w00338|встречаться|çıkmak|buluşmak|a1
+w00340|через|üzerinden|-den sonra|a1
+w00341|верный|doğru|sadık|a1
+w00342|прекратить|bırakmak|durdurmak|a1
+w00344|немного|az|azıcık|a1
+w00347|слишком|fazla|aşırı|a1
+w00349|ненавидеть|nefret etmek|kin beslemek|a1
+w00353|зачем|neden|niçin|a1
+w00354|уже|artık|çoktan|a1
+w00355|господин|efendi|beyefendi|a1
+w00362|стать|olmak|haline gelmek|a1
+w00363|давай|gel|gelin|a1
+w00364|вместе|birlikte|beraber|a1
+w00365|компания|şirket|arkadaş grubu|a1
+w00366|чувство|duygu|his|a1
+w00368|война|savaş|harp|a1
+w00371|убийца|katil|cani|a1
+w00373|свидание|randevu|buluşma|a1
+w00374|поэтому|bu yüzden|bu nedenle|a1
+w00375|тереть|ovalamak|ovmak|a1
+w00376|понравиться|hoşuna gitmek|beğenilmek|a1
+w00377|конечно|elbette|tabii|a1
+w00381|снова|yeniden|gene|a1
+w00383|тип|tip|tür|a1
+w00385|обычный|olağan|sıradan|a1
+w00386|убивать|öldürmek|katletmek|a1
+w00387|брать|almak|tutmak|a1
+w00391|полагать|sanmak|varsaymak|a1
+w00394|связь|bağ|iletişim|a1
+w00395|страна|ülke|memleket|a1
+w00396|тюрьма|hapishane|hapis|a1
+w00398|именно|tam olarak|tam da|a1
+w00399|решение|karar|çözüm|a1
+w00400|целый|bütün|tam|a1
+w00402|помогать|yardım etmek|yardımcı olmak|a1
+w00403|выбор|seçenek|seçim|a1
+w00405|агент|acente|ajan|a1
+w00406|разве|acaba|gerçekten|a1
+w00408|лишь|sadece|ancak|a1
+w00409|способ|yöntem|yol|a1
+w00410|представлять|temsil etmek|hayal etmek|a1
+w00411|действительный|geçerli|gerçek|a1
+w00414|справиться|üstesinden gelmek|başarmak|a1
+w00415|ответ|cevap|yanıt|a1
+w00416|появиться|görünmek|belirmek|a1
+w00417|вести|yönetmek|sürmek|a1
+w00418|спокойный|sakin|huzurlu|a1
+w00419|совсем|tamamen|hiç|a1
+w00420|согласный|aynı fikirde|razı|a1
+w00421|ошибка|hata|yanlış|a1
+w00424|президент|başkan|cumhurbaşkanı|a1
+w00425|несколько|birkaç|bazı|a1
+w00426|интересный|enteresan|ilginç|a1
+w00428|отпустить|bırakmak|salıvermek|a1
+w00429|беспокоиться|endişelenmek|kaygılanmak|a1
+w00431|про|hakkında|ile ilgili|a1
+w00432|тема|konu|bahis|a1
+w00435|принимать|kabul etmek|almak|a1
+w00436|представить|tanıtmak|sunmak|a1
+w00438|возможность|imkân|olanak|a1
+w00440|здоровый|sağlıklı|sağlam|a1
+w00442|информация|bilgi|malumat|a1
+w00446|честь|onur|şeref|a1
+w00447|познакомиться|tanışmak|buluşmak|a1
+w00449|всего|tümüyle|anca|a1
+w00450|ясный|açık|net|a1
+w00451|главный|başlıca|ana|a1
+w00454|передать|iletmek|aktarmak|a1
+w00456|суд|mahkeme|yargı|a1
+w00457|против|karşı|aleyhine|a1
+w00458|заметить|fark etmek|farkına varmak|a1
+w00460|держаться|tutunmak|bağlı kalmak|a1
+w00461|вещий|kehanet nitelikli|önsezili|a1
+w00462|потом|sonra|ardından|a1
+w00466|переть|zorla ilerlemek|girmek|a1
+w00467|итак|böylece|öyleyse|a1
+w00470|приятный|hoş|keyifli|a1
+w00471|система|sistem|dizge|a1
+w00472|наверное|herhalde|muhtemelen|a1
+w00473|возможно|belki|muhtemelen|a1
+w00474|сообщение|mesaj|bildiri|a1
+w00475|общий|genel|ortak|a1
+w00476|детектив|dedektif|polisiye|a1
+w00478|поймать|yakalamak|tutmak|a1
+w00479|некоторый|bazı|kimi|a1
+w00481|квартира|daire|apartman dairesi|a1
+w00482|хотя|-e rağmen|gerçi|a1
+w00483|заплатить|ödemek|parasını vermek|a1
+w00484|приятель|ahbap|arkadaş|a1
+w00486|ключ|anahtar|açar|a1
+w00488|ситуация|durum|vaziyet|a1
+w00489|начало|başlangıç|baş|a1
+w00490|дама|hanım|bayan|a1
+w00491|письмо|mektup|name|a1
+w00495|образ|biçem|görünüm|a1
+w00496|мёртвый|ölü|ölmüş|a1
+w00497|отвечать|cevap vermek|yanıtlamak|a1
+w00499|радостный|sevinçli|sevindirici|a1
+w00500|магазин|mağaza|dükkân|a1
+w00501|перевод|çeviri|tercüme|a1
+w00505|над|üstünde|üzerinde|a1
+w00506|боль|ağrı|acı|a1
+w00508|точно|tam olarak|kesinlikle|a1
+w00510|будто|sanki|güya|a1
+w00511|ряд|sıra|dizi|a1
+w00514|заткнуться|susmak|çenesini kapamak|a1
+w00516|шутить|şaka yapmak|şaka etmek|a1
+w00517|почти|neredeyse|hemen hemen|a1
+w00520|операция|ameliyat|operasyon|a1
+w00521|подобный|benzer|böyle|a1
+w00523|свободный|hür|serbest|a1
+w00526|преступление|suç|cürüm|a1
+w00527|король|kral|şah|a1
+w00530|следить|izlemek|takip etmek|a1
+w00535|уметь|bilmek|yapabilmek|a1
+w00539|мужик|köylü|herif|a1
+w00541|иногда|bazen|ara sıra|a1
+w00542|платить|ödemek|vermek|a1
+w00544|задница|kıç|popo|a1
+w00545|заняться|uğraşmak|alev almak|a1
+w00546|отлично|mükemmel|harika|a1
+w00548|подарок|hediye|armağan|a1
+w00552|рождение|doğum|doğma|a1
+w00553|цель|amaç|hedef|a1
+w00554|устроить|ayarlamak|düzenlemek|a1
+w00555|глупый|akılsız|aptal|a1
+w00556|известный|bilinen|malum; meşhur|a1
+w00557|закон|kanun|yasa|a1
+w00559|крайний|son|en uç|a1
+w00561|член|üye|aza|a1
+w00564|довольный|hoşnut|memnun|a1
+w00567|состояние|durum|hâl|a1
+w00568|прямо|düpedüz|düz|a1
+w00570|кроме|hariç|dışında|a1
+w00572|сбежать|kaçmak|firar etmek|a1
+w00575|босс|patron|şef|a1
+w00576|подруга|kız arkadaş|dost|a1
+w00580|класс|sınıf|dersane|a1
+w00582|давно|uzun zamandır|çok önceden|a1
+w00583|малыш|yumurcak|bebek|a1
+w00585|предложить|önermek|teklif etmek|a1
+w00586|лёгкий|hafif|kolay|a1
+w00588|придумать|bulmak|uydurmak|a1
+w00591|сначала|önce|ilk önce|a1
+w00592|разобраться|anlamak|çözmek|a1
+w00593|речь|konuşma|nutuk|a1
+w00596|удача|şans|talih|a1
+w00598|всякий|her|herhangi bir|a1
+w00600|носить|giymek|taşımak|a1
+w00601|фотография|fotoğrafçılık|fotoğraf|a1
+w00603|страшный|korkunç|ürkütücü|a1
+w00604|сразу|hemen|derhal|a1
+w00605|идиот|budala|alık|a1
+w00606|палец|parmak|ayak parmağı|a1
+w00608|исчезнуть|ortadan kalkmak|yitmek|a1
+w00610|подходить|yaklaşmak|uygun olmak|a1
+w00611|предложение|teklif|cümle|a1
+w00612|существовать|var olmak|mevcut olmak|a1
+w00613|любимый|sevilen|en sevdiği|a1
+w00616|виноватый|kabahatli|suçlu|a1
+w00617|дядя|amca|dayı|a1
+w00618|действительно|gerçekten|gerçekte|a1
+w00620|являться|olmak|teşkil etmek|a1
+w00623|учиться|öğrenim görmek|okumak|a1
+w00625|центр|merkez|orta|a1
+w00626|одежда|giyim|giysi|a1
+w00627|встать|kalkmak|ayağa kalkmak|a1
+w00628|войти|girmek|içeri girmek|a1
+w00633|вспомнить|anımsamak|hatırlamak|a1
+w00634|умный|akıllı|zeki|a1
+w00637|знакомый|tanıdık|tanış|a1
+w00638|стараться|gayret etmek|çabalamak|a1
+w00640|выход|çıkış|çıkak|a1
+w00641|отказаться|reddetmek|vazgeçmek|a1
+w00643|свидетель|tanık|görgü tanığı|a1
+w00644|офицер|subay|zabit|a1
+w00647|затем|sonra|ardından|a1
+w00648|сделка|anlaşma|pazarlık|a1
+w00650|желать|dilemek|istemek|a1
+w00652|трудный|güç|çetin|a1
+w00653|удар|darbe|vuruş|a1
+w00654|переводчик|çevirmen|mütercim|a1
+w00655|здание|bina|yapı|a1
+w00657|разный|çeşitli|ayrı|a1
+w00659|доказательство|ispat|delil|a1
+w00661|подойти|yaklaşmak|uygun olmak|a1
+w00662|сложный|karmaşık|zor|a1
+w00664|уничтожить|yok etmek|imha etmek|a1
+w00665|иначе|yoksa|aksi taktirde|a1
+w00666|раньше|daha önce|eskiden|a1
+w00669|при|yanında|sırasında|a1
+w00670|мера|tedbir|önlem|a1
+w00671|эм|ıı|şey|a1
+w00673|форма|şekil|üniforma|a1
+w00674|бизнес|iş|ticaret|a1
+w00676|поднять|kaldırmak|yükseltmek|a1
+w00677|язык|dil|lisan|a1
+w00679|небо|gök|gökyüzü|a1
+w00685|снимать|çıkarmak|kiralamak|a1
+w00688|счёт|hesap|fatura|a1
+w00689|тихий|sessiz|sakin|a1
+w00691|документ|doküman|belge|a1
+w00692|защита|savunma|koruma|a1
+w00693|слава|şöhret|şan|a1
+w00695|какой-то|bir|herhangi bir|a1
+w00696|бабушка|büyükanne|nine|a1
+w00699|предлагать|önermek|teklif etmek|a1
+w00700|осторожный|sakıngan|dikkatli|a2
+w00705|когда-нибудь|bir gün|herhangi bir zaman|a2
+w00710|победить|yenmek|mağlup etmek|a2
+w00711|мнение|görüş|fikir|a2
+w00712|уровень|düzey|seviye|a2
+w00713|позже|daha sonra|sonradan|a2
+w00714|огонь|ateş|alev|a2
+w00715|называться|adlandırılmak|denilmek|a2
+w00716|действовать|davranmak|hareket etmek|a2
+w00719|готовить|pişirmek|hazırlamak|a2
+w00720|счастье|mutluluk|şans|a2
+w00721|приказ|buyruk|emir|a2
+w00725|сомневаться|şüphe duymak|emin olamamak|a2
+w00726|постоянный|sürekli|kalıcı|a2
+w00727|костюм|kostüm|takım elbise|a2
+w00728|поставить|koymak|yerleştirmek|a2
+w00729|договориться|anlaşmak|sözleşmek|a2
+w00733|свобода|özgürlük|hürriyet|a2
+w00736|учитель|öğretmen|hoca|a2
+w00738|заботиться|bakmak|ilgilenmek|a2
+w00740|планета|gezegen|seyyare|a2
+w00743|шеф|patron|şef|a2
+w00744|обнаружить|keşfetmek|bulmak|a2
+w00746|род|cins|tür|a2
+w00751|ударить|vurmak|çarpmak|a2
+w00752|обвинение|itham|suçlama|a2
+w00755|бедный|yoksul|fakir|a2
+w00756|терять|kaybetmek|yitirmek|a2
+w00762|судьба|kader|yazgı|a2
+w00763|отдел|bölüm|departman|a2
+w00765|покой|huzur|rahatlık|a2
+w00766|течение|akım|akıntı|a2
+w00767|достаточно|yeterince|oldukça|a2
+w00769|вокруг|etrafında|çevresinde|a2
+w00772|воздух|hava|atmosfer|a2
+w00773|быстро|çabuk|hızlı|a2
+w00775|цена|fiyat|paha|a2
+w00776|злой|kötü|huysuz|a2
+w00777|сожалеть|pişman olmak|üzülmek|a2
+w00782|петь|şarkı söylemek|okumak|a2
+w00784|врать|yalan söylemek|uydurmak|a2
+w00785|ублюдок|alçak|aşağılık|a2
+w00786|надежда|umut|ümit|a2
+w00787|память|bellek|hafıza|a2
+w00789|признать|kabul etmek|beyan etmek|a2
+w00791|вдруг|aniden|birden|a2
+w00792|танцевать|dans etmek|oynamak|a2
+w00793|оставлять|bırakmak|terk etmek|a2
+w00794|действие|eylem|hareket|a2
+w00795|платье|elbise|entari|a2
+w00796|касаться|değinmek|ilgilendirmek|a2
+w00798|покинуть|bırakmak|ayrılmak|a2
+w00799|совершенный|mükemmel|yetkin|a2
+w00800|судья|hakim|yargıç|a2
+w00802|убедиться|emin olmak|ikna olmak|a2
+w00805|служба|hizmet|vazife|a2
+w00806|например|örneğin|mesela|a2
+w00807|бросать|atmak|fırlatmak|a2
+w00812|полностью|tamamen|tamamıyla|a2
+w00813|особый|özel|ayrı|a2
+w00814|дышать|solumak|nefes almak|a2
+w00815|качество|nitelik|kalite|a2
+w00816|необходимый|gerekli|zorunlu|a2
+w00818|великолепный|muhteşem|harikulade|a2
+w00821|поезд|tren|katar|a2
+w00824|остров|ada|cezire|a2
+w00826|обсудить|konuşmak|tartışmak|a2
+w00832|линия|hat|çizgi|a2
+w00833|решать|karar vermek|halletmek|a2
+w00836|гордиться|gurur duymak|övünmek|a2
+w00837|ошибаться|yanılmak|hata yapmak|a2
+w00839|сезон|sezon|mevsim|a2
+w00840|показаться|görünmek|belirmek|a2
+w00842|вызывать|yol açmak|çağırmak|a2
+w00845|страх|korku|dehşet|a2
+w00847|взгляд|bakma|bakış|a2
+w00848|пуля|mermi|kurşun|a2
+w00849|красный|kırmızı|kızıl|a2
+w00851|туалет|tuvalet|abdesthane|a2
+w00855|несчастный|bedbaht|mutsuz|a2
+w00859|знак|işaret|belirti|a2
+w00861|значение|anlam|önem|a2
+w00862|большинство|çoğunluk|ekseriyet|a2
+w00863|выбирать|seçmek|ayıklamak|a2
+w00867|вариант|seçenek|alternatif|a2
+w00869|покупать|almak|satın almak|a2
+w00876|зуб|diş|dişler|a2
+w00879|наконец|sonunda|nihayet|a2
+w00880|позволять|izin vermek|olanak tanımak|a2
+w00883|совершить|işlemek|yapmak|a2
+w00884|позвать|seslenmek|aramak|a2
+w00885|относиться|ilgili olmak|davranmak|a2
+w00886|долг|borç|görev|a2
+w00887|плевать|tükürmek|fark etmez|a2
+w00888|положение|durum|konum|a2
+w00889|радость|sevinç|memnuniyet|a2
+w00890|ставить|koymak|yerleştirmek|a2
+w00891|частый|sık|sık sık|a2
+w00895|обожать|tapmak|taparcasına sevmek|a2
+w00896|утром|sabahleyin|sabah|a2
+w00897|охрана|koruma|güvenlik|a2
+w00898|лошадь|at|beygir|a2
+w00899|ресторан|restoran|lokanta|a2
+w00900|заслуживать|kazanmak|hak etmek|a2
+w00901|занять|işgal etmek|ödünç almak|a2
+w00902|прощать|affetmek|bağışlamak|a2
+w00903|надеть|giymek|takmak|a2
+w00904|планировать|plana almak|planlamak|a2
+w00905|ад|cehennem|tamu|a2
+w00908|дурак|aptal|ahmak|a2
+w00910|правительство|hükümet|yönetim|a2
+w00911|замок|kilit|şato|a2
+w00917|сохранить|korumak|devam ettirmek|a2
+w00923|наблюдать|gözetlemek|gözlemlemek|a2
+w00924|преступник|suçlu|cani|a2
+w00925|район|bölge|ilçe|a2
+w00928|словно|sanki|adeta|a2
+w00929|труп|ceset|naaş|a2
+w00930|бой|dövüş|kavga|a2
+w00933|беспокоить|endişelendirmek|rahatsız etmek|a2
+w00935|переехать|taşınmak|çiğnemek|a2
+w00938|генерал|general|paşa|a2
+w00939|очевидный|apaçık|bariz|a2
+w00941|ввиду|-den dolayı|göz önüne alınarak|a2
+w00942|поступать|davranmak|hareket etmek|a2
+w00944|забирать|almak|el koymak|a2
+w00945|сумка|çanta|file|a2
+w00946|тупой|kalın kafalı|aptal|a2
+w00947|картина|tablo|resim|a2
+w00950|условие|koşul|şart|a2
+w00951|бить|vurmak|çarpmak|a2
+w00952|название|isim|ad|a2
+w00955|угол|açı|köşe|a2
+w00957|человеческий|insani|insana özgü|a2
+w00958|успех|başarı|sükse|a2
+w00959|стан|beden|kamp|a2
+w00960|волновать|endişelendirmek|heyecanlandırmak|a2
+w00961|уволить|işten çıkarmak|kovmak|a2
+w00962|попытка|deneme|girişim|a2
+w00966|среди|arasında|ortasında|a2
+w00967|забавный|eğlenceli|komik|a2
+w00968|кусок|parça|lokma|a2
+w00969|ход|sıra|hamle|a2
+w00971|дедушка|dede|büyükbaba|a2
+w00973|пользоваться|kullanmak|faydalanmak|a2
+w00974|понятно|anlaşılır|açık|a2
+w00977|помешать|engellemek|mani olmak|a2
+w00978|довольно|oldukça|epeyce|a2
+w00979|чёрный|kara|siyah|a2
+w00985|урок|ders|sebak|a2
+w00986|грудь|göğüs|meme|a2
+w00987|требовать|gerektirmek|talep etmek|a2
+w00989|весёлый|şen|neşeli|a2
+w00991|кожа|cilt|deri|a2
+w00992|святой|aziz|ermiş|a2
+w00995|вниз|aşağıya|aşağı|a2
+w00996|задать|sormak|vermek|a2
+w00997|проверять|kontrol etmek|doğrulamak|a2
+w00998|опыт|deneyim|tecrübe|a2
+w00999|энергия|enerji|erke|a2
+w01000|танец|dans|oyun|a2
+w01001|вон|dışarı|ora|a2
+w01004|разрешить|izin vermek|halletmek|a2
+w01005|молчать|susmak|ses çıkmamak|a2
+w01006|глава|bölüm|başkan|a2
+w01007|скрывать|gizlemek|saklamak|a2
+w01008|впервые|ilk defa|ilk|a2
+w01009|нуждаться|ihtiyacı olmak|muhtaç olmak|a2
+w01011|поддержка|destek|yardım|a2
+w01014|лаборатория|laboratuvar|deney odası|a2
+w01015|обсуждать|söyleşmek|tartışmak|a2
+w01018|отпечаток|iz|baskı|a2
+w01022|пол|yer|taban|a2
+w01024|контроль|kontrol|denetim|a2
+w01025|процесс|süreç|işleme|a2
+w01026|мешать|rahatsız etmek|engellemek|a2
+w01028|движение|hareket|devinim|a2
+w01029|прибыть|varmak|ulaşmak|a2
+w01031|обычно|genellikle|çoğunlukla|a2
+w01033|доставить|ulaştırmak|teslim etmek|a2
+w01034|общаться|görüşmek|ilişki kurmak|a2
+w01035|поле|alan|saha|a2
+w01037|установить|saptamak|koymak|a2
+w01041|семейный|ailevi|aileye ait|a2
+w01043|здоровье|sağlık|sıhhat|a2
+w01045|неправильный|yanlış|hatalı|a2
+w01046|прочитать|mütalaa etmek|okumak|a2
+w01047|повторять|tekrarlamak|tekrar etmek|a2
+w01048|подарить|hediye etmek|armağan etmek|a2
+w01049|исследование|araştırma|inceleme|a2
+w01050|оттуда|oradan|oralardan|a2
+w01053|кино|sinema|film|a2
+w01057|недавно|yakınlarda|geçenlerde|a2
+w01058|сегодняшний|bugünkü|bugünün|a2
+w01059|анализ|analiz|tahlil|a2
+w01061|дикий|vahşi|yabani|a2
+w01062|звонкий|tiz|çınlayan|a2
+w01063|контролировать|denetlemek|kontrol etmek|a2
+w01064|управлять|idare etmek|yönetmek|a2
+w01065|слабый|güçsüz|zayıf|a2
+w01068|поездка|yolculuk|gidiş|a2
+w01069|слух|duyma|işitme duyusu|a2
+w01070|освободить|serbest bırakmak|özgürleştirmek|a2
+w01075|заявление|açıklama|arzuhâl|a2
+w01076|интерес|alaka|menfaat|a2
+w01078|вполне|tamamen|tamamıyla|a2
+w01079|лить|dökmek|akıtmak|a2
+w01081|занятие|uğraş|meşgale|a2
+w01083|скорость|hız|sürat|a2
+w01086|вечный|ebedi|kalıcı|a2
+w01088|устраивать|ayarlamak|düzenlemek|a2
+w01089|страдать|acı çekmek|ıstırap çekmek|a2
+w01090|вера|inanç|iman|a2
+w01093|размер|boyut|ölçü|a2
+w01094|ящик|kutu|sandık|a2
+w01095|средство|araç|vasıta|a2
+w01096|срок|süre|vade|a2
+w01098|крыша|çatı|dam|a2
+w01099|медицинский|medikal|tıbbi|a2
+w01102|сражаться|çarpışmak|cenk etmek|a2
+w01104|безопасный|güvenli|emin|a2
+w01106|граница|sınır|hudut|a2
+w01109|возвращение|dönüş|geri dönme|a2
+w01112|люк|rögar kapağı|menhol|a2
+w01113|река|nehir|ırmak|a2
+w01117|взрыв|patlama|infilak|a2
+w01118|пустить|bırakmak|salıvermek|a2
+w01119|таблетка|tablet|komprime|a2
+w01127|беда|belâ|felâket|a2
+w01128|количество|nicelik|miktar|a2
+w01130|узнавать|tanımak|öğrenmek|a2
+w01132|ужасно|korkunç|berbatça|a2
+w01134|задний|art|arka|a2
+w01135|суть|öz|esas|a2
+w01136|заслужить|kazanmak|hak etmek|a2
+w01137|совершенно|tamamen|kesinlikle|a2
+w01138|устать|yorulmak|usanmak|a2
+w01141|другое|diğer|başka|a2
+w01147|пошлый|bayağı|adi|a2
+w01149|меньше|daha az|daha küçük|a2
+w01153|жестокий|zalim|acımasız|a2
+w01155|однако|ancak|fakat|a2
+w01156|путешествие|yolculuk|seyahat|a2
+w01157|появляться|görünmek|ortaya çıkmak|a2
+w01162|призрак|hayalet|hortlak|a2
+w01163|расстроенный|üzgün|canı sıkkın|a2
+w01164|вовсе|hiç|asla|a2
+w01165|журнал|mecmua|dergi|a2
+w01166|борьба|mücadele|kavga|a2
+w01168|выстрел|atış|atım|a2
+w01169|виновный|suçlu|kabahatli|a2
+w01172|нападение|saldırı|akın|a2
+w01173|курить|sigara içmek|tütmek|a2
+w01176|ошибиться|hata yapmak|yanılmak|a2
+w01180|коллега|meslektaş|çalışma arkadaşı|a2
+w01182|помять|buruşturmak|ezmek|a2
+w01185|сомнение|şüphe|kuşku|a2
+w01186|ветер|rüzgâr|yel|a2
+w01188|полезный|faydalı|yararlı|a2
+w01189|видимый|görünür|görülebilir|a2
+w01190|борт|borda|kenar|a2
+w01192|вкусный|lezzetli|nefis|a2
+w01193|деталь|ayrıntı|detay|a2
+w01195|теория|kuram|teori|a2
+w01197|подходящий|elverişli|uygun|a2
+w01200|вызов|meydan okuması|celp kâğıdı|a2
+w01201|благодарный|müteşekkir|minnettar|a2
+w01202|жалкий|harap|acınası|a2
+w01205|кошмар|kâbus|karabasan|a2
+w01209|тайна|sır|giz|a2
+w01212|поскольку|-diği için|madem ki|a2
+w01213|болеть|ağrımak|hasta olmak|a2
+w01214|автомобиль|araba|otomobil|a2
+w01215|неправда|yalan|gerçek dışı|a2
+w01217|весьма|oldukça|hayli|a2
+w01218|поведение|davranışlar|hal ve gidiş|a2
+w01220|стиль|stil|biçem|a2
+w01221|крупный|büyük|önemli|a2
+w01223|ночной|gece|gecelik|a2
+w01224|польза|fayda|yarar|a2
+w01225|ужас|dehşet|korku|a2
+w01226|связанный|bağlı|ilişkili|a2
+w01227|тест|test|sınav|a2
+w01228|присесть|oturmak|çömelmek|a2
+w01230|клетка|kafes|hücre|a2
+w01231|чужой|yabancı|başkasının|a2
+w01236|модель|model|manken|a2
+w01238|природа|doğa|tabiat|a2
+w01239|примерно|yaklaşık|civarında|a2
+w01240|вероятный|muhtemel|olası|a2
+w01243|когда-либо|herhangi bir zaman|hiç|a2
+w01244|тренер|çalıştırıcı|antrenör|a2
+w01247|плечо|omuz|üstkol|a2
+w01248|лестница|merdiven|basamak|a2
+w01250|обратиться|başvurmak|dönmek|a2
+w01251|пример|örnek|misal|a2
+w01252|владелец|sahip|iye|a2
+w01253|интересовать|ilgi uyandırmak|ilgilendirmek|a2
+w01254|спуститься|inmek|aşağı inmek|a2
+w01255|постоянно|sürekli|temelli|a2
+w01260|домашний|ev|eve ait|a2
+w01261|мелкий|küçük|sığ|a2
+w01262|подозревать|kuşkulanmak|şüphelenmek|a2
+w01263|симпатичный|hoş|çekici|a2
+w01264|опаздывать|gecikmek|geç kalmak|a2
+w01268|утверждать|iddia etmek|öne sürmek|a2
+w01269|сладкий|tatlı|şekerli|a2
+w01270|часто|sık sık|sıkça|a2
+w01272|подниматься|yükselmek|kalkmak|a2
+w01274|ощущение|his|duygu|a2
+w01275|позиция|pozisyon|konum|a2
+w01278|болтать|sohbet etmek|gevezelik etmek|a2
+w01279|родной|öz|ana|a2
+w01280|выполнять|yerine getirmek|uygulamak|a2
+w01282|миссия|misyon|görev|a2
+w01285|опустить|indirmek|alçaltmak|a2
+w01290|образец|örnek|numune|a2
+w01291|сотрудник|çalışan|iş arkadaşı|a2
+w01292|грех|günah|vebal|a2
+w01293|риск|risk|riziko|a2
+w01294|похороны|yuğ|cenaze|a2
+w01300|аэропорт|havaalanı|hava alanı|a2
+w01303|строить|yapmak|dikmek|a2
+w01304|контакт|temas|iletişim|a2
+w01307|отказываться|reddetmek|vazgeçmek|a2
+w01308|территория|bölge|arazi|a2
+w01309|вход|antre|giriş|a2
+w01314|предполагать|varsaymak|sanmak|a2
+w01315|наблюдение|gözlem|gözetim|a2
+w01316|продажа|satış|satma|a2
+w01317|битва|cenk|savaş|a2
+w01318|легко|kolayca|kolaylıkla|a2
+w01319|лечение|kür|tedavi|a2
+w01321|проверка|denetim|denetleme|a2
+w01324|магия|büyü|sihir|a2
+w01325|меняться|değişmek|başkalaşmak|a2
+w01327|обстоятельство|durum|koşul|a2
+w01328|вверх|yukarıya|yukarı|a2
+w01330|бесплатный|bedava|ücretsiz|a2
+w01335|беречь|korumak|tasarruf etmek|a2
+w01336|рассчитывать|güvenmek|hesaba katmak|a2
+w01338|представление|fikir|gösteri|a2
+w01340|итог|akıbet|netice|a2
+w01341|издеваться|alay etmek|eziyet etmek|a2
+w01342|кусочек|parçacık|küçük parça|a2
+w01344|голый|çıplak|cavlak|a2
+w01348|когда-то|bir zamanlar|bir zaman|a2
+w01349|труд|eser|emek|a2
+w01352|лезть|tırmanmak|girmek|a2
+w01353|фамилия|soyadı|soy ismi|a2
+w01356|предел|limit|sınır|a2
+w01357|банда|çete|şebeke|a2
+w01358|самолёт|uçak|tayyare|a2
+w01359|травма|yaralanma|travma|a2
+w01361|устройство|cihaz|aygıt|a2
+w01363|обязательно|mutlaka|kesinlikle|a2
+w01364|внутрь|içeri|içine|a2
+w01366|перерыв|ara|mola|a2
+w01367|масло|tereyağı|yağ|a2
+w01368|упустить|kaçırmak|gözden kaçırmak|a2
+w01372|атака|hücum|hamle|a2
+w01376|пожар|yangın|ateş|a2
+w01382|майка|içlik|atlet|a2
+w01386|средний|orta|ortalama|a2
+w01387|поцелуй|öpme|öpüş|a2
+w01390|задача|görev|problem|a2
+w01393|собрание|toplantı|meclis|a2
+w01394|мастер|usta|ustabaşı|a2
+w01396|рабочий|işçi|amele|a2
+w01398|ловить|tutmak|avlamak|a2
+w01400|абсолютно|tamamen|büsbütün|a2
+w01401|приближаться|yanaşmak|yaklaşmak|a2
+w01405|свинья|domuz|hınzır|a2
+w01408|рынок|pazar|hal|a2
+w01410|вред|zarar|ziyan|a2
+w01413|видный|görünür|bariz|a2
+w01414|выстрелить|ateş etmek|ateşlemek|a2
+w01417|замечательно|harika|çok güzel|a2
+w01418|наука|bilim|ilim|a2
+w01423|догадаться|anlamak|sezmek|a2
+w01426|громкий|yüksek|gür|a2
+w01427|концерт|konser|resital|a2
+w01428|ставка|faiz|bahis|a2
+w01429|стопа|ayak|ayak tabanı|a2
+w01430|зато|buna karşılık|ama|a2
+w01431|маска|maske|maskeleme|a2
+w01433|пляж|plaj|kumsal|a2
+w01436|напарник|iş arkadaşı|partner|a2
+w01437|толпа|kalabalık|kitle|a2
+w01440|тихо|sessizce|yavaşça|a2
+w01442|взяться|almak|tutmak|a2
+w01443|творить|oluşturmak|yaratmak|a2
+w01444|дыра|delik|allah'ın dağı|a2
+w01446|совершать|eylemek|yapmak|a2
+w01449|вне|dışında|dışarısında|a2
+w01450|крик|feryat|bağırış|a2
+w01452|копия|kopya|suret|a2
+w01454|могила|mezar|kabir|a2
+w01455|охотиться|avlanmak|avlamak|a2
+w01460|надоесть|bıktırmak|canını sıkmak|a2
+w01461|изучать|öğrenmek|incelemek|a2
+w01465|шляпа|şapka|başlık|a2
+w01466|организация|kuruluş|teşkilat|a2
+w01467|предоставить|sağlamak|sunmak|a2
+w01469|изменение|değişiklik|değişim|a2
+w01471|предположить|varsaymak|tahmin etmek|a2
+w01472|зад|kıç|popo|a2
+w01473|пост|görev|makam|a2
+w01474|перевести|tercüme etmek|çevirmek|a2
+w01476|передача|program|yayın|a2
+w01477|спасение|kurtarma|kurtuluş|a2
+w01478|доверие|güven|emniyet|a2
+w01479|двойной|çift|ikili|a2
+w01480|житель|sakin|oturan|a2
+w01481|основной|temel|ana|a2
+w01483|студент|öğrenci|talebe|a2
+w01485|кость|kemik|zar|a2
+w01486|среда|çarşamba|etraf|a2
+w01488|банка|kavanoz|teneke kutu|a2
+w01489|интервью|röportaj|mülakat|a2
+w01490|истинный|gerçek|hakiki|a2
+w01492|реклама|reklam|ilan|a2
+w01496|водить|araba kullanmak|yönetmek|a2
+w01497|невинный|masum|günahsız|a2
+w01499|зло|kötülük|fenalık|a2
+w01500|создание|yaratık|yaratma|a2
+w01504|медленный|ağır|yavaş|a2
+w01505|обязанность|görev|sorumluluk|a2
+w01506|влюблённый|vurgun|aşık|a2
+w01507|охота|av|avcılık|a2
+w01508|экзамен|sınav|imtihan|a2
+w01512|грубый|kaba|kaba saba|a2
+w01513|зарабатывать|kazanmak|para kazanmak|a2
+w01516|признак|belirti|işaret|a2
+w01517|необходимость|gereklilik|zorunluluk|a2
+w01519|менеджер|yönetici|müdür|a2
+w01520|вероятно|muhtemelen|büyük olasılıkla|a2
+w01526|указывать|işaret etmek|belirtmek|a2
+w01527|отдавать|vermek|geri vermek|a2
+w01528|грустный|üzgün|hüzünlü|a2
+w01531|пацан|delikanlı|çocuk|a2
+w01532|вынести|dışarı çıkarmak|taşımak|a2
+w01533|реакция|tepki|reaksiyon|a2
+w01534|судить|yargılamak|hüküm vermek|a2
+w01535|степень|derece|ölçü|a2
+w01538|приглашать|davet etmek|çağırmak|a2
+w01539|должность|görev|memuriyet|a2
+w01540|приглашение|davet|çağrı|a2
+w01542|торт|kek|pasta|a2
+w01544|мешок|torba|çuval|a2
+w01548|награда|ödül|mükâfat|a2
+w01549|дружба|arkadaşlık|dostluk|a2
+w01554|жалеть|pişman olmak|acımak|a2
+w01558|слепой|kör|âmâ|a2
+w01559|волшебный|sihirli|büyülü|a2
+w01560|ванна|banyo|banyo küveti|a2
+w01562|отделение|şube|bölüm|a2
+w01565|последствие|sonuç|akıbet|a2
+w01566|впечатление|izlenim|etki|a2
+w01568|стул|sandalye|iskemle|a2
+w01569|зря|boşuna|nafile|a2
+w01570|заглянуть|göz atmak|uğramak|a2
+w01571|замолчать|sesini kesmek|susmak|a2
+w01572|крепкий|güçlü|pek|a2
+w01573|основание|temel|gerekçe|a2
+w01574|мужской|erkek|eril|a2
+w01575|неизвестный|bilinmez|belirsiz|a2
+w01576|дар|hediye|yetenek|a2
+w01577|замечать|farketmek|fark etmek|a2
+w01580|бред|saçmalık|hezeyan|a2
+w01583|способность|yetenek|kabiliyet|a2
+w01584|драка|dövüş|kavga|a2
+w01585|футбол|futbol|ayak topu|a2
+w01586|записка|not|pusula|a2
+w01587|толстый|şişman|kalın|a2
+w01589|единый|birleşik|tek|a2
+w01590|невиновный|suçsuz|masum|a2
+w01591|мотив|motif|sebep|a2
+w01593|трус|korkak|ödlek|a2
+w01595|договор|antlaşma|sözleşme|a2
+w01597|починить|tamir etmek|onarmak|a2
+w01600|иной|başka|diğer|a2
+w01601|красавица|güzel kadın|güzel kız|a2
+w01602|тревога|endişe|alarm|a2
+w01604|общественный|toplumsal|kamusal|a2
+w01607|коридор|koridor|dehliz|a2
+w01611|дед|büyükbaba|ihtiyar|a2
+w01612|кое-какой|bazı|birkaç|a2
+w01619|вновь|yine|gene|a2
+w01621|родственник|hısım|akraba|a2
+w01623|признание|itiraf|kabul|a2
+w01626|знаменитый|ünlü|meşhur|a2
+w01628|орган|organ|org|a2
+w01630|требоваться|gerekmek|ihtiyaç duyulmak|a2
+w01632|технология|teknoloji|teknikler|a2
+w01634|принцип|ilke|prensip|a2
+w01637|покидать|ayrılmak|terk etmek|a2
+w01638|напиток|içecek|içki|a2
+w01639|попрощаться|veda etmek|vedalaşmak|a2
+w01640|коробок|kutu|kibrit kutusu|a2
+w01646|зал|salon|hol|a2
+w01647|пространство|mekân|alan|a2
+w01648|волк|kurt|böri|a2
+w01649|репутация|itibar|şöhret|a2
+w01651|улыбка|gülüş|tebessüm|a2
+w01658|доля|pay|hisse|a2
+w01659|дочка|kız|bağlı kuruluş|a2
+w01660|обмен|değişim|değiş tokuş|a2
+w01661|во-первых|birincisi|ilk olarak|a2
+w01664|очаровательный|büyüleyici|füsunkar|a2
+w01665|склад|depo|ambar|a2
+w01668|юг|güney|cenup|a2
+w01670|победитель|kazanan|galip|a2
+w01671|заканчивать|bitirmek|tamamlamak|a2
+w01672|область|bölge|alan|a2
+w01676|приводить|getirmek|yol açmak|a2
+w01677|труба|boru|trompet|a2
+w01680|удобный|elverişli|konforlu|a2
+w01681|современный|çağdaş|modern|a2
+w01683|дополнительный|ek|ilave|a2
+w01690|жених|nişanlı|güvey|a2
+w01691|хрень|saçmalık|zırva|a2
+w01693|гнев|öfke|kızgınlık|a2
+w01694|век|yüzyıl|asır|a2
+w01695|температура|sıcaklık|hararet|a2
+w01696|отдыхать|dinlenmek|istirahat etmek|a2
+w01698|берег|sahil|kıyı|a2
+w01699|повернуться|dönmek|çevrilmek|a2
+w01700|давить|basmak|ezmek|a2
+w01701|характер|karakter|huy|a2
+w01702|отдых|dinlenme|istirahat|a2
+w01703|спускаться|inmek|aşağı inmek|a2
+w01704|дракон|ejder|ejderha|a2
+w01705|мак|haşhaş|gelincik|a2
+w01708|автор|yazar|muharrir|a2
+w01709|трава|ot|çimen|a2
+w01710|террорист|terörist|tedhişçi|a2
+w01712|зарплата|maaş|ücret|a2
+w01715|высота|yükseklik|irtifa|a2
+w01716|веко|göz kapağı|gözkapağı|a2
+w01718|описать|tarif etmek|betimlemek|a2
+w01721|забота|özen|bakım|a2
+w01722|тёмный|karanlık|cahil|a2
+w01723|шпион|ajan|casus|a2
+w01729|усилие|çaba|gayret|a2
+w01731|шар|küre|top|a2
+w01732|покупка|alış|satın alma|a2
+w01735|смех|gülüş|gülme|a2
+w01736|повреждение|hasar|yaralanma|a2
+w01738|боевой|savaşa ait|askeri|a2
+w01740|гражданин|vatandaş|yurttaş|a2
+w01741|представитель|temsilci|mümessil|a2
+w01742|острый|sivri|keskin|a2
+w01744|политический|politik|siyasi|a2
+w01746|яд|zehir|ağı|a2
+w01747|рейс|sefer|uçuş|a2
+w01749|состоять|oluşmak|ibaret olmak|a2
+w01751|открытие|açılış|keşif|a2
+w01752|проникнуть|sızmak|gizlice girmek|a2
+w01756|отсутствие|yokluk|olmama|a2
+w01757|расстояние|mesafe|uzaklık|a2
+w01760|корова|inek|sığır|a2
+w01761|вынужденный|mecburi|zorunlu|a2
+w01762|фонд|kuruluş|fon|a2
+w01763|включать|içermek|dahil etmek|a2
+w01764|славный|ünlü|iyi|a2
+w01767|тащить|sürüklemek|çekmek|a2
+w01772|легенда|efsane|menkıbe|a2
+w01773|создавать|yaratmak|oluşturmak|a2
+w01775|случайно|kazara|rastgele|a2
+w01777|явный|aşikâr|apaçık|a2
+w01778|темнота|karanlık|bilgisizlik|a2
+w01779|рисовать|çizmek|resmetmek|a2
+w01780|наоборот|tam tersine|aksine|a2
+w01781|ракета|füze|roket|a2
+w01782|недостаточный|eksik|yetersiz|a2
+w01783|зверь|hayvan|canavar|a2
+w01784|разумный|akıllı|akla yatkın|a2
+w01786|обувь|ayakkabı|kundura|a2
+w01788|приём|kabul|resepsiyon|a2
+w01789|удачный|başarılı|isabetli|a2
+w01792|уход|bakım|terketme|a2
+w01797|док|rıhtım|yükleme rampası|a2
+w01801|упомянуть|değinmek|söz etmek|a2
+w01804|сводить|bir araya getirmek|indirgemek|a2
+w01805|привлекательный|cazip|gösterişli|a2
+w01810|приветствовать|selamlamak|karşılamak|a2
+w01818|западный|batı|garbi|a2
+w01821|рак|kanser|kerevit|a2
+w01822|запустить|başlatmak|çalıştırmak|a2
+w01824|колесо|tekerlek|teker|a2
+w01826|печальный|üzgün|hüzünlü|a2
+w01829|сообщать|bildirmek|haber vermek|a2
+w01830|чемодан|valiz|bavul|a2
+w01831|космический|uzaya ait|kozmik|a2
+w01833|страдание|acı|eziyet|a2
+w01835|лист|yaprak|levha|a2
+w01839|столкнуться|çarpışmak|karşılaşmak|a2
+w01840|период|dönem|devir|a2
+w01842|поколение|nesil|kuşak|a2
+w01844|древний|antik|kadim|a2
+w01846|блюдо|yemek|servis tabağı|a2
+w01848|неприятный|nahoş|tatsız|a2
+w01851|пилот|pilot|havacı|a2
+w01853|подозрение|kuşku|şüphe|a2
+w01855|заканчиваться|bitmek|sona ermek|a2
+w01856|чокнутый|kaçık|çılgın|a2
+w01859|восток|doğu|şark|a2
+w01861|печенье|bisküvi|kurabiye|a2
+w01862|вечно|ebediyen|sonsuza dek|a2
+w01864|крошка|kırıntı|bebeğim|a2
+w01865|неожиданный|beklenmedik|umulmadık|a2
+w01867|кража|hırsızlık|soyma|a2
+w01871|попадать|rastlamak|düşmek|a2
+w01872|подросток|ergen|genç|a2
+w01877|обеспечить|sağlamak|temin etmek|a2
+w01878|пёс|büyük köpek|köpek|a2
+w01881|космос|uzay|kozmos|a2
+w01885|советовать|öneride bulunmak|tavsiye etmek|a2
+w01887|мелочь|bozuk para|önemsiz şey|a2
+w01891|агентство|ajans|acente|a2
+w01892|катастрофа|felaket|katastrof|a2
+w01893|бокал|kadeh|bardak|a2
+w01894|физический|fiziksel|fizik|a2
+w01895|запад|batı|garp|a2
+w01896|традиция|gelenek|anane|a2
+w01899|отличаться|farklı olmak|ayrılmak|a2
+w01901|мобильный|mobil|cep telefonu|b1
+w01902|завидовать|gıpta etmek|kıskanmak|b1
+w01904|пятно|leke|benek|b1
+w01906|сволочь|alçak|aşağılık|b1
+w01911|образование|eğitim|öğrenim|b1
+w01916|удалить|silmek|kaldırmak|b1
+w01917|фанат|hayran|taraftar|b1
+w01918|знакомство|tanışıklık|aşinalık|b1
+w01919|союз|bağlaç|birlik|b1
+w01922|грязь|kir|balçık|b1
+w01923|лишний|gereksiz|artık|b1
+w01924|некий|belli bir|bir çeşit|b1
+w01926|сквозь|içinden|arasından|b1
+w01927|незаконный|yasadışı|kanunsuz|b1
+w01929|писатель|yazar|müellif|b1
+w01931|поспорить|tartışmak|iddiaya girmek|b1
+w01932|беседа|sohbet|konuşma|b1
+w01933|акция|hisse senedi|kampanya|b1
+w01937|трюк|numara|hile|b1
+w01941|ткань|kumaş|dokuma|b1
+w01942|заключение|sonuç|hapis|b1
+w01944|повернуть|döndürmek|çevirmek|b1
+w01946|скажем|diyelim ki|mesela|b1
+w01950|любовник|gizli sevgili|aşık|b1
+w01951|поворот|dönemeç|viraj|b1
+w01953|сердиться|kızmak|sinirlenmek|b1
+w01954|оборудование|ekipman|teçhizat|b1
+w01956|ненависть|nefret|kin|b1
+w01965|объявление|ilan|duyuru|b1
+w01966|символ|sembol|işaret|b1
+w01967|фраза|ibare|cümlecik|b1
+w01968|заказывать|sipariş etmek|ısmarlamak|b1
+w01969|сырой|çiğ|nemli|b1
+w01970|отпускать|bırakmak|salıvermek|b1
+w01971|сбор|toplama|harç|b1
+w01972|направить|yöneltmek|göndermek|b1
+w01973|специалист|uzman|mütehassıs|b1
+w01974|строгий|sıkı|katı|b1
+w01975|доска|yazı tahtası|tahta|b1
+w01977|беспокойство|tedirginlik|huzursuzluk|b1
+w01979|летний|yaz|yazlık|b1
+w01981|прочий|başka|sair|b1
+w01982|влияние|etki|nüfuz|b1
+w01983|вывод|sonuç|çıkarım|b1
+w01986|мотоцикл|motosiklet|motor|b1
+w01988|экран|bilgisayar ekranı|ekran|b1
+w01990|внешний|dış|harici|b1
+w01992|прикончить|bitirmek|öldürmek|b1
+w01995|простой|basit|kolay|b1
+w01997|прибыль|kâr|kazanç|b1
+w01999|истина|gerçek|doğru|b1
+w02000|надевать|giymek|takmak|b1
+w02001|секретарь|sekreter|yazman|b1
+w02002|слабость|zayıflık|zaaf|b1
+w02003|верхний|üst|yukarı|b1
+w02008|терапия|terapi|tedavi|b1
+w02009|развлекаться|eğlenmek|gönül eğlendirmek|b1
+w02011|шина|lastik|atel|b1
+w02013|блестящий|parlak|göz kamaştırıcı|b1
+w02015|полдень|öğle|öğle vakti|b1
+w02016|любезный|nazik|kibar|b1
+w02017|тост|kadeh kaldırma|tost|b1
+w02018|набор|takım|set|b1
+w02022|чек|çek|fiş|b1
+w02024|кататься|gezmek|kaymak|b1
+w02027|шикарный|şık|lüks|b1
+w02030|освобождение|kurtuluş|serbest bırakma|b1
+w02031|заводить|başlatmak|edinmek|b1
+w02032|подробность|ayrıntı|incelik|b1
+w02035|персонал|personel|elemanlar|b1
+w02037|видение|görüş|görme|b1
+w02038|портить|bozmak|mahvetmek|b1
+w02039|внук|erkek torun|torun|b1
+w02041|фальшивый|sahte|taklit|b1
+w02042|персонаж|karakter|kişi|b1
+w02044|поход|gezi|sefer|b1
+w02045|неловкий|beceriksiz|sakar|b1
+w02046|широкий|enli|geniş|b1
+w02051|справедливый|adil|doğru|b1
+w02052|преимущество|avantaj|üstünlük|b1
+w02053|привычка|alışkanlık|âdet|b1
+w02054|согласие|mutabakat|izin|b1
+w02058|картинка|resim|görsel|b1
+w02059|определённый|belirli|kesin|b1
+w02060|сохранять|korumak|saklamak|b1
+w02061|биться|çırpınmak|atmak|b1
+w02064|международный|uluslararası|enternasyonal|b1
+w02067|свадебный|düğün|düğünlük|b1
+w02069|перемена|değişiklik|teneffüs|b1
+w02070|делиться|paylaşmak|bölünmek|b1
+w02071|тёплый|ılık|sıcak|b1
+w02072|веселье|eğlence|neşe|b1
+w02075|залог|depozito|kefalet|b1
+w02080|нежный|şefkatli|nazik|b1
+w02082|отнять|almak|elinden almak|b1
+w02083|вероятность|ihtimal|olasılık|b1
+w02086|основа|temel|esas|b1
+w02090|вершина|doruk|zirve|b1
+w02092|уверенность|güven|kendine güven|b1
+w02094|краска|boya|renk|b1
+w02097|одинаковый|aynı|bir|b1
+w02099|руководство|yönetim|kılavuz|b1
+w02100|несчастье|talihsizlik|felaket|b1
+w02101|матч|maç|yarışma|b1
+w02104|песнь|şarkı|türkü|b1
+w02105|тачка|el arabası|araba|b1
+w02107|помещение|oda|mekân|b1
+w02109|юридический|hukuki|hukuk|b1
+w02110|нервный|sinirli|sinirsel|b1
+w02111|падение|düşüş|düşme|b1
+w02112|приют|barınak|yetimhane|b1
+w02115|тина|batak çamuru|yosunlar|b1
+w02116|режим|düzen|rejim|b1
+w02117|рассвет|fecir|seher|b1
+w02118|храм|tapınak|mabet|b1
+w02121|причинять|neden olmak|vermek|b1
+w02122|поверхность|yüzey|yüz|b1
+w02128|сведение|bilgi|indirgeme|b1
+w02130|исчезать|ortadan kalkmak|yok olmak|b1
+w02132|глядеть|bakmak|gözetmek|b1
+w02134|красть|araklamak|çalmak|b1
+w02138|культура|kültür|medeniyet|b1
+w02139|задуматься|düşünceye dalmak|duraksamak|b1
+w02140|кутить|cümbüş yapmak|eğlenmek|b1
+w02144|кровавый|kanlı|hunhar|b1
+w02148|кризис|kriz|buhran|b1
+w02150|пустыня|çöl|sahra|b1
+w02152|раздражать|sinirlendirmek|tahriş etmek|b1
+w02155|дурной|kötü|aptalca|b1
+w02157|развитие|gelişme|kalkınma|b1
+w02163|вещество|madde|cisim|b1
+w02165|прелесть|çekicilik|güzellik|b1
+w02167|серый|gri|boz|b1
+w02168|заклинание|büyü|tılsım|b1
+w02170|великолепно|mükemmel biçimde|görkemli|b1
+w02171|ссора|kavga|tartışma|b1
+w02173|последовать|izlemek|ardından gelmek|b1
+w02175|подразделение|alt birim|departman|b1
+w02177|выпуск|mezuniyet|cüz|b1
+w02180|конфета|şekerleme|bonbon|b1
+w02181|болван|sersem|moron|b1
+w02182|уважаемый|saygıdeğer|sayın|b1
+w02186|поражение|yenilgi|mağlubiyet|b1
+w02187|подряд|art arda|arka arkaya|b1
+w02189|королевство|krallık|kraliyet|b1
+w02191|согласно|-e göre|uyarınca|b1
+w02192|требование|istek|istem|b1
+w02194|хорошенько|iyice|güzelce|b1
+w02195|няня|dadı|bakıcı|b1
+w02196|скандал|skandal|kavga|b1
+w02197|изображение|görüntü|resim|b1
+w02198|почитать|saymak|hürmet etmek|b1
+w02199|навык|meleke|beceri|b1
+w02201|приличный|uygun|adam gibi|b1
+w02203|гнать|kovalamak|sürmek|b1
+w02204|указать|belirtmek|göstermek|b1
+w02205|жаркий|sıcak|hararetli|b1
+w02208|успокоить|sakinleştirmek|yatıştırmak|b1
+w02209|отказ|ret|reddetme|b1
+w02212|искренний|candan|içten|b1
+w02213|зритель|seyirci|izleyici|b1
+w02219|обман|aldatma|hile|b1
+w02221|выбить|kırmak|zorla almak|b1
+w02222|посещать|ziyaret etmek|yoklamak|b1
+w02224|отдельный|ayrı|müstakil|b1
+w02226|чан|tekne|fıçı|b1
+w02227|охранять|gözetmek|korumak|b1
+w02233|недостаток|eksiklik|kusur|b1
+w02235|милость|merhamet|lütuf|b1
+w02237|запас|envanter|ihtiyat|b1
+w02240|горе|keder|dert|b1
+w02243|беспорядок|düzensizlik|karışıklık|b1
+w02244|войско|ordu|asker|b1
+w02246|бюро|ofis|büro|b1
+w02252|рассматривать|incelemek|ele almak|b1
+w02254|деловой|işle ilgili|ticari|b1
+w02257|увеличить|artırmak|büyütmek|b1
+w02259|автомат|otomat|piyade tüfeği|b1
+w02260|повышение|artış|terfi|b1
+w02262|догнать|yakalamak|anlamak|b1
+w02264|достоинство|onur|haysiyet|b1
+w02265|свести|bir araya getirmek|tanıştırmak|b1
+w02266|руководитель|yönetici|müdür|b1
+w02271|описание|betimleme|tasvir|b1
+w02272|предок|cet|ata|b1
+w02274|флаг|bayrak|sancak|b1
+w02276|вечность|sonsuzluk|öncesizlik|b1
+w02278|организм|organizma|canlı|b1
+w02279|пьеса|piyes|tiyatro oyunu|b1
+w02280|вылечить|iyileştirmek|tedavi etmek|b1
+w02281|верх|üst|yukarı|b1
+w02283|светлый|açık|aydın|b1
+w02286|дарить|hediye etmek|bağışlamak|b1
+w02287|двигать|hareket ettirmek|taşımak|b1
+w02288|свеча|mum|buji|b1
+w02291|руководить|yönetmek|idare etmek|b1
+w02292|сучок|ince dal|boğum|b1
+w02293|оплата|ödeme|ücret|b1
+w02295|толкать|itmek|kakmak|b1
+w02297|ворот|yaka|bocurgat|b1
+w02298|рок|rock|kader|b1
+w02303|воровать|çalmak|hırsızlık etmek|b1
+w02306|монета|madeni para|bozuk para|b1
+w02308|шахта|maden ocağı|kuyu|b1
+w02314|ступать|adım atmak|gitmek|b1
+w02315|годиться|işe yaramak|uygun olmak|b1
+w02317|основанный|kurulmuş|dayanan|b1
+w02318|пила|testere|bıçkı|b1
+w02322|атмосфера|atmosfer|havaküre|b1
+w02323|пожарный|itfaiyeci|yangına ait|b1
+w02324|пароль|parola|şifre|b1
+w02326|сопротивление|direniş|mukavemet|b1
+w02327|багажник|bagaj bölümü|portbagaj|b1
+w02328|произносить|telaffuz etmek|söylemek|b1
+w02329|ремонт|onarım|tamir|b1
+w02332|испытать|denemek|deneyimlemek|b1
+w02334|общение|iletişim|sohbet|b1
+w02335|обойти|etrafından dolaşmak|atlatmak|b1
+w02338|возвращать|geri vermek|iade etmek|b1
+w02339|удерживать|tutmak|alıkoymak|b1
+w02341|наряд|giyim|nöbet görevi|b1
+w02345|доход|gelir|kazanç|b1
+w02348|предположение|zan|varsayım|b1
+w02351|отрезать|kesmek|kesip ayırmak|b1
+w02352|юмор|mizah|güldürü|b1
+w02356|перо|tüy|kalem|b1
+w02360|различный|farklı|çeşitli|b1
+w02362|прочь|uzağa|çekil|b1
+w02363|трудность|zorluk|güçlük|b1
+w02365|повести|götürmek|yönetmek|b1
+w02366|воевать|savaşmak|çarpışmak|b1
+w02367|выпускать|salıvermek|salmak|b1
+w02372|хаос|kaos|karmakarışık hal|b1
+w02373|палка|değnek|sopa|b1
+w02376|кадр|kare|çerçeve|b1
+w02378|орать|bağırmak|haykırmak|b1
+w02379|пытка|işkence|azap|b1
+w02381|торговля|ticaret|satış|b1
+w02382|осуждать|kınamak|mahkûm etmek|b1
+w02383|ровный|düz|düzgün|b1
+w02385|появление|ortaya çıkma|görünme|b1
+w02386|произнести|söylemek|telaffuz etmek|b1
+w02389|свидетельство|tanıklık|şahadet|b1
+w02390|значительный|önemli|kayda değer|b1
+w02391|молния|yıldırım|şimşek|b1
+w02392|маршрут|güzergah|hat|b1
+w02395|полоса|şerit|çizgi|b1
+w02396|рубить|kesmek|doğramak|b1
+w02399|ущерб|zarar|hasar|b1
+w02402|метро|metro|metropoliten|b1
+w02403|запретить|yasaklamak|menetmek|b1
+w02406|жизненный|canlı gibi|hayati|b1
+w02408|ощущать|hissetmek|duymak|b1
+w02409|достижение|başarı|başarım|b1
+w02410|кинуть|atmak|fırlatmak|b1
+w02411|одеяло|battaniye|yorgan|b1
+w02413|ибо|çünkü|zira|b1
+w02414|стучать|vurmak|ihbar etmek|b1
+w02416|крест|haç|çarpı|b1
+w02417|назначение|atama|tayin|b1
+w02418|гордый|gururlu|kıvançlı|b1
+w02419|долина|koyak|vadi|b1
+w02422|казино|kumarhane|kazino|b1
+w02423|неудачный|isabetsiz|talihsiz|b1
+w02424|торчать|çıkıntı yapmak|takılmak|b1
+w02426|угостить|ikram etmek|ısmarlamak|b1
+w02427|скала|kaya|yalıyar|b1
+w02428|тара|ambalaj|kap|b1
+w02431|скромный|babayani|alçak gönüllü|b1
+w02433|разрыв|kopma|ayrılma|b1
+w02434|смелость|cesaret|yiğitlik|b1
+w02436|прекращать|bırakmak|durdurmak|b1
+w02439|революция|devrim|inkilâp|b1
+w02442|питание|beslenme|gıda|b1
+w02443|патрон|fişek|kartuş|b1
+w02444|ремень|kemer|kayış|b1
+w02445|ствол|namlu|gövde|b1
+w02447|вложить|yatırmak|koymak|b1
+w02449|публичный|kamu|halk|b1
+w02451|жар|ateş|ısı|b1
+w02452|площадь|meydan|alan|b1
+w02456|конфликт|çatışma|anlaşmazlık|b1
+w02458|вашингтон|washington|vaşington|b1
+w02460|музыкант|müzisyen|müzikçi|b1
+w02462|комментарий|yorum|açıklama|b1
+w02464|состав|bileşim|kadro|b1
+w02465|змей|uçurtma|ejder|b1
+w02466|мероприятие|etkinlik|faaliyet|b1
+w02469|шоссе|kara yolu|ana cadde|b1
+w02472|порт|port|liman|b1
+w02473|деятельность|faaliyet|etkinlik|b1
+w02477|спектакль|temsil|oyun|b1
+w02479|фигура|figür|şekil|b1
+w02480|пища|yiyecek|besin|b1
+w02481|сектор|kesim|sektör|b1
+w02482|указание|gösterme|buyruk|b1
+w02483|уникальный|tek|benzersiz|b1
+w02484|соседний|komşu|bitişik|b1
+w02485|конкретный|somut|belirli|b1
+w02486|фрукт|meyve|meyva|b1
+w02488|составлять|oluşturmak|teşkil etmek|b1
+w02491|отвлечь|dikkatini dağıtmak|oyalamak|b1
+w02494|схема|şema|plan|b1
+w02495|отвлекать|dikkatini dağıtmak|oyalamak|b1
+w02497|обязательство|senet|yükümlülük|b1
+w02498|копать|kazmak|açmak|b1
+w02501|мебель|mobilya|döşeme|b1
+w02502|сдавать|teslim etmek|sınava girmek|b1
+w02504|жаждать|susamak|arzulamak|b1
+w02505|религиозный|ruhani|dindar|b1
+w02507|пробка|mantar|tıpa|b1
+w02509|напряжение|gerilim|gerginlik|b1
+w02514|вежливый|kibar|nazik|b1
+w02515|пояс|kemer|kuşak|b1
+w02516|луч|ışın|şua|b1
+w02518|горничная|hizmetçi|oda hizmetçisi|b1
+w02519|добиваться|başarmak|elde etmek|b1
+w02520|оборона|koruma|müdafaa|b1
+w02521|побеждать|kazanmak|yenmek|b1
+w02523|установленный|belirlenmiş|kurulmuş|b1
+w02526|защитник|savunucu|koruyucu|b1
+w02529|масса|kütle|kalabalık|b1
+w02530|любовница|metres|sevgili|b1
+w02531|любитель|amatör|özenci|b1
+w02532|приход|varış|gelme|b1
+w02540|прелестный|sevimli|güzel|b1
+w02541|анонимный|anonim|imzasız|b1
+w02544|окончательный|kesin|nihai|b1
+w02547|проход|geçit|koridor|b1
+w02548|расстройство|bozukluk|üzüntü|b1
+w02550|годовщина|yıldönümü|yıl dönümü|b1
+w02551|пешком|yaya|yürüyerek|b1
+w02552|дорожка|patika|yol|b1
+w02559|глубоко|derinden|derince|b1
+w02560|скрыться|saklanmak|gözden kaybolmak|b1
+w02562|кент|dost|ahbap|b1
+w02563|дальнейший|sonraki|ileriki|b1
+w02565|повар|aşçı|ahçı|b1
+w02566|уголовный|ceza|cezai|b1
+w02567|влезть|girmek|tırmanmak|b1
+w02568|подтверждение|doğrulama|teyit|b1
+w02574|опека|vasilik etme|velilik|b1
+w02576|спокойствие|itidal|dinginlik|b1
+w02584|связывать|ilişkilendirmek|bağlamak|b1
+w02587|население|nüfus|ahali|b1
+w02589|братство|kardeşlik|birlik|b1
+w02590|договариваться|anlaşmak|uzlaşmak|b1
+w02593|этап|safha|aşama|b1
+w02594|добыча|ganimet|av|b1
+w02595|кучка|yığın|küçük grup|b1
+w02597|прыжок|atlama|sıçrama|b1
+w02598|ныть|sızlanmak|yakınmak|b1
+w02600|посвятить|adamak|ithaf etmek|b1
+w02603|сталкиваться|çarpışmak|karşılaşmak|b1
+w02604|грабитель|soyguncu|yağmacı|b1
+w02605|медицина|tıp|tababet|b1
+w02606|сочувствовать|acımak|sempati duymak|b1
+w02609|исследовать|araştırmak|analiz etmek|b1
+w02612|заблудиться|kaybolmak|yolunu şaşırmak|b1
+w02613|сплошной|sürekli|kesintisiz|b1
+w02615|изображать|betimlemek|canlandırmak|b1
+w02616|съехать|taşınmak|kaymak|b1
+w02617|гадость|pislik|iğrençlik|b1
+w02618|исполнение|icra|yerine getirme|b1
+w02619|бык|boğa|öküz|b1
+w02620|конференция|konferans|toplantı|b1
+w02621|чистить|temizlemek|arıtmak|b1
+w02623|штраф|para cezası|ceza|b1
+w02624|завершить|tamamlamak|bitirmek|b1
+w02633|втянуть|çekmek|dahil etmek|b1
+w02636|завещание|vasiyet|vasiyetname|b1
+w02637|имущество|mal|eşya|b1
+w02639|прибор|alet|cihaz|b1
+w02641|плач|ağlama|ağlayış|b1
+w02644|сиденье|oturma yeri|koltuk|b1
+w02645|топливо|yakıt|yakacak|b1
+w02646|сражение|savaş|muharebe|b1
+w02647|раунд|tur|raunt|b1
+w02648|недавний|son|yakın zamandaki|b1
+w02649|живо|canlı biçimde|çabucak|b1
+w02650|доступный|erişilebilir|uygun|b1
+w02657|искусственный|yapay|suni|b1
+w02660|вырезать|kesmek|oymak|b1
+w02661|эхо|yankı|aksiseda|b1
+w02662|премия|ödül|armağan|b1
+w02664|отстоять|savunmak|korumak|b1
+w02667|подчиняться|biat etmek|itaat etmek|b1
+w02670|прерывать|kesmek|sözünü kesmek|b1
+w02673|экскурсия|gezi|tur|b1
+w02685|сообщество|cemaat|topluluk|b1
+w02687|перелом|kırık|dönüm noktası|b1
+w02688|прибытие|geliş|varış|b1
+w02689|биологический|biyolojik|biyoloji|b1
+w02690|стоимость|değer|fiyat|b1
+w02696|торговать|ticaret yapmak|satmak|b1
+w02698|алый|al|kızıl|b1
+w02701|весна|ilkbahar|bahar|b1
+w02702|намекать|ima etmek|çıtlatmak|b1
+w02704|обращение|hitap|muamele|b1
+w02705|получение|alma|edinme|b1
+w02706|перевернуть|ters çevirmek|devirmek|b1
+w02710|племя|kabile|oymak|b1
+w02714|повелитель|hükümdar|efendi|b1
+w02715|клан|klân|aşiret|b1
+w02716|загадочный|esrarengiz|muammalı|b1
+w02717|казнь|idam|ölüm cezası|b1
+w02719|ухаживать|kur yapmak|bakmak|b1
+w02725|драгоценный|değerli|kıymetli|b1
+w02729|почва|toprak|zemin|b1
+w02730|резкий|keskin|sert|b1
+w02732|посольство|büyükelçilik|sefaret|b1
+w02733|наследник|mirasçı|ardıl|b1
+w02735|утечка|sızıntı|kaçak|b1
+w02736|жажда|susuzluk|hararet|b1
+w02738|удостоверение|kimlik belgesi|vesika|b1
+w02739|отсутствовать|bulunmamak|yok olmak|b1
+w02740|разрушенный|yıkılmış|harap|b1
+w02741|наличный|nakit|mevcut|b1
+w02742|бедняга|biçare|zavallı|b1
+w02744|возникать|ortaya çıkmak|doğmak|b1
+w02745|делить|bölmek|bölüştürmek|b1
+w02749|избранный|seçilmiş|seçkin|b1
+w02750|механизм|mekanizma|makine|b1
+w02751|гарантия|garanti|güvence|b1
+w02752|сюжет|olay örgüsü|konu|b1
+w02753|прервать|kesmek|yarıda kesmek|b1
+w02754|транспорт|nakliye|ulaştırma|b1
+w02755|иметься|bulunmak|mevcut olmak|b1
+w02759|изнутри|içeriden|içten|b1
+w02760|тормоз|fren|ahmak|b1
+w02761|электрический|elektrik|elektrikli|b1
+w02762|юноша|delikanlı|genç erkek|b1
+w02763|техник|tekniker|teknisyen|b1
+w02765|щенок|köpek yavrusu|enik|b1
+w02766|предварительный|ön|hazırlık niteliğinde|b1
+w02767|балл|puan|not|b1
+w02768|запрещать|yasaklamak|yasak etmek|b1
+w02769|положительный|olumlu|pozitif|b1
+w02770|запрет|yasak|men|b1
+w02771|племянница|yeğen|kız yeğen|b1
+w02773|буря|bora|fırtına|b1
+w02774|приезд|gelme|geliş|b1
+w02778|следствие|sonuç|netice|b1
+w02780|скидка|indirim|iskonto|b1
+w02781|грабить|soymak|yağmalamak|b1
+w02782|вломиться|zorla girmek|dalmak|b1
+w02783|сфера|alan|küre|b1
+w02785|технический|teknik|teknolojik|b1
+w02786|примета|alamet|işaret|b1
+w02787|исход|sonuç|çıkış|b1
+w02788|несправедливый|haksız|adaletsiz|b1
+w02789|тупик|açmaz|çıkmaz|b1
+w02794|мрачный|iç karartıcı|karanlık|b1
+w02795|божественный|ilahi|tanrısal|b1
+w02796|чувствительный|hassas|duyarlı|b1
+w02797|модный|moda|şık|b1
+w02799|тепло|sıcaklık|içtenlikle|b1
+w02800|разрушение|tahrip|yıkma|b1
+w02801|оскорблять|hakaret etmek|aşağılamak|b1
+w02803|строительство|inşaat|inşa|b1
+w02806|благо|iyilik|yarar|b1
+w02807|химический|kimyasal|kimyevî|b1
+w02809|таинственный|esrarengiz|esrarlı|b1
+w02810|захват|ele geçirme|kıskaç|b1
+w02811|выгода|kar|avantaj|b1
+w02814|верховный|yüce|en yüksek|b1
+w02815|шкура|post|deri|b1
+w02817|засада|pusu|tuzak|b1
+w02820|столица|başkent|başşehir|b1
+w02822|сарай|ambar|kulübe|b1
+w02824|объятие|kucaklama|sarılma|b1
+w02825|лавка|bank|dükkan|b1
+w02831|нанимать|kiralamak|işe almak|b1
+w02832|парок|buhar|buharcık|b1
+w02833|морда|surat|hayvan burnu|b1
+w02836|чересчур|fazlasıyla|aşırı|b1
+w02837|духовный|dinsel|ruhani|b1
+w02838|доклад|rapor|sunum|b1
+w02840|кончить|bitirmek|sona erdirmek|b1
+w02843|администрация|yönetim|idare|b1
+w02844|ведро|kova|bakraç|b1
+w02845|турист|turist|gezgin|b1
+w02847|слать|göndermek|yollamak|b1
+w02848|металл|metal|maden|b1
+w02849|тормозить|fren yapmak|yavaşlatmak|b1
+w02851|почерк|yazı|el yazısı|b1
+w02853|стабильный|stabil|durağan|b1
+w02854|насладиться|keyfini çıkarmak|tadını çıkarmak|b1
+w02857|жук|böcek|açıkgöz|b1
+w02858|проклятие|lanet|beddua|b1
+w02859|незнакомый|tanımadık|yabancı|b1
+w02861|местонахождение|konum|bulunduğu yer|b1
+w02863|запуск|başlatma|fırlatma|b1
+w02864|внешность|dış görünüş|görünüm|b1
+w02865|мишень|hedef|nişan tahtası|b1
+w02866|агрессивный|agresif|saldırgan|b1
+w02867|хранение|muhafaza|saklama|b1
+w02868|исторический|tarihi|tarihsel|b1
+w02869|мука|un|azap|b1
+w02875|убедительный|ikna edici|inandırıcı|b1
+w02876|моряк|denizci|gemici|b1
+w02884|предательство|hıyanet|hainlik|b1
+w02887|передний|ön|öndeki|b1
+w02889|действительность|gerçeklik|geçerlilik|b1
+w02890|шов|dikiş|ek yeri|b1
+w02891|предчувствие|önsezi|sezgi|b1
+w02892|фишка|jeton|özellik|b1
+w02894|звание|ünvan|rütbe|b1
+w02897|дальний|uzak|uzaktaki|b1
+w02899|перепутать|karıştırmak|şaşırmak|b1
+w02900|поссориться|kavga etmek|küsmek|b1
+w02902|сущность|künh|cevher|b1
+w02904|нечестный|dürüst olmayan|namussuz|b1
+w02905|цивилизация|uygarlık|medeniyet|b1
+w02907|частота|frekans|sıklık|b1
+w02908|практика|pratik|uygulama|b1
+w02910|страж|muhafız|bekçi|b1
+w02912|восстановление|onarım|iyileşme|b1
+w02913|болтовня|dedikodu|dırdır|b1
+w02915|оборот|dönme|devir|b1
+w02917|лапа|pati|pençe|b1
+w02918|обижаться|incinmek|rencide olmak|b1
+w02919|помеха|engel|engelleme|b1
+w02920|забраться|tırmanmak|gizlice girmek|b1
+w02921|крайне|son derece|aşırı|b1
+w02923|приступать|girişmek|başlamak|b1
+w02924|грань|sınır|kenar|b1
+w02925|набирать|toplamak|kazanmak|b1
+w02926|упускать|kaçırmak|elden kaçırmak|b1
+w02927|адский|cehennemi|korkunç|b1
+w02928|здравый|sağduyulu|akıllı|b1
+w02930|злобный|kötü niyetli|gaddar|b1
+w02935|стрелка|ok|ibre|b1
+w02936|обслуживание|hizmet|servis|b1
+w02937|посуда|kap kacak|mutfak eşyası|b1
+w02938|рожать|doğurmak|doğum yapmak|b1
+w02939|смущать|utandırmak|şaşırtmak|b1
+w02940|таки|yine de|nihayet|b1
+w02941|просмотр|izleme|gözden geçirme|b1
+w02942|вселенная|evren|kâinat|b1
+w02943|выкладывать|sermek|paylaşmak|b1
+w02945|поэт|şair|ozan|b1
+w02947|шишка|kozalak|yumru|b1
+w02949|выдающийся|seçkin|olağanüstü|b1
+w02950|преподавать|öğretmek|ders vermek|b1
+w02951|показ|gösterim|gösteri|b1
+w02954|мошенничество|dolandırıcılık|sahtekârlık|b1
+w02956|обсуждение|görüşme|tartışma|b1
+w02957|пробраться|sızmak|gizlice geçmek|b1
+w02961|жестокость|gaddarlık|katı yüreklilik|b1
+w02963|самостоятельный|müstakil|bağımsız|b1
+w02964|аукцион|açık artırma|mezat|b1
+w02965|диета|diyet|perhiz|b1
+w02966|завоевать|kazanmak|ele geçirmek|b1
+w02969|адмирал|amiral|oramiral|b1
+w02970|бардак|karmaşa|dağınıklık|b1
+w02973|укрытие|sığınak|barınak|b1
+w02976|происхождение|köken|menşe|b1
+w02978|шуметь|gürültü etmek|gürültü yapmak|b1
+w02979|хитрый|kurnaz|şeytan|b1
+w02981|местность|bölge|arazi|b1
+w02988|ровно|tam olarak|düzgünce|b1
+w02989|раненый|yaralı|yaralanan|b1
+w02992|эффективный|etkili|verimli|b1
+w02998|переулок|ara sokak|yan sokak|b1
+w02999|структура|yapı|bünye|b1
+w03001|поддельный|sahte|taklit|b1
+w03002|подсказка|ipucu|yardımcı bilgi|b1
+w03003|эпоха|çağ|devir|b1
+w03004|сирота|yetim|öksüz|b1
+w03005|плащ|yağmurluk|panço|b1
+w03006|лук|soğan|yay|b1
+w03008|гнездо|yuva|priz|b1
+w03010|увольнение|işten çıkarma|kovulma|b1
+w03011|трусы|don|külot|b1
+w03012|парад|geçit resmi|geçit töreni|b1
+w03014|вдох|nefes alma|soluk|b1
+w03018|сопровождать|eşlik etmek|refakat etmek|b1
+w03022|гад|sürüngen|alçak|b1
+w03023|роскошный|şık|lüks|b1
+w03024|график|grafik|çizelge|b1
+w03025|коснуться|dokunmak|değinmek|b1
+w03027|орех|ceviz|fındık|b1
+w03028|крепость|kale|sağlamlık|b1
+w03029|мудрость|aklıselim|bilgelik|b1
+w03030|крючок|çengel|tığ|b1
+w03033|замечание|not|uyarı|b1
+w03034|опытный|deneyimli|tecrübeli|b1
+w03035|нефть|petrol|neft|b1
+w03038|одобрять|onaylamak|tasvip etmek|b1
+w03039|ключевой|anahtar niteliğinde|kilit|b1
+w03041|скот|davar|sığır|b1
+w03043|магический|sihirli|büyülü|b1
+w03045|турнир|turnuva|yarışma|b1
+w03048|удаваться|başarmak|becerebilmek|b1
+w03049|переносить|taşımak|ertelemek|b1
+w03050|монах|keşiş|rahip|b1
+w03051|заботить|kaygılandırmak|tasalandırmak|b1
+w03053|подружиться|kaynaşmak|arkadaş edinmek|b1
+w03060|рукав|kol|yen|b1
+w03061|впрочем|gerçi|bununla birlikte|b1
+w03062|собеседование|mülakat|görüşme|b1
+w03063|злость|öfke|kızgınlık|b1
+w03064|стоянка|otopark|park yeri|b1
+w03065|воспитывать|yetiştirmek|terbiye etmek|b1
+w03070|стих|mısra|dize|b1
+w03071|галлюцинация|sanrı|hallüsinasyon|b1
+w03080|преступный|canice|cinai|b1
+w03081|гриб|mantar|göbelek|b1
+w03082|максимальный|azami|en yüksek|b1
+w03084|черепаха|kaplumbağa|tosbağa|b1
+w03090|создатель|yaratıcı|kurucu|b1
+w03091|погубить|mahvetmek|yok etmek|b1
+w03092|композитор|besteci|kompozitör|b1
+w03098|забор|çit|çeper|b1
+w03099|прощаться|veda etmek|vedalaşmak|b1
+w03100|заброшенный|terk edilmiş|bakımsız|b1
+w03101|насекомое|böcek|haşere|b1
+w03102|мелодия|melodi|ezgi|b1
+w03105|настроить|ayarlamak|kurmak|b1
+w03106|зануда|sıkıcı kişi|baş belası|b1
+w03111|лысый|kel|dazlak|b1
+w03113|болото|bataklık|batak|b1
+w03114|куст|çalı|ağaççık|b1
+w03116|поворачивать|dönmek|çevirmek|b1
+w03119|убеждение|ikna|inanç|b1
+w03120|взлететь|havalanmak|uçuşa geçmek|b1
+w03121|презентация|sunum|prezentasyon|b1
+w03122|соответствие|uygunluk|uyum|b1
+w03123|фотографировать|fotoğraf çekmek|resim çekmek|b1
+w03124|служащий|memur|işyar|b1
+w03125|взволнованный|heyecanlı|telaşlı|b1
+w03126|бродяга|berduş|avare|b1
+w03127|переставать|dinmek|bitmek|b1
+w03128|ирония|alay|istihza|b1
+w03130|безусловно|kesinlikle|kuşkusuz|b1
+w03132|выгодный|kazançlı|avantajlı|b1
+w03133|сложность|karmaşıklık|zorluk|b1
+w03134|разглядеть|fark etmek|seçebilmek|b1
+w03135|относительный|göreli|izafi|b1
+w03136|недооценивать|değerini bilmemek|önemsememek|b1
+w03144|килограмм|kilogram|kilo|b1
+w03146|таять|erimek|çözülmek|b1
+w03147|критический|kritik|tehlikeli|b1
+w03148|богиня|tanrıça|ilahe|b1
+w03149|устанавливать|kurmak|tespit etmek|b1
+w03154|разряд|deşarj|kategori|b1
+w03157|покрывать|örtmek|kaplamak|b1
+w03158|смесь|karışım|bileşim|b1
+w03160|разработка|geliştirme|gelişme|b1
+w03162|несовершеннолетний|reşit olmayan|küçük|b1
+w03167|перевозить|taşımak|nakletmek|b1
+w03168|аккуратный|düzenli|özenli|b1
+w03172|вдвоём|iki kişi|ikisi|b1
+w03175|отмечать|belirtmek|kutlamak|b1
+w03177|сосуд|kap|kase|b1
+w03185|ковёр|halı|kilim|b1
+w03189|побочный|yan|ikincil|b1
+w03190|кристалл|kristal|billur|b1
+w03192|скотина|hayvan|hayvan herif|b1
+w03194|вклад|katkı|mevduat|b1
+w03196|половой|cinsel|kat|b1
+w03197|пчела|arı|balarısı|b1
+w03199|влиятельный|etkili|nüfuz sahibi|b1
+w03203|кодекс|kanun|yasa metni|b1
+w03205|определение|tanım|belirleme|b1
+w03206|увольнять|azletmek|görevden çıkarmak|b1
+w03208|окружение|etraf|çevre|b1
+w03211|высказать|dile getirmek|ifade etmek|b1
+w03212|жвачка|ciklet|geviş|b1
+w03213|операционная|ameliyathane|ameliyat odası|b1
+w03215|ядро|çekirdek|öz|b1
+w03217|раковина|lavabo|kabuk|b1
+w03220|напасть|bela|felaket|b1
+w03221|чинить|tamir etmek|düzeltmek|b1
+w03223|сантиметр|santimetre|santim|b1
+w03224|командный|takım+|takıma ait|b1
+w03225|карандаш|kalem|karakalem|b1
+w03227|литература|yazın|literatür|b1
+w03230|паразит|asalak|parazit|b1
+w03232|ярмарка|panayır|fuar|b1
+w03233|сумасшествие|delilik|cinnet|b1
+w03234|кончаться|bitmek|sona ermek|b1
+w03238|переход|geçiş|geçit|b1
+w03241|сэкономить|tasarruf etmek|biriktirmek|b1
+w03246|особенность|özellik|ayırt edici yön|b1
+w03248|дружелюбный|dost|dostane|b1
+w03253|приобрести|kazanmak|edinmek|b1
+w03254|уговор|anlaşma|sözleşme|b1
+w03256|бухгалтер|muhasip|sayman|b1
+w03258|волнение|heyecan|kaygı|b1
+w03265|купол|kubbe|kümbet|b1
+w03266|разыгрывать|oynamak|çekiliş yapmak|b1
+w03267|стойка|tezgah|masa|b1
+w03271|простыня|çarşaf|yatak çarşafı|b1
+w03272|исходить|kaynaklanmak|ileri gelmek|b1
+w03275|измерение|ölçme|boyut|b1
+w03276|копаться|eşmek|karıştırmak|b1
+w03278|прикоснуться|dokunmak|değmek|b1
+w03281|воспитание|yetiştirme|terbiye|b1
+w03282|применение|uygulama|kullanma|b1
+w03283|кидать|atmak|fırlatmak|b1
+w03287|собачка|köpekçik|tetik|b1
+w03293|коляска|tekerlekli sandalye|çocuk arabası|b1
+w03295|установка|kurulum|tesisat|b1
+w03296|бессмертный|ölümsüz|ölmez|b1
+w03298|супруг|koca|karı koca|b1
+w03299|ладонь|aya|avuç içi|b1
+w03300|страстный|tutkulu|ateşli|b1
+w03304|царство|âlem|çarlık|b1
+w03305|описывать|betimlemek|tarif etmek|b1
+w03307|покрыть|örtmek|kaplamak|b1
+w03309|деревянный|ahşap|ağaç|b1
+w03315|натура|huy|doğa|b1
+w03318|совать|sokmak|tıkıştırmak|b1
+w03320|мамаша|anne|ana|b1
+w03321|повязка|sargı|bandaj|b1
+w03326|редко|nadiren|seyrek|b1
+w03328|положенный|gereken|hak edilen|b1
+w03329|дразнить|sataşmak|takılmak|b1
+w03331|походить|andırmak|benzemek|b1
+w03332|радиация|radyasyon|ışınım|b1
+w03333|отстранить|uzaklaştırmak|görevden almak|b1
+w03335|функция|fonksiyon|görev|b1
+w03337|подсказывать|fısıldamak|kopya vermek|b1
+w03338|поместье|malikane|çiftlik|b1
+w03340|печатать|basmak|çekmek|b1
+w03341|приставать|musallat olmak|sataşmak|b1
+w03344|оранжевый|turuncu|oranj|b1
+w03348|мучить|eziyet etmek|işkence etmek|b1
+w03349|вводить|sokmak|dahil etmek|b1
+w03351|кинжал|hançer|kama|b1
+w03353|батарея|batarya|pil|b1
+w03355|ассоциация|ortaklık|dernek|b1
+w03357|определять|belirlemek|tanımlamak|b1
+w03358|сажать|karaya oturtmak|bitki|b1
+w03360|видимость|görünüş|görülebilirlik|b1
+w03363|расположение|konumlandırma|yerleştirme|b1
+w03364|фонарь|fener|gölgelik|b1
+w03368|темп|tempo|hız|b1
+w03371|уступить|vazgeçmek|teslim etmek|b1
+w03373|предприятие|işletme|girişim|b1
+w03374|независимость|istiklal|bağımsızlık|b1
+w03375|датчик|sensör|detektör|b1
+w03378|опускать|indirmek|aşağılamak|b1
+w03379|чин|rütbe|derece|b1
+w03380|ограничение|kısıtlama|sınırlama|b1
+w03384|перец|biber|karabiber|b1
+w03385|петля|menteşe|halka|b1
+w03387|идеал|ülkü|ideal|b1
+w03388|допускать|kabul etmek|fırsat vermek|b1
+w03389|барабан|davul|tabıl|b1
+w03390|всемогущий|her şeye kadir|kadir-i mutlak|b1
+w03392|молить|yakarmak|istirham etmek|b1
+w03393|угощать|ikram etmek|ısmarlamak|b1
+w03397|компенсация|tazmin|tazminat|b1
+w03399|соблазнить|ayartmak|baştan çıkarmak|b1
+w03400|ребро|kaburga|eğe|b1
+w03401|хищник|yırtıcı hayvan|avcı|b1
+w03403|направлять|yöneltmek|sevk etmek|b1
+w03409|выигрыш|kazanç|galibiyet|b1
+w03410|призывать|çağırmak|teşvik etmek|b1
+w03413|вредный|zararlı|fena|b1
+w03415|платок|başörtü|başörtüsü|b1
+w03417|смыть|yıkamak|sürüklemek|b1
+w03418|заявка|başvuru|talep|b1
+w03419|комедия|komedi|güldürü|b1
+w03420|рвать|yırtmak|koparmak|b1
+w03424|чаша|çanak|kadeh|b1
+w03425|выдвинуть|öne sürmek|ileri sürmek|b1
+w03427|бешеный|kuduz|çılgın|b1
+w03428|телохранитель|koruma|muhafız|b1
+w03432|пособие|devlet desteği|avantaj|b1
+w03434|панель|panel|gösterge paneli|b1
+w03436|капуста|lahana|kelem|b1
+w03442|бумажка|kağıt parçası|kağıt|b1
+w03445|ленивый|tembel|uyuşuk|b1
+w03448|заложить|rehin vermek|ipotek etmek|b1
+w03449|гарь|yanık kokusu|kurum|b1
+w03450|миф|efsane|mit|b1
+w03451|подхватить|yakalamak|kapmak|b1
+w03457|счастливо|mutlulukla|güle güle|b1
+w03460|шарф|eşarp|boyun atkısı|b1
+w03461|постановка|kurma|oluşturma|b1
+w03464|семестр|sömestr|yarıyıl|b1
+w03465|явление|olgu|fenomen|b1
+w03466|демонстрация|gösterim|gösteri|b1
+w03467|порядочный|dürüst|terbiyeli|b1
+w03468|подлый|alçak|aşağılık|b1
+w03472|презирать|hor görmek|istihkar etmek|b1
+w03475|блеск|parlaklık|ışıltı|b1
+w03476|обеспечение|sağlama|temin|b1
+w03477|фрагмент|fragman|parça|b1
+w03482|болезненный|ağrılı|hastalıksal|b1
+w03484|устоять|dayanmak|direnmek|b1
+w03485|обеспечивать|sağlamak|temin etmek|b1
+w03486|фонтан|fıskiyeli havuz|çeşme|b1
+w03487|всадник|atlı|süvari|b1
+w03490|скука|bıkkınlık|bunaltı|b1
+w03491|противоположный|karşı|karşıt|b1
+w03493|атомный|atomik|atomal|b1
+w03497|трещина|çatlak|yarık|b1
+w03499|зажигать|yakmak|ateşlemek|b1
+w03501|убеждать|kandırmak|ikna etmek|b1
+w03503|прогноз|prognoz|tahmin|b1
+w03508|возглавить|başında olmak|yönetmek|b1
+w03510|поэзия|şiir|şiir sanatı|b1
+w03511|учёба|okuma|öğrenim|b1
+w03512|портал|geçit|kapı|b1
+w03513|комбинация|kombinasyon|düzen|b1
+w03514|махать|sallamak|çalkalamak|b1
+w03515|ничтожество|değersiz kişi|hiçlik|b1
+w03516|восстание|isyan|ayaklanma|b1
+w03518|землетрясение|deprem|zelzele|b1
+w03519|хирургия|cerrahi|cerrahlık|b1
+w03522|безразличный|aldırmaz|kararsız|b1
+w03524|учреждение|kuruluş|kurum|b1
+w03525|скакать|sıçramak|dörtnal gitmek|b1
+w03526|жара|sıcak|sıcaklık|b1
+w03527|интеллект|zekâ|akıl|b1
+w03529|каблук|topuk|ökçe|b1
+w03530|осудить|kınamak|mahkum etmek|b1
+w03534|алтарь|sunak|mihrap|b1
+w03537|сканирование|araştırma|tarama|b1
+w03539|изобретение|buluş|icat|b1
+w03542|плита|plaka|ocak|b1
+w03545|печь|fırın|ocak|b1
+w03546|спортсмен|sporcu|sportmen|b1
+w03548|обидеться|incinmek|rencide olmak|b1
+w03550|успокаивать|sakinleştirmek|yatıştırmak|b1
+w03551|еле|zar zor|güçlükle|b1
+w03552|размышлять|düşünmek|derin düşünmek|b1
+w03553|якобы|sözde|güya|b1
+w03556|тоска|hasret|bezginlik|b1
+w03558|импульс|dürtü|sinyal|b1
+w03562|обеспокоенный|endişeli|kaygılı|b1
+w03563|певец|şarkıcı|okuyucu|b1
+w03564|сокращение|azaltma|kısaltma|b1
+w03566|плотный|yoğun|sıkı|b1
+w03567|заговор|komplo|suikast planı|b1
+w03572|возглавлять|yönetmek|başında olmak|b1
+w03577|молочный|sütlü|süt|b1
+w03580|громко|yüksek sesle|gürültüyle|b1
+w03583|разводиться|boşanmak|üremek|b1
+w03584|соответствующий|uygun|ilgili|b1
+w03587|задыхаться|nefes darlığı çekmek|boğulmak|b1
+w03588|масштаб|ölçek|boyut|b1
+w03591|дистанция|uzaklık|mesafe|b1
+w03592|умение|beceri|yetenek|b1
+w03596|обходиться|mal olmak|idare etmek|b1
+w03600|вручить|teslim etmek|dağıtmak|b1
+w03601|цитата|alıntı|iktibas|b1
+w03606|цитировать|alıntılamak|alıntı yapmak|b1
+w03608|копьё|cirit|mızrak|b1
+w03609|каша|lapa|mama|b1
+w03610|вулкан|volkan|yanardağ|b1
+w03611|хулиган|edepsiz külhanbey|holigan|b1
+w03612|попка|popo|kıç|b1
+w03614|душевный|içten|sıcakkanlı|b1
+w03615|вздох|ah|nefes|b1
+w03616|искра|kıvılcım|şerare|b1
+w03618|фаза|evre|faz|b1
+w03621|одобрение|onay|tasvip|b1
+w03622|цепочка|köstek|zincir|b1
+w03626|сомнительный|şüpheli|kuşkulu|b1
+w03627|пожелание|dilek|istek|b1
+w03630|воровство|hırsızlık|çalma|b1
+w03631|переделать|yeniden yapmak|değiştirmek|b1
+w03633|схватка|kavga|ihtilaf|b1
+w03637|телеграмма|tel|telgraf|b1
+w03640|активировать|etkinleştirmek|aktive etmek|b1
+w03641|спор|tartışma|çekişme|b1
+w03644|рычаг|kaldıraç|levye|b1
+w03646|закричать|bağırmak|çığlık atmak|b1
+w03647|мощь|güç|kuvvet|b1
+w03648|соединение|bileşik|bağlantı|b1
+w03649|оценивать|değer biçmek|takdir etmek|b1
+w03651|гвоздь|çivi|mıh|b1
+w03652|банкир|bankacı|banker|b1
+w03653|коммерческий|tecimsel|ticaret|b1
+w03654|завершение|tamamlanma|bitiş|b1
+w03655|натуральный|doğal|tabii|b1
+w03657|маяк|deniz feneri|fener|b1
+w03658|заблуждение|yanılgı|yanlış kanı|b1
+w03660|разыграть|oynamak|çekiliş yapmak|b1
+w03662|слить|sızdırmak|akıtmak|b1
+w03663|увлекаться|ilgilenmek|düşkün olmak|b1
+w03664|ощутить|hissetmek|yaşamak|b1
+w03665|твёрдый|katı|sert|b1
+w03668|горшок|çanak|kap|b1
+w03670|наблюдатель|gözlemci|gözcü|b1
+w03671|заботливый|şefkatli|düşünceli|b1
+w03673|перевозка|ulaştırma|nakliye|b1
+w03675|сельский|kırsal|zirai|b1
+w03677|отражение|yansıma|görüntü|b1
+w03678|метафора|metafor|istiare|b1
+w03682|возбуждать|azdırmak|heyecanlandırmak|b1
+w03688|локоть|dirsek|arşın|b1
+w03694|джип|cip|spor amaçlı taşıt|b1
+w03696|причём|üstelik|hem de|b1
+w03698|неуместный|yersiz|uygunsuz|b1
+w03699|расчёт|hesap|ekip|b1
+w03700|искренне|içtenlikle|samimiyetle|b1
+w03701|секция|seksiyon|birim|b1
+w03702|предоставлять|sağlamak|sunmak|b1
+w03703|усердный|çalışkan|arzulu|b1
+w03704|бах|bam|güm|b1
+w03705|пророчество|kehanet|vahiy|b1
+w03706|экспедиция|sefer|keşif gezisi|b1
+w03708|чили|şili|acı biber|b1
+w03709|реабилитация|rehabilitasyon|itibarın iadesi|b1
+w03711|катер|motorbot|deniz taşıtı|b1
+w03712|ветчина|jambon|domuz pastırması|b1
+w03713|посредник|aracı|arabulucu|b1
+w03719|решительный|kesin|azimli|b1
+w03720|хвастаться|övünmek|böbürlenmek|b1
+w03721|семейство|familya|aile|b1
+w03726|выращивать|beslemek|yetiştirmek|b1
+w03727|единица|birim|tekil|b1
+w03728|удивление|hayret|şaşkınlık|b1
+w03736|нрав|huy|mizaç|b1
+w03738|кран|musluk|vinç|b1
+w03741|задолжать|borcu olmak|borçlanmak|b1
+w03743|бабка|nine|büyükanne|b1
+w03744|важность|kurum|önem|b1
+w03747|успевать|yetişmek|vakit bulmak|b1
+w03749|находка|bulunan şey|buluntu|b1
+w03750|осколок|parça|kırık|b1
+w03753|мастерство|ustalık|uzluk|b1
+w03756|психология|psikoloji|ruh bilimi|b1
+w03758|отзыв|yorum|değerlendirme|b1
+w03760|вдохновлять|esin vermek|esinlendirmek|b1
+w03763|озабоченный|düşünceli|arzulu|b1
+w03766|лопата|kürek|bel|b1
+w03767|разоблачить|ifşa etmek|maskesini düşürmek|b1
+w03769|самостоятельно|kendi başına|bağımsızca|b1
+w03770|длительный|daimî|upuzun|b1
+w03772|энергетический|enerji ile ilgili|enerjik|b1
+w03774|запросто|kolayca|teklifsizce|b1
+w03776|плёнка|ince tabaka|bant|b1
+w03780|разгар|doruk noktası|tam ortası|b1
+w03784|сострадание|merhamet|şefkat|b1
+w03785|крушение|enkaz|harabe|b1
+w03786|сразиться|savaşmak|mücadele etmek|b1
+w03791|осматривать|muayene etmek|incelemek|b1
+w03793|ненужный|gereksiz|abes|b1
+w03799|баллотироваться|adaylığını koymak|seçime girmek|b1
+w03804|ус|bıyık|balen|b1
+w03806|зерно|hububat|tane|b1
+w03807|завладеть|ele geçirmek|el koymak|b1
+w03808|обучать|eğitmek|öğretmek|b1
+w03809|припомнить|hatırlamak|anımsamak|b1
+w03814|зять|damat|güvey|b1
+w03816|терапевт|terapist|pratisyen hekim|b1
+w03821|мерзость|habaset|iğrenme|b1
+w03822|проживать|oturmak|geçirmek|b1
+w03823|водный|su ile ilgili|sucul|b1
+w03826|револьвер|revolver|toplu tabanca|b1
+w03827|толчок|itiş|sarsıntı|b1
+w03830|гадать|tahmin etmek|fal bakmak|b1
+w03837|чайник|demlik|acemi|b1
+w03838|правдивый|doğru|gerçeği yansıtan|b1
+w03841|культурный|kültürlü|kültürel|b1
+w03842|сунуть|sokmak|tıkıştırmak|b1
+w03843|непосредственный|direk|kendiliğinden|b1
+w03844|затылок|ense|artkafa|b1
+w03849|тревожный|endişe verici|kaygılı|b1
+w03852|матка|rahim|dölyatağı|b1
+w03854|всюду|her yerde|her tarafta|b1
+w03855|пьяница|ayyaş|içkici|b1
+w03856|утверждение|iddia|ifade|b1
+w03858|жадный|cimri|açgözlü|b1
+w03860|повышать|artırmak|yükseltmek|b1
+w03863|таракан|hamamböceği|hamam böceği|b1
+w03866|неожиданность|sürpriz|beklenmedik şey|b1
+w03868|волосок|saç teli|filaman|b1
+w03869|действующий|geçerli|aktif|b1
+w03871|трагический|acıklı|feci|b1
+w03872|кружка|maşrapa|kupa|b1
+w03875|прицел|nişangah|nişan alma|b1
+w03876|задаваться|hava atmak|büyüklenmek|b1
+w03877|ветеринар|veteriner|baytar|b1
+w03878|штаб-квартира|karargâh|merkez|b1
+w03881|гроза|fırtına|gök gürültülü fırtına|b1
+w03882|сувенир|anmalık|hatıra|b1
+w03884|дельта|delta|çatalağız|b1
+w03887|стремление|arzu|gayret|b1
+w03890|допустимый|kabul edilebilir|caiz|b1
+w03895|портфель|evrak çantası|portföy|b1
+w03896|логово|in|yuva|b1
+w03897|полезно|faydalı|yararlı|b1
+w03898|вычеркнуть|silmek|çizmek|b1
+w03899|весенний|ilkbahara ait|baharlık|b1
+w03901|присмотр|gözetim|bakım|b2
+w03902|старинный|antika|çok eski|b2
+w03903|недоступный|erişilemez|ulaşılmaz|b2
+w03904|выполнение|yerine getirme|uygulama|b2
+w03907|бунт|isyan|başkaldırı|b2
+w03910|решающий|belirleyici|kesin|b2
+w03914|забираться|tırmanmak|içine girmek|b2
+w03915|верёвка|ip|urgan|b2
+w03918|чёткий|net|belirgin|b2
+w03919|неуклюжий|beceriksiz|hantal|b2
+w03921|прибраться|toplanmak|ortalığı düzeltmek|b2
+w03922|разрабатывать|geliştirmek|hazırlamak|b2
+w03925|осень|sonbahar|güz|b2
+w03927|простуда|soğuk algınlığı|nezle|b2
+w03930|старость|yaşlılık|ihtiyarlık|b2
+w03931|разрезать|kesmek|doğramak|b2
+w03932|колокольчик|küçük çan|zil|b2
+w03933|заключённый|mahkûm|tutuklu|b2
+w03935|защищённый|korunmuş|korumalı|b2
+w03936|опередить|öne geçmek|geçmek|b2
+w03937|лаять|havlamak|ürümek|b2
+w03938|ничтожный|önemsiz|değersiz|b2
+w03939|складываться|oluşmak|şekillenmek|b2
+w03941|обычай|gelenek|örf|b2
+w03942|скамейка|bank|sıra|b2
+w03943|изгнать|kovmak|sürgün etmek|b2
+w03944|забивать|çakmak|doldurmak|b2
+w03948|следовательно|dolayısıyla|bu nedenle|b2
+w03951|комплект|takım|set|b2
+w03953|поделить|paylaştırmak|bölmek|b2
+w03954|ловкий|becerikli|çevik|b2
+w03956|прикол|şaka|espri|b2
+w03960|тройной|üç kat|üç katlı|b2
+w03961|бич|kırbaç|kamçı|b2
+w03962|пригород|banliyö|kenar mahalle|b2
+w03963|заражение|bulaşma|enfeksiyon|b2
+w03968|гармония|uyum|armoni|b2
+w03969|претензия|şikâyet|iddia|b2
+w03970|надоедать|usandırmak|canını sıkmak|b2
+w03971|танцовщица|dansçı|dansöz|b2
+w03973|вольный|özgür|serbest|b2
+w03976|лак|vernik|oje|b2
+w03977|исключать|dışlamak|hariç tutmak|b2
+w03982|предосторожность|tedbir|ihtiyat|b2
+w03985|ворваться|dalmak|zorla girmek|b2
+w03990|звуковой|sesli|ses ile ilgili|b2
+w03991|мороз|ayaz|soğuk|b2
+w03992|увеличение|artış|çoğalma|b2
+w03993|вынуждать|zorlamak|mecbur etmek|b2
+w03994|целое|bütün|tam sayı|b2
+w03995|спереди|önden|önde|b2
+w03998|забросить|fırlatmak|bırakmak|b2
+w03999|давний|eski|çoktan beri süren|b2
+w04000|непристойный|uygunsuz|edepsiz|b2
+w04001|контрабанда|kaçakçılık|kaçak eşya|b2
+w04003|эвакуировать|boşaltmak|tahliye etmek|b2
+w04004|вежливость|nezaket|incelik|b2
+w04008|диктор|spiker|sunucu|b2
+w04011|истечь|sona ermek|dolmak|b2
+w04012|бурный|fırtınalı|coşkulu|b2
+w04013|обманщик|dolandırıcı|yalancı|b2
+w04016|ссылка|bağlantı|atıf|b2
+w04018|нищий|dilenci|yoksul|b2
+w04024|стеклянный|cam|camdan|b2
+w04027|наглый|küstah|arsız|b2
+w04029|замешательство|şaşkınlık|kafa karışıklığı|b2
+w04031|приниматься|girişmek|başlamak|b2
+w04032|ежедневно|her gün|günlük olarak|b2
+w04033|даровать|bağışlamak|lütfetmek|b2
+w04036|косяк|kapı pervazı|balık sürüsü|b2
+w04043|чистка|temizlik|temizleme|b2
+w04047|повозка|at arabası|araba|b2
+w04048|поединок|düello|teke tek dövüş|b2
+w04049|всемирный|dünya çapında|küresel|b2
+w04050|бухта|koy|körfez|b2
+w04051|бочка|fıçı|varil|b2
+w04053|сочетание|birleşim|uyum|b2
+w04054|клапан|valf|kapakçık|b2
+w04057|выходка|taşkınlık|densizlik|b2
+w04060|агрессия|saldırganlık|saldırı|b2
+w04061|коварный|sinsi|hain|b2
+w04064|хлопать|alkışlamak|çarpmak|b2
+w04065|аспирин|aspirin|asetilsalisilik asit|b2
+w04067|изящный|zarif|ince|b2
+w04068|крыльцо|giriş merdiveni|sahanlık|b2
+w04069|банальный|sıradan|basmakalıp|b2
+w04070|половинка|yarım|yarısı|b2
+w04071|леденец|lolipop|akide şekeri|b2
+w04072|мышление|düşünme|düşünce|b2
+w04073|лишать|mahrum etmek|yoksun bırakmak|b2
+w04074|выгонять|kovmak|dışarı çıkarmak|b2
+w04075|зависть|kıskançlık|haset|b2
+w04080|подбирать|seçmek|toplamak|b2
+w04082|звено|halka|birim|b2
+w04083|гранить|yontmak|tıraşlamak|b2
+w04088|воображаемый|hayali|imgesel|b2
+w04090|апокалипсис|vahiy|kıyamet|b2
+w04091|звон|çıngırtı|çınlama|b2
+w04092|избирательный|seçimle ilgili|seçici|b2
+w04096|дуга|yay|kavis|b2
+w04099|упорный|azimli|inatçı|b2
+w04100|поражать|şaşırtmak|hayrete düşürmek|b2
+w04102|клинок|kılıç ağzı|bıçak ağzı|b2
+w04104|выдвигать|öne sürmek|ileri sürmek|b2
+w04110|круча|dik yamaç|uçurum|b2
+w04111|семейка|ailecik|aile|b2
+w04112|последователь|yandaş|takipçi|b2
+w04113|трусливый|korkak|ödlek|b2
+w04114|освобождать|serbest bırakmak|özgürleştirmek|b2
+w04118|конюшня|at ahırı|ahır|b2
+w04120|плоский|düz|yassı|b2
+w04122|перебивать|sözünü kesmek|lafını kesmek|b2
+w04124|предназначение|amaç|kader|b2
+w04126|совпасть|aynı ana denk gelmek|çakışmak|b2
+w04127|чрезвычайно|son derece|olağanüstü|b2
+w04130|куб|küp|küpü|b2
+w04132|окончить|bitirmek|tamamlamak|b2
+w04134|унылый|iç karartıcı|üzücü|b2
+w04135|возврат|iade|geri verme|b2
+w04136|соображать|kavramak|anlamak|b2
+w04138|коррупция|yolsuzluk|rüşvet|b2
+w04139|стойкий|dayanıklı|sağlam|b2
+w04140|тунец|ton balığı|orkinoz|b2
+w04142|имидж|imaj|görüntü|b2
+w04143|костёр|kamp ateşi|şenlik ateşi|b2
+w04144|опора|destek|dayanak|b2
+w04145|водопад|şelale|çağlayan|b2
+w04148|дипломатический|diplomatik|diplomasi|b2
+w04149|множественный|çoğul|çoklu|b2
+w04151|подлец|alçak|namussuz|b2
+w04152|отвращение|tiksinti|iğrenme|b2
+w04154|отрываться|partilemek|havalanmak|b2
+w04155|изоляция|yalıtım|izolasyon|b2
+w04159|магнитный|magnetik|mıknatıslı|b2
+w04162|владыка|hükümdar|egemen|b2
+w04163|альтернатива|seçenek|alternatif|b2
+w04164|дипломат|diplomat|evrak çantası|b2
+w04165|белок|protein|albumin|b2
+w04169|проникать|girmek|sızmak|b2
+w04170|мускул|adale|kas|b2
+w04173|привязанность|bağlılık|sevgi|b2
+w04174|рама|çerçeve|iskelet|b2
+w04175|купюра|kâğıt para|banknot|b2
+w04176|постепенный|kademeli|yavaş yavaş|b2
+w04178|село|köy|nahiye|b2
+w04182|прикинуть|tahmin etmek|hesaplamak|b2
+w04183|бактерия|bakteri|mikrop|b2
+w04187|квадрат|kare|dörtgen|b2
+w04188|забег|koşu|yarış turu|b2
+w04191|достигать|ulaşmak|erişmek|b2
+w04195|разводить|beslemek|yetiştirmek|b2
+w04196|подлинный|gerçek|doğru|b2
+w04197|комик|komedyen|muzip|b2
+w04198|придавать|vermek|katmak|b2
+w04199|беззащитный|korunmasız|savunmasız|b2
+w04200|приблизительный|yaklaşık|tahmini|b2
+w04202|безрассудный|düşüncesiz|pervasız|b2
+w04207|верующий|imanlı|inanan|b2
+w04208|самочувствие|genel durum|hâl|b2
+w04210|диспетчер|koordinatör|idareci|b2
+w04213|воткнуть|saplamak|sokmak|b2
+w04218|образованный|eğitimli|okumuş|b2
+w04219|колебание|titreşim|duraksama|b2
+w04221|варить|pişirmek|kaynak yapmak|b2
+w04222|разбойник|eşkıya|haydut|b2
+w04223|флора|bitey|flora|b2
+w04227|спрос|talep|sürüm|b2
+w04231|жидкий|sıvı|cıvık|b2
+w04232|тротуар|kaldırım|tretuar|b2
+w04233|радуга|gökkuşağı|ebem kuşağı|b2
+w04235|волокно|lif|elyaf|b2
+w04237|драть|yırtmak|parçalamak|b2
+w04238|копейка|kapik|kopek|b2
+w04239|девственность|iffet|bakirelik|b2
+w04241|жуть|korku|dehşet|b2
+w04242|начеку|tetikte|uyanık|b2
+w04243|радикальный|köklü|radikal|b2
+w04245|клей|tutkal|yapıştırıcı|b2
+w04246|вправо|sağa|sağda|b2
+w04249|детектор|detektör|algılayıcı|b2
+w04250|оттенок|ton|nüans|b2
+w04253|рассуждать|akıl yürütmek|tartışmak|b2
+w04254|процветать|gelişmek|refah bulmak|b2
+w04255|шифр|kod|şifre|b2
+w04256|передвижение|hareket|yer değiştirme|b2
+w04257|вакансия|münhal|boş kadro|b2
+w04258|покорить|tavlamak|altetmek|b2
+w04259|отход|geri çekilme|ayrılma|b2
+w04261|вафля|gofret|waffle|b2
+w04262|вкладывать|yatırım yapmak|koymak|b2
+w04264|рассмотрение|inceleme|ele alma|b2
+w04268|инсульт|beyin inmesi|inme|b2
+w04271|карета|at arabası|fayton|b2
+w04273|амбар|ambar|tahıl ambarı|b2
+w04276|обыкновенный|sıradan|olağan|b2
+w04278|почтение|saygı|hürmet|b2
+w04279|отбор|ayıklama|seçme|b2
+w04281|вылет|kalkış|uçuş|b2
+w04282|сладенький|tatlım|canım|b2
+w04284|бедность|fakirlik|yoksulluk|b2
+w04292|враждебный|düşman|düşmanca|b2
+w04295|уравнение|denklem|muadele|b2
+w04297|срезать|biçmek|budamak|b2
+w04299|складывать|katlamak|birikmek|b2
+w04301|ошибочный|hatalı|yanlış|b2
+w04303|ступень|basamak|aşama|b2
+w04307|легальный|yasal|legal|b2
+w04308|невинность|masumiyet|iffet|b2
+w04315|обходить|dolaşmak|etrafından geçmek|b2
+w04316|издатель|yayıncı|yayımcı|b2
+w04317|издавать|yayınlamak|dışarı vermek|b2
+w04321|исцелить|iyileştirmek|şifa vermek|b2
+w04322|раскусить|niyetini anlamak|çözmek|b2
+w04324|экономить|tasarruf etmek|biriktirmek|b2
+w04325|колоть|saplamak|bıçaklamak|b2
+w04326|юстиция|adliye|adalet|b2
+w04328|собор|katedral|konsey|b2
+w04329|скверный|kötü|berbat|b2
+w04330|выздоровление|nekahet|iyileşme|b2
+w04331|гнилой|çürük|kokuşmuş|b2
+w04333|тусовка|takılma|eğlenti|b2
+w04337|денежный|paralı|parasal|b2
+w04340|свинка|kabakulak|domuz yavrusu|b2
+w04342|гимн|ilahi|marş|b2
+w04343|подглядывать|dikizlemek|gözetlemek|b2
+w04346|газон|çimen|çimenlik|b2
+w04351|существенный|esaslı|önemli|b2
+w04352|ужасающий|insanın kanını donduran|korkunç|b2
+w04357|распространять|yaymak|dağıtmak|b2
+w04361|мучение|ıstırap|işkence|b2
+w04362|привычный|sıradan|alışılagelen|b2
+w04363|мучительный|acı verici|ıstıraplı|b2
+w04366|мель|sığlık|sığ yer|b2
+w04367|курорт|içmeler şehri|sayfiye şehri|b2
+w04371|титан|titan|titanyum|b2
+w04373|затянуть|sıkmak|geciktirmek|b2
+w04374|сочинение|kompozisyon|yazı ödevi|b2
+w04376|отбирать|ayıklamak|seçmek|b2
+w04377|чудной|acayip|tuhaf|b2
+w04378|накануне|arife günü|bir gün önce|b2
+w04379|проводник|rehber|kılavuz|b2
+w04380|симпатия|sempati|hoşlanma|b2
+w04382|одноклассник|sınıf arkadaşı|okul arkadaşı|b2
+w04383|склонность|eğilim|meyil|b2
+w04384|развести|ayırmak|yetiştirmek|b2
+w04385|салют|askeri selam|havai fişek|b2
+w04386|ходатайство|dilekçe|şefaat|b2
+w04388|склонный|eğilimli|meyilli|b2
+w04390|переписка|yazışma|mektuplaşma|b2
+w04393|седло|eyer|sele|b2
+w04397|причал|iskele|peron|b2
+w04398|головорез|eşkıya|haydut|b2
+w04399|колебаться|tereddüt etmek|duraklamak|b2
+w04402|чертёж|resim|çizim|b2
+w04404|лосось|somon|som|b2
+w04406|исправлять|düzeltmek|tamir etmek|b2
+w04407|опускаться|alçalmak|düşmek|b2
+w04411|российский|Rus|Rusya'ya ait|b2
+w04414|дискуссия|tartışma|müzakere|b2
+w04417|пощада|merhamet|af|b2
+w04419|ввязываться|karışmak|bulaşmak|b2
+w04421|восприятие|algı|algılama|b2
+w04423|исправиться|düzelmek|ıslah olmak|b2
+w04424|порочный|ahlaksız|sapkın|b2
+w04425|капельница|serum|damlalık|b2
+w04426|скачок|sıçrama|atılım|b2
+w04428|торопить|acele ettirmek|sıkıştırmak|b2
+w04430|шайка|çete|şebeke|b2
+w04432|очевидец|görgü tanığı|görgü şahidi|b2
+w04434|погасить|söndürmek|ödeyip kapatmak|b2
+w04435|работодатель|işveren|çalıştıran|b2
+w04436|вопреки|-e karşın|aksine|b2
+w04440|пешка|piyon|kukla|b2
+w04443|запрашивать|istemek|talep etmek|b2
+w04446|выслеживать|izlemek|takip etmek|b2
+w04448|засыпать|uykuya dalmak|uyuyakalmak|b2
+w04450|пугаться|korkmak|tırsmak|b2
+w04451|читатель|okuyucu|okur|b2
+w04452|нейтральный|tarafsız|bitaraf|b2
+w04453|напрасно|nafile|boş yere|b2
+w04455|аванс|avans|öndelik|b2
+w04456|несправедливость|adaletsizlik|haksızlık|b2
+w04461|намёк|ima|ipucu|b2
+w04462|акционер|hissedar|paydaş|b2
+w04464|липа|ıhlamur|ıhlamur ağacı|b2
+w04465|милосердный|merhametli|şefkatli|b2
+w04466|содержаться|bulunmak|içermek|b2
+w04467|тосковать|hasretini çekmek|özlemek|b2
+w04469|пейзаж|manzara|peyzaj|b2
+w04471|раздеть|soymak|üstünü çıkarmak|b2
+w04474|призыв|çağrılış|celp|b2
+w04476|мех|kürk|körük|b2
+w04478|единорог|tekboynuz|tek boynuzlu|b2
+w04481|подъём|tırmanış|yükseliş|b2
+w04485|миска|kap|tas|b2
+w04487|злоба|kin|hınç|b2
+w04492|гнусный|iğrenç|alçakça|b2
+w04493|карманный|cep boyu|cepte taşınan|b2
+w04494|подрядчик|müteahhit|müteahhit firma|b2
+w04500|секта|tarikat|mezhep|b2
+w04503|аспект|yön|açı|b2
+w04507|линза|mercek|adese|b2
+w04508|нехватка|eksiklik|yetersizlik|b2
+w04512|удалять|çıkarmak|almak|b2
+w04513|памятник|abide|anıt|b2
+w04518|провожать|uğurlamak|eşlik etmek|b2
+w04519|тыква|kabak|balkabağı|b2
+w04520|поклоняться|tapmak|ibadet etmek|b2
+w04522|великодушный|alicenap|yüce gönüllü|b2
+w04523|свойство|özellik|nitelik|b2
+w04524|коль|eğer|ise|b2
+w04525|избитый|dövülmüş|darp edilmiş|b2
+w04526|птичий|bir kuşunkini andıran|kuş|b2
+w04528|постепенно|yavaş yavaş|kademeli olarak|b2
+w04530|канун|arife|akşam|b2
+w04532|последовательность|sıra|dizilim|b2
+w04535|фильтр|filtre|süzgeç|b2
+w04536|рассеянный|dalgın|dağınık|b2
+w04538|паром|feribot|şahtur|b2
+w04539|исключительно|yalnızca|sırf|b2
+w04540|часовня|şapel|kilisecik|b2
+w04541|строиться|kurulmak|sıraya dizmek|b2
+w04542|приговорить|mahkûm etmek|hüküm vermek|b2
+w04545|чудак|tuhaf adam|acayip tip|b2
+w04546|откровенно|düpedüz|açıkça|b2
+w04547|разрывать|yırtmak|koparmak|b2
+w04549|раствор|çözelti|eriyik|b2
+w04553|правдоподобный|inandırıcı|gerçekçi|b2
+w04556|овладеть|ele geçirmek|el koymak|b2
+w04559|верблюд|deve|hecin|b2
+w04560|абсурдный|abes|saçma|b2
+w04561|соединять|birleştirmek|bağlamak|b2
+w04562|бурить|delmek|sondaj yapmak|b2
+w04565|санитар|hasta bakıcı|hastabakıcı|b2
+w04568|иммигрант|göçmen|muhacir|b2
+w04569|суша|kara|karasal alan|b2
+w04572|удачно|başarıyla|şansla|b2
+w04573|ягода|meyve|yemiş|b2
+w04575|стучаться|kapıyı çalmak|vurmak|b2
+w04577|липкий|yapışkan|yapış yapış|b2
+w04579|съезд|kongre|çıkış|b2
+w04583|слюна|tükürük|salya|b2
+w04584|распознать|tanımak|tespit etmek|b2
+w04585|изгнание|sürgün|ihraç|b2
+w04587|выделяться|öne çıkmak|salgılanmak|b2
+w04588|бездельник|tembel|aylak|b2
+w04589|отсрочка|vade|erteleme|b2
+w04590|колбаса|sosis|sucuk|b2
+w04591|резинка|silgi|lastik bant|b2
+w04592|гранат|nar|garnet|b2
+w04593|шутник|şakacı|latifeci|b2
+w04594|судорога|kramp|ihtilaç|b2
+w04597|восход|doğuş|yükseliş|b2
+w04599|интрига|entrika|desise|b2
+w04601|промах|gaf|hata|b2
+w04602|вражда|düşmanlık|adavet|b2
+w04604|смешанный|karma|karışık|b2
+w04605|опасение|endişe|kaygı|b2
+w04610|уплыть|yüzerek uzaklaşmak|açılmak|b2
+w04611|сообразить|anlamak|kavramak|b2
+w04612|тактика|taktik|usul|b2
+w04613|увеличивать|artırmak|büyütmek|b2
+w04620|отключать|kapatmak|bağlantısını kesmek|b2
+w04621|омерзительный|iğrenç|tiksindirici|b2
+w04624|поить|içirmek|su vermek|b2
+w04628|крах|çöküş|iflas|b2
+w04631|метка|işaret|etiket|b2
+w04638|ястреб|atmaca|şahin|b2
+w04642|творчество|yaratıcılık|yapıtlar|b2
+w04643|насмехаться|alay etmek|eğlenmek|b2
+w04644|агат|akik|akik taşı|b2
+w04647|клык|köpek dişi|azı dişi|b2
+w04651|сокол|doğan|gökdoğan|b2
+w04652|предсказание|prediksiyon|tahmin|b2
+w04653|ломаться|bozulmak|kırılmak|b2
+w04654|нечистый|katışık|iblis|b2
+w04656|предохранитель|sigorta|emniyet|b2
+w04657|характеристика|özellik|nitelendirme|b2
+w04658|промышленный|endüstriyel|endüstri|b2
+w04660|разрываться|ikiye bölünmek|kararsız kalmak|b2
+w04661|огурец|hıyar|salatalık|b2
+w04664|остроумный|nükteli|zekice|b2
+w04667|зловещий|uğursuz|kötü alâmetli|b2
+w04669|препятствовать|engel olmak|engel çıkarmak|b2
+w04672|контекст|bağlam|kontekst|b2
+w04675|царица|çariçe|kraliçe|b2
+w04676|магистр|yüksek lisans|master derecesi|b2
+w04677|человечность|insanlık|insaniyet|b2
+w04679|похвала|övgü|takdir|b2
+w04683|катить|yuvarlamak|sürmek|b2
+w04687|повседневный|günlük|gündelik|b2
+w04689|крикнуть|bağırmak|haykırmak|b2
+w04690|преследование|takip|kovuşturma|b2
+w04691|специальность|uzmanlık alanı|uzmanlık|b2
+w04695|буфет|açık büfe|büfe|b2
+w04698|отчим|üvey baba|babalık|b2
+w04700|врываться|zorla girmek|dalmak|b2
+w04702|уступать|feragat etmek|taviz vermek|b2
+w04703|хихикать|kıkırdamak|kıs kıs gülmek|b2
+w04704|запутать|kafasını karıştırmak|dolaştırmak|b2
+w04706|благоразумный|akıllı|düşünceli|b2
+w04709|траектория|yörünge|uçuş yörüngesi|b2
+w04710|декорация|dekor|manzara|b2
+w04711|возмездие|intikam|ceza|b2
+w04712|осведомитель|muhbir|ihbarcı|b2
+w04713|шип|krampon|diken|b2
+w04714|напоследок|son olarak|sonunda|b2
+w04716|смотритель|bekçi|gözetici|b2
+w04718|анализировать|analiz etmek|çözümlemek|b2
+w04719|скульптура|heykel|yontu|b2
+w04721|вслед|arkada|ardında|b2
+w04723|густой|koyu|sık|b2
+w04724|некрасивый|çirkince|çirkin|b2
+w04726|параллельный|paralel|koşut|b2
+w04727|мятеж|ayaklanma|isyan|b2
+w04728|загар|bronzlaşma|bronz ten|b2
+w04738|кровяной|kanla ilgili|kana ait|b2
+w04739|спорный|ihtilaflı|tartışmalı|b2
+w04740|меткий|isabetli|tam|b2
+w04741|колонна|kolon|sütun|b2
+w04745|натянуть|germek|çekmek|b2
+w04747|пластырь|plaster|yara bandı|b2
+w04751|мочиться|işemek|idrar yapmak|b2
+w04752|поощрять|teşvik etmek|özendirmek|b2
+w04753|незабываемый|unutulmayacak|unutulmaz|b2
+w04755|зашить|dikmek|dikiş atmak|b2
+w04757|лишение|mahrumiyet|yoksunluk|b2
+w04761|тяга|çekim|itki|b2
+w04762|концентрация|konsantrasyon|yoğunlaşma|b2
+w04769|перемирие|ateşkes|mütareke|b2
+w04777|холостой|bekâr|boş|b2
+w04778|взлетать|havalanmak|kalkış yapmak|b2
+w04782|благополучие|refah|iyilik hali|b2
+w04784|якорь|çıpa|çapa|b2
+w04787|седой|boz|gümüşi|b2
+w04788|оса|eşek arısı|yaban arısı|b2
+w04790|прачечная|çamaşırhane|yıkama|b2
+w04791|частность|ayrıntı|özel durum|b2
+w04793|пересадка|aktarma|nakil|b2
+w04798|справочник|rehber|kılavuz|b2
+w04800|бывало|eskiden olurdu|vaktiyle|b2
+w04802|революционный|devrimci|devrim|b2
+w04803|компонент|bileşen|bileşke|b2
+w04804|влечение|çekim|eğilim|b2
+w04808|поселение|yerleşim|yerleşke|b2
+w04809|пахать|toprağı sürmek|çok çalışmak|b2
+w04810|разгромить|ezmek|bozguna uğratmak|b2
+w04811|копить|biriktirmek|yığmak|b2
+w04812|сносить|yıkmak|katlanmak|b2
+w04813|таз|leğen; kalça|pelvis|b2
+w04815|улей|arı kovanı|kovan|b2
+w04819|уместный|isabetli|alakalı|b2
+w04820|аналитик|analizci|analist|b2
+w04822|кровный|kan bağı olan|öz|b2
+w04825|токсичный|toksik|zehirli|b2
+w04829|манить|tavlamak|el etmek|b2
+w04839|интеллектуальный|entelektüel|düşünsel|b2
+w04842|грохнуть|güm diye düşürmek|öldürmek|b2
+w04843|сустав|mafsal|oynak|b2
+w04845|шрифт|yazı tipi|font|b2
+w04849|сжимать|büzmek|sıkmak|b2
+w04850|уговаривать|ikna etmeye çalışmak|kandırmak|b2
+w04856|реветь|bağırmak|böğürmek|b2
+w04859|покорный|itaatkâr|boyun eğen|b2
+w04861|промежуток|aralık|ara|b2
+w04863|передовой|ileri|öncü|b2
+w04864|подобие|benzerlik|suret|b2
+w04865|завербовать|işe almak|örgüte katmak|b2
+w04866|состариться|yaşlanmak|ihtiyarlamak|b2
+w04868|спонтанный|spontane|kendiliğinden|b2
+w04870|ручной|elle yapılan|el ile ilgili|b2
+w04871|коньяк|kanyak|konyak|b2
+w04874|величина|miktar|büyüklük|b2
+w04876|пылесос|elektrik süpürgesi|aspiratör|b2
+w04877|ознакомиться|bilgi edinmek|fikir edinmek|b2
+w04879|упор|dayanak|vurgu|b2
+w04881|посвящать|ithaf etmek|adamak|b2
+w04883|молодёжь|gençlik|gençler|b2
+w04884|снижение|düşüş|azalma|b2
+w04886|баран|koç|koyun|b2
+w04891|баллон|tüp|silindir|b2
+w04892|возбуждённый|heyecanlı|gergin|b2
+w04893|отнюдь|asla|hiç de|b2
+w04895|превосходить|üstün olmak|geçmek|b2
+w04906|питомец|evcil hayvan|besleme|b2
+w04908|значительно|önemli ölçüde|hayli|b2
+w04911|тугой|katı|gergin|b2
+w04914|гипотеза|hipotez|varsayım|b2
+w04925|заём|borç|ödünç|b2
+w04931|таблица|cetvel|tablo|b2
+w04934|ласка|sevgi|okşama|b2
+w04937|дворянин|soylu|asilzade|b2
+w04938|бессмертие|ölümsüzlük|ölmezlik|b2
+w04939|хребет|sırt|sıradağ|b2
+w04940|воск|balmumu|mum|b2
+w04942|логический|mantıksal|mantıki|b2
+w04944|обрыв|uçurum|yar|b2
+w04945|восстанавливать|onarmak|yeniden inşa etmek|b2
+w04947|везение|şans|talih|b2
+w04948|употребление|kullanım|tüketim|b2
+w04951|приютить|barındırmak|sığınak vermek|b2
+w04952|столкновение|çarpışma|vuruş|b2
+w04953|соломинка|pipet|saman çöpü|b2
+w04956|траур|yas|matem|b2
+w04957|помещать|yerleştirmek|koymak|b2
+w04963|матрос|deniz eri|tayfa|b2
+w04964|отвага|cesaret|yüreklilik|b2
+w04968|поцарапать|çizmek|tırmalamak|b2
+w04971|излишний|gereksiz|fazla|b2
+w04973|самоубийца|müntehir|kendini öldüren|b2
+w04978|вымогательство|gasp|zorla para alma|b2
+w04981|червяк|solucan|kurtçuk|b2
+w04982|взор|bakış|nazar|b2
+w04983|мастерская|atölye|işlik|b2
+w04985|конструкция|yapı|konstrüksiyon|b2
+w04986|подопытный|deneme|deney|b2
+w04990|продукция|ürün|üretim|b2
+w04994|песчаный|kumlu|kumluk|b2
+w04995|руина|harabe|virane|b2
+w04997|мэтр|usta|üstat|b2
+w04998|окраина|kenar mahalle|dış mahalle|b2
+w05001|низко|alçak|alçakta|b2
+w05004|солидный|etkileyici|hatırı sayılır|b2
+w05006|объединение|birleşme|birleştirme|b2
+w05008|гамма|gam|gama|b2
+w05009|рюмка|kadeh|votka kadehi|b2
+w05012|пух|tüy|kuştüyü|b2
+w05014|мигрень|migren|yarımca|b2
+w05015|затрата|masraf|harcama|b2
+w05016|копыто|toynak|tırnak|b2
+w05017|дрожь|titreme|ürperti|b2
+w05020|молчаливый|sessiz|suskun|b2
+w05022|надоедливый|can sıkıcı|sinir bozucu|b2
+w05023|сбавить|azaltmak|indirmek|b2
+w05024|пожирать|yutmak|obur gibi yemek|b2
+w05025|располагать|ayarlamak|malik olmak|b2
+w05026|нейтрализовать|nötralize etmek|tarafsızlaştırmak|b2
+w05028|выдерживать|dayanmak|katlanmak|b2
+w05029|беспокойный|telaşlı|huzursuz|b2
+w05031|постановление|karar|kararname|b2
+w05032|эффективность|verimlilik|etkinlik|b2
+w05035|кузнец|demirci|nalbant|b2
+w05036|копировать|kopya etmek|kopya çıkarmak|b2
+w05039|полярный|kutup|kutupsal|b2
+w05041|изложить|anlatmak|açıklamak|b2
+w05045|турне|tur|turne|b2
+w05046|пристань|iskele|rıhtım|b2
+w05049|дрянной|berbat|adi|b2
+w05054|переборщить|abartmak|aşırıya kaçmak|b2
+w05055|постройка|yapı|bina|b2
+w05056|запугивать|göz korkutmak|gözdağı vermek|b2
+w05058|по-хорошему|iyilikle|dostça|b2
+w05060|уран|uranyum|uranüs|b2
+w05064|пика|mızrak; zirve|doruk|b2
+w05069|беспощадный|amansız|acımasız|b2
+w05070|втроём|üçü birlikte|üç kişi|b2
+w05074|аллигатор|aligator|timsah|b2
+w05076|грубость|huşunet|kabalık|b2
+w05077|отрывать|koparmak|ayırmak|b2
+w05078|взламывать|kırıp girmek|hacklemek|b2
+w05080|катетер|kateter|akaç|b2
+w05081|клочок|parça|kırpıntı|b2
+w05084|эрекция|ereksiyon|sertleşme|b2
+w05090|строение|terkip|bina|b2
+w05091|депутат|mebus|milletvekili|b2
+w05093|нападающий|forvet|saldıran|b2
+w05095|кислый|ekşi|buruk|b2
+w05099|вздохнуть|nefes almak|iç çekmek|b2
+w05101|щель|yarık|çatlak|b2
+w05102|разделение|bölünme|ayrım|b2
+w05107|квалификация|yeterlilik|uzmanlık|b2
+w05109|сознательный|amaçlı|bilinçli|b2
+w05111|горевать|yas tutmak|kederlenmek|b2
+w05120|деяние|eylem|fiil|b2
+w05124|довезти|götürmek|bırakmak|b2
+w05125|примерный|yaklaşık|örnek|b2
+w05126|одиночный|tekli|yalnız|b2
+w05127|отдельно|ayrı ayrı|ayrıca|b2
+w05128|вязать|örmek|bağlamak|b2
+w05132|глина|kil|balçık|b2
+w05134|ранг|rütbe|derece|b2
+w05135|дискриминация|ayrımcılık|ayırım|b2
+w05139|необъяснимый|anlaşılmaz|tarifsiz|b2
+w05141|принтер|yazıcı|printer|b2
+w05142|дефект|kusur|arıza|b2
+w05151|увеличиваться|artmak|büyümek|b2
+w05153|единство|birlik|teklik|b2
+w05155|навоз|gübre|kemre|b2
+w05156|врачебный|tıbbi|hekim|b2
+w05157|вишня|vişne|vişne ağacı|b2
+w05158|мститель|intikamcı|intikam alan|b2
+w05163|равнина|düzlük|düz|b2
+w05164|анатомия|anatomi|yapı|b2
+w05165|устойчивый|istikrarlı|sürdürülebilir|b2
+w05168|заря|şafak|seher|b2
+w05173|пастух|çoban|sığırtmaç|b2
+w05177|валюта|para|döviz|b2
+w05181|вопль|feryat|çığlık|b2
+w05184|тысячелетие|binyıl|milenyum|b2
+w05185|завязка|boğum|bağ|b2
+w05186|любимец|gözde|sevgili|b2
+w05188|аплодировать|alkışlamak|alkış tutmak|b2
+w05189|стабильность|istikrar|kararlılık|b2
+w05190|годный|uygun|geçerli|b2
+w05192|вынимать|çıkarmak|dışarı almak|b2
+w05193|краденый|çalıntı|çalınmış|b2
+w05194|попугай|papağan|dudu|b2
+w05195|поддержание|sürdürme|devam ettirme|b2
+w05196|колючий|iğneli|dikenli|b2
+w05200|сборище|kalabalık|güruh|b2
+w05203|фактор|etken|faktör|b2
+w05205|пригодный|uygun|elverişli|b2
+w05206|оптимизм|iyimserlik|optimizm|b2
+w05207|староста|muhtar|sınıf başkanı|b2
+w05210|скатерть|masa örtüsü|sofra örtüsü|b2
+w05211|стычка|çarpışma|çatışma|b2
+w05220|неразбериха|karmaşa|keşmekeş|b2
+w05222|пыл|coşku|köz|b2
+w05225|езда|binme|biniş|b2
+w05232|глазной|göze ait|göz+|b2
+w05233|обнаруживать|keşfetmek|ortaya çıkarmak|b2
+w05234|ремонтировать|tamir etmek|onarmak|b2
+w05238|русло|yatak|mecra|b2
+w05241|осознание|farkındalık|bilinç|b2
+w05249|разъяснить|açıklamak|izah etmek|b2
+w05255|амулет|muska|tılsım|b2
+w05257|проступок|kabahat|ihlal|b2
+w05259|брить|tıraş etmek|tıraşlamak|b2
+w05268|знаток|uzman|erbap|b2
+w05272|понизить|alçaltmak|düşürmek|b2
+w05273|наизусть|ezberden|ezbere|b2
+w05279|алфавит|alfabe|abece|b2
+w05280|приобретение|edinim|kazanım|b2
+w05282|мучиться|acı çekmek|ıstırap çekmek|b2
+w05285|мечеть|cami|mescit|b2
+w05286|ржавый|paslı|paslanmış|b2
+w05287|грохот|gürültü|gümbürtü|b2
+w05289|улучшиться|iyileşmek|düzelmek|b2
+w05295|мышечный|kas|kassal|b2
+w05299|кружить|dönmek|tur atmak|b2
+w05300|клок|tutam|demet|b2
+w05301|горожанин|şehirli|kentli|b2
+w05303|дворецкий|şef garson|kahya|b2
+w05306|восемнадцать|onsekiz|on sekiz|b2
+w05308|высказывание|ifade|söz|b2
+w05317|обломок|kırık|kırıntı|b2
+w05319|разрушитель|yıkıcı|tahripçi|b2
+w05320|автострада|otoyol|otoban|b2
+w05321|кулон|coulomb|kolye|b2
+w05322|коммуникация|haberleşme|iletişim|b2
+w05324|предрассудок|boş inan|önyargı|b2
+w05325|невообразимый|düşünülemez|hayal edilemez|b2
+w05327|рифма|kafiye|uyak|b2
+w05329|затевать|başlatmak|girişmek|b2
+w05341|насильственный|şiddet içeren|zorla yapılan|b2
+w05342|обаятельный|albenili|büyüleyici|b2
+w05343|грубиян|kaba adam|terbiyesiz|b2
+w05344|ветерок|esinti|meltem|b2
+w05345|бесконечность|sonsuzluk|ebediyet|b2
+w05347|хромой|aksak|topal|b2
+w05351|станок|makine|tezgâh|b2
+w05352|украшать|süslemek|donatmak|b2
+w05357|вспыльчивый|asabi|barut gibi|b2
+w05360|мягко|yumuşakça|hafifçe|b2
+w05362|проклясть|lanetlemek|beddua etmek|b2
+w05364|карат|karat|kırat|b2
+w05365|ограничить|sınırlamak|kısıtlamak|b2
+w05366|непрерывный|kesintisiz|sürekli|b2
+w05367|очаровать|büyülemek|cezbetmek|b2
+w05368|искусный|usta|hünerli|b2
+w05372|плотник|dülger|doğramacı|b2
+w05374|неполный|eksik|tam olmayan|b2
+w05376|прилично|oldukça|gayet iyi|b2
+w05377|обоснованный|gerekçeli|haklı|b2
+w05380|небрежный|dikkatsiz|özensiz|b2
+w05381|шустрый|çevik|atik|b2
+w05383|пасовать|pas vermek|boyun eğmek|b2
+w05384|мизинец|küçük parmak|serçe parmak|b2
+w05387|скользить|kaymak|süzülmek|b2
+w05388|хрустящий|gevrek|çıtır|b2
+w05389|опрометчивый|düşüncesiz|tedbirsiz|b2
+w05392|затопить|su basmak|sel basmak|b2
+w05393|пышный|gösterişli|tantanalı|b2
+w05395|упростить|basitleştirmek|sadeleştirmek|b2
+w05398|описанный|tarif edilen|anlatılan|b2
+w05399|пародия|parodi|yansılama|b2
+w05405|весной|baharda|ilkbaharda|b2
+w05408|неподходящий|münasebetsiz|uygunsuz|b2
+w05410|ходьба|yürüme|yürüyüş|b2
+w05411|восхождение|tırmanış|çıkış|b2
+w05412|махинация|dalavere|hile|b2
+w05418|разложение|çürüme|ayrışma|b2
+w05419|дверца|küçük kapı|kapak|b2
+w05427|потомство|soy|nesil|b2
+w05428|ликвидировать|ortadan kaldırmak|lağvetmek|b2
+w05430|ливень|sağanak|sağanak halinde yağmur|b2
+w05432|ушибиться|berelenmek|kendini incitmek|b2
+w05433|сауна|sauna|fin hamamı|b2
+w05435|стабилизировать|stabilize etmek|dengelemek|b2
+w05436|избавление|kurtuluş|kurtulma|b2
+w05438|булка|çörek|francala|b2
+w05442|кроссворд|bulmaca|çapraz bulmaca|b2
+w05447|дурень|ahmak|budala|b2
+w05449|раздумье|düşünce|tereddüt|b2
+w05450|примирение|barışma|barıştırma|b2
+w05451|знающий|bilgili|bilen|b2
+w05456|накладывать|uygulamak|koymak|b2
+w05459|встревоженный|endişeli|tedirgin|b2
+w05465|кончина|vefat|ölüm|b2
+w05471|кассир|kasiyer|gişe memuru|b2
+w05472|изделие|ürün|mamul|b2
+w05474|опустошить|bozmak|boşaltmak|b2
+w05477|переворачивать|çevirmek|ters dönmek|b2
+w05481|оправданный|haklı|meşru|b2
+w05484|настоятельный|ısrarlı|acil|b2
+w05486|клин|kama|takoz|b2
+w05489|обрадовать|kanatlandırmak|sevindirmek|b2
+w05490|искренность|içtenlik|samimiyet|b2
+w05491|кузов|kasa|gövde|b2
+w05496|лот|iskandil|çekül|b2
+w05498|вата|pamuk|vatka|b2
+w05499|такт|ritim|takt|b2
+w05500|порка|dayak|şaplak|b2
+w05501|неизлечимый|devasız|şifasız|b2
+w05504|лепесток|taç yaprağı|taçyaprağı|b2
+w05507|публично|alenen|aleni olarak|b2
+w05512|устаревший|eskimiş|arkaik|b2
+w05513|наём|kiralama|işe alma|b2
+w05515|гул|uğultu|gürültü|b2
+w05516|сифилис|frengi|sifilis|b2
+w05518|азот|azot|nitrojen|b2
+w05520|суматоха|kargaşa|telaş|b2
+w05522|колода|parça|deste|b2
+w05523|никчёмный|faydasız|gereksiz|b2
+w05524|безымянный|isimsiz|adsız|b2
+w05525|подошва|taban|ayakkabı tabanı|b2
+w05531|изготовление|yapım|üretim|b2
+w05533|закругляться|toparlamak|sözü bitirmek|b2
+w05534|притяжение|çekim|yerçekimi|b2
+w05535|сообразительный|zeki|çabuk kavrayan|b2
+w05536|сосна|çam|çam ağacı|b2
+w05537|топить|ısıtmak|batırmak|b2
+w05538|сабля|kılıç|süvari kılıcı|b2
+w05539|рослый|uzun boylu|iri yarı|b2
+w05540|леопард|leopar|pars|b2
+w05543|вегетарианец|etyemez|vejetaryen|b2
+w05546|подражать|taklit etmek|özenmek|b2
+w05548|шеф-повар|mutfak şefi|şef|b2
+w05551|аорта|aort|ana atardamar|b2
+w05555|кривой|tek gözlü|eğri|b2
+w05556|детальный|ayrıntılı|detaylı|b2
+w05557|спираль|spiral|sarmal|b2
+w05559|экспонат|sergilenen eser|obje|b2
+w05561|призвание|çağrı|vazife|b2
+w05566|рулетка|mezura|rulet|b2
+w05568|раздражительный|sinirli|çabuk kızan|b2
+w05569|ода|kaside|övgü şiiri|b2
+w05575|преждевременный|mevsimsiz erken|vakitsiz|b2
+w05578|повторение|tekrar|tekrarlama|b2
+w05580|конёк|paten|sopalı at kafası|b2
+w05581|комендант|komutan|bina yöneticisi|b2
+w05582|смущённый|utanmış|mahcup|b2
+w05583|химик|kimyacı|kimyager|b2
+w05584|специфический|özgül|spesifik|b2
+w05586|сдержанный|ölçülü|ağırbaşlı|b2
+w05589|чулан|depo odası|kiler|b2
+w05590|зачастую|sık sık|genellikle|b2
+w05594|резина|kauçuk|lastik|b2
+w05598|материк|kıta|kara|b2
+w05599|цеплять|takılmak|cezbetmek|b2
+w05603|сыночек|oğulcuk|canım oğlum|b2
+w05604|айсберг|buzdağı|aysberg|b2
+w05607|притон|batakhane|gizli yuva|b2
+w05610|сберечь|korumak|saklamak|b2
+w05612|поверх|üstüne|üzerine|b2
+w05616|вертикальный|dikey|düşey|b2
+w05619|спутница|yol arkadaşı|refakatçi|b2
+w05620|тщеславие|kibir|boş gurur|b2
+w05621|опираться|dayanmak|abanmak|b2
+w05622|почётный|fahri|şanlı|b2
+w05627|благополучный|sorunsuz|güvenli bir şekilde|b2
+w05630|процветание|bereket|gönenç|b2
+w05632|выкидыш|düşük|çocuk düşürme|b2
+w05636|предвзятый|önyargılı|taraflı|b2
+w05637|антикварный|antika|antikacı|b2
+w05638|беспечный|kaygısız|tasasız|b2
+w05639|доверчивый|saf|kolay inanan|b2
+w05642|побуждение|dürtü|güdü|b2
+w05644|смятение|kargaşa|şaşkınlık|b2
+w05645|скромность|alçakgönüllülük|tevazu|b2
+w05649|бес|şeytan|cin|b2
+w05651|мутить|bulandırmak|kışkırtmak|b2
+w05652|своеобразный|kendine özgü|has|b2
+w05653|квалифицированный|kalifiye|nitelikli|b2
+w05658|груда|yığın|küme|b2
+w05660|выговор|çıkışma|okunuş|b2
+w05661|никудышный|berbat|hiç bir işe yaramaz|b2
+w05662|изолированный|izole|tecrit edilmiş|b2
+w05669|властелин|hükümdar|efendi|b2
+w05673|аналогичный|analojik|benzer|b2
+w05674|узор|desen|motif|b2
+w05675|виновник|suçlu|sorumlu|b2
+w05680|беззаботный|tasasız|kaygısız|b2
+w05682|антенна|anten|duyarga|b2
+w05685|заурядный|değme|alelâde|b2
+w05686|очаг|ocak|kaynak|b2
+w05687|безобразие|çirkinlik|kepazelik|b2
+w05689|стремительный|hızlı|atak|b2
+w05694|чесать|kaşımak|taramak|b2
+w05695|наземный|yerüstü|karasal|b2
+w05699|принуждение|zorlama|tazyik|b2
+w05700|изводить|eziyet etmek|canını sıkmak|b2
+w05702|знамя|bayrak|sancak|b2
+w05704|обладатель|sahip|hamil|b2
+w05706|губить|mahvetmek|yok etmek|b2
+w05710|обнажённый|çıplak|açık|b2
+w05712|угнетать|bunaltmak|ezmek|b2
+w05714|урон|kayıplar|zayiat|b2
+w05721|слабеть|zayıflamak|güçten düşmek|b2
+w05727|преобразование|dönüşüm|değiştirilme|b2
+w05728|гигиена|temizlik|hijyen|b2
+w05731|скрестить|çaprazlamak|melezlemek|b2
+w05732|выручать|kazanmak|kurtarmak|b2
+w05733|яростный|öfkeli|hiddetli|b2
+w05737|размножаться|çoğalmak|üremek|b2
+w05738|агония|can çekişme|ızdırap|b2
+w05740|девятка|dokuzlu|dokuz numara|b2
+w05741|качественный|kaliteli|nitelikli|b2
+w05742|жанр|tür|janr|b2
+w05745|кувшин|testi|sürahi|b2
+w05750|барабанщик|davulcu|trampetçi|b2
+w05752|подмышка|koltukaltı|koltuk altı|b2
+w05753|переоценивать|abartmak|yeniden değerlendirmek|b2
+w05756|вручать|sunmak|teslim etmek|b2
+w05757|умышленный|kasıtlı|bilinçli|b2
+w05758|непростительный|affedilmez|bağışlanmaz|b2
+w05761|спирт|alkol|ispirto|b2
+w05762|осьминог|ahtapot|mürekkep balığı|b2
+w05763|каприз|naz|kapris|b2
+w05764|киль|omurga|salma|b2
+w05765|критерий|kriter|kriteryum|b2
+w05766|тропинка|keçiyolu|çığır|b2
+w05773|авторский|yazara ait|telif|b2
+w05775|задумка|fikir|tasarı|b2
+w05777|синтетический|sentetik|bireşimli|b2
+w05782|укрепление|güçlendirme|pekiştirme|b2
+w05783|избыток|bereket|artık|b2
+w05786|ссылаться|atıfta bulunmak|dayanmak|b2
+w05788|корреспондент|muhabir|yazışmacı|b2
+w05791|перемещать|taşımak|yer değiştirmek|b2
+w05796|тётка|teyze|hala|b2
+w05797|гадить|sıçmak|incitmek|b2
+w05798|неограниченный|namahdut|sınırsız|b2
+w05800|розетка|rozet|priz|b2
+w05801|регент|naip|şef|b2
+w05802|осуществлять|gerçekleştirmek|yürütmek|b2
+w05808|раздача|dağıtma|dağıtım|b2
+w05811|косой|şaşı|eğik|b2
+w05814|подталкивать|dürtmek|itmek|b2
+w05816|шаблон|şablon|basmakalıp örnek|b2
+w05817|потопить|batırmak|suya boğmak|b2
+w05819|нежно|sevecenlikle|şefkatle|b2
+w05820|монополия|tekel|monopol|b2
+w05821|нетерпеливый|sabırsız|huzursuz|b2
+w05822|возразить|itiraz etmek|karşılık vermek|b2
+w05823|саботаж|sabotaj|baltalama|b2
+w05824|бюстгальтер|sutyen|sütyen|b2
+w05827|ремесло|zanaat|meslek|b2
+w05832|оппозиция|muhalefet|aleyhtarlık|b2
+w05833|извращение|sapkınlık|çarpıtma|b2
+w05834|гарантированный|garantili|emin|b2
+w05836|разорить|iflas ettirmek|mahvetmek|b2
+w05841|разнообразный|çeşitli|ayrışık|b2
+w05842|имперский|emperyal|imparatorluğa ait|b2
+w05843|зелень|yeşillik|sebze|b2
+w05844|объём|hacim|oylum|b2
+w05845|партизан|partizan|gerilla|b2
+w05851|лейкемия|lösemi|kan kanseri|b2
+w05852|противостояние|karşıtlık|çatışma|b2
+w05854|аристократ|aristokrat|soylu|b2
+w05855|охватывать|kapsamak|sarmak|b2
+w05856|метать|savurmak|atmak|b2
+w05858|лопатка|kürekkemiği|kürek kemiği|b2
+w05859|сковородка|sahan|tava|b2
+w05861|обронить|düşürmek|kaybetmek|b2
+w05865|объединённый|birleşik|müttefik|b2
+w05867|значимость|önem|ehemmiyet|b2
+w05869|проститься|vedalaşmak|ayrılmak|b2
+w05870|потоп|sel|tufan|b2
+w05872|раздражение|sinirlenme|tahriş|b2
+w05874|бездельничать|aylaklık etmek|boş durmak|b2
+w05877|скопление|küme|salkım|b2
+w05879|тринадцатый|on üçüncü|on üç|b2
+w05880|неустойчивый|değişken|kararsız|b2
+w05882|тушить|söndürmek|zapt etmek|b2
+w05885|раздражённый|sinirlenmiş|tahriş olmuş|b2
+w05887|вещественный|maddi|somut|b2
+w05890|трапеза|yemek|öğün|b2
+w05892|моргать|göz kırpmak|kırpıştırmak|b2
+w05894|преодолевать|üstesinden gelmek|aşmak|b2
+w05895|вырезка|kupür|bonfile|b2
+w05896|подставка|sehpa|altlık|b2
+w05897|грызть|dişlemek|kemirmek|b2
+w05902|перила|korkuluk|tırabzan|b2
+w05907|домогаться|taciz etmek|sarkıntılık etmek|b2
+w05908|раздувать|yelpazelemek|şişirmek|b2
+w05910|берлога|in|mağara|b2
+w05911|спад|düşme|gerileme|b2
+w05912|неопровержимый|çürütülemez|su götürmez|b2
+w05915|трюм|ambar|sintine|b2
+w05917|улучшать|düzeltmek|geliştirmek|b2
+w05919|кура|piliç|tavuk|b2
+w05920|произвол|keyfilik|haksızlık|b2
+w05925|проколоть|delmek|iğnelemek|b2
+w05927|пополнить|doldurmak|takviye etmek|b2
+w05929|изъян|kusur|arıza|b2
+w05932|великолепие|ihtişam|görkem|b2
+w05933|стенд|stant|sergi standı|b2
+w05935|угрюмый|asık suratlı|somurtkan|b2
+w05938|вытерпеть|katlanmak|dayanmak|b2
+w05939|лентяй|tembel|haylaz|b2
+w05940|древесина|odun|ağaç|b2
+w05946|лом|manivela|levye|b2
+w05947|утроба|rahim|karın|b2
+w05953|чары|büyü|sihir|b2
+w05954|плавный|akıcı|yumuşak|b2
+w05958|уважительный|saygılı|geçerli|b2
+w05961|распад|ayrışım|dezentegrasyon|b2
+w05963|дробь|saçma|kesir|b2
+w05967|потянуться|uzanmak|gerinmek|b2
+w05968|склероз|skleroz|sertleşme|b2
+w05969|запеканка|güveç|fırında pişen yemek|b2
+w05970|снижать|azaltmak|düşürmek|b2
+w05971|отправление|kalkış|gönderme|b2
+w05972|системный|sistemik|sistematik|b2
+w05973|жаркое|et kızartması|ızgara|b2
+w05976|лечебный|tedavi|tıbbi|b2
+w05977|чадо|evlat|çocuk|b2
+w05979|павлин|tavus|tavuskuşu|b2
+w05980|монарх|hakan|hükümdar|b2
+w05981|дротик|cirit|dart|b2
+w05989|высказывать|dile getirmek|ifade etmek|b2
+w05990|доить|sağmak|süt vermek|b2
+w05992|треск|çatırtı|çatlama sesi|b2
+w05993|имение|malikâne|arazi|b2
+w05994|соблюдение|uyma|riayet|b2
+w05995|чихать|hapşırmak|aksırmak|b2
+w05996|состоятельный|varlıklı|zengin|b2
+w05997|льгота|ayrıcalık|imtiyaz|b2
+w05998|преувеличение|abartma|büyütme|b2
+w05999|загон|ağıl|hayvan barınağı|b2
+w06000|бомбардировщик|bomba uçağı|bombardıman uçağı|b2
+w06003|виолончель|çello|viyolonsel|b2
+w06007|активист|aktivist|eylemci|b2
+w06010|археолог|arkeolog|kazıbilimci|b2
+w06011|роща|ağaçlık|koru|b2
+w06012|ласковый|şefkatli|canayakın|b2
+w06014|изобретатель|mucit|icatçı|b2
+w06017|неуверенный|kararsız|emin olmayan|b2
+w06018|пассивный|pasif|durağan|b2
+w06021|гитарист|gitarcı|gitarist|b2
+w06023|указатель|gösterge|dizin|b2
+w06027|внушительный|etkileyici|ağır|b2
+w06036|проводка|muhasebe işi|hat|b2
+w06042|зародыш|embriyon|oğulcuk|b2
+w06046|геморрой|basur|emoroit|b2
+w06049|дезертир|asker kaçağı|firari|b2
+w06050|вследствие|sonucunda|yüzünden|b2
+w06052|платный|paralı|ücretli|b2
+w06053|заикаться|kekelemek|ima etmek|b2
+w06054|компетентный|yetkin|ehliyetli|b2
+w06058|усиливаться|güçlenmek|şiddetlenmek|b2
+w06060|острота|keskinlik|nükte|b2
+w06062|солома|saman|sap|b2
+w06065|перегибать|fazla bükmek|abartmak|b2
+w06066|растяжка|esneme|germe|b2
+w06071|изготовить|yapmak|üretmek|b2
+w06072|каска|kask|miğfer|b2
+w06074|сак|çanta|torba|b2
+w06079|согласовать|uyumlu hale getirmek|onaylatmak|b2
+w06080|лучник|okçu|kemankeş|b2
+w06082|нудный|can sıkıcı|usanç verici|b2
+w06087|простота|sadelik|özentisizlik|b2
+w06090|анус|anüs|makat|b2
+w06093|саботировать|baltalamak|sabote etmek|b2
+w06096|травмировать|travmatize etmek|travma yaşatmak|b2
+w06100|крестик|haç|küçük haç|b2
+w06104|виноградник|bağ|üzüm bağı|b2
+w06109|телосложение|beden yapısı|yapı|b2
+w06113|тирания|istibdat|tiranlık|b2
+w06117|скрип|cayırtı|gıcırtı|b2
+w06120|складка|kıvrım|kırışık|b2
+w06121|оседлать|eyerlemek|binmek|b2
+w06123|узник|mahpus|tutuklu|b2
+w06126|метить|işaretlemek|damgalamak|b2
+w06127|фундаментальный|temel|esas|b2
+w06130|посёлок|kasaba|yerleşim yeri|b2
+w06133|портье|resepsiyonist|concierge|b2
+w06134|пребыть|kalmak|mukim olmak|b2
+w06135|весельчак|şen şakrak kişi|neşeli adam|b2
+w06138|уменьшаться|azalmak|küçülmek|b2
+w06140|топливный|yakıtla ilgili|yakıt+|b2
+w06145|сокращать|kısaltmak|azaltmak|b2
+w06147|неведомый|bilinmeyen|meçhul|b2
+w06149|неопытный|deneyimsiz|acemi|b2
+w06154|пугало|bostan korkuluğu|öcü|b2
+w06155|впоследствии|sonradan|sonraları|b2
+w06161|уклонение|kaçınma|vergi kaçırma|b2
+w06163|радужный|rengarenk|gökkuşağı renginde|b2
+w06167|вожак|lider|önder|b2
+w06168|вовлечь|dahil etmek|katmak|b2
+w06173|лагуна|lagün|deniz kulağı|b2
+w06175|братский|kardeşçe|kardeşçesine|b2
+w06177|сквер|bahçe|mahalle bahçesi|b2
+w06179|противоречивый|çelişik|çelişkili|b2
+w06180|подчинённый|ast|bağımlı|b2
+w06181|швырять|fırlatmak|savurmak|b2
+w06187|огласить|açığa çıkarmak|açıklamak|b2
+w06190|построение|oluşturma|yapı|b2
+w06193|малярия|sıtma|malarya|b2
+w06194|морально|ahlaken|duygusal olarak|b2
+w06196|прививка|aşı|aşılama|b2
+w06197|неуверенность|güvensizlik|kararsızlık|b2
+w06198|санкция|yaptırım|müeyyide|b2
+w06199|огород|sebze bahçesi|bostan|b2
+w06209|лесть|dalkavukluk|pohpohlama|b2
+w06210|рожок|korna|boynuz|b2
+w06212|смола|reçine|sakız|b2
+w06218|шайба|rondela|hokey diski|b2
+w06222|свод|tonoz|kanunlar bütünü|b2
+w06223|ударять|çarpmak|vurmak|b2
+w06225|приспособление|cihaz|alet|b2
+w06229|диалект|lehçe|diyalekt|b2
+w06231|кредитор|alacaklı|ödünç veren|b2
+w06232|численность|mevcut|miktar|b2
+w06233|порча|bozukluk|fesad|b2
+w06234|согнуть|bükmek|eğmek|b2
+w06236|распрощаться|elveda demek|veda etmek|b2
+w06238|поломка|arıza|bozulma|b2
+w06239|аппаратура|aygıtlar|donatım|b2
+w06240|присущий|özgü|has|b2
+w06241|возникновение|ortaya çıkma|oluşum|b2
+w06242|косичка|saç örgüsü|örgü|b2
+w06243|итого|toplam|yekûn|b2
+w06250|литься|akmak|yayılmak|b2
+w06252|течь|akmak|sızmak|b2
+w06253|просторный|bol|açık|b2
+w06255|грешить|günah işlemek|günah etmek|b2
+w06260|раздаться|duyulmak|yankılanmak|b2
+w06261|переделывать|yeniden yapmak|değiştirmek|b2
+w06264|необратимый|geri dönülmez|tersinmez|b2
+w06269|осилить|üstesinden gelmek|başarmak|b2
+w06272|снабжение|tedarik|arz|b2
+w06276|грузчик|hamal|yük taşıyıcı|b2
+w06280|возмущение|öfke|infial|b2
+w06283|неподобающий|münasebetsiz|edepsiz|b2
+w06289|экстаз|esriklik|vecd|b2
+w06294|кок|kâkül|aşçı|b2
+w06297|хам|kaba adam|terbiyesiz|b2
+w06299|приставка|ön ek|konsol|b2
+w06300|гребень|tarak|doruk|b2
+w06302|иммиграция|göç|dışarıdan göç|b2
+w06304|затвор|kilit|sürgü mekanizması|b2
+w06307|диаграмма|diyagram|grafik|b2
+w06309|рывок|ani çekiş|atılım|b2
+w06311|вакуум|boşluk|vakum|b2
+w06314|проспект|broşür|ana cadde|b2
+w06315|клевать|gagalamak|dişlemek|b2
+w06318|родимый|sevgili|öz|b2
+w06325|тупость|bönlük|aptallık|b2
+w06327|пудра|pudra|toz|b2
+w06330|мистик|gizemci|mistik|b2
+w06332|зверский|vahşi|canavarca|b2
+w06333|искажение|çarpıtma|bozulma|b2
+w06334|внушение|telkin|ima|b2
+w06339|успокаиваться|durgunlaşmak|sakinleşmek|b2
+w06341|неестественный|doğal olmayan|yapmacık|b2
+w06344|косить|biçmek|kaytarmak|b2
+w06347|весы|terazi|libra|b2
+w06348|малина|ahududu|frambuaz|b2
+w06349|ярый|ateşli|azılı|b2
+w06350|толковый|akıllı|becerikli|b2
+w06356|моторный|motor|motorlu|b2
+w06360|беспорядочный|düzensiz|karmakarışık|b2
+w06367|смирение|alçakgönüllülük|boyun eğme|b2
+w06368|слог|hece|üslup|b2
+w06370|мистика|mistisizm|gizemcilik|b2
+w06377|ростовщик|tefeci|faizci|b2
+w06382|слиток|külçe|ingot|b2
+w06383|бот|kayık|bot|b2
+w06385|лучевой|ışınsal|radyal|b2
+w06386|ракурс|açı|bakış açısı|b2
+w06389|фермент|enzim|ferment|b2
+w06390|затыкать|tıkamak|susturmak|b2
+w06395|отразить|yansıtmak|püskürtmek|b2
+w06396|штурмовать|hücum etmek|saldırmak|b2
+w06397|изгиб|kıvrım|dönemeç|b2
+w06399|формирование|oluşturma|biçimlendirme|b2
+w06401|одарить|bağışlamak|hediye etmek|c1
+w06405|подлинность|gerçeklik|özgünlük|c1
+w06407|атеист|ateist|tanrıtanımaz|c1
+w06408|утруждать|zahmete sokmak|yormak|c1
+w06409|махнуть|sallamak|el sallamak|c1
+w06410|благородно|asilce|soylulukla|c1
+w06415|сплав|alaşım|akarsuda taşıma|c1
+w06417|растерянность|şaşkınlık|afallama|c1
+w06419|удушье|boğulma|nefes darlığı|c1
+w06422|гирлянда|ışık dizisi|süs zinciri|c1
+w06425|прижимать|bastırmak|sıkıca tutmak|c1
+w06426|лай|havlama|hav|c1
+w06427|бушевать|şiddetle esmek|kudurmak|c1
+w06428|слесарь|çilingir|anahtarcı|c1
+w06431|лайнер|yolcu uçağı|transatlantik|c1
+w06432|адекватный|uygun|yeterli|c1
+w06434|охотный|istekli|gönüllü|c1
+w06435|вестник|haberci|müjdeci|c1
+w06436|опереться|dayanmak|yaslanmak|c1
+w06437|лоток|tepsi|tezgâh|c1
+w06438|трубочка|pipet|küçük boru|c1
+w06440|крушить|parçalamak|yıkmak|c1
+w06441|улаживать|halletmek|yoluna koymak|c1
+w06442|сапфир|safir|gök yakut|c1
+w06443|раскрываться|açılmak|ortaya çıkmak|c1
+w06444|дворник|kapıcı|silecek|c1
+w06445|смываться|yıkanıp gitmek|sıvışmak|c1
+w06447|погонять|sürmek|kovalamak|c1
+w06449|выжидать|beklemek|fırsat kollamak|c1
+w06453|старение|yaşlanma|eskime|c1
+w06454|предусмотреть|öngörmek|hesaba katmak|c1
+w06455|конспиративный|gizli|örtülü|c1
+w06458|цистерна|sarnıç|tanker|c1
+w06460|выдра|susamuru|su samuru|c1
+w06461|звереть|vahşileşmek|çıldırmak|c1
+w06463|старьё|eski eşya|hurda|c1
+w06464|руда|cevher|maden|c1
+w06465|прокричать|bağırmak|haykırmak|c1
+w06466|вшивый|bitli|değersiz|c1
+w06468|трубить|boru çalmak|ilan etmek|c1
+w06472|щекотливый|nazik|hassas|c1
+w06479|выжимать|sıkmak|suyunu çıkarmak|c1
+w06482|звучание|ses|tını|c1
+w06483|занятость|istihdam|meşguliyet|c1
+w06485|наугад|rastgele|körlemesine|c1
+w06486|неровный|engebeli|düzensiz|c1
+w06488|документация|belgeler|dokümantasyon|c1
+w06490|пук|demet|tutam|c1
+w06491|уменьшение|azalma|küçülme|c1
+w06494|коли|madem ki|eğer|c1
+w06496|нюанс|ayrıntı|nüans|c1
+w06498|иссякнуть|tükenmek|kurumak|c1
+w06499|годность|elverişlilik|uygunluk|c1
+w06501|брысь|kışt|defol|c1
+w06504|предоставление|sağlama|verme|c1
+w06505|находчивый|hazırcevap|becerikli|c1
+w06508|беспрецедентный|emsalsiz|benzeri görülmemiş|c1
+w06511|пастбище|otlak|mera|c1
+w06512|проекция|izdüşüm|projeksiyon|c1
+w06513|минеральный|mineral|madensel|c1
+w06516|реванш|rövanş|intikam|c1
+w06517|черновик|müsvedde|taslak|c1
+w06518|жезл|asa|değnek|c1
+w06521|наклонность|eğilim|meyil|c1
+w06522|разбрасывать|saçmak|dağıtmak|c1
+w06527|вовлекать|dahil etmek|sürüklemek|c1
+w06528|греметь|gürlemek|gümbürdemek|c1
+w06529|рецензия|eleştiri|inceleme yazısı|c1
+w06531|собрат|meslektaş|yoldaş|c1
+w06532|мигом|bir anda|hemen|c1
+w06533|подзащитный|müvekkil|sanık|c1
+w06534|охотно|memnuniyetle|seve seve|c1
+w06535|незрелый|olgunlaşmamış|ham|c1
+w06542|непорочный|lekesiz|iffetli|c1
+w06544|уменьшать|azaltmak|küçültmek|c1
+w06545|выделение|ayırma|salgı|c1
+w06547|высматривать|gözetlemek|aramak|c1
+w06548|мазать|sürmek|bulaştırmak|c1
+w06549|впалый|çökük|içeri göçmüş|c1
+w06551|арбалет|tatar yayı|arbalet|c1
+w06554|смазать|yağlamak|sürmek|c1
+w06555|пилигрим|hacı|gezgin|c1
+w06556|задаток|kapora|avans|c1
+w06557|совершаться|gerçekleşmek|olmak|c1
+w06560|халявный|bedava|beleş|c1
+w06561|ансамбль|topluluk|ekip|c1
+w06563|упрощать|indirgemek|kolaylaştırmak|c1
+w06568|парикмахерская|berber|kuaför|c1
+w06573|авантюра|macera|serüven|c1
+w06575|окунь|levrek|tatlı su levreği|c1
+w06577|бумажный|bürokratik|kâğıt|c1
+w06578|прочность|dayanıklılık|sağlamlık|c1
+w06587|жалюзи|jaluzi|stor|c1
+w06588|страстно|tutkuyla|ateşli biçimde|c1
+w06591|господство|egemenlik|iktidar|c1
+w06593|скомпрометировать|gözden düşürmek|karalamak|c1
+w06595|загорелый|yanmış|yanık|c1
+w06599|точить|bilemek|kemirmek|c1
+w06600|пуск|başlatma|fırlatma|c1
+w06605|формат|format|biçim|c1
+w06608|непоправимый|onarılmaz|telafisi imkânsız|c1
+w06609|тиф|tifo|tifüs|c1
+w06612|закладывать|rehin vermek|döşemek|c1
+w06615|сапожник|ayakkabıcı|kunduracı|c1
+w06616|кузнечик|çayır çekirgesi|çekirge|c1
+w06617|развалюха|külüstür|harabe|c1
+w06618|туш|fanfar|selam havası|c1
+w06621|приручить|evcilleştirmek|alıştırmak|c1
+w06624|колотить|dövmek|vurmak|c1
+w06625|колье|gerdanlık|kolye|c1
+w06627|челнок|mekik|dingi|c1
+w06629|катализатор|katalizör|hızlandırıcı|c1
+w06630|вещание|yayın|yayıncılık|c1
+w06632|павильон|köşk|sergi binası|c1
+w06634|паства|cemaat|sürü|c1
+w06636|руно|post|yapağı|c1
+w06638|обоюдный|karşılıklı|mütekabil|c1
+w06641|лихой|fena|atılgan|c1
+w06643|пренебрежение|ihmal|küçümseme|c1
+w06646|чихнуть|aksırmak|hapşırmak|c1
+w06650|венерический|zührevi|cinsel yolla bulaşan|c1
+w06651|кирпичный|tuğladan yapılma|tuğla rengi|c1
+w06652|сена|saman|kuru ot|c1
+w06653|рычание|homurtu|hırlama|c1
+w06655|влажность|rutubet|nem oranı|c1
+w06656|настоятель|başrahip|cemaat lideri|c1
+w06658|фракция|fraksyon|hizip|c1
+w06662|гостеприимный|misafirperver|konuksever|c1
+w06663|брезент|branda bezi|yelken bezi|c1
+w06664|повременить|biraz beklemek|ertelemek|c1
+w06665|соотечественник|vatandaş|yurttaş|c1
+w06666|бастовать|grev yapmak|grev halinde|c1
+w06667|повстречаться|rastlamak|rastlaşmak|c1
+w06668|клещ|kene|sakırga|c1
+w06670|слива|erik|erik ağacı|c1
+w06673|футляр|kılıf|sandık|c1
+w06679|купание|suya girme|yıkama|c1
+w06680|усердие|gayret|azim|c1
+w06681|стаж|kıdem|iş deneyimi|c1
+w06682|расплывчатый|belirsiz|bulanık|c1
+w06684|составление|hazırlama|düzenleme|c1
+w06685|отстранять|uzaklaştırmak|görevden almak|c1
+w06686|хилый|cılız|hastalıklı|c1
+w06691|великодушие|alicenaplık|gönül yüceliği|c1
+w06700|спячка|kış uykusu|letarji|c1
+w06701|работница|bayan işçi|kadın işçi|c1
+w06702|наложница|cariye|odalık|c1
+w06703|утолить|gidermek|doyurmak|c1
+w06704|эпилепсия|sara|epilepsi|c1
+w06705|калечить|sakat etmek|sakatlamak|c1
+w06706|жилищный|konut|mesken|c1
+w06707|конституционный|anayasal|anayasa|c1
+w06708|растяпа|sakar|beceriksiz|c1
+w06711|анемия|anemi|kansızlık|c1
+w06712|астрономия|astronomi|gökbilim|c1
+w06715|расстрел|kurşunlama|kurşuna dizme|c1
+w06718|камушек|çakıl taşı|taşcık|c1
+w06723|безрассудство|bönlük|çılgınlık|c1
+w06726|скитаться|başıboş dolaşmak|gezinmek|c1
+w06729|отпрыск|yavru|evlat|c1
+w06735|почём|kaça|ne kadar|c1
+w06739|долбить|oymak|ezberlemek|c1
+w06740|мазок|dokunuş|fırça vuruşu|c1
+w06741|безболезненный|ağrısız|acısız|c1
+w06742|застыть|donmak|katılaşmak|c1
+w06744|перевал|geçit|dağ geçidi|c1
+w06746|применимый|kullanılabilir|uygulanabilir|c1
+w06748|конский|ata ait|at|c1
+w06749|отрекаться|inkar etmek|reddetmek|c1
+w06750|забрасывать|doldurmak|yağdırmak|c1
+w06751|поэтический|şiirsel|şairane|c1
+w06753|пополнение|takviye|ekleme|c1
+w06754|макушка|tepe|baş tepesi|c1
+w06757|налёт|taarruz|gaza|c1
+w06759|ровесник|akran|yaşıt|c1
+w06761|восприимчивый|duyarlı|çabuk etkilenen|c1
+w06763|лёгкость|hafiflik|kolaylık|c1
+w06764|пролив|boğaz|geçit|c1
+w06767|буйвол|kara sığır|manda|c1
+w06769|отбиться|savuşturmak|ayrılmak|c1
+w06770|подкупать|rüşvet vermek|ayartmak|c1
+w06772|девственный|bakir|el değmemiş|c1
+w06774|шнур|kordon|kablo|c1
+w06777|сток|akış|gider|c1
+w06779|микроскопический|mikroskopik|mikroskobik|c1
+w06780|трахея|soluk borusu|trakea|c1
+w06783|ловкость|beceriklilik|kıvraklık|c1
+w06784|бюст|büst|göğüs|c1
+w06787|черника|yabanmersini|yaban mersini|c1
+w06790|вытекать|akmak|sonucu çıkmak|c1
+w06791|пропорция|nispet|orantı|c1
+w06792|обсерватория|rasathane|gözlemevi|c1
+w06793|мышьяк|arsenik|sıçanotu|c1
+w06796|потасовка|dövüş|hırgür|c1
+w06798|совершеннолетний|reşit|ergin|c1
+w06802|разгром|yenilgi|bozgun|c1
+w06803|вектор|vektör|yöney|c1
+w06804|струя|fışkırma|akıntı|c1
+w06806|истратить|tüketmek|geçirmek|c1
+w06813|напор|basınç|enerji|c1
+w06814|показуха|cafcaf|gösteri|c1
+w06820|кастрировать|burmak|hadımlaştırmak|c1
+w06822|вместить|içine almak|sığdırmak|c1
+w06823|явка|bulunma|katılım|c1
+w06828|абзац|bent|fıkra|c1
+w06832|гадалка|bakıcı|falcı|c1
+w06833|расправа|hesap sorma|şiddet|c1
+w06834|горизонтальный|yatay|ufki|c1
+w06836|лотос|lotus|lotos|c1
+w06839|испуг|korku|ürkme|c1
+w06840|разбросать|dağıtmak|saçmak|c1
+w06842|вольфрам|volfram|tungsten|c1
+w06843|безразличие|aldırmazlık|apati|c1
+w06844|сбыт|satış|pazarlama|c1
+w06846|глагол|fiil|eylem|c1
+w06847|мандарин|mandalina|mandarin|c1
+w06851|кляп|tıkaç|ağız tıkacı|c1
+w06855|сухожилие|kiriş|kas kirişi|c1
+w06857|веселить|keyiflendirmek|neşelendirmek|c1
+w06858|ржавчина|pas|demir pası|c1
+w06859|передвижной|seyyar|taşınabilir|c1
+w06863|незнание|bilgisizlik|bilmezlik|c1
+w06864|набег|akın|baskın|c1
+w06874|топтать|çiğnemek|ezmek|c1
+w06875|сторожить|korumak|nöbet tutmak|c1
+w06876|настойчивость|ısrar|kararlılık|c1
+w06877|муженёк|kocacık|kocacığım|c1
+w06878|пружина|yay|zemberek|c1
+w06879|вздрогнуть|irkilmek|sarsılmak|c1
+w06881|кобура|kuburluk|kılıf|c1
+w06885|лепить|yoğurmak|biçimlendirmek|c1
+w06886|хитроумный|kurnaz|zekice tasarlanmış|c1
+w06888|двусторонний|iki taraflı|çift taraflı|c1
+w06890|урегулировать|çözmek|halletmek|c1
+w06891|карликовый|cüce|bodur|c1
+w06892|ишь|bak sen!|vay canına|c1
+w06895|химера|kimera|hayal ürünü|c1
+w06896|запираться|kapanmak|yalanlamak|c1
+w06897|прут|sopa|çubuk|c1
+w06898|предъявление|gösterme|sunma|c1
+w06900|транслировать|yayınlamak|yayımlamak|c1
+w06902|концлагерь|toplama kampı|temerküz kampı|c1
+w06906|усмирить|yatıştırmak|teskin etmek|c1
+w06909|благосклонность|iyi niyet|destek|c1
+w06910|неверность|sadakatsizlik|aldatma|c1
+w06913|щипать|çimdiklemek|ısırmak|c1
+w06914|бицепс|pazu|pazı|c1
+w06915|шарить|araştırmak|karıştırmak|c1
+w06917|праздный|aylak|tembel|c1
+w06921|искажать|bozmak|burmak|c1
+w06929|выполнимый|yapılabilir|gerçekleştirilebilir|c1
+w06934|отклик|yanıt|tepki|c1
+w06937|сегмент|dilim|bölüt|c1
+w06946|взмах|kanat çırpışı|el sallama|c1
+w06947|убавить|kısmak|azaltmak|c1
+w06950|мачта|direk|pilon|c1
+w06951|аномальный|anormal|sapkın|c1
+w06952|перечень|liste|döküm|c1
+w06953|простак|saf kimse|safdil|c1
+w06954|пресный|tuzsuz|lezzetsiz|c1
+w06955|месторождение|maden|yatak|c1
+w06956|обильный|bol|bereketli|c1
+w06958|веять|esmek|yaymak|c1
+w06962|сума|torba|çanta|c1
+w06963|массив|kütle|dizi|c1
+w06965|голень|incik|baldır|c1
+w06966|подачка|sadaka|bahşiş|c1
+w06971|посредственный|vasat|sıradan|c1
+w06973|полумесяц|hilal|yarımay|c1
+w06978|радиационный|radyasyona ait|radyasyonel|c1
+w06980|миловать|bağışlamak|affetmek|c1
+w06983|истерия|histeri|isteri|c1
+w06984|инфляция|enflasyon|enflasyon oranı|c1
+w06985|коллектор|kolektör|ana boru|c1
+w06987|приверженец|taraftar|yandaş|c1
+w06988|впечатлительный|duyarlı|kolay etkilenen|c1
+w06989|размять|ezmek|esnetmek|c1
+w06991|ампутировать|ameliyatla almak|kesip almak|c1
+w06992|саксофон|saksafon|saksofon|c1
+w06993|синоним|eşanlamlı|anlamdaş|c1
+w06997|сновидение|rüya|düş|c1
+w06998|единичный|acayip|birim|c1
+w07005|заворачивать|sarmak|paketlemek|c1
+w07007|инвентарь|envanter|demirbaş|c1
+w07011|мотылёк|güve|kelebek|c1
+w07012|сковорода|tava|sahan|c1
+w07016|метеор|göktaşı|meteor|c1
+w07019|корчить|yüz buruşturmak|taklit etmek|c1
+w07027|употребить|kullanmak|tüketmek|c1
+w07038|отговаривать|vazgeçirmek|caydırmak|c1
+w07040|разработчик|geliştirici|yapımcı|c1
+w07043|усугубить|kötüleştirmek|ağırlaştırmak|c1
+w07044|разъезд|ayrılma|kavşak|c1
+w07047|выстраиваться|dizilmek|sıralanmak|c1
+w07048|лётчик|pilot|havacı|c1
+w07052|телёнок|dana|buzağı|c1
+w07053|невыполнимый|yapılamaz|imkânsız|c1
+w07054|дополнять|tamamlamak|eklemek|c1
+w07055|подкладка|altlık|astar|c1
+w07056|горелка|brülör|ocak gözü|c1
+w07057|нарядный|şık|süslü|c1
+w07061|стабилизатор|dengeleyici|stabilizatör|c1
+w07068|котелок|tencere|kazan|c1
+w07069|негодование|öfke|kızgınlık|c1
+w07071|синтез|sentez|bireşim|c1
+w07073|рассудить|hükmetmek|düşünmek|c1
+w07074|возбуждаться|uyarılmak|heyecanlanmak|c1
+w07075|подгонять|uydurmak|ayarlamak|c1
+w07079|ухудшение|bozma|bozulma|c1
+w07084|антилопа|antilop|ceylan|c1
+w07085|вероломный|haince|kalleş|c1
+w07088|темнеть|kararmak|koyulaşmak|c1
+w07096|безжизненный|donuk|cansız|c1
+w07097|кружево|dantel|dantela|c1
+w07100|бычок|dana|izmarit|c1
+w07106|выступ|çıkıntı|tümsek|c1
+w07111|провидение|ilahi takdir|kader|c1
+w07114|деление|bölme|bölüm|c1
+w07119|целомудрие|bekâret|iffet|c1
+w07120|смущение|mahcubiyet|utanma|c1
+w07122|шестьсот|altıyüz|altı yüz|c1
+w07123|переваривать|sindirmek|hazmetmek|c1
+w07124|устранять|ortadan kaldırmak|gidermek|c1
+w07125|претенциозный|iddialı|gösterişli|c1
+w07127|смазливый|epey alımlı|yüzüne bakılır|c1
+w07136|неописуемый|tarif edilemez|anlatılamaz|c1
+w07141|вуаль|baş örtüsü|duvak|c1
+w07142|немка|Alman kadın|kız|c1
+w07143|производительность|verimlilik|verim|c1
+w07144|конспект|özet|not|c1
+w07145|вещать|yayın yapmak|nutuk çekmek|c1
+w07148|проныра|kurnaz|sinsi|c1
+w07149|выговорить|telaffuz etmek|dile getirmek|c1
+w07151|волдырь|kabarcık|su toplaması|c1
+w07161|скудный|az|kıt|c1
+w07168|долгота|boylam|uzunluk|c1
+w07170|натирать|ovmak|rendelemek|c1
+w07171|безмолвный|sessiz|suskun|c1
+w07173|калькулятор|hesaplayıcı|hesap makinesi|c1
+w07181|шаткий|sallanan|dengesiz|c1
+w07191|галл|galyalı|mazı|c1
+w07192|грамматика|dilbilgisi|gramer|c1
+w07194|уморительный|gülünç|çok komik|c1
+w07197|шеренга|sıra|saf|c1
+w07198|сверлить|delmek|delik açmak|c1
+w07204|запихивать|tıkıştırmak|doldurmak|c1
+w07209|солист|solist|solocu|c1
+w07211|заступаться|savunmak|arka çıkmak|c1
+w07217|ромашка|papatya|sarı papatya|c1
+w07218|распределять|bölüştürmek|dağıtmak|c1
+w07220|гнида|yavşak|aşağılık kimse|c1
+w07221|шашлык|şaşlık|şiş kebabı|c1
+w07223|степь|bozkır|step|c1
+w07224|проказа|cüzzam|azizlik|c1
+w07225|оранжерея|limonluk|ser|c1
+w07226|азарт|heyecan|hırs|c1
+w07227|замаскировать|kılık değiştirmek|gizlemek|c1
+w07229|щёлкать|şaklatmak|çıtlatmak|c1
+w07233|бант|fiyonk|fiyonga|c1
+w07234|кардиолог|kardiyolog|kalpçi|c1
+w07237|спекуляция|spekülasyon|vurgunculuk|c1
+w07238|маниакальный|manik|obsesif|c1
+w07240|пространственный|mekânsal|uzaysal|c1
+w07244|добавление|katma|eklenti|c1
+w07246|простолюдин|sıradan halktan kimse|avam|c1
+w07247|прибрежный|kıyı|sahil|c1
+w07251|каяться|pişman olmak|tövbe etmek|c1
+w07252|застройщик|müteahhit|inşaat yatırımcısı|c1
+w07253|ударник|baterist|davulcu|c1
+w07257|кудрявый|kıvırcık|pürçekli|c1
+w07260|беседка|çardak|kameriye|c1
+w07272|функционировать|işlev görmek|çalışmak|c1
+w07275|клевер|yonca|tirfil|c1
+w07277|горб|hörgüç|kambur|c1
+w07278|изъятие|müsadere|geri alma|c1
+w07281|импульсный|darbeli|pulslu|c1
+w07282|кануть|yok olmak|kaybolmak|c1
+w07283|болотный|bataklık+|bataklığa ait|c1
+w07284|тусклый|soluk|donuk|c1
+w07286|бобёр|kastor|kunduz|c1
+w07288|тренинг|eğitim|kurs|c1
+w07292|юго-западный|güneybatı|güney batı|c1
+w07293|распознавать|tanımak|ayırt etmek|c1
+w07294|красноречивый|belagatli|beliğ|c1
+w07296|омут|anafor|birikinti|c1
+w07299|грейпфрут|greyfurt|altıntop|c1
+w07300|псалом|mezmur|ilahi|c1
+w07301|посев|ekim|ekme|c1
+w07303|возрастной|yaşa bağlı|yaş+|c1
+w07305|подливка|sos|salça|c1
+w07307|вразумить|akıl öğretmek|inandırmak|c1
+w07308|пролёт|açıklık|merdiven kolu|c1
+w07309|навес|sundurma|gölgelik|c1
+w07311|жаворонок|tarla kuşu|turgay|c1
+w07312|контраст|karşıtlık|kontrast|c1
+w07313|верование|itikat|inanç|c1
+w07314|купать|banyo yapmak|yıkamak|c1
+w07315|гребешок|ibik|fisto|c1
+w07316|властитель|hükümdar|hâkim|c1
+w07319|вишнёвый|vişne|vişne rengi|c1
+w07320|новелла|kısa hikâye|öykü|c1
+w07323|горсть|bir avuç|avuç dolusu|c1
+w07325|наклонить|eğmek|yatırmak|c1
+w07326|вселенский|ekümenik|global|c1
+w07328|осознанный|bilinçli|iradeli|c1
+w07331|излагать|anlatmak|ifade etmek|c1
+w07338|лощина|koyak|depresyon|c1
+w07340|задумчивый|düşünceli|hulyalı|c1
+w07344|экспорт|ihracat|ihraç|c1
+w07346|кремль|kremlin|kale|c1
+w07351|полнота|şişmanlık|dolgunluk|c1
+w07352|плотский|tensel|cismani|c1
+w07354|шитьё|dikiş|nakış|c1
+w07357|укладка|saç şekillendirme|istifleme|c1
+w07359|вилять|kuyruk sallamak|kaçamak yapmak|c1
+w07360|обворожительный|büyüleyici|çekici|c1
+w07361|локальный|lokal|mevzii|c1
+w07363|забияка|horoz|kavgacı|c1
+w07365|интенсивность|yoğunluk|şiddet|c1
+w07370|становление|oluşum|oluşma|c1
+w07376|шлепок|şaplak|tokat|c1
+w07378|лоза|asma|asma dalı|c1
+w07379|переродиться|yeniden doğmak|dönüşmek|c1
+w07380|ветеринарный|veteriner|veterinerlik+|c1
+w07384|гневный|hiddetli|hınçlı|c1
+w07390|семьсот|yediyüz|yedi yüz|c1
+w07394|тяжба|dava|hukuk davası|c1
+w07396|многолетний|uzun vadeli|birkaç senelik|c1
+w07402|десна|diş eti|dişeti|c1
+w07405|коммуникационный|iletişimsel|iletişim+|c1
+w07407|тематический|konusal|tematik|c1
+w07408|озлобленный|kin dolu|öfkeli|c1
+w07410|мармелад|marmelat|murabba|c1
+w07413|самомнение|kendini beğenmişlik|kibir|c1
+w07418|впадина|çukur|girinti|c1
+w07420|прогореть|batmak|iflas etmek|c1
+w07424|грунт|toprak|yer|c1
+w07426|обречь|mahkum etmek|yazgılamak|c1
+w07427|синь|mavilik|gökyüzü mavisi|c1
+w07428|световой|ışıkla ilgili|ışık+|c1
+w07431|достаток|gönenç|refah|c1
+w07438|хвастун|palavracı|hava atan|c1
+w07439|упрашивать|yalvarmak|rica etmek|c1
+w07442|проходимец|dalavereci|dolandırıcı|c1
+w07452|геолог|jeolog|jeoloji uzmanı|c1
+w07455|учтивый|nazik|kibar|c1
+w07458|сформировать|oluşturmak|biçimlendirmek|c1
+w07460|затишье|duraklama|ara|c1
+w07462|неврология|nöroloji|asabiye|c1
+w07463|нянчить|bakmak|dadılık etmek|c1
+w07464|бесстыдный|yırtık|arlanmaz|c1
+w07466|стрекоза|yusufçuk|kızböcegi|c1
+w07467|лиловый|eflatun|koyu leylaki|c1
+w07468|опустошать|harap etmek|yakıp yıkmak|c1
+w07470|экспертный|uzman|uzmanlık+|c1
+w07473|вывесить|asmak|ilan etmek|c1
+w07474|очертание|ana hat|çevrim|c1
+w07481|утилизация|geri dönüşüm|atık değerlendirme|c1
+w07484|проговорить|konuşmak|söylemek|c1
+w07488|кромешный|zifiri|koyu|c1
+w07498|опрятный|temiz|düzenli|c1
+w07499|гулянка|eğlence|âlem|c1
+w07502|вращение|dönme|devir|c1
+w07503|воронка|huni|anafor|c1
+w07511|конопля|kenevir|kendir|c1
+w07513|звёздочка|asterisk|yıldız|c1
+w07516|стручок|kabuk|bakla|c1
+w07521|избыточный|artık|aşırı|c1
+w07522|отморозок|gaddar|acımasız kişi|c1
+w07523|батист|patiska|ince pamuklu kumaş|c1
+w07527|вариация|varyasyon|varyant|c1
+w07528|банальность|bayağılık|sıradanlık|c1
+w07533|сердить|kızdırmak|sinirlendirmek|c1
+w07537|водоворот|anafor|girdap|c1
+w07539|поучать|ders vermek|nasihat etmek|c1
+w07540|вассал|tâbi|derebeyliğe bağlı kişi|c1
+w07541|меховой|kürk|kürklü|c1
+w07542|рассудительный|mâkul|düşünceli|c1
+w07543|прижиматься|sokulmak|yapışmak|c1
+w07548|карманник|yankesici|kapkaççı|c1
+w07550|вращать|döndürmek|dönmek|c1
+w07551|бактериальный|bakterili|mikroplu|c1
+w07555|хождение|dolaşma|gezme|c1
+w07556|гамак|hamak|ağ yatak|c1
+w07560|капиталист|kapitalist|anamalcı|c1
+w07561|ароматный|aromalı|baharatlı|c1
+w07564|бойкий|canlı|atılgan|c1
+w07567|резьба|oyma|oyukla süsleme|c1
+w07568|трепать|gevezelik etmek|dedikodu yapmak|c1
+w07578|распущенный|gevşek ahlaklı|çapkın|c1
+w07581|отсечь|kesmek|ayırmak|c1
+w07582|клитор|klitoris|dılak|c1
+w07583|завлечь|cezbetmek|çekmek|c1
+w07584|серьёзность|ciddiyet|ağırbaşlılık|c1
+w07589|пагубный|zararlı|yıkıcı|c1
+w07590|пятнистый|abraş|benekli|c1
+w07592|абонемент|abone|abonelik|c1
+w07598|подсчитывать|hesaplamak|saymak|c1
+w07599|ось|eksen|dingil|c1
+w07600|старательный|çalışkan|özenli|c1
+w07602|шулер|hileci kumarbaz|trişör|c1
+w07605|смышлёный|akıllı|zeki|c1
+w07607|антракт|antrakt|ara|c1
+w07611|индустриальный|endüstriyel|endüstri|c1
+w07612|поздравительный|kutlama|tebrik|c1
+w07620|изогнутый|eğri|eğrilmiş|c1
+w07624|наклонный|eğik|meyilli|c1
+w07626|завораживать|büyülemek|mest etmek|c1
+w07627|скверно|kötü|fena|c1
+w07628|бурлить|kaynamak|köpürmek|c1
+w07633|рассердить|kızdırmak|öfkelendirmek|c1
+w07635|понижать|azaltmak|düşürmek|c1
+w07638|нерешительный|kararsız|tereddütlü|c1
+w07639|быт|yaşayış|yaşam tarzı|c1
+w07642|зверство|canavarlık|şiddet|c1
+w07643|познавать|tanımak|öğrenmek|c1
+w07647|характеризовать|karakterize etmek|nitelemek|c1
+w07648|шествие|yürüyüş|alay|c1
+w07651|глюкоза|glikoz|üzüm şekeri|c1
+w07652|симметрия|simetri|bakışım|c1
+w07653|хитрить|açıkgöz davranmak|kurnazlık etmek|c1
+w07654|интонация|ton|tonlanma|c1
+w07657|побуждать|teşvik etmek|harekete geçirmek|c1
+w07661|влить|eklemek|akıtmak|c1
+w07663|конструктор|tasarımcı|yapı seti|c1
+w07665|лактоза|laktoz|süt şekeri|c1
+w07669|враждовать|husumet beslemek|çekişmek|c1
+w07670|мерцать|parıldamak|titreşerek ışımak|c1
+w07671|звериный|hayvanca|hayvansal|c1
+w07673|старинка|eski usul|eski tarz|c1
+w07674|силач|güçlü kuvvetli adam|pehlivan|c1
+w07676|питомник|yetiştirme çiftliği|kuluçkahane|c1
+w07678|пасынок|üvey oğul|yan sürgün|c1
+w07681|распорядитель|yönetici|idareci|c1
+w07682|равноправие|eşitlik|hak eşitliği|c1
+w07685|ванильный|vanilyalı|vanilya|c1
+w07688|приёмник|alıcı|radyo|c1
+w07691|буде|eğer|ise|c1
+w07692|грудинка|döş|jambon|c1
+w07695|вычурный|gösterişli|yapmacık|c1
+w07698|плодотворный|verimli|üretken|c1
+w07700|колыбельный|beşiğe ait|ninni|c1
+w07702|мерить|ölçmek|prova etmek|c1
+w07704|журавль|turna|bayağı turna|c1
+w07707|аккордеон|akordeon|akordiyon|c1
+w07709|патриотический|yurtsever|vatansever|c1
+w07710|безмятежный|sakin|huzurlu|c1
+w07713|жало|iğne|uç|c1
+w07716|сверстник|akran|yaşıt|c1
+w07717|излишек|fazlalık|artık|c1
+w07723|шипеть|cızırdamak|tıslamak|c1
+w07725|кокнуть|kırmak|öldürmek|c1
+w07728|бантик|fiyonk|küçük kurdele|c1
+w07729|конвейер|konveyör|taşıma bandı|c1
+w07730|комплексный|bütünleşik|karmaşık|c1
+w07732|переправлять|karşıya geçirmek|iletmek|c1
+w07738|подоконник|denizlik|pencere denizliği|c1
+w07740|кустарник|çalı|ağaççık|c1
+w07742|территориальный|toprak|yerel|c1
+w07743|помпа|pompa|tantana|c1
+w07745|сервиз|servis|takım|c1
+w07747|домкрат|kaldırıcı|kriko|c1
+w07749|сорвиголова|gözüpek|serdengeçti|c1
+w07754|прищемить|sıkıştırmak|kıstırmak|c1
+w07755|неопределённый|belirsiz|belgisiz|c1
+w07756|обходительный|nazik|kibar|c1
+w07757|морщинистый|buruşuk|buruşuklar içinde|c1
+w07760|хадж|hac|hacılık|c1
+w07763|решительность|kararlılık|azim|c1
+w07764|семидесятый|yetmişinci|yetmiş|c1
+w07770|авторитетный|saygın|güvenilir|c1
+w07773|инстинктивный|insiyaki|içgüdüsel|c1
+w07775|устойчивость|istikrar|kararlılık|c1
+w07777|толкование|yorum|açıklama|c1
+w07778|редактировать|düzenlemek|redakte etmek|c1
+w07781|меланхолия|melankoli|hüzün|c1
+w07782|макать|batırmak|daldırmak|c1
+w07783|четырнадцатый|on dördüncü|ondördüncü|c1
+w07793|налегке|hafif|bagajsız|c1
+w07795|диво|harika|mucize|c1
+w07797|растворитель|çözücü|eritici|c1
+w07803|эластичный|elastik|esnek|c1
+w07805|устой|temel|dayanak|c1
+w07807|социология|sosyoloji|toplumbilim|c1
+w07812|выкачать|pompalamak|dışarı çekmek|c1
+w07814|сочувствующий|duygudaş|şefkatli|c1
+w07816|надувательство|dolandırıcılık|hile|c1
+w07821|проронить|söylemek|ağzından kaçırmak|c1
+w07822|синхронный|senkron|zamandaş|c1
+w07823|караулить|beklemek|gözetlemek|c1
+w07824|расходовать|harcamak|sarfetmek|c1
+w07825|обидчивый|alıngan|asabi|c1
+w07827|повергнуть|düşürmek|şoka sokmak|c1
+w07829|окорок|jambon|but eti|c1
+w07832|метрополитен|metro|metropoliten|c1
+w07833|росомаха|kutup porsuğu|ayı porsuğu|c1
+w07835|удовлетворительный|tatminkâr|yeterli|c1
+w07836|самовлюблённый|kendine âşık|kendini beğenmiş|c1
+w07839|расценить|nitelendirmek|değerlendirmek|c1
+w07840|сумасбродный|kaçık|deli|c1
+w07846|выматывать|yormak|tüketmek|c1
+w07847|круговорот|deveran|anafor|c1
+w07856|храбро|cesaretle|korkusuzca|c1
+w07857|вентиль|vana|valf|c1
+w07859|беспомощность|çaresizlik|güçsüzlük|c1
+w07862|свержение|çökertme|alaşağı etme|c1
+w07866|многократный|tekrarlanan|defalarca olan|c1
+w07867|мироздание|evren|kâinat|c1
+w07868|товарищество|yoldaşlık|ortaklık|c1
+w07870|прозрачность|saydamlık|berraklık|c1
+w07872|овладевать|edinmek|sahip olmak|c1
+w07873|финалист|finale kalan|finalist|c1
+w07883|следование|izleme|bağlılık|c1
+w07890|тростник|kamış|saz|c1
+w07895|плеть|kamçı|kırbaç|c1
+w07897|такса|dachshund|tarife|c1
+w07898|разовый|tek kullanımlık|bir kereye mahsus|c1
+w07904|кондуктор|kondüktör|biletçi|c1
+w07906|снадобье|ilaç|iksir|c1
+w07908|огорчение|üzüntü|acı|c1
+w07909|пятидесятый|ellinci|elli|c1
+w07911|вожделение|arzu|tutku|c1
+w07913|выявлять|ortaya çıkarmak|tespit etmek|c1
+w07914|упереться|dayanmak|inat etmek|c1
+w07916|притягательный|cazibeli|cazip|c1
+w07917|заведующий|müdür|yönetici|c1
+w07918|плато|plato|yayla|c1
+w07920|интриговать|entrika çevirmek|merak uyandırmak|c1
+w07924|отливать|akıtmak|akmak|c1
+w07935|экономист|ekonomist|iktisatçı|c1
+w07936|лысина|kellik|dazlak yer|c1
+w07938|продлевать|uzatmak|sürdürmek|c1
+w07939|жадничать|cimrilik etmek|tamah etmek|c1
+w07942|ингибитор|engelleyici|geciktirici|c1
+w07945|активизировать|aktifleştirmek|etkinleştirmek|c1
+w07949|язвительный|alaycı|iğneleyici|c1
+w07953|совокупность|bütün|toplam|c1
+w07957|таможенник|gümrükçü|gümrük memuru|c1
+w07961|лютый|hunhar|azgın|c1
+w07963|бобр|kunduz|kastor|c1
+w07965|засов|sürgü|tırkaz|c1
+w07966|вспылить|öfkelenmek|tepesi atmak|c1
+w07968|аэроплан|tayyare|uçak|c1
+w07969|расщепление|ayrışım|ayrışma|c1
+w07974|девяностый|doksanıncı|doksan|c1
+w07975|разбой|haydutluk|eşkıyalık|c1
+w07978|закрасить|boyamak|üzerini boyamak|c1
+w07979|грибной|mantar|mantarlı|c1
+w07980|тракт|yol|güzergah|c1
+w07981|недоверчивый|güvensiz|itimatsız|c1
+w07982|белоснежный|karbeyaz|bembeyaz|c1
+w07987|приверженность|bağlılık|sadakat|c1
+w07991|невкусный|lezzetsiz|tatsız|c1
+w07992|изумление|hayret|şaşkınlık|c1
+w07996|пилотировать|pilotluk yapmak|uçurmak|c1
+w07997|трансформатор|transformatör|trafo|c1
+w08002|плавно|muttarit olarak|ritmli olarak|c1
+w08003|подлететь|yaklaşarak uçmak|süzülerek gelmek|c1
+w08006|осадки|yağış|çökelti|c1
+w08009|изложение|anlatış|açıklama|c1
+w08013|лопаться|patlamak|bir şeyi ölesiye yapmak|c1
+w08014|кузница|demirci dükkânı|demirhane|c1
+w08016|саркастичный|alaycı|iğneleyici|c1
+w08023|прикладной|tatbiki|uygulamalı|c1
+w08026|гной|irin|cerahat|c1
+w08027|разгон|hızlanma|ivme|c1
+w08030|ударяться|çarpmak|vurmak|c1
+w08034|отрезок|doğru parçası|tane|c1
+w08042|присудить|hüküm vermek|ödül vermek|c1
+w08043|циркуляция|dolaşım|sirkülasyon|c1
+w08048|невесомость|ağırsızlık|tartılamazlık|c1
+w08050|надир|nadir|ayak ucu|c1
+w08055|шестидесятый|altmışıncı|altmış|c1
+w08057|флотилия|filotilla|filo|c1
+w08058|спиральный|helezoni|helisel|c1
+w08060|немощный|cılız|arık|c1
+w08061|сом|bayağı yayın balığı|yayın balığı|c1
+w08064|керн|karot|çekirdek numune|c1
+w08067|мимоза|küstümotu|mimoza|c1
+w08068|разгонять|dağıtmak|hızlandırmak|c1
+w08072|живчик|canlı kişi|hareketli|c1
+w08074|пыхтеть|soluk soluğa kalmak|terlemek|c1
+w08078|шлёпать|şaplak atmak|çırpmak|c1
+w08081|ослабевать|gevşemek|dayanıksızlaşmak|c1
+w08082|невежа|kaba adam|terbiyesiz|c1
+w08084|представительство|temsilcilik|temsil|c1
+w08094|ассортимент|çeşit|ürün yelpazesi|c1
+w08097|угнетение|zulüm|baskı|c1
+w08099|цинк|çinko|tutya|c1
+w08100|валун|iri kaya|kaya parçası|c1
+w08103|притеснять|baskı yapmak|ezmek|c1
+w08104|столетний|yüz yıllık|asırlık|c1
+w08105|компактный|küçük|derli toplu|c1
+w08106|чопорный|resmi|aşırı kurallara bağlı|c1
+w08107|провокационный|kışkırtma|kışkırtıcı|c1
+w08110|обелиск|dikilitaş|obelisk|c1
+w08112|зевака|meraklı seyirci|aylak|c1
+w08113|ценитель|hayran|uzman|c1
+w08114|сырость|nem|nemlilik|c1
+w08116|раздражаться|sinirlenmek|tahriş olmak|c1
+w08117|ароматический|baharatlı|aromatik|c1
+w08120|гармоничный|uyumlu|ahenkli|c1
+w08124|уточнение|açıklama|netleştirme|c1
+w08125|мавзолей|mezar|mozole|c1
+w08129|ухудшать|kötüleştirmek|bozmak|c1
+w08134|арктический|arktik|arktika|c1
+w08139|борозда|evlek|kırışık|c1
+w08142|наряжать|giydirmek|süslemek|c1
+w08146|эмигрировать|göç etmek|yurt dışına göç etmek|c1
+w08148|обрекать|mahkum etmek|mahvetmek|c1
+w08149|тропик|dönence|tropika|c1
+w08150|сладостный|tatlı|hoş|c1
+w08154|упорствовать|ısrar etmek|inat etmek|c1
+w08155|конфронтация|yüzleşme|çatışma|c1
+w08159|правописание|yazım|imla|c1
+w08160|арматура|armatür|donatı|c1
+w08161|сосулька|saçak buzu|buz sarkıtı|c1
+w08162|личина|maske|kılık|c1
+w08165|штанга|halter|tij|c1
+w08166|законодатель|kanun koyucu|yasa koyucu|c1
+w08169|пляс|dans|oyun|c1
+w08170|тюрбан|türban|sarık|c1
+w08171|ежемесячно|ayda bir|her ay|c1
+w08174|маскировать|gizlemek|kamufle etmek|c1
+w08175|эшелон|eşelon|tren konvoyu|c1
+w08176|хладнокровие|itidal|soğukkanlılık|c1
+w08179|зенит|başucu|doruk noktası|c1
+w08184|нейтрон|nötron|neutron|c1
+w08187|досрочно|süresi dolmadan|süresinden önce|c1
+w08188|прохвост|alçak|hergele|c1
+w08189|снасть|donatma|donatım|c1
+w08191|автомагистраль|otoyol|kara yolu|c1
+w08197|адресат|alıcı|muhatap|c1
+w08199|раскачать|sallamak|kışkırtmak|c1
+w08200|ковырять|eşelemek|karıştırmak|c1
+w08202|миролюбивый|barışsever|barışçı|c1
+w08205|гиря|ağırlık|gülle|c1
+w08208|щиток|gösterge paneli|kalkan|c1
+w08210|скатываться|yuvarlanmak|kaymak|c1
+w08211|порочить|kirletmek|iftira etmek|c1
+w08212|сгибать|bükmek|eğmek|c1
+w08217|ослабеть|yıpranmak|dayanıksızlaşmak|c1
+w08218|кардинальный|temel|köklü|c1
+w08220|коммутатор|santral|telefon santrali|c1
+w08221|паркет|parke|parke döşeme|c1
+w08223|разрастаться|yayılmak|büyümek|c1
+w08226|вольность|özgürlük|serbestlik|c1
+w08229|сгубить|mahvetmek|yıkmak|c1
+w08233|песчаник|kum taşı|kumtaşı|c1
+w08234|барс|leopar|kar leoparı|c1
+w08241|изготовитель|üretici|yapımcı|c1
+w08243|раскручивать|çözmek|dolanmak|c1
+w08244|конфигурация|yapılandırma|konfigürasyon|c1
+w08248|возвышенность|tepe|rakım|c1
+w08250|подмастерье|kalfa|çırak|c1
+w08252|девятнадцатый|on dokuzuncu|on dokuz|c1
+w08253|пополнять|doldurmak|yenilemek|c1
+w08255|светловолосый|sarışın|açık saçlı|c1
+w08263|астролог|astrolog|müneccim|c1
+w08270|парусный|yelken|yelkenli|c1
+w08275|умысел|kasıt|niyet|c1
+w08279|орфография|yazım|ortografi|c1
+w08280|шахматист|satranç oyuncusu|satranççı|c1
+w08284|запаздывать|geç kalmak|gecikmek|c1
+w08288|раскалённый|kızgın|akkor|c1
+w08289|брызгать|püskürtmek|serpmek|c1
+w08290|скорбный|yaslı|hüzünlü|c1
+w08293|крахмал|nişasta|kola|c1
+w08295|кое-как|gelişigüzel|topallayarak|c1
+w08296|попрошайничать|dilenmek|dilencilik yapmak|c1
+w08300|ящичек|kutucuk|çekmece|c1
+w08301|разговорный|günlük dil|sözlü|c1
+w08304|осуществимый|gerçekleştirilebilir|mümkün|c1
+w08308|клянчить|dilenmek|sızlanarak istemek|c1
+w08311|искалечить|sakatlamak|sakat bırakmak|c1
+w08315|морена|buzultaş|moren|c1
+w08317|зверинец|hayvanat bahçesi|aslanhane|c1
+w08318|навеселе|çakırkeyf|hafif sarhoş|c1
+w08319|воскликнуть|seslenmek|haykırmak|c1
+w08321|альбинос|akşın|albinos|c1
+w08322|изыскание|araştırma|inceleme|c1
+w08327|глумиться|alay etmek|küçümsemek|c1
+w08329|клещи|pense; kene|akar|c1
+w08335|магнетизм|manyetizma|mıknatıslık|c1
+w08339|обнажать|açığa çıkarmak|soymak|c1
+w08340|вымотать|yormak|bitkin düşürmek|c1
+w08342|вставка|ekleme|ilave|c1
+w08343|стеречь|korumak|bekçilik yapmak|c1
+w08345|щиколотка|ayak bileği|bilek|c1
+w08350|змейка|küçük yılan|fermuar|c1
+w08359|ботаника|botanik|bitki bilimi|c1
+w08362|соблюсти|saymak|tutmak|c1
+w08365|экзема|egzama|mayasıl|c1
+w08366|внезапность|ansızlık|birdenbirelik|c1
+w08369|вразрез|aykırı|ters|c1
+w08370|задумывать|tutmak|aklına koymak|c1
+w08371|кастрация|hadımlaştırma|iğdiş etme|c1
+w08373|обезжиренный|yağsız|yağı alınmış|c1
+w08375|бранить|azarlamak|paylamak|c1
+w08376|дрейфить|korkmak|ödleklik etmek|c1
+w08383|модернизация|modernizasyon|modernleştirme|c1
+w08387|абрикос|kayısı|zerdali|c1
+w08395|нормальность|aklıselimlik|normallik|c1
+w08398|демонстрант|gösterici|nümayişçi|c1
+w08400|работящий|çalışkan|gayretli|c1
+w08408|витраж|vitray|camresim|c1
+w08410|несметный|hesapsız|sayısız|c1
+w08411|вакантный|açık|münhal|c1
+w08414|козырёк|siper|gölgelik|c1
+w08415|расщелина|çatlak|yarık|c1
+w08420|атрибут|özellik|nitelik|c1
+w08422|мансарда|çatı katı|mansard oda|c1
+w08423|разграбить|yağma etmek|yağmalamak|c1
+w08428|душистый|güzel kokulu|iyi kokulu|c1
+w08430|резкость|netlik|keskinlik|c1
+w08431|смерч|hortum|hava hortumu|c1
+w08432|хрусталь|billur|kristal|c1
+w08436|ровесница|akran|yaşıt|c1
+w08438|отчизна|ana yurt|ana vatan|c1
+w08440|пневматический|hava basınçlı|pnömatik|c1
+w08443|беззубый|etkisiz|dişsiz|c1
+w08453|трактат|inceleme|risale|c1
+w08455|известняк|kalker|kireçtaşı|c1
+w08457|оползень|heyelan|toprak kayması|c1
+w08458|оговорить|şart koşmak|iftira etmek|c1
+w08459|пассия|sevgili|gönül eğlencesi|c1
+w08461|ремесленник|zanaatçı|usta|c1
+w08463|чёрствый|bayat|sert|c1
+w08468|отголосок|yankı|kalıntı|c1
+w08474|сиреневый|eflatun|leylak|c1
+w08475|спекулянт|vurguncu|karaborsacı|c1
+w08482|устрашение|gözdağı|tehdit|c1
+w08487|приседание|çömelme|reverans|c1
+w08491|резец|kesicidiş|iskarpela|c1
+w08494|лирика|şiir|lirik şiir|c1
+w08496|кладезь|hazine|kaynak|c1
+w08500|хворост|çalı çırpı|dal|c1
+w08503|цапля|balıkçıl|balıkçıl kuşu|c1
+w08507|ленивец|tembelhayvan|tembel|c1
+w08508|осваивать|öğrenmek|edinmek|c1
+w08516|докладчик|konuşmacı|sunucu|c1
+w08517|аристократия|aristokrasi|soylular|c1
+w08527|мщение|intikam|öç|c1
+w08528|застой|durgunluk|duraklama|c1
+w08529|агрегат|agregat|kitle|c1
+w08531|ёмкость|kap|kutu; kapasite|c1
+w08534|возмещать|tazmin etmek|telafi etmek|c1
+w08537|быстрота|hız|çabukluk|c1
+w08541|мять|buruşturmak|yoğurmak|c1
+w08542|самовольный|izinsiz|keyfi|c1
+w08543|аффект|ani şiddetli heyecan|cinnet|c1
+w08549|фрегат|fırkateyn|fregat kuşu|c1
+w08553|преобладать|ağır basmak|hakim olmak|c1
+w08556|прикарманить|cebe indirmek|aşırmak|c1
+w08559|осмысленный|anlamlı|bilinçli|c1
+w08560|обыгрывать|kazanmak|altetmek|c1
+w08568|остолоп|ahmak|budala|c1
+w08576|ритмичный|ritmik|ritmli|c1
+w08580|диагональ|köşegen|çapraz|c1
+w08590|апатия|duygusuzluk|bezginlik|c1
+w08593|гонение|zulüm|baskı|c1
+w08597|вонзать|saplamak|dalmak|c1
+w08599|распря|çekişme|husumet|c1
+w08600|небогатый|orta halli|zengin olmayan|c1
+w08602|инерция|eylemsizlik|süredurum|c1
+w08603|бутан|bütan|butan|c1
+w08605|зреть|erginleşmek|bakmak|c1
+w08610|вульгарно|kaba|bayağı|c1
+w08615|валютный|döviz|para|c1
+w08617|основывать|kurmak|temellendirmek|c1
+w08622|крапива|ısırgan|ısırgan otu|c1
+w08626|агитировать|kışkırtmak|propaganda yapmak|c1
+w08629|кликать|tıklamak|seslenmek|c1
+w08630|брань|küfür|ağız kavgası|c1
+w08634|гам|yaygara|patırtı|c1
+w08636|побоище|kanlı kavga|katliam|c1
+w08638|шмель|bombus|toprak yabanarısı|c1
+w08642|препарировать|diseksiyon yapmak|hazırlamak|c1
+w08644|акушерство|ebelik|doğum bilimi|c1
+w08647|выборный|seçimle ilgili|seçilmiş|c1
+w08652|отличающийся|farklı|farklılaşan|c1
+w08654|бадминтон|badminton|tüytop|c1
+w08657|короб|kutu|sandık|c1
+w08658|смета|keşif|tahmini bütçe|c1
+w08659|геология|jeoloji|yer bilimi|c1
+w08661|спектральный|tayf|tayfsal|c1
+w08668|худощавый|zayıf|ince yapılı|c1
+w08669|шуруп|vida|ağaç vidası|c1
+w08670|посягательство|ihlal|saldırı|c1
+w08679|обогащение|zenginleşme|zenginleştirme|c1
+w08680|уклад|yaşam düzeni|yapı|c1
+w08681|маринад|salamura|marine sosu|c1
+w08682|чернота|karalık|siyahlık|c1
+w08686|послевоенный|savaşsonrası|savaştan sonraki|c1
+w08687|янтарный|kehlibar sarısı|kehlibar|c1
+w08688|несъедобный|yenecek gibi olmayan|yenmez|c1
+w08689|лейкоцит|lökosit|akyuvar|c1
+w08697|предприимчивый|girişken|girişimci|c1
+w08703|шхуна|uskuna|ıskuna|c1
+w08710|сердечник|kalp hastası|öz|c1
+w08711|хризантема|kasımpatı|krizantem|c1
+w08713|завоёвывать|kazanmak|fethetmek|c1
+w08714|ассигнование|ayırma|tahsis|c1
+w08716|перебранка|atışma|ağız kavgası|c1
+w08719|грохотать|gümbürdemek|gürlemek|c1
+w08724|дохнуть|gebermek|nefes almak|c1
+w08725|дурман|tatula|sersemlik verici madde|c1
+w08726|увековечить|anıtlaştırmak|ölümsüzleştirmek|c1
+w08728|лексика|kelime hazinesi|söz dağarcığı|c1
+w08730|корректировать|düzeltmek|tashih etmek|c1
+w08731|наречие|zarf|belirteç|c1
+w08734|порицать|kınamak|ayıplamak|c1
+w08737|компрометировать|itibarını kırmak|lekelemek|c1
+w08738|смутьян|fesatçı|kışkırtıcı|c1
+w08744|отображать|yansıtmak|göstermek|c1
+w08757|амуниция|cephane|mühimmat|c1
+w08759|возобновлять|yenilemek|yeniden başlatmak|c1
+w08761|колодка|kalıp|fren pabucu|c1
+w08762|бесстрастный|ifadesiz|sakin|c1
+w08763|формировать|biçimlendirmek|oluşturmak|c1
+w08769|инсинуация|ima|kinaye|c1
+w08773|воспитанник|yetiştirilen kişi|öğrenci|c1
+w08785|благовоние|parfüm|güzel koku|c1
+w08790|злопамятный|kinci|kindar|c1
+w08792|разорять|batırmak|alt üst etmek|c1
+w08793|хлопотать|uğraşmak|çabalamak|c1
+w08797|единение|mutabakat|birlik|c1
+w08798|миокард|kalp kası|miyokard|c1
+w08805|карабин|kısa namlulu tüfek|karabina|c1
+w08807|циркулировать|dolaşmak|devretmek|c1
+w08809|почерпнуть|edinmek|elde etmek|c1
+w08810|искриться|parıldamak|ışıldamak|c1
+w08811|земляника|çilek|orman çileği|c1
+w08812|бакалея|bakkal|bakkaliye dükkanı|c1
+w08814|бескомпромиссный|tavizsiz|uzlaşmasız|c1
+w08817|нестерпимый|dayanılmaz|çekilmez|c1
+w08820|распутье|yol ayrımı|kavşak|c1
+w08826|чернобыль|çernobil|ayvadana|c1
+w08829|паясничать|maskaralanmak|şaklabanlık etmek|c1
+w08830|башмачок|venüs çarığı|pabuç|c1
+w08831|гниение|çürüme|kokuşma|c1
+w08832|сведущий|bilgili|usta|c1
+w08834|терзаться|üzülmek|acı çekmek|c1
+w08836|изъясняться|fikrini anlatmak|konuşmak|c1
+w08839|торный|çiğnenmiş|aşınmış|c1
+w08841|консорциум|konsorsiyum|şirketler birliği|c1
+w08842|теология|ilahiyat|teoloji|c1
+w08844|нержавеющий|pas tutmaz|paslanmaz|c1
+w08850|прокалывать|delmek|iğnelemek|c1
+w08852|вязкий|yapışkan|koyu kıvamlı|c1
+w08853|толерантный|müsamahalı|toleranslı|c1
+w08856|бельмо|göz lekesi|göz perdesi|c1
+w08859|виток|tur|sarım|c1
+w08860|гейзер|gayzer|kaynaç|c1
+w08863|подпорка|altlık|dayanak|c1
+w08866|местоимение|zamir|adıl|c1
+w08868|развеваться|dalgalanmak|havalanmak|c1
+w08871|тучный|şişman|iri yapılı|c1
+w08880|истощать|tüketmek|güçten düşürmek|c1
+w08885|эквивалентный|eşdeğer|eşdeğerli|c1
+w08886|лисичка|horoz mantarı|horozmantarı|c1
+w08887|постный|perhiz yemeği|yağsız|c1
+w08889|складной|açılır kapanır|katlanır|c1
+w08893|фанатизм|fanatiklik|fanatizm|c1
+w08895|аллегория|alegori|mecaz|c1
+w08896|окрестный|civar|çevredeki|c1
+w08898|вкушать|tatmak|yemekten zevk almak|c1
+w08899|обременительный|yük getiren|ağır|c1
+w08902|скреплять|birleştirmek|bağlamak|c1
+w08905|воспротивиться|karşı çıkmak|karşı koymak|c1
+w08906|сердцевина|öz|çekirdek|c1
+w08910|зачеркнуть|üzerini çizmek|çizip iptal etmek|c1
+w08920|энергоснабжение|enerji tedariki|enerji temini|c1
+w08925|составной|bileşik|bileşim|c1
+w08929|изувечить|sakatlamak|organını bozmak|c1
+w08933|святотатство|kutsala saygısızlık|dinsizlik|c1
+w08934|раздражительность|sinirlilik|tahammülsüzlük|c1
+w08936|беспамятство|hafıza kaybı|baygınlık|c1
+w08937|фасон|biçim|model|c1
+w08938|сглаз|nazar|kem göz|c1
+w08939|трак|palet parçası|tırtıl|c1
+w08940|насыщение|doymuşluk|tokluk|c1
+w08946|оцепенение|sersemlik|uykululuk|c1
+w08949|довоенный|savaş öncesi|savaştan önceki|c1
+w08951|помесь|melez|kırma|c1
+w08958|созидание|yaratma|yaratıcılık|c1
+w08960|покорение|boyun eğdirme|fethetme|c1
+w08965|пересказ|yeniden anlatım|özet|c1
+w08966|обмундирование|üniforma|teçhizat|c1
+w08968|самостоятельность|bağımsızlık|özerklik|c1
+w08969|ржаветь|paslanmak|pas tutmak|c1
+w08971|голодранец|donsuz|çulsuz|c1
+w08973|расчесать|kaşıyarak tahriş etmek|taramak|c1
+w08975|несговорчивый|uzlaşmaz|inatçı|c1
+w08976|окутать|sarmak|bürümek|c1
+w08978|окаменелый|fosil|fosilleşmiş|c1
+w08983|надёжно|emniyetle|güvenilir biçimde|c1
+w08988|многообразие|çeşitlilik|çoğulluk|c1
+w08989|получка|maaş|ücret|c1
+w08991|трубочист|baca temizleyicisi|ocakçı|c1
+w08992|адресный|hedefe yönelik|adrese özgü|c1
+w08995|онемелый|hissiz|uyuşmuş|c1
+w08996|тягостный|ağır|acı verici|c1
+w08997|слепнуть|göz nurunu kaybetmek|gözü sönmek|c1
+w08998|рьяный|gayretli|ateşli|c1

@@ -46,7 +46,6 @@ class Strings {
     required this.starredWaiting,
     required this.levels,
     required this.themes,
-    required this.swipeHint,
     required this.deckEmpty,
     required this.wordsOf,
     required this.allDone,
@@ -121,7 +120,6 @@ class Strings {
     required this.levelTests,
     required this.levelTestNeed,
     required this.levelTestKnown,
-    required this.unitTestInfo,
     required this.statsTitle,
     required this.statLearned,
     required this.statStreak,
@@ -271,7 +269,7 @@ class Strings {
   final String streakDays, streakNone;
   final String todayProgress, goalDone, comeBackTomorrow, learnedWords;
   final String starredTitle, starredEmptyHint, starredWaiting;
-  final String levels, themes, swipeHint, deckEmpty;
+  final String levels, themes, deckEmpty;
   final String wordsOf, allDone, unitsDone, unit, locked, unitLockedHint;
   final String unitProgress, studyWithCards, test, listen, pronunciation;
   final String starAdd, starRemove, reportWord;
@@ -294,7 +292,7 @@ class Strings {
   final String myLearned, myStarred, fromWords;
   final String needFourLearned, starredTestSub;
   final String unitTestsTitle;
-  final String levelTests, levelTestNeed, levelTestKnown, unitTestInfo;
+  final String levelTests, levelTestNeed, levelTestKnown;
   final String statsTitle, statLearned, statStreak, statWeek, statMonth;
   final String last7, last30, bestDay, activeDays, dailyAverage;
   final String goalHitDays;
@@ -401,7 +399,6 @@ class Strings {
     starredWaiting: 'seni bekliyor',
     levels: 'Seviyeler',
     themes: 'Temalar',
-    swipeHint: 'Sağa kaydır: öğrendim · Sola kaydır: tekrar et',
     deckEmpty: 'Bu destede henüz kelime yok.',
     wordsOf: 'kelime',
     allDone: 'kelimenin tamamı tamam',
@@ -477,8 +474,6 @@ class Strings {
     levelTests: 'SEVİYE TESTLERİ',
     levelTestNeed: 'Bu seviyeden en az 20 kelime öğren',
     levelTestKnown: 'öğrenilmiş kelime',
-    unitTestInfo: 'Seviye testine dokununca bölümler açılır. Bir bölüm '
-        'testini geçersen sonraki bölüm de açılır.',
     statsTitle: 'İstatistikler',
     statLearned: 'Öğrenilen kelime',
     statStreak: 'Günlük seri',
@@ -699,7 +694,6 @@ class Strings {
     starredWaiting: 'в избранном',
     levels: 'Уровни',
     themes: 'Темы',
-    swipeHint: 'Вправо — выучил · Влево — повторить',
     deckEmpty: 'В этой колоде пока нет слов.',
     wordsOf: 'слов',
     allDone: 'все слова выучены',
@@ -775,8 +769,6 @@ class Strings {
     levelTests: 'ТЕСТЫ ПО УРОВНЯМ',
     levelTestNeed: 'Выучи хотя бы 20 слов этого уровня',
     levelTestKnown: 'выученных слов',
-    unitTestInfo: 'Нажми на тест уровня — откроются разделы. Пройдёшь тест '
-        'раздела, откроется следующий.',
     statsTitle: 'Статистика',
     statLearned: 'Выучено слов',
     statStreak: 'Дней подряд',
