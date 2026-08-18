@@ -62,5 +62,11 @@
         <intent>
             <action android:name="android.intent.action.TTS_SERVICE"/>
         </intent>
+        <!-- Hatalı kelime bildirimlerini e-posta ile göndermek için:
+             cihazdaki posta uygulamasının görünür olması gerekiyor. -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO"/>
+            <data android:scheme="mailto"/>
+        </intent>
     </queries>
 </manifest>
