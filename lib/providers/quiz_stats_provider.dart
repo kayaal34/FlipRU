@@ -12,11 +12,18 @@ class QuizResult {
     required this.correct,
     required this.total,
     required this.at,
+    this.kind = '',
   });
 
   final int correct;
   final int total;
   final DateTime at;
+
+  /// Hangi alistirma oldugu. Bos: siradan bir test. 'daily': gunun testi.
+  ///
+  /// Eski kayitlarda bu alan yok; okurken bos kaliyor, bu yuzden gunun testi
+  /// sayaci yalnizca bu surumden sonrasini sayiyor.
+  final String kind;
 
   double get ratio => total == 0 ? 0 : correct / total;
 
@@ -24,12 +31,14 @@ class QuizResult {
         'c': correct,
         't': total,
         'at': at.toIso8601String(),
+        if (kind.isNotEmpty) 'k': kind,
       };
 
   factory QuizResult.fromMap(Map<String, Object?> map) => QuizResult(
         correct: map['c'] as int? ?? 0,
         total: map['t'] as int? ?? 0,
         at: DateTime.tryParse(map['at'] as String? ?? '') ?? DateTime(2026),
+        kind: map['k'] as String? ?? '',
       );
 }
 
@@ -54,11 +63,16 @@ class QuizStatsNotifier extends Notifier<List<QuizResult>> {
     ];
   }
 
-  void record(int correct, int total) {
+  void record(int correct, int total, {String kind = ''}) {
     if (total == 0) return;
     final next = [
       ...state,
-      QuizResult(correct: correct, total: total, at: DateTime.now()),
+      QuizResult(
+        correct: correct,
+        total: total,
+        at: DateTime.now(),
+        kind: kind,
+      ),
     ];
     _persist(next.length > _keep ? next.sublist(next.length - _keep) : next);
   }

@@ -21,6 +21,7 @@ class QuizScreen extends ConsumerStatefulWidget {
   const QuizScreen({
     required this.title,
     required this.words,
+    this.kind = '',
     this.accent,
     this.questionCount = 15,
     this.unitId,
@@ -29,6 +30,9 @@ class QuizScreen extends ConsumerStatefulWidget {
 
   final String title;
   final List<Word> words;
+
+  /// Istatistikte ayirt etmek icin: bos ya da 'daily'.
+  final String kind;
   final Color? accent;
   final int questionCount;
 
@@ -111,7 +115,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
   void _finish() {
     // Test sonucu istatistiklere yazılıyor.
-    ref.read(quizStatsProvider.notifier).record(_correct, _questions.length);
+    ref
+        .read(quizStatsProvider.notifier)
+        .record(_correct, _questions.length, kind: widget.kind);
 
     final unitId = widget.unitId;
     if (unitId == null || _questions.isEmpty) return;

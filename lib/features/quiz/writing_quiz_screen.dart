@@ -77,6 +77,18 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
   bool get _jokerAvailable =>
       !_checked && _jokerLeft > 0 && _letterSlots.any((i) => _slots[i] == null);
 
+  /// Harfin cevapta kaç kez geçtiği. Çeldiricilerde sıfır.
+  int _needed(String letter) =>
+      _answer.split('').where((ch) => ch == letter).length;
+
+  /// Harfin kutulara kaç kez konduğu.
+  ///
+  /// Ayraçlar klavyede yer almadığı için burada yalnızca harfler sorulur.
+  int _used(String letter) => _slots.where((s) => s == letter).length;
+
+  /// Tuş tükendi mi: harf kullanılabileceği kadar kullanıldıysa soluyor.
+  bool _spent(String letter) => _used(letter) >= max(1, _needed(letter));
+
   @override
   void initState() {
     super.initState();
@@ -97,14 +109,14 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
   /// Klavye harfleri.
   ///
   /// Cevabın harfleri mutlaka var; üstüne çeldirici ekleniyor ki kelime
-  /// klavyeye bakarak çözülemesin. Toplam beşin katına tamamlanıyor, klavye
-  /// eksik satırla bitmesin.
+  /// klavyeye bakarak çözülemesin. Dörtlü satırlar hâlinde diziliyor, varsayılan
+  /// üç satır (on iki tuş); harfi çok olan kelimelerde satır ekleniyor.
   List<String> _buildKeys() {
     final gerekli = <String>{
       for (final ch in _answer.split(''))
         if (!_isSeparator(ch)) ch,
     };
-    final hedef = min(20, max(10, ((gerekli.length + 5) / 5).ceil() * 5));
+    final hedef = min(20, max(12, ((gerekli.length + 6) / 4).ceil() * 4));
 
     final havuz = _alphabet.split('')..removeWhere(gerekli.contains);
     havuz.shuffle(_random);
@@ -119,9 +131,6 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     if (bos.isEmpty) return;
     Haptics.light();
     setState(() => _slots[bos.first] = letter);
-    // Son kutu dolunca kendiliğinden kontrol ediliyor; ayrıca bir "kontrol et"
-    // düğmesine bastırmak alıştırmayı yavaşlatıyordu.
-    if (_letterSlots.every((i) => _slots[i] != null)) _check();
   }
 
   void _backspace() {
@@ -143,10 +152,15 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       _slots[secilen] = _answer[secilen];
       _revealed.add(secilen);
     });
-    if (_letterSlots.every((i) => _slots[i] != null)) _check();
   }
 
-  void _check() {
+  /// Cevabı gönderir.
+  ///
+  /// Son kutu dolunca kendiliğinden kontrol etmiyoruz: kullanıcı yanlış bir
+  /// harfe bastığında düzeltme şansı olmadan yanlış sayılıyordu. Boş ya da
+  /// eksik gönderilirse yanlış kabul edilip doğrusu gösteriliyor.
+  void _submit() {
+    if (_checked) return;
     final dogru = _slots.map((s) => s ?? '').join() == _answer;
     if (dogru) {
       Haptics.medium();
@@ -243,63 +257,60 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                       ),
                     ],
                   ),
-                  // Icerik dikey ortada: kutular yukari yapisinca klavye ile
-                  // arasinda kocaman bir bosluk kaliyordu.
+                  // Kelime yukarida, kutular ondan belirgin bir bosluk sonra:
+                  // ikisi bitisik durunca soru ile cevap alani ayrisamiyordu.
                   Expanded(
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox(height: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 18),
+                          Text(
+                            s.writingPrompt,
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: palette.textTertiary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _word.turkish,
+                            textAlign: TextAlign.center,
+                            style: textTheme.displaySmall,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            s.letters(_letterSlots.length),
+                            style: textTheme.bodySmall?.copyWith(
+                              color: palette.textTertiary,
+                            ),
+                          ),
+                          const SizedBox(height: 46),
+                          _Slots(
+                            answer: _answer,
+                            slots: _slots,
+                            revealed: _revealed,
+                            checked: _checked,
+                            correct: _wasCorrect,
+                          ),
+                          if (_checked && !_wasCorrect) ...[
+                            const SizedBox(height: 18),
                             Text(
-                              s.writingPrompt,
-                              style: textTheme.bodyMedium?.copyWith(
-                                color: palette.textTertiary,
+                              _word.accented.isEmpty
+                                  ? _word.russian
+                                  : _word.accented,
+                              style: textTheme.titleLarge?.copyWith(
+                                color: palette.learned,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 2),
                             Text(
-                              _word.turkish,
-                              textAlign: TextAlign.center,
-                              style: textTheme.displaySmall,
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              s.letters(_letterSlots.length),
+                              _word.transliteration,
                               style: textTheme.bodySmall?.copyWith(
                                 color: palette.textTertiary,
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            _Slots(
-                              answer: _answer,
-                              slots: _slots,
-                              revealed: _revealed,
-                              checked: _checked,
-                              correct: _wasCorrect,
-                            ),
-                            if (_checked && !_wasCorrect) ...[
-                              const SizedBox(height: 16),
-                              Text(
-                                _word.accented.isEmpty
-                                    ? _word.russian
-                                    : _word.accented,
-                                style: textTheme.titleLarge?.copyWith(
-                                  color: palette.learned,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                _word.transliteration,
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: palette.textTertiary,
-                                ),
-                              ),
-                            ],
-                            const SizedBox(height: 16),
                           ],
-                        ),
+                          const SizedBox(height: 16),
+                        ],
                       ),
                     ),
                   ),
@@ -323,8 +334,11 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                       padding: const EdgeInsets.only(bottom: 10),
                       child: _Keyboard(
                         keys: _keys,
+                        needed: _needed,
+                        spent: _spent,
                         onLetter: _type,
                         onBackspace: _backspace,
+                        onSubmit: _submit,
                         onJoker: _jokerAvailable ? _joker : null,
                         jokerLeft: _jokerLeft,
                       ),
@@ -476,21 +490,27 @@ class _Slot extends StatelessWidget {
   }
 }
 
-/// Kelimeye özel klavye: beşli satırlar, sonda geri silme ve joker.
+/// Kelimeye özel klavye: dörtlü satırlar, altta üç eşit kontrol tuşu.
 class _Keyboard extends StatelessWidget {
   const _Keyboard({
     required this.keys,
+    required this.needed,
+    required this.spent,
     required this.onLetter,
     required this.onBackspace,
+    required this.onSubmit,
     required this.onJoker,
     required this.jokerLeft,
   });
 
-  static const _columns = 5;
+  static const _columns = 4;
 
   final List<String> keys;
+  final int Function(String) needed;
+  final bool Function(String) spent;
   final ValueChanged<String> onLetter;
   final VoidCallback onBackspace;
+  final VoidCallback onSubmit;
   final VoidCallback? onJoker;
   final int jokerLeft;
 
@@ -509,15 +529,26 @@ class _Keyboard extends StatelessWidget {
                 for (var s = 0; s < _columns; s++)
                   Expanded(
                     child: satir * _columns + s < keys.length
-                        ? _Key(
-                            label: keys[satir * _columns + s],
-                            onTap: () => onLetter(keys[satir * _columns + s]),
+                        ? Builder(
+                            builder: (_) {
+                              final harf = keys[satir * _columns + s];
+                              final kac = needed(harf);
+                              return _Key(
+                                label: harf,
+                                // "x2": harf iki kez gerekiyorsa bir kez
+                                // yazip gectigini sanmasin.
+                                badge: kac >= 2 ? '×$kac' : null,
+                                dim: spent(harf),
+                                onTap: () => onLetter(harf),
+                              );
+                            },
                           )
                         : const SizedBox.shrink(),
                   ),
               ],
             ),
           ),
+        const SizedBox(height: 2),
         Row(
           children: [
             Expanded(
@@ -528,7 +559,6 @@ class _Keyboard extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 2,
               child: _Key(
                 icon: Icons.lightbulb_rounded,
                 tint: palette.star,
@@ -536,7 +566,13 @@ class _Keyboard extends StatelessWidget {
                 onTap: onJoker,
               ),
             ),
-            const Expanded(child: SizedBox.shrink()),
+            Expanded(
+              child: _Key(
+                icon: Icons.check_rounded,
+                tint: palette.learned,
+                onTap: onSubmit,
+              ),
+            ),
           ],
         ),
       ],
@@ -551,12 +587,14 @@ class _Key extends StatelessWidget {
     this.icon,
     this.tint,
     this.badge,
+    this.dim = false,
   });
 
   final String? label;
   final IconData? icon;
   final Color? tint;
   final String? badge;
+  final bool dim;
   final VoidCallback? onTap;
 
   @override
@@ -567,12 +605,12 @@ class _Key extends StatelessWidget {
     final renk = tint ?? palette.textPrimary;
 
     return Opacity(
-      opacity: aktif ? 1 : 0.35,
+      opacity: aktif ? (dim ? 0.32 : 1) : 0.35,
       child: GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: Container(
-          height: 50,
+          height: 52,
           margin: const EdgeInsets.symmetric(horizontal: 3),
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -592,7 +630,7 @@ class _Key extends StatelessWidget {
                   children: [
                     Icon(icon, size: 21, color: renk),
                     if (badge != null) ...[
-                      const SizedBox(width: 6),
+                      const SizedBox(width: 5),
                       Text(
                         badge!,
                         style: textTheme.labelLarge?.copyWith(color: renk),
@@ -600,12 +638,31 @@ class _Key extends StatelessWidget {
                     ],
                   ],
                 )
-              : Text(
-                  label!,
-                  style: textTheme.titleLarge?.copyWith(
-                    fontSize: 21,
-                    color: renk,
-                  ),
+              // Harf ortada, "×2" sağ üst köşede.
+              : Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Text(
+                      label!,
+                      style: textTheme.titleLarge?.copyWith(
+                        fontSize: 21,
+                        color: renk,
+                      ),
+                    ),
+                    if (badge != null)
+                      Positioned(
+                        top: 4,
+                        right: 6,
+                        child: Text(
+                          badge!,
+                          style: textTheme.labelSmall?.copyWith(
+                            fontSize: 10.5,
+                            color: palette.accent,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ),
+                  ],
                 ),
         ),
       ),
