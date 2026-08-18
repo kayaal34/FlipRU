@@ -125,6 +125,20 @@ POST_FIXES = {
     'вожделение': 'arzu, tutku',            # "arzu, şehvet" idi
     'живчик': 'canlı kişi, hareketli',      # "sperm hücresi" idi
 
+    # Kart yuzune sigmayan (34 karakteri gecen) karsiliklar. Bu kayitlar
+    # hicbir rapora girmedigi icin kisaltma isletilmemisti.
+    'налегке': 'hafif, bagajsız',             # 44 karakterdi
+    'скафандр': 'dalgıç elbisesi',            # 40
+    'фотографироваться': 'fotoğraf çektirmek',  # 40
+    'умопомрачительный': 'akıl almaz',        # 40
+    'подчинять': 'boyun eğdirmek',            # 39
+    'учитывать': 'dikkate almak',             # 37
+    'тренировать': 'çalıştırmak',             # 36
+    'постепенный': 'kademeli, yavaş yavaş',   # 36
+    'гинеколог': 'jinekolog',                 # 36
+    'расправа': 'hesap sorma, şiddet',        # 36
+    'дезертировать': 'firar etmek',           # 36
+
     # Raporun oneri sutunu bu ikisinde serbest metin; mevcut ceviri dogru
     # oldugu icin oneriyi degil dogru olani yaziyoruz.
     'мазать': 'sürmek, bulaştırmak',
