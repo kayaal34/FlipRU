@@ -686,8 +686,7 @@ class Strings {
     starredScreenEmptyBody: 'Çalışırken zorlandığın kelimenin yıldızına dokun; '
         'hepsi burada toplansın.',
     studyAll: 'Hepsini çalış',
-    splashTagline: 'Rusça kelime öğren\n'
-        '8.000+ kelime, örnek cümlelerle',
+    splashTagline: '8.000+ kelime, örnek cümlelerle',
     retryWrong: 'Yanlışlarına dön',
     quizWrong: 'yanlış',
     perfectScore: 'Kusursuz! Hepsi doğru.',
@@ -1026,8 +1025,7 @@ class Strings {
     starredScreenEmptyBody: 'Нажимай на звёздочку у трудных слов — они '
         'соберутся здесь.',
     studyAll: 'Учить все',
-    splashTagline: 'Учи русские слова\n'
-        '8.000+ слов с примерами',
+    splashTagline: '8.000+ слов с примерами',
     retryWrong: 'Вернуться к ошибкам',
     quizWrong: 'неверно',
     perfectScore: 'Безупречно! Всё верно.',
