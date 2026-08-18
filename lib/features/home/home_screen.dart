@@ -14,7 +14,6 @@ import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/premium_provider.dart';
 import '../premium/premium_screen.dart';
-import '../search/search_screen.dart';
 import '../learned/learned_screen.dart';
 import '../starred/starred_screen.dart';
 import '../units/unit_list_screen.dart';
@@ -203,14 +202,6 @@ class _HomeHeader extends ConsumerWidget {
           children: [
             _StreakBadge(days: streak),
             const Spacer(),
-            IconButton(
-              icon: const Icon(Icons.search_rounded, size: 26),
-              tooltip: s.searchTitle,
-              onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const SearchScreen()),
-              ),
-            ),
-            const SizedBox(width: 4),
             _PremiumButton(
               active: ref.watch(isPremiumProvider),
               onTap: () => Navigator.of(context).push(

@@ -97,10 +97,6 @@ class Strings {
     required this.learnedMixedSub,
     required this.learnedListSub,
     required this.searchLearned,
-    required this.searchTitle,
-    required this.searchAllHint,
-    required this.searchStart,
-    required this.searchTooMany,
     required this.searchNoResult,
     required this.learnedEmpty,
     required this.nextQuestion,
@@ -208,6 +204,8 @@ class Strings {
     required this.onboardBody1,
     required this.onboardTitle2,
     required this.onboardBody2,
+    required this.onboardTitleWidget,
+    required this.onboardBodyWidget,
     required this.onboardTitle3,
     required this.onboardBody3,
     required this.deleteOps,
@@ -322,7 +320,6 @@ class Strings {
   final String quizQuestion, quizProgress, quizCorrect, joker;
   final String learnedMixedSub, learnedListSub;
   final String searchLearned, searchNoResult, learnedEmpty;
-  final String searchTitle, searchAllHint, searchStart, searchTooMany;
   final String nextQuestion, seeResult, finish, unitUnlocked, correctOf;
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
@@ -358,6 +355,7 @@ class Strings {
   final String onboardSkip, onboardNext, onboardStart;
   final String onboardTitle1, onboardBody1;
   final String onboardTitle2, onboardBody2;
+  final String onboardTitleWidget, onboardBodyWidget;
   final String onboardTitle3, onboardBody3;
   final String deleteOps, deleteOpsFooter;
   final String clearStars, clearStarsSub, resetProgress, resetProgressSub;
@@ -497,10 +495,6 @@ class Strings {
     learnedMixedSub: 'Öğrendiğin kelimelerden karışık tekrar',
     learnedListSub: 'Öğrendiğin kelimelerin listesi',
     searchLearned: 'Öğrendiğin kelimelerde ara',
-    searchTitle: 'Sözlükte ara',
-    searchAllHint: 'Rusça, Türkçe ya da okunuş',
-    searchStart: 'Aramak için en az iki harf yaz.',
-    searchTooMany: 'İlk 80 sonuç gösteriliyor',
     searchNoResult: 'Eşleşen kelime yok',
     learnedEmpty: 'Henüz kelime öğrenmedin. Bir bölüm çalış, '
         'öğrendiklerin burada birikir.',
@@ -612,6 +606,10 @@ class Strings {
     onboardTitle2: 'Kartı çevir, kaydır',
     onboardBody2: 'Karta dokun, anlamı görün. Bildiğin kelimeyi sağa kaydır, '
         'tekrar etmen gerekeni sola. Her bölüm 20 kelime.',
+    onboardTitleWidget: 'Widget’ı ana ekranına ekle',
+    onboardBodyWidget: 'Her gün yeni bir kelime ve günlük serin, uygulamayı '
+        'açmadan telefonunun ana ekranında. Ana ekranına uzun bas, widget '
+        'listesinden FlipRU’yu seç.',
     onboardTitle3: 'Günlük hedefin ne olsun?',
     onboardBody3: 'Her gün bu kadar yeni kelime. Sonradan ayarlardan '
         'değiştirebilirsin.',
@@ -836,10 +834,6 @@ class Strings {
     learnedMixedSub: 'Повторение выученных слов вперемешку',
     learnedListSub: 'Список выученных слов',
     searchLearned: 'Поиск среди выученных',
-    searchTitle: 'Поиск по словарю',
-    searchAllHint: 'Русский, турецкий или произношение',
-    searchStart: 'Введи хотя бы две буквы.',
-    searchTooMany: 'Показаны первые 80 результатов',
     searchNoResult: 'Ничего не найдено',
     learnedEmpty: 'Ты ещё не выучил слов. Позанимайся разделом — '
         'выученное соберётся здесь.',
@@ -951,6 +945,10 @@ class Strings {
     onboardTitle2: 'Переверни карточку, свайпни',
     onboardBody2: 'Нажми на карточку, чтобы увидеть значение. Знаешь слово — '
         'свайп вправо, нужно повторить — влево. В разделе 20 слов.',
+    onboardTitleWidget: 'Добавь виджет на главный экран',
+    onboardBodyWidget: 'Каждый день новое слово и твоя серия — прямо на '
+        'главном экране, без запуска приложения. Долгое нажатие на главном '
+        'экране, затем FlipRU в списке виджетов.',
     onboardTitle3: 'Какая у тебя дневная цель?',
     onboardBody3: 'Столько новых слов каждый день. Потом можно изменить '
         'в настройках.',
