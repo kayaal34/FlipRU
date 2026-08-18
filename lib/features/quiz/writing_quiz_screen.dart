@@ -1,11 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
 import '../../core/utils/haptics.dart';
-import '../../core/widgets/cyrillic_keyboard.dart';
 import '../../core/widgets/quiz_result_view.dart';
 import '../../data/models/word.dart';
 import '../../providers/quiz_stats_provider.dart';
@@ -18,7 +18,9 @@ import '../../providers/settings_provider.dart';
 /// Türkçe anlamı veriliyor, Rusçası harf harf yazılıyor. Yazılışı
 /// hatırlamadan yapılamaz.
 ///
-/// Boşluk ve tire kutulara hazır geliyor; kullanıcı yalnızca harfleri yazıyor.
+/// Yazma telefonun kendi klavyesiyle: kutuların üzerinde görünmez bir metin
+/// alanı duruyor, basılan harfi alıp kutulara dağıtıyor. Alan boşken de geri
+/// silme tuşunun haber verebilmesi için içinde görünmez bir karakter tutuluyor.
 class WritingQuizScreen extends ConsumerStatefulWidget {
   const WritingQuizScreen({
     required this.title,
@@ -37,7 +39,15 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
   /// Kullanıcıdan beklenmeyen, hazır gelen karakterler.
   static bool _isSeparator(String ch) => ch == ' ' || ch == '-';
 
+  /// Metin alanında hep duran görünmez karakter.
+  ///
+  /// Alan tamamen boş olsaydı geri silme tuşuna basıldığında metin değişmez,
+  /// bizim de haberimiz olmazdı.
+  static const _sentinel = '​';
+
   final _random = Random();
+  final _controller = TextEditingController(text: _sentinel);
+  final _focus = FocusNode();
 
   late List<Word> _questions = widget.words;
   int _index = 0;
@@ -76,6 +86,13 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     _reset();
   }
 
+  @override
+  void dispose() {
+    _controller.dispose();
+    _focus.dispose();
+    super.dispose();
+  }
+
   void _reset() {
     _slots = [
       for (var i = 0; i < _answer.length; i++)
@@ -86,7 +103,31 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     _wasCorrect = false;
   }
 
+  /// Klavyeden gelen değişikliği harf ya da silme olarak yorumlar.
+  void _onChanged(String value) {
+    if (_checked) {
+      _resetField();
+      return;
+    }
+    if (value.length > _sentinel.length) {
+      for (final ch in value.substring(_sentinel.length).split('')) {
+        _type(ch.toLowerCase());
+      }
+    } else if (value.length < _sentinel.length) {
+      _backspace();
+    }
+    _resetField();
+  }
+
+  void _resetField() {
+    _controller.value = const TextEditingValue(
+      text: _sentinel,
+      selection: TextSelection.collapsed(offset: _sentinel.length),
+    );
+  }
+
   void _type(String letter) {
+    if (_isSeparator(letter)) return;
     final bos = _letterSlots.where((i) => _slots[i] == null);
     if (bos.isEmpty) return;
     setState(() => _slots[bos.first] = letter);
@@ -124,6 +165,9 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       Haptics.heavy();
       _wrong.add(_word);
     }
+    // Cevap verilince klavye kapanıyor: doğru yazılış ve "sonraki soru"
+    // düğmesi klavyenin arkasında kalmasın.
+    _focus.unfocus();
     setState(() {
       _checked = true;
       _wasCorrect = dogru;
@@ -140,6 +184,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       _index++;
       _reset();
     });
+    _focus.requestFocus();
   }
 
   void _retryWrong() {
@@ -150,6 +195,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       _correct = 0;
       _reset();
     });
+    _focus.requestFocus();
   }
 
   @override
@@ -157,6 +203,8 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
+    // Klavye zaten aciksa "Klavyeyi ac" dugmesi yer israfi.
+    final klavyeAcik = MediaQuery.viewInsetsOf(context).bottom > 0;
 
     if (_questions.isEmpty || _index >= _questions.length) {
       return QuizResultView(
@@ -218,88 +266,115 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                       ),
                     ],
                   ),
-                  // Soru blogu bos alanin ortasinda duruyor; tepeye
-                  // yaslandiginda kutularla klavye arasi bos kaliyordu.
                   Expanded(
-                    child: Center(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const SizedBox(height: 20),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 22),
+                          Text(
+                            s.writingPrompt,
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: palette.textTertiary,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _word.turkish,
+                            textAlign: TextAlign.center,
+                            style: textTheme.displaySmall,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            s.letters(_letterSlots.length),
+                            style: textTheme.bodySmall?.copyWith(
+                              color: palette.textTertiary,
+                            ),
+                          ),
+                          const SizedBox(height: 22),
+                          Stack(
+                            children: [
+                              _Slots(
+                                answer: _answer,
+                                slots: _slots,
+                                revealed: _revealed,
+                                checked: _checked,
+                                correct: _wasCorrect,
+                              ),
+                              // Telefonun kendi klavyesini açan görünmez alan;
+                              // kutulara dokunmak klavyeyi açıyor.
+                              Positioned.fill(
+                                child: Opacity(
+                                  opacity: 0,
+                                  child: TextField(
+                                    controller: _controller,
+                                    focusNode: _focus,
+                                    autofocus: true,
+                                    onChanged: _onChanged,
+                                    autocorrect: false,
+                                    enableSuggestions: false,
+                                    showCursor: false,
+                                    textCapitalization: TextCapitalization.none,
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.deny(
+                                        RegExp(r'\s'),
+                                      ),
+                                    ],
+                                    decoration: const InputDecoration.collapsed(
+                                      hintText: '',
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          if (_checked && !_wasCorrect) ...[
+                            const SizedBox(height: 18),
                             Text(
-                              s.writingPrompt,
-                              style: textTheme.bodyMedium?.copyWith(
-                                color: palette.textTertiary,
+                              _word.accented.isEmpty
+                                  ? _word.russian
+                                  : _word.accented,
+                              style: textTheme.titleLarge?.copyWith(
+                                color: palette.learned,
                               ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: 2),
                             Text(
-                              _word.turkish,
-                              textAlign: TextAlign.center,
-                              style: textTheme.displaySmall,
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              s.letters(_letterSlots.length),
+                              _word.transliteration,
                               style: textTheme.bodySmall?.copyWith(
                                 color: palette.textTertiary,
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            _Slots(
-                              answer: _answer,
-                              slots: _slots,
-                              revealed: _revealed,
-                              checked: _checked,
-                              correct: _wasCorrect,
-                            ),
-                            if (_checked && !_wasCorrect) ...[
-                              const SizedBox(height: 16),
-                              Text(
-                                _word.accented.isEmpty
-                                    ? _word.russian
-                                    : _word.accented,
-                                style: textTheme.titleLarge?.copyWith(
-                                  color: palette.learned,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                _word.transliteration,
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: palette.textTertiary,
-                                ),
-                              ),
-                            ],
                           ],
-                        ),
+                          const SizedBox(height: 20),
+                        ],
                       ),
                     ),
                   ),
-                  if (_checked)
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 12),
-                      child: SizedBox(
-                        width: double.infinity,
-                        child: FilledButton(
-                          onPressed: _next,
-                          child: Text(
-                            _index + 1 >= _questions.length
-                                ? s.seeResult
-                                : s.nextQuestion,
-                          ),
-                        ),
-                      ),
-                    )
-                  else
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8),
-                      child: CyrillicKeyboard(
-                        onLetter: _type,
-                        onBackspace: _backspace,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 12),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: _checked
+                          ? FilledButton(
+                              onPressed: _next,
+                              child: Text(
+                                _index + 1 >= _questions.length
+                                    ? s.seeResult
+                                    : s.nextQuestion,
+                              ),
+                            )
+                          : klavyeAcik
+                          ? const SizedBox.shrink()
+                          : OutlinedButton.icon(
+                              onPressed: _focus.requestFocus,
+                              icon: const Icon(
+                                Icons.keyboard_rounded,
+                                size: 19,
+                              ),
+                              label: Text(s.writingOpenKeyboard),
+                            ),
                     ),
+                  ),
                 ],
               ),
             ),
@@ -312,8 +387,10 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
 
 /// Harf kutuları.
 ///
-/// Kutu sayısı kelimenin kaç harfli olduğunu zaten gösteriyor; üstteki sayı
-/// bakmadan saymak zorunda kalmasın diye var.
+/// Kelime parçaları alt alta yazılıyor. "добрый день" ya da "по-дружески" tek
+/// satıra sıkıştırılınca kutular birbirine giriyor, satır ortadan kırılıyor ve
+/// kelimenin nerede bittiği okunmuyordu. Hem boşluk hem tire satır ayırıyor;
+/// tire, ait olduğu satırın sonunda görünüyor.
 class _Slots extends StatelessWidget {
   const _Slots({
     required this.answer,
@@ -329,51 +406,118 @@ class _Slots extends StatelessWidget {
   final bool checked;
   final bool correct;
 
+  /// (parçanın başladığı indeks, parça, parçadan sonraki ayraç)
+  List<(int, String, String?)> get _parts {
+    final out = <(int, String, String?)>[];
+    var buf = StringBuffer();
+    var basi = 0;
+    for (var i = 0; i < answer.length; i++) {
+      final ch = answer[i];
+      if (ch == ' ' || ch == '-') {
+        out.add((basi, buf.toString(), ch));
+        buf = StringBuffer();
+        basi = i + 1;
+      } else {
+        buf.write(ch);
+      }
+    }
+    out.add((basi, buf.toString(), null));
+    return out;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final parcalar = _parts;
+
+    // Kutu boyu en uzun parçaya göre; en uzun kayıt 20 harf.
+    final enUzun = parcalar.fold<int>(
+      0,
+      (a, p) => p.$2.length > a ? p.$2.length : a,
+    );
+    final genis = enUzun > 12 ? 27.0 : 34.0;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        for (final (basi, parca, ayrac) in parcalar)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5),
+            child: Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 5,
+              runSpacing: 6,
+              children: [
+                for (var k = 0; k < parca.length; k++)
+                  _Slot(
+                    letter: slots[basi + k],
+                    width: genis,
+                    revealed: revealed.contains(basi + k),
+                    checked: checked,
+                    correct: correct,
+                  ),
+                // Tire kelimenin parçası; satırın sonunda duruyor.
+                if (ayrac == '-')
+                  Text(
+                    '-',
+                    style: textTheme.titleLarge?.copyWith(
+                      color: palette.textTertiary,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _Slot extends StatelessWidget {
+  const _Slot({
+    required this.letter,
+    required this.width,
+    required this.revealed,
+    required this.checked,
+    required this.correct,
+  });
+
+  final String? letter;
+  final double width;
+  final bool revealed;
+  final bool checked;
+  final bool correct;
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
 
-    // Uzun kelimelerde kutular küçülüyor; en uzun kayıt 20 harf.
-    final genis = answer.length > 12 ? 26.0 : 34.0;
-
-    return Wrap(
-      alignment: WrapAlignment.center,
-      spacing: 5,
-      runSpacing: 6,
-      children: [
-        for (var i = 0; i < answer.length; i++)
-          if (answer[i] == ' ')
-            SizedBox(width: genis * 0.5, height: genis * 1.25)
-          else
-            Container(
-              width: genis,
-              height: genis * 1.25,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: checked
-                    ? (correct ? palette.learnedSoft : palette.reviewSoft)
-                    : (revealed.contains(i)
-                          ? palette.accentSoft
-                          : palette.surface),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: checked
-                      ? (correct ? palette.learned : palette.review)
-                      : (slots[i] != null ? palette.accent : palette.separator),
-                ),
-              ),
-              child: Text(
-                slots[i] ?? '',
-                style: textTheme.titleLarge?.copyWith(
-                  fontSize: genis > 30 ? 20 : 16,
-                  color: checked
-                      ? (correct ? palette.learned : palette.review)
-                      : palette.textPrimary,
-                ),
-              ),
-            ),
-      ],
+    return Container(
+      width: width,
+      height: width * 1.25,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: checked
+            ? (correct ? palette.learnedSoft : palette.reviewSoft)
+            : (revealed ? palette.accentSoft : palette.surface),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: checked
+              ? (correct ? palette.learned : palette.review)
+              : (letter != null ? palette.accent : palette.separator),
+        ),
+      ),
+      child: Text(
+        letter ?? '',
+        style: textTheme.titleLarge?.copyWith(
+          fontSize: width > 30 ? 20 : 16,
+          color: checked
+              ? (correct ? palette.learned : palette.review)
+              : palette.textPrimary,
+        ),
+      ),
     );
   }
 }
