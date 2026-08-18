@@ -634,7 +634,7 @@ class Strings {
     premiumTitle: 'FlipRU Premium',
     premiumHeadline: 'Bütün dağarcığı aç',
     premiumSub: 'B1, B2 ve C1 seviyeleri, 30 tema, ileri istatistikler ve '
-        'test ipuçları premium ile açılır.',
+        'testlerde joker premium ile açılır.',
     benefitAllWords: 'Kelimelerin tamamı',
     benefitAllWordsSub: 'Ücretsiz sürümde yalnızca A1 ve A2 açık',
     benefitSentences: 'Sırasız ilerleme',
@@ -971,7 +971,7 @@ class Strings {
     premiumTitle: 'FlipRU Премиум',
     premiumHeadline: 'Открой весь словарь',
     premiumSub: 'Уровни B1, B2 и C1, 30 тем, расширенная статистика и '
-        'подсказки в тестах открываются с Премиумом.',
+        'джокер в тестах открываются с Премиумом.',
     benefitAllWords: 'Все слова',
     benefitAllWordsSub: 'В бесплатной версии открыты только A1 и A2',
     benefitSentences: 'Свободный порядок',
