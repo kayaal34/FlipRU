@@ -13,6 +13,7 @@ import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../../core/widgets/starred_hero_card.dart';
 import '../quiz/quiz_screen.dart';
+import '../quiz/writing_quiz_screen.dart';
 import 'level_test_units_screen.dart';
 
 /// Testler sekmesi: kullanıcının kendini ölçebileceği bütün yollar.
@@ -68,6 +69,24 @@ class TestsScreen extends ConsumerWidget {
                     ref,
                     t.dailyTest,
                     _shuffled(learned, 15),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                _TestCard(
+                  icon: Icons.keyboard_rounded,
+                  tint: palette.star,
+                  title: t.writingTest,
+                  subtitle: learned.length < 4
+                      ? t.needFourLearned
+                      : t.writingTestSub,
+                  enabled: learned.length >= 4,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => WritingQuizScreen(
+                        title: t.writingTest,
+                        words: _shuffled(learned, 10),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 10),

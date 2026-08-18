@@ -69,7 +69,6 @@ class SettingsScreen extends ConsumerWidget {
                 // ───────────────────────── Çalışma ─────────────────────────
                 SettingsSection(
                   title: t.study,
-                  footer: t.directionFooter,
                   children: [
                     SettingsOptions<StudyDirection>(
                       title: t.direction,
