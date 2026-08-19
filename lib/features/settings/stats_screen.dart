@@ -236,6 +236,16 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                       : Column(
                           children: [
                             _InfoRow(
+                              label: t.dailyTest,
+                              value: '${quiz.dailyCount}',
+                            ),
+                            Divider(color: palette.separator, height: 22),
+                            _InfoRow(
+                              label: t.writingTest,
+                              value: '${quiz.writingCount}',
+                            ),
+                            Divider(color: palette.separator, height: 22),
+                            _InfoRow(
                               label: t.quizCount,
                               value: '${quiz.count}',
                             ),

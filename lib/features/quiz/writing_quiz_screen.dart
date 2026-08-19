@@ -8,6 +8,7 @@ import '../../core/utils/haptics.dart';
 import '../../core/widgets/quiz_result_view.dart';
 import '../../data/models/word.dart';
 import '../../providers/quiz_stats_provider.dart';
+import '../../providers/unit_providers.dart';
 import '../../providers/settings_provider.dart';
 
 /// Yazma pratiği.
@@ -25,11 +26,18 @@ class WritingQuizScreen extends ConsumerStatefulWidget {
   const WritingQuizScreen({
     required this.title,
     required this.words,
+    this.testId,
     super.key,
   });
 
   final String title;
   final List<Word> words;
+
+  /// Yazma testinden gelindiyse testin kimliği.
+  ///
+  /// Tamamı doğru cevaplanınca test geçilmiş sayılıyor ve sonraki test
+  /// açılıyor; bölüm testlerindeki kuralın aynısı.
+  final String? testId;
 
   @override
   ConsumerState<WritingQuizScreen> createState() => _WritingQuizScreenState();
@@ -177,7 +185,14 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
 
   void _next() {
     if (_index + 1 >= _questions.length) {
-      ref.read(quizStatsProvider.notifier).record(_correct, _questions.length);
+      ref
+          .read(quizStatsProvider.notifier)
+          .record(_correct, _questions.length, kind: 'writing');
+      final testId = widget.testId;
+      if (testId != null && _correct == _questions.length) {
+        ref.read(passedUnitsProvider.notifier).markPassed(testId);
+        _unlockedTest = true;
+      }
       setState(() => _index = _questions.length);
       return;
     }
@@ -186,6 +201,8 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       _reset();
     });
   }
+
+  bool _unlockedTest = false;
 
   void _retryWrong() {
     setState(() {
@@ -211,6 +228,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
         accent: palette.accent,
         strings: s,
         wrong: _wrong,
+        unlockedUnit: _unlockedTest,
         onRetryWrong: _wrong.isEmpty ? null : _retryWrong,
       );
     }

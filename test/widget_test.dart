@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:flipru/providers/writing_test_providers.dart';
 import 'package:flipru/app.dart';
 import 'package:flipru/data/models/app_settings.dart';
 import 'package:flipru/core/i18n/strings.dart';
@@ -323,6 +324,47 @@ void main() {
         expect(c.read(deckUnitsProvider(deck.id)).first.unlocked, isTrue,
             reason: deck.id);
       }
+    });
+  });
+
+  group('yazma testleri', () {
+    test('ilk test acik, sonrakiler sirali acilir', () {
+      final c = container();
+      final testler = c.read(writingTestsProvider);
+      expect(testler, hasLength(kWritingTestCount));
+      expect(testler.first.unlocked, isTrue);
+      expect(testler[1].unlocked, isFalse);
+
+      c.read(passedUnitsProvider.notifier).markPassed(testler.first.id);
+      final sonra = c.read(writingTestsProvider);
+      expect(sonra.first.passed, isTrue);
+      expect(sonra[1].unlocked, isTrue);
+      expect(sonra[2].unlocked, isFalse);
+    });
+
+    test('soru sayisi bes ya da on', () {
+      final c = container();
+      for (final t in c.read(writingTestsProvider)) {
+        expect(t.words, hasLength(writingTestSize(t.index)));
+        expect(writingTestSize(t.index), anyOf(5, 10));
+      }
+    });
+
+    test('havuzda C1 ve cok uzun kelime yok, zorluk artiyor', () {
+      final c = container();
+      final testler = c.read(writingTestsProvider);
+      for (final t in testler) {
+        for (final w in t.words) {
+          expect(w.level.name, isNot('c1'));
+          expect(w.level.name, isNot('b2'));
+          expect(w.russian.replaceAll(RegExp(r'[ -]'), '').length,
+              inInclusiveRange(3, 10));
+        }
+      }
+      // Son testin kelimeleri ilk testinkilerden uzun olmali.
+      double ort(List<Word> ws) =>
+          ws.map((w) => w.russian.length).reduce((a, b) => a + b) / ws.length;
+      expect(ort(testler.last.words), greaterThan(ort(testler.first.words)));
     });
   });
 
