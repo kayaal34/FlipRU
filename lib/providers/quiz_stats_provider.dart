@@ -101,6 +101,8 @@ class QuizSummary {
     required this.answered,
     required this.bestRatio,
     required this.lastRatio,
+    required this.dailyCount,
+    required this.writingCount,
   });
 
   final int count;
@@ -108,6 +110,13 @@ class QuizSummary {
   final int answered;
   final double bestRatio;
   final double lastRatio;
+
+  /// Tur bazli sayaclar.
+  ///
+  /// Eski kayitlarda `kind` alani yok; bu sayaclar yalnizca alan eklendikten
+  /// sonra cozulen testleri sayiyor.
+  final int dailyCount;
+  final int writingCount;
 
   double get accuracy => answered == 0 ? 0 : correct / answered;
 }
@@ -121,16 +130,22 @@ final quizSummaryProvider = Provider<QuizSummary>((ref) {
       answered: 0,
       bestRatio: 0,
       lastRatio: 0,
+      dailyCount: 0,
+      writingCount: 0,
     );
   }
 
   var correct = 0;
   var answered = 0;
   var best = 0.0;
+  var gunluk = 0;
+  var yazma = 0;
   for (final result in results) {
     correct += result.correct;
     answered += result.total;
     if (result.ratio > best) best = result.ratio;
+    if (result.kind == 'daily') gunluk++;
+    if (result.kind == 'writing') yazma++;
   }
 
   return QuizSummary(
@@ -139,5 +154,7 @@ final quizSummaryProvider = Provider<QuizSummary>((ref) {
     answered: answered,
     bestRatio: best,
     lastRatio: results.last.ratio,
+    dailyCount: gunluk,
+    writingCount: yazma,
   );
 });

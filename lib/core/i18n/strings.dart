@@ -93,6 +93,8 @@ class Strings {
     required this.writingTest,
     required this.writingTestSub,
     required this.writingPrompt,
+    required this.writingTestsSub,
+    required this.writingTestsDoneTemplate,
     required this.writingOpenKeyboard,
     required this.joker,
     required this.learnedMixedSub,
@@ -282,6 +284,7 @@ class Strings {
   final String resultGreat, resultGood, resultHalf, resultPoor;
   final String quizQuestion, quizProgress, quizCorrect, joker;
   final String writingTest, writingTestSub, writingPrompt;
+  final String writingTestsSub, writingTestsDoneTemplate;
   final String writingOpenKeyboard;
   final String learnedMixedSub, learnedListSub;
   final String searchLearned, searchNoResult, learnedEmpty;
@@ -371,6 +374,12 @@ class Strings {
   /// "7 harf" / "7 букв"
   String letters(int count) => '$count ${_agree(letterForms, count)}';
 
+  /// "3 / 25 test geçildi"
+  String writingTestsDone(int done, int total) =>
+      writingTestsDoneTemplate
+          .replaceFirst('{}', '$done')
+          .replaceFirst('{}', '$total');
+
   /// Sayiyi kendin yazdiginda ("3 / 20 слов") yalnizca ismin dogru bicimi.
   String wordUnit(int count) => _agree(wordForms, count);
 
@@ -445,6 +454,8 @@ class Strings {
     writingTest: 'Kelimeyi yaz',
     writingTestSub: 'Türkçesini gör, Rusçasını harf harf yaz',
     writingPrompt: 'Bu kelimenin Rusçası',
+    writingTestsSub: 'Kolaydan zora, sırayla açılır',
+    writingTestsDoneTemplate: '{} / {} test geçildi',
     writingOpenKeyboard: 'Klavyeyi aç',
     joker: 'Joker',
     learnedMixedSub: 'Öğrendiğin kelimelerden karışık tekrar',
@@ -739,6 +750,8 @@ class Strings {
     writingTest: 'Напиши слово',
     writingTestSub: 'Видишь перевод — пишешь слово по буквам',
     writingPrompt: 'Как это будет по-русски',
+    writingTestsSub: 'От простого к сложному, по порядку',
+    writingTestsDoneTemplate: 'Пройдено {} из {}',
     writingOpenKeyboard: 'Открыть клавиатуру',
     joker: 'Джокер',
     learnedMixedSub: 'Повторение выученных слов вперемешку',

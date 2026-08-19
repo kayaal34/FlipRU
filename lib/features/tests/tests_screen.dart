@@ -13,7 +13,7 @@ import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../../core/widgets/starred_hero_card.dart';
 import '../quiz/quiz_screen.dart';
-import '../quiz/writing_quiz_screen.dart';
+import 'writing_tests_screen.dart';
 import 'level_test_units_screen.dart';
 
 /// Testler sekmesi: kullanıcının kendini ölçebileceği bütün yollar.
@@ -83,16 +83,13 @@ class TestsScreen extends ConsumerWidget {
                   icon: Icons.keyboard_rounded,
                   tint: palette.star,
                   title: t.writingTest,
-                  subtitle: learned.length < _minLearned
-                      ? t.needFourLearned
-                      : t.writingTestSub,
-                  enabled: learned.length >= _minLearned,
+                  subtitle: t.writingTestSub,
+                  // Yazma testleri kendi havuzundan geliyor; ogrenilmis
+                  // kelime sarti yok, kolaydan zora sirali.
+                  enabled: true,
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => WritingQuizScreen(
-                        title: t.writingTest,
-                        words: _shuffled(learned, 10),
-                      ),
+                      builder: (_) => const WritingTestsScreen(),
                     ),
                   ),
                 ),
