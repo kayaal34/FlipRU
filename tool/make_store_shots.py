@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 """Google Play magaza ekran goruntulerini uretir.
 
-Ham ekran goruntusunu marka zeminine yerlestirip ustune tanitim metnini
-yaziyor. Ciktilar 1242x2208 (Play'in telefon gorseli icin bekledigi
-oranlardan biri) ve assets/store/ altina yaziliyor.
+Ham ekran goruntusunu telefon cercevesine oturtup marka zeminine
+yerlestiriyor ve ustune tanitim metnini yaziyor.
+
+Ekranin tamami gorunur: telefon, metinden arta kalan yukseklige gore
+olceklendiriliyor, kirpilmiyor. Ciktilar 1242x2208 (Play'in telefon
+gorseli oranlarindan biri) ve assets/store/ altina yaziliyor.
 
 Kullanim:
     python tool/make_store_shots.py <ham_goruntu_klasoru>
 """
 
-import io
 import os
 import sys
 
@@ -19,53 +21,49 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FONT_DIR = os.path.join(ROOT, 'assets', 'fonts')
 CIKTI = os.path.join(ROOT, 'assets', 'store')
 
-# Simgeyle ayni marka renkleri (bkz. tool/make_icon.py)
-BG_TOP = (72, 64, 200)
-BG_MID = (110, 74, 196)
-BG_BOTTOM = (188, 58, 122)
-
 GENIS, YUKSEK = 1242, 2208
 
-# (ham dosya, baslik, alt baslik)
-KARELER = [
-    ('04_ana_ekran.png', '8.000’den fazla\nRusça kelime',
-     'Örnek cümlesi ve okunuşuyla'),
-    ('01_kart_on.png', 'Kartı çevir,\nkaydır, öğren',
-     'Bildiğini sağa, tekrar edeceğini sola'),
-    ('05_bolumler.png', '20’şer kelimelik\nbölümler',
-     'Sırayla ilerle, her bölümü tamamla'),
-    ('08_yazma.png', 'Yazarak\npekiştir',
-     'Kelimeyi harf harf kur — kalıcı öğrenme'),
-    ('07_pratik.png', 'Testlerle\nkendini ölç',
-     'Günün testi, seviye testleri, yazma pratiği'),
-    ('06_temalar.png', 'Temalara ayrılmış\nkelimeler',
-     'Siyaset, ekonomi, sağlık, bilim ve dahası'),
-]
+# Zemin: koyu lacivertten mora, altta pembe bir sicaklik. Simgenin
+# renkleriyle ayni aile ama daha koyu; beyaz metin uzerinde rahat okunsun.
+BG_UST = (26, 22, 58)
+BG_ORTA = (66, 46, 138)
+BG_ALT = (140, 46, 116)
+
+# Telefon cercevesi
+CERCEVE = (14, 14, 20)
+CERCEVE_ISIK = (108, 104, 140)
 
 
 def zemin():
-    """Dikey marka gecisi + ust kosede yumusak isik."""
     kare = Image.new('RGB', (1, YUKSEK))
     ciz = ImageDraw.Draw(kare)
     for y in range(YUKSEK):
         t = y / (YUKSEK - 1)
-        if t < 0.5:
-            k = t / 0.5
-            c = tuple(int(BG_TOP[i] + (BG_MID[i] - BG_TOP[i]) * k)
+        if t < 0.55:
+            k = t / 0.55
+            c = tuple(int(BG_UST[i] + (BG_ORTA[i] - BG_UST[i]) * k)
                       for i in range(3))
         else:
-            k = (t - 0.5) / 0.5
-            c = tuple(int(BG_MID[i] + (BG_BOTTOM[i] - BG_MID[i]) * k)
+            k = (t - 0.55) / 0.45
+            c = tuple(int(BG_ORTA[i] + (BG_ALT[i] - BG_ORTA[i]) * k)
                       for i in range(3))
         ciz.point((0, y), fill=c)
     zem = kare.resize((GENIS, YUKSEK), Image.BICUBIC).convert('RGBA')
 
+    # Telefonun arkasindan gelen yumusak isik: duz gecisi canlandiriyor.
     isik = Image.new('RGBA', (GENIS, YUKSEK), (0, 0, 0, 0))
     ImageDraw.Draw(isik).ellipse(
-        [(-GENIS * 0.3, -YUKSEK * 0.22), (GENIS * 0.9, YUKSEK * 0.28)],
-        fill=(255, 255, 255, 38),
+        [(GENIS * 0.02, YUKSEK * 0.20), (GENIS * 0.98, YUKSEK * 0.92)],
+        fill=(150, 120, 255, 60),
     )
-    zem.alpha_composite(isik.filter(ImageFilter.GaussianBlur(GENIS * 0.09)))
+    zem.alpha_composite(isik.filter(ImageFilter.GaussianBlur(GENIS * 0.13)))
+
+    parlak = Image.new('RGBA', (GENIS, YUKSEK), (0, 0, 0, 0))
+    ImageDraw.Draw(parlak).ellipse(
+        [(-GENIS * 0.35, -YUKSEK * 0.20), (GENIS * 0.75, YUKSEK * 0.14)],
+        fill=(255, 255, 255, 30),
+    )
+    zem.alpha_composite(parlak.filter(ImageFilter.GaussianBlur(GENIS * 0.10)))
     return zem
 
 
@@ -79,19 +77,36 @@ def yuvarlat(im, yaricap):
     return out
 
 
+def cerceveye_oturt(ekran, kalinlik, yaricap):
+    """Ekran goruntusunu koyu bir telefon cercevesine yerlestirir."""
+    g, y = ekran.size
+    tam = (g + kalinlik * 2, y + kalinlik * 2)
+
+    govde = Image.new('RGBA', tam, (0, 0, 0, 0))
+    ciz = ImageDraw.Draw(govde)
+    ciz.rounded_rectangle([(0, 0), (tam[0] - 1, tam[1] - 1)],
+                          radius=yaricap + kalinlik, fill=CERCEVE)
+    # Cercevenin kenarindaki ince isik: metal govde hissi.
+    ciz.rounded_rectangle([(0, 0), (tam[0] - 1, tam[1] - 1)],
+                          radius=yaricap + kalinlik,
+                          outline=CERCEVE_ISIK, width=3)
+
+    govde.alpha_composite(yuvarlat(ekran, yaricap), (kalinlik, kalinlik))
+    return govde
+
+
 def golge(boyut, yaricap, bulanik, alfa):
-    g = Image.new('RGBA', (boyut[0] + bulanik * 4, boyut[1] + bulanik * 4),
+    pad = bulanik * 3
+    g = Image.new('RGBA', (boyut[0] + pad * 2, boyut[1] + pad * 2),
                   (0, 0, 0, 0))
     ImageDraw.Draw(g).rounded_rectangle(
-        [(bulanik * 2, bulanik * 2),
-         (bulanik * 2 + boyut[0], bulanik * 2 + boyut[1])],
+        [(pad, pad), (pad + boyut[0], pad + boyut[1])],
         radius=yaricap, fill=(0, 0, 0, alfa),
     )
-    return g.filter(ImageFilter.GaussianBlur(bulanik))
+    return g.filter(ImageFilter.GaussianBlur(bulanik)), pad
 
 
 def sar(ciz, metin, font, en_fazla):
-    """Metni verilen genislige gore satirlara boler."""
     satirlar = []
     for parca in metin.split('\n'):
         simdi = ''
@@ -111,35 +126,72 @@ def uret(ham_yol, baslik, alt, hedef):
     ciz = ImageDraw.Draw(tuval)
 
     f_baslik = ImageFont.truetype(
-        os.path.join(FONT_DIR, 'Inter-ExtraBold.ttf'), 86)
+        os.path.join(FONT_DIR, 'Inter-ExtraBold.ttf'), 78)
     f_alt = ImageFont.truetype(
-        os.path.join(FONT_DIR, 'Inter-Medium.ttf'), 42)
+        os.path.join(FONT_DIR, 'Inter-Medium.ttf'), 38)
 
-    kenar = 84
-    y = 128
-    for satir in sar(ciz, baslik, f_baslik, GENIS - kenar * 2):
-        ciz.text((kenar, y), satir, font=f_baslik, fill=(255, 255, 255))
-        y += 104
-    y += 14
-    for satir in sar(ciz, alt, f_alt, GENIS - kenar * 2):
-        ciz.text((kenar, y), satir, font=f_alt, fill=(255, 255, 255, 214))
-        y += 56
+    kenar = 92
+    en_fazla = GENIS - kenar * 2
 
-    # Telefon gorseli: kalan alana sigacak kadar
+    baslik_satir = sar(ciz, baslik, f_baslik, en_fazla)
+    alt_satir = sar(ciz, alt, f_alt, en_fazla)
+
+    # Metin blogu ustte, ortalanmis.
+    y = 104
+    for satir in baslik_satir:
+        w = ciz.textlength(satir, font=f_baslik)
+        ciz.text(((GENIS - w) / 2, y), satir, font=f_baslik,
+                 fill=(255, 255, 255))
+        y += 94
+    y += 10
+    for satir in alt_satir:
+        w = ciz.textlength(satir, font=f_alt)
+        ciz.text(((GENIS - w) / 2, y), satir, font=f_alt,
+                 fill=(226, 220, 255))
+        y += 52
+
+    # Kalan alan telefonun: ekranin tamami sigsin, kirpilmasin.
+    ust_bosluk = y + 76
+    alt_bosluk = 76
+    alan_y = YUKSEK - ust_bosluk - alt_bosluk
+    alan_x = GENIS - kenar * 2
+
+    kalinlik, yaricap = 13, 40
     ham = Image.open(ham_yol).convert('RGB')
-    ust = y + 78
-    kullanilabilir = YUKSEK - ust + 260   # alt taraf tasabilir, tuval kirpar
-    oran = min((GENIS - kenar * 2) / ham.width, kullanilabilir / ham.height)
+    oran = min((alan_x - kalinlik * 2) / ham.width,
+               (alan_y - kalinlik * 2) / ham.height)
     yeni = (int(ham.width * oran), int(ham.height * oran))
-    telefon = yuvarlat(ham.resize(yeni, Image.LANCZOS), 46)
+    telefon = cerceveye_oturt(ham.resize(yeni, Image.LANCZOS),
+                              kalinlik, yaricap)
 
-    x = (GENIS - yeni[0]) // 2
-    g = golge(yeni, 46, 34, 130)
-    tuval.alpha_composite(g, (x - 68, ust - 54))
-    tuval.alpha_composite(telefon, (x, ust))
+    tg, ty = telefon.size
+    x = (GENIS - tg) // 2
+    # Kalan bosluga dikeyde ortala.
+    ty0 = ust_bosluk + max(0, (alan_y - ty) // 2)
 
-    tuval.convert('RGB').save(hedef, quality=95)
+    g, pad = golge((tg, ty), yaricap + kalinlik, 30, 145)
+    tuval.alpha_composite(g, (x - pad, ty0 - pad + 22))
+    tuval.alpha_composite(telefon, (x, ty0))
+
+    tuval.convert('RGB').save(hedef, quality=96)
     return hedef
+
+
+# (ham dosya, baslik, alt baslik)
+KARELER = [
+    ('04_ana_ekran.png', '8.000’den fazla\nRusça kelime',
+     'Okunuşu ve örnek cümlesiyle · tamamen ücretsiz'),
+    ('01_kart_on.png', 'Kartı çevir,\nkaydır, öğren',
+     'Bildiğin sağa, tekrar edeceğin sola'),
+    ('05_bolumler.png', '20’şer kelimelik\nbölümler',
+     'Sırayla ilerle, her bölümü tamamlayarak'),
+    ('08_yazma.png', 'Yazarak\npekiştir',
+     'Kelimeyi harf harf kur — kalıcı öğrenme'),
+    ('07_pratik.png', 'Testlerle\nkendini ölç',
+     'Günün testi, seviye testleri, yazma pratiği'),
+    ('06_temalar.png', 'Temalara ayrılmış\nkelimeler',
+     'Siyaset, ekonomi, sağlık, bilim ve dahası'),
+]
 
 
 def main():
