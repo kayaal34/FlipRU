@@ -20,14 +20,23 @@ import 'package:flipru/providers/library_providers.dart';
 import 'package:flipru/providers/settings_provider.dart';
 
 /// Testler asset'e bağlı kalmasın diye sentetik bir havuz kuruyoruz.
+/// Sahte kelimelere rakamsiz bir benzersiz ek.
+///
+/// Yazma havuzu Turkce karsiligin yalnizca harflerden olusmasini istiyor;
+/// "kelime7" gibi bir karsilik havuza girmez ve testler bos liste gorurdu.
+String _ek(int i) {
+  const harfler = 'abcdefghij';
+  return '${harfler[(i ~/ 10) % 10]}${harfler[i % 10]}';
+}
+
 Word _word(int i, WordLevel level, WordTheme? theme) => Word(
       id: 'w${i.toString().padLeft(3, '0')}',
-      russian: 'слово$i',
-      accented: 'сло́во$i',
-      transliteration: 'SLO-va$i',
-      turkish: 'kelime$i',
-      exampleRu: 'Это слово$i.',
-      exampleTr: 'Bu kelime$i.',
+      russian: 'слово${_ek(i)}',
+      accented: 'сло́во${_ek(i)}',
+      transliteration: 'SLO-va${_ek(i)}',
+      turkish: 'kelime${_ek(i)}',
+      exampleRu: 'Это слово${_ek(i)}.',
+      exampleTr: 'Bu kelime${_ek(i)}.',
       level: level,
       theme: theme,
       partOfSpeech: PartOfSpeech.noun,
@@ -330,13 +339,13 @@ void main() {
   group('yazma testleri', () {
     test('ilk test acik, sonrakiler sirali acilir', () {
       final c = container();
-      final testler = c.read(writingTestsProvider);
+      final testler = c.read(writingTestsProvider(WritingDirection.trToRu));
       expect(testler, hasLength(kWritingTestCount));
       expect(testler.first.unlocked, isTrue);
       expect(testler[1].unlocked, isFalse);
 
       c.read(passedUnitsProvider.notifier).markPassed(testler.first.id);
-      final sonra = c.read(writingTestsProvider);
+      final sonra = c.read(writingTestsProvider(WritingDirection.trToRu));
       expect(sonra.first.passed, isTrue);
       expect(sonra[1].unlocked, isTrue);
       expect(sonra[2].unlocked, isFalse);
@@ -344,7 +353,7 @@ void main() {
 
     test('soru sayisi bes ya da on', () {
       final c = container();
-      for (final t in c.read(writingTestsProvider)) {
+      for (final t in c.read(writingTestsProvider(WritingDirection.trToRu))) {
         expect(t.words, hasLength(writingTestSize(t.index)));
         expect(writingTestSize(t.index), anyOf(5, 10));
       }
@@ -352,7 +361,7 @@ void main() {
 
     test('havuzda C1 ve cok uzun kelime yok, zorluk artiyor', () {
       final c = container();
-      final testler = c.read(writingTestsProvider);
+      final testler = c.read(writingTestsProvider(WritingDirection.trToRu));
       for (final t in testler) {
         for (final w in t.words) {
           expect(w.level.name, isNot('c1'));
@@ -361,10 +370,50 @@ void main() {
               inInclusiveRange(3, 10));
         }
       }
-      // Son testin kelimeleri ilk testinkilerden uzun olmali.
-      double ort(List<Word> ws) =>
-          ws.map((w) => w.russian.length).reduce((a, b) => a + b) / ws.length;
-      expect(ort(testler.last.words), greaterThan(ort(testler.first.words)));
+      // Siralama once seviyeye, sonra uzunluga bakiyor; ikisi de geriye
+      // gitmemeli. (Sahte sozlukte kelimeler ayni uzunlukta oldugu icin
+      // uzunluk kismi burada esitlikle saglaniyor.)
+      const seviye = ['a1', 'a2', 'b1'];
+      var oncekiSeviye = 0;
+      for (final t in testler) {
+        final s = seviye.indexOf(t.words.first.level.name);
+        expect(s, greaterThanOrEqualTo(oncekiSeviye));
+        oncekiSeviye = s;
+      }
+      expect(seviye.indexOf(testler.last.words.first.level.name),
+          greaterThanOrEqualTo(
+              seviye.indexOf(testler.first.words.first.level.name)));
+    });
+  });
+
+  group('anlamı yaz (Rusça → Türkçe)', () {
+    test('havuz duz Turkce karsiliklardan olusuyor', () {
+      final c = container();
+      final testler = c.read(writingTestsProvider(WritingDirection.ruToTr));
+      expect(testler, isNotEmpty);
+      for (final t in testler) {
+        for (final w in t.words) {
+          // Virgullu, parantezli ya da Turkce alfabede olmayan harf tasiyan
+          // karsiliklar harf harf yazdirilamaz.
+          expect(RegExp(r'^[a-zçğıöşü ]+$').hasMatch(w.turkish.toLowerCase()),
+              isTrue, reason: w.turkish);
+          expect(w.turkish.replaceAll(' ', '').length,
+              inInclusiveRange(3, 10), reason: w.turkish);
+        }
+      }
+    });
+
+    test('iki yonun ilerlemesi ayri tutuluyor', () {
+      final c = container();
+      final yazma = c.read(writingTestsProvider(WritingDirection.trToRu));
+      final anlam = c.read(writingTestsProvider(WritingDirection.ruToTr));
+      expect(yazma.first.id, isNot(anlam.first.id));
+
+      c.read(passedUnitsProvider.notifier).markPassed(yazma.first.id);
+      expect(c.read(writingTestsProvider(WritingDirection.trToRu))[1].unlocked,
+          isTrue);
+      expect(c.read(writingTestsProvider(WritingDirection.ruToTr))[1].unlocked,
+          isFalse);
     });
   });
 

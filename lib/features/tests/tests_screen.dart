@@ -13,6 +13,7 @@ import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../../core/widgets/starred_hero_card.dart';
 import '../quiz/quiz_screen.dart';
+import '../../providers/writing_test_providers.dart';
 import 'writing_tests_screen.dart';
 import 'level_test_units_screen.dart';
 
@@ -89,7 +90,24 @@ class TestsScreen extends ConsumerWidget {
                   enabled: true,
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (_) => const WritingTestsScreen(),
+                      builder: (_) => const WritingTestsScreen(
+                        direction: WritingDirection.trToRu,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 10),
+                _TestCard(
+                  icon: Icons.translate_rounded,
+                  tint: palette.review,
+                  title: t.writingTestRu,
+                  subtitle: t.writingTestRuSub,
+                  enabled: true,
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => const WritingTestsScreen(
+                        direction: WritingDirection.ruToTr,
+                      ),
                     ),
                   ),
                 ),

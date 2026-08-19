@@ -93,6 +93,9 @@ class Strings {
     required this.writingTest,
     required this.writingTestSub,
     required this.writingPrompt,
+    required this.writingTestRu,
+    required this.writingTestRuSub,
+    required this.writingPromptRu,
     required this.writingTestsSub,
     required this.writingTestsDoneTemplate,
     required this.writingOpenKeyboard,
@@ -285,6 +288,7 @@ class Strings {
   final String quizQuestion, quizProgress, quizCorrect, joker;
   final String writingTest, writingTestSub, writingPrompt;
   final String writingTestsSub, writingTestsDoneTemplate;
+  final String writingTestRu, writingTestRuSub, writingPromptRu;
   final String writingOpenKeyboard;
   final String learnedMixedSub, learnedListSub;
   final String searchLearned, searchNoResult, learnedEmpty;
@@ -454,6 +458,9 @@ class Strings {
     writingTest: 'Kelimeyi yaz',
     writingTestSub: 'Türkçesini gör, Rusçasını harf harf yaz',
     writingPrompt: 'Bu kelimenin Rusçası',
+    writingTestRu: 'Anlamı yaz',
+    writingTestRuSub: 'Rusçasını gör, Türkçesini harf harf yaz',
+    writingPromptRu: 'Bu kelimenin anlamı',
     writingTestsSub: 'Kolaydan zora, sırayla açılır',
     writingTestsDoneTemplate: '{} / {} test geçildi',
     writingOpenKeyboard: 'Klavyeyi aç',
@@ -750,6 +757,9 @@ class Strings {
     writingTest: 'Напиши слово',
     writingTestSub: 'Видишь перевод — пишешь слово по буквам',
     writingPrompt: 'Как это будет по-русски',
+    writingTestRu: 'Напиши перевод',
+    writingTestRuSub: 'Смотри слово — пиши перевод по буквам',
+    writingPromptRu: 'Что значит это слово',
     writingTestsSub: 'От простого к сложному, по порядку',
     writingTestsDoneTemplate: 'Пройдено {} из {}',
     writingOpenKeyboard: 'Открыть клавиатуру',

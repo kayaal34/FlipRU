@@ -13,7 +13,13 @@ import '../quiz/writing_quiz_screen.dart';
 /// Testler kolaydan zora sıralı ve bölüm testlerindeki kuralla açılıyor:
 /// bir testi tamamı doğru olacak şekilde geçmeden sonraki açılmıyor.
 class WritingTestsScreen extends ConsumerWidget {
-  const WritingTestsScreen({super.key});
+  const WritingTestsScreen({required this.direction, super.key});
+
+  final WritingDirection direction;
+
+  String _baslik(dynamic s) => direction == WritingDirection.trToRu
+      ? s.writingTest as String
+      : s.writingTestRu as String;
 
   void _ac(BuildContext context, WidgetRef ref, WritingTest test) {
     final s = ref.read(stringsProvider);
@@ -27,8 +33,9 @@ class WritingTestsScreen extends ConsumerWidget {
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => WritingQuizScreen(
-          title: '${s.writingTest} ${test.index}',
+          title: '${_baslik(s)} ${test.index}',
           words: test.words,
+          direction: direction,
           testId: test.id,
         ),
       ),
@@ -40,12 +47,12 @@ class WritingTestsScreen extends ConsumerWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
-    final testler = ref.watch(writingTestsProvider);
+    final testler = ref.watch(writingTestsProvider(direction));
     final gecilen = testler.where((t) => t.passed).length;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(s.writingTest),
+        title: Text(_baslik(s)),
         leading: IconButton(
           icon: const Icon(Icons.chevron_left_rounded, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),

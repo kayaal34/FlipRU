@@ -9,6 +9,7 @@ import '../../core/widgets/quiz_result_view.dart';
 import '../../data/models/word.dart';
 import '../../providers/quiz_stats_provider.dart';
 import '../../providers/unit_providers.dart';
+import '../../providers/writing_test_providers.dart';
 import '../../providers/settings_provider.dart';
 
 /// Yazma pratiği.
@@ -26,12 +27,16 @@ class WritingQuizScreen extends ConsumerStatefulWidget {
   const WritingQuizScreen({
     required this.title,
     required this.words,
+    this.direction = WritingDirection.trToRu,
     this.testId,
     super.key,
   });
 
   final String title;
   final List<Word> words;
+
+  /// Hangi yonde yaziliyor: Ruscasi mi, Turkce karsiligi mi.
+  final WritingDirection direction;
 
   /// Yazma testinden gelindiyse testin kimliği.
   ///
@@ -44,7 +49,11 @@ class WritingQuizScreen extends ConsumerStatefulWidget {
 }
 
 class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
-  static const _alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+  static const _kiril = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+  static const _latin = 'abcçdefgğhıijklmnoöprsştuüvyz';
+
+  String get _alphabet =>
+      widget.direction == WritingDirection.trToRu ? _kiril : _latin;
 
   /// Kullanıcıdan beklenmeyen, hazır gelen karakterler.
   static bool _isSeparator(String ch) => ch == ' ' || ch == '-';
@@ -69,7 +78,12 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
   bool _wasCorrect = false;
 
   Word get _word => _questions[_index];
-  String get _answer => _word.russian.toLowerCase();
+  String get _answer => writingAnswer(_word, widget.direction);
+
+  /// Soruda gosterilen taraf.
+  String get _prompt => widget.direction == WritingDirection.trToRu
+      ? _word.turkish
+      : (_word.accented.isEmpty ? _word.russian : _word.accented);
 
   /// Harf beklenen kutuların sırası.
   List<int> get _letterSlots => [
@@ -283,14 +297,16 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                         children: [
                           const SizedBox(height: 18),
                           Text(
-                            s.writingPrompt,
+                            widget.direction == WritingDirection.trToRu
+                                ? s.writingPrompt
+                                : s.writingPromptRu,
                             style: textTheme.bodyMedium?.copyWith(
                               color: palette.textTertiary,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            _word.turkish,
+                            _prompt,
                             textAlign: TextAlign.center,
                             style: textTheme.displaySmall,
                           ),
@@ -312,20 +328,25 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
                           if (_checked && !_wasCorrect) ...[
                             const SizedBox(height: 18),
                             Text(
-                              _word.accented.isEmpty
-                                  ? _word.russian
-                                  : _word.accented,
+                              widget.direction == WritingDirection.trToRu
+                                  ? (_word.accented.isEmpty
+                                        ? _word.russian
+                                        : _word.accented)
+                                  : _word.turkish,
                               style: textTheme.titleLarge?.copyWith(
                                 color: palette.learned,
                               ),
                             ),
-                            const SizedBox(height: 2),
-                            Text(
-                              _word.transliteration,
-                              style: textTheme.bodySmall?.copyWith(
-                                color: palette.textTertiary,
+                            if (widget.direction ==
+                                WritingDirection.trToRu) ...[
+                              const SizedBox(height: 2),
+                              Text(
+                                _word.transliteration,
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: palette.textTertiary,
+                                ),
                               ),
-                            ),
+                            ],
                           ],
                           const SizedBox(height: 16),
                         ],
