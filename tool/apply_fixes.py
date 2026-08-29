@@ -76,6 +76,15 @@ from report8_fixes import (  # noqa: E402
     REPORT8_RU,
     REPORT8_TR,
 )
+from report9_fixes import (  # noqa: E402
+    REPORT9_ACCENTED,
+    REPORT9_CLEAR_EXAMPLE,
+    REPORT9_CLEAR_THEME,
+    REPORT9_EXAMPLE,
+    REPORT9_POS,
+    REPORT9_RU,
+    REPORT9_TR,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -171,7 +180,8 @@ def main():
         new_tr = FIXES.get(bare)
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
                        REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
-                       REPORT5_MANUAL, REPORT6_TR, REPORT7_TR, REPORT8_TR):
+                       REPORT5_MANUAL, REPORT6_TR, REPORT7_TR, REPORT8_TR,
+                       REPORT9_TR):
             report = source.get(wid)
             if not report:
                 continue
@@ -199,7 +209,8 @@ def main():
             changed += 1
 
         new_pos = (REPORT_POS.get(wid) or REPORT5_POS.get(wid)
-                   or REPORT6_POS.get(wid) or REPORT7_POS.get(wid))
+                   or REPORT6_POS.get(wid) or REPORT7_POS.get(wid)
+                   or REPORT9_POS.get(wid))
         if new_pos and row[idx['pos']] != new_pos:
             row[idx['pos']] = new_pos
             pos_fixed += 1
@@ -214,7 +225,8 @@ def main():
             row[idx['translit']] = new_translit
             translit_fixed += 1
 
-        new_accented = REPORT6_ACCENTED.get(wid) or REPORT7_ACCENTED.get(wid)
+        new_accented = (REPORT6_ACCENTED.get(wid) or REPORT7_ACCENTED.get(wid)
+                        or REPORT9_ACCENTED.get(wid))
         if new_accented and row[idx['accented']] != new_accented:
             row[idx['accented']] = new_accented
             accented_fixed += 1
@@ -223,7 +235,7 @@ def main():
         # silinmis bir cumlenin yerine dogrusunu koyabiliyor.
         new_example = (REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
                        or REPORT6_EXAMPLE.get(wid) or REPORT7_EXAMPLE.get(wid)
-                       or REPORT8_EXAMPLE.get(wid))
+                       or REPORT8_EXAMPLE.get(wid) or REPORT9_EXAMPLE.get(wid))
         if new_example:
             ex_ru, ex_tr = new_example
             if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
@@ -234,20 +246,22 @@ def main():
                 or wid in REPORT5_CLEAR_EXAMPLE
                 or wid in REPORT6_CLEAR_EXAMPLE
                 or wid in REPORT7_CLEAR_EXAMPLE
-                or wid in REPORT8_CLEAR_EXAMPLE) and row[idx['exRu']]:
+                or wid in REPORT8_CLEAR_EXAMPLE
+                or wid in REPORT9_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1
 
         if (wid in REPORT6_CLEAR_THEME or wid in REPORT7_CLEAR_THEME
-                or wid in REPORT8_CLEAR_THEME) and row[idx['theme']]:
+                or wid in REPORT8_CLEAR_THEME
+                or wid in REPORT9_CLEAR_THEME) and row[idx['theme']]:
             row[idx['theme']] = ''
             theme_cleared += 1
 
         # Baslik kelimenin kendisi hataliydi (gecersiz mastar, kucuk harfli
         # ozel isim). En son uygulanir: yukaridaki eslesmeler eski `bare`
         # degeriyle calisiyor olmali.
-        ru_fix = REPORT7_RU.get(wid) or REPORT8_RU.get(wid)
+        ru_fix = REPORT7_RU.get(wid) or REPORT8_RU.get(wid) or REPORT9_RU.get(wid)
         if ru_fix and ru_fix[0] == bare and row[idx['ru']] != ru_fix[1]:
             row[idx['ru']] = ru_fix[1]
             bare = ru_fix[1]
@@ -285,7 +299,10 @@ def main():
         | set(REPORT7_TRANSLIT) | set(REPORT7_ACCENTED) | set(REPORT7_RU) \
         | REPORT7_CLEAR_EXAMPLE | REPORT7_CLEAR_THEME \
         | set(REPORT8_TR) | set(REPORT8_EXAMPLE) | set(REPORT8_RU) \
-        | REPORT8_CLEAR_EXAMPLE | REPORT8_CLEAR_THEME
+        | REPORT8_CLEAR_EXAMPLE | REPORT8_CLEAR_THEME \
+        | set(REPORT9_TR) | set(REPORT9_EXAMPLE) | set(REPORT9_RU) \
+        | set(REPORT9_POS) | set(REPORT9_ACCENTED) \
+        | REPORT9_CLEAR_EXAMPLE | REPORT9_CLEAR_THEME
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP
                   - REPORT7_DROP - REPORT8_DROP)
     if lost:
