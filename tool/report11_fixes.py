@@ -1,0 +1,155 @@
+# -*- coding: utf-8 -*-
+"""On birinci (ve son) tur: dosya 9 (w08034-w08999) denetimi (2026-08-29).
+Veri setinin son parcasi. Bu turla birlikte sistemik "yi-" translit hatasi
+icin daha once bilinen ama kapsam disi birakilan son iki bonus kayit
+(w05089, w05716) da kapatildi.
+"""
+
+REPORT11_TR = {
+    'w08849': ('исповедальня', 'günah çıkartma hücresi'),
+    'w08321': ('альбинос', 'albino'),
+    'w08386': ('каторжник', 'kürek mahkûmu'),
+    'w08855': ('преимущественно', 'çoğunlukla'),
+    'w08687': ('янтарный', 'kehribar rengi'),
+    'w08059': ('пикнуть', 'gıkını çıkarmak'),
+    'w08050': ('надир', 'nadir noktası (gökbilim)'),
+    'w08106': ('чопорный', 'tutucu, resmiyetçi'),
+    'w08558': ('застёжка', 'fermuar, toka'),
+    'w08152': ('подножка', 'çelme'),
+    'w08034': ('отрезок', 'kesit, parça'),
+    # ozel isimler
+    'w08062': ('нагасаки', 'Nagasaki'),
+    'w08066': ('константинополь', 'Konstantinopolis'),
+    'w08351': ('лаос', 'Laos'),
+    'w08501': ('бавария', 'Bavyera'),
+    'w08606': ('мальта', 'Malta'),
+    'w08608': ('анкара', 'Ankara'),
+    'w08632': ('нептун', 'Neptün'),
+    'w08674': ('австрия', 'Avusturya'),
+    'w08690': ('фольксваген', 'Volkswagen (marka)'),
+    'w08796': ('филиппины', 'Filipinler'),
+    'w08826': ('чернобыль', 'Çernobil'),
+    'w08993': ('ява', 'Cava'),
+    'w08822': ('обь', 'Ob'),
+}
+
+REPORT11_RU = {
+    'w08501': ('бавария', 'Бавария'),
+    'w08632': ('нептун', 'Нептун'),
+    'w08674': ('австрия', 'Австрия'),
+    'w08690': ('фольксваген', 'Фольксваген'),
+    'w08826': ('чернобыль', 'Чернобыль'),
+    'w08822': ('обь', 'Обь'),
+}
+
+REPORT11_TRANSLIT = {
+    'w08373': 'a-biz-Jİ-rin-nıy',
+    'w08777': 'ba-Zİ-lik',
+    'w08986': 'gi-pa-tir-Mİ-ya',
+    'w05089': 'tri-NAT-tsat\'',
+    'w05716': 'fa-NAT-ka',
+}
+REPORT11_ACCENTED = {
+    'w08373': 'обезжи́ренный',
+    'w08777': 'бази́лик',
+    'w08986': 'гипотерми́я',
+    'w05089': 'трина́дцать',
+    'w05716': 'фана́тка',
+}
+REPORT11_POS = {
+    'w08986': 'noun',  # gipotermiya - "other" olarak etiketlenmisti
+}
+
+REPORT11_EXAMPLE = {
+    'w08915': ('В другой раз – он шел по парижской улице увидел – по-настоящему - эшафот.',
+               'Başka bir keresinde, Paris sokaklarında yürürken -- gerçekten de -- bir darağacı görmüştü.'),
+    'w08654': ('И он подумал: «У меня есть сеть кортов для бадминтона.',
+               "Ve şöyle düşündü: 'Badminton kortlarından oluşan bir ağım var.'"),
+    'w08447': ('О, пфф. Это же Мерседес, а не комбайн.', 'O bir Mercedes, biçerdöver değil.'),
+    'w08805': ('Овальные карабины самые простые и дешёвые.',
+               'Oval karabinalar en basit ve en ucuz olanlarıdır.'),
+    'w08538': ('Это бедро, бедренная кость гигантского травоядного динозавра.',
+               'Bu bir femur; bitki yiyen dev bir dinozorun uyluk kemiği.'),
+    'w08140': ('Мощность передаётся на колёса, а не на пропеллер.',
+               'Güç tekerleklere aktarılır, pervaneye değil.'),
+    'w08512': ('Виталий, я пробовал твой борщ, ты хреновый повар.',
+               'Vitaliy, borşunu tattım, sen leş gibi bir aşçısın.'),
+    'w08635': ('Они никогда прежде не обвинялись в преступлении.',
+               'Daha önce hiç bir suçla itham edilmemişlerdi.'),
+    'w08625': ('Ответ: «Нет, но можно себя избаловать».',
+               'Cevap: Hayır, ama kendinizi şımartabilirsiniz.'),
+    'w08417': ('Но не осмеливаются выть. Зато они умеют мстить.',
+               'Ama ulumaya cesaret edemezler. Yine de intikam almasını bilirler.'),
+    'w08412': ('Никто не проходит больше полкилометра, а каждый продавец сбывает мороженое половине отдыхающих.',
+               'Kimse yarım kilometreden fazla yürümez ve her satıcı, tatilcilerin yarısına dondurma satar.'),
+    'w08533': ('У всей армии одна беда вши и дизентерия.', 'Bütün ordunun derdi aynı: bit ve dizanteri.'),
+    'w08152': ('Нельзя было предугадать, где он подставит очередную подножку.',
+               'Bir sonraki ne zaman çelme takacağını tahmin edemezdin.'),
+    'w08054': ('Он положил руку на рукоять газа.', 'Elini gaz koluna koydu.'),
+    'w08290': ('Орга́н грохотал, усиливая эту скорбную песнь.',
+               'Org gümbürdeyerek bu yaslı ilahiyi daha da güçlendirdi.'),
+    'w08719': ('Орга́н грохотал, усиливая эту скорбную песнь.',
+               'Org gümbürdeyerek bu yaslı ilahiyi daha da güçlendirdi.'),
+    'w08377': ('Ведь она была лучшей поварихой на Лонг-Айленде.',
+               "Annen Long Island'daki en iyi aşçıydı."),
+    'w08401': ('Это одна миллиардная размера любого объекта в моём наблюдении.',
+               'İncelediğim herhangi bir nesnenin büyüklüğünün milyarda biri kadar.'),
+    'w08466': ('И он придумал этот термин - Е-Пациент -- экипированный, заинтересованный, уполномоченный, действующий.',
+               "Ve donanımlı, ilgili, yetkilendirilmiş, etkin hasta anlamına gelen 'e-Hasta' terimini icat etti."),
+    'w08488': ('сухари, красный перец, лакрица и кофе. Вы уже видите, что есть противоречия.',
+               'Galeta unu, kırmızı biber, meyan kökü ve kahve. Çelişkiyi şimdiden görebiliyorsunuz.'),
+    'w08528': ('Мы в состоянии застоя, стагнации во многих отношениях.',
+               'Olduğumuz yerde duruyoruz, birçok açıdan yerimizde sayıyoruz.'),
+    'w08626': ('Я пришел не для того, чтоб вас агитировать.',
+               'Sizi aramıza katmaya çalışmak için gelmedim.'),
+    'w08643': ('Некоторые виды их движения хорошо известны, например -- цветение.',
+               'Bazıları çok iyi bilinir, örneğin çiçeklenme.'),
+    'w08646': ('Рот открывай, только когда спрашивают, и пуговки застегни.',
+               'Ağzını yalnızca söz verildiğinde aç ve düğmelerini ilikle.'),
+    'w08688': ('По-моему, это несъедобно.', 'Bence bu yenmez.'),
+    'w08768': ('В итоге, со временем, расходы увеличились пропорционально обороту.',
+               'Sonuçta, yıllar boyunca, masraflar cirodan daha hızlı arttı.'),
+    'w08951': ('Мой офис представляет собой помесь Музея естественной истории и космической лаборатории НАСА.',
+               "Ofisim, Doğal Tarih Müzesi ile NASA uzay laboratuvarının bir karışımı gibi."),
+    'w08858': ('Шимпанзе хорошо известны, благодаря своей агрессивности.',
+               'Şempanzeler agresiflikleriyle iyi bilinir.'),
+    'w08966': ('Твоё обмундирование в идеальном порядке.', 'Üniforman kusursuz durumda.'),
+    'w08199': ('Аллан МакРоби: Он весит всего пару тонн, так что его достаточно легко раскачать.',
+               'Allan McRobie: Sadece birkaç ton ağırlığında, bu yüzden onu sallamak oldukça kolay.'),
+    'w08226': ('Давайте вместе писать хартию вольностей для Интернета.',
+               'Hadi internet için birlikte bir özgürlükler bildirgesi yazalım.'),
+    'w08305': ('На лицо, «для защиты», прилипает «маска» из маски медузы.',
+               "Yüze 'koruma amaçlı' bir denizanası maskesi yapışıyor."),
+    'w08641': ('(Смех) А здесь всё сводилось к одному: вините во всём евреев, реабилитируйте нацистов.',
+               '(Gülüşmeler) Fakat tespit ettiğimiz model hep aynı yöne devam ediyor: Yahudileri suçla, Nazileri akla.'),
+}
+
+REPORT11_CLEAR_EXAMPLE = {
+    'w08127', 'w08172', 'w08175', 'w08267', 'w08296', 'w08371', 'w08938',
+    'w08205', 'w08330', 'w08511', 'w08458', 'w08575', 'w08952', 'w08231',
+    'w08491', 'w08034', 'w08350', 'w08628',
+    'w08069', 'w08131', 'w08139', 'w08173', 'w08174', 'w08188', 'w08198',
+    'w08222', 'w08229', 'w08247', 'w08251', 'w08256', 'w08278', 'w08284',
+    'w08306', 'w08308', 'w08315', 'w08318', 'w08326', 'w08331', 'w08334',
+    'w08348', 'w08349', 'w08357', 'w08359', 'w08363', 'w08364', 'w08366',
+    'w08382', 'w08394', 'w08424', 'w08428', 'w08437', 'w08438', 'w08443',
+    'w08450', 'w08453', 'w08456', 'w08471', 'w08479', 'w08480', 'w08489',
+    'w08499', 'w08532', 'w08543', 'w08550', 'w08567', 'w08583', 'w08594',
+    'w08598', 'w08607', 'w08610', 'w08624', 'w08653', 'w08658', 'w08671',
+    'w08686', 'w08699', 'w08704', 'w08713', 'w08727', 'w08730', 'w08742',
+    'w08745', 'w08746', 'w08747', 'w08755', 'w08756', 'w08760', 'w08792',
+    'w08812', 'w08856', 'w08863', 'w08865', 'w08876', 'w08892', 'w08920',
+    'w08925', 'w08946', 'w08953', 'w08970',
+}
+
+REPORT11_CLEAR_THEME = {
+    'w08040', 'w08050', 'w08086', 'w08113', 'w08152', 'w08316', 'w08630',
+    'w08656', 'w08702', 'w08738', 'w08751', 'w08830', 'w08919', 'w08309',
+    'w08342', 'w08348', 'w08614', 'w08797', 'w08073', 'w08434', 'w08453',
+    'w08637', 'w08757', 'w08459', 'w08667', 'w08318', 'w08529', 'w08669',
+    'w08792', 'w08908', 'w08161', 'w08194', 'w08512', 'w08522', 'w08071',
+    'w08429', 'w08636', 'w08859', 'w08231', 'w08298', 'w08910', 'w08951',
+    'w08201', 'w08477', 'w08042', 'w08044', 'w08173', 'w08224', 'w08302',
+    'w08307', 'w08389', 'w08531', 'w08540', 'w08546', 'w08547', 'w08617',
+    'w08639', 'w08886', 'w08973',
+}
