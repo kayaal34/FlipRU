@@ -124,7 +124,14 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     // Tam puan sarti: bolumu gecmek icin her soruyu dogru bilmek gerekiyor.
     if (_correct == _questions.length) {
       ref.read(passedUnitsProvider.notifier).markPassed(unitId);
+      ref.read(pendingWrongProvider.notifier).clear(unitId);
       _unlockedUnit = true;
+    } else {
+      // Yarida birakilirsa ("Bitir") bolume donuldugunde bastan degil,
+      // yalnizca hala bilinmeyen kelimelerden devam edilsin diye kaydediliyor.
+      ref
+          .read(pendingWrongProvider.notifier)
+          .setWrong(unitId, [for (final w in _wrong) w.id]);
     }
   }
 

@@ -203,9 +203,18 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
           .read(quizStatsProvider.notifier)
           .record(_correct, _questions.length, kind: 'writing');
       final testId = widget.testId;
-      if (testId != null && _correct == _questions.length) {
-        ref.read(passedUnitsProvider.notifier).markPassed(testId);
-        _unlockedTest = true;
+      if (testId != null) {
+        if (_correct == _questions.length) {
+          ref.read(passedUnitsProvider.notifier).markPassed(testId);
+          ref.read(pendingWrongProvider.notifier).clear(testId);
+          _unlockedTest = true;
+        } else {
+          // Yarida birakilirsa ("Bitir") teste donuldugunde bastan degil,
+          // yalnizca hala bilinmeyen kelimelerden devam edilsin.
+          ref
+              .read(pendingWrongProvider.notifier)
+              .setWrong(testId, [for (final w in _wrong) w.id]);
+        }
       }
       setState(() => _index = _questions.length);
       return;
