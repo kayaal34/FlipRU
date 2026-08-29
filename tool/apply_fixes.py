@@ -57,6 +57,17 @@ from report6_fixes import (  # noqa: E402
     REPORT6_TR,
     REPORT6_TRANSLIT,
 )
+from report7_fixes import (  # noqa: E402
+    REPORT7_ACCENTED,
+    REPORT7_CLEAR_EXAMPLE,
+    REPORT7_CLEAR_THEME,
+    REPORT7_DROP,
+    REPORT7_EXAMPLE,
+    REPORT7_POS,
+    REPORT7_RU,
+    REPORT7_TR,
+    REPORT7_TRANSLIT,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -143,7 +154,8 @@ def main():
         bare = row[idx['ru']]
         wid = row[idx['id']]
         if (bare in DROP or bare in CONTENT_DROP
-                or wid in REPORT2_DROP or wid in REPORT4_DROP):
+                or wid in REPORT2_DROP or wid in REPORT4_DROP
+                or wid in REPORT7_DROP):
             dropped += 1
             continue
 
@@ -151,7 +163,7 @@ def main():
         new_tr = FIXES.get(bare)
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
                        REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
-                       REPORT5_MANUAL, REPORT6_TR):
+                       REPORT5_MANUAL, REPORT6_TR, REPORT7_TR):
             report = source.get(wid)
             if not report:
                 continue
@@ -178,7 +190,8 @@ def main():
             row[idx['tr']] = new_tr
             changed += 1
 
-        new_pos = REPORT_POS.get(wid) or REPORT5_POS.get(wid) or REPORT6_POS.get(wid)
+        new_pos = (REPORT_POS.get(wid) or REPORT5_POS.get(wid)
+                   or REPORT6_POS.get(wid) or REPORT7_POS.get(wid))
         if new_pos and row[idx['pos']] != new_pos:
             row[idx['pos']] = new_pos
             pos_fixed += 1
@@ -187,12 +200,13 @@ def main():
         if elle_okunus and elle_okunus[0] == bare:
             row[idx['translit']] = elle_okunus[1]
 
-        new_translit = REPORT2_TRANSLIT.get(wid) or REPORT6_TRANSLIT.get(wid)
+        new_translit = (REPORT2_TRANSLIT.get(wid) or REPORT6_TRANSLIT.get(wid)
+                        or REPORT7_TRANSLIT.get(wid))
         if new_translit and row[idx['translit']] != new_translit:
             row[idx['translit']] = new_translit
             translit_fixed += 1
 
-        new_accented = REPORT6_ACCENTED.get(wid)
+        new_accented = REPORT6_ACCENTED.get(wid) or REPORT7_ACCENTED.get(wid)
         if new_accented and row[idx['accented']] != new_accented:
             row[idx['accented']] = new_accented
             accented_fixed += 1
@@ -200,7 +214,7 @@ def main():
         # Cumle yazmak silmekten once gelir: ikinci tur, birinci turda
         # silinmis bir cumlenin yerine dogrusunu koyabiliyor.
         new_example = (REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
-                       or REPORT6_EXAMPLE.get(wid))
+                       or REPORT6_EXAMPLE.get(wid) or REPORT7_EXAMPLE.get(wid))
         if new_example:
             ex_ru, ex_tr = new_example
             if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
@@ -209,14 +223,24 @@ def main():
                 examples_set += 1
         elif (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE
                 or wid in REPORT5_CLEAR_EXAMPLE
-                or wid in REPORT6_CLEAR_EXAMPLE) and row[idx['exRu']]:
+                or wid in REPORT6_CLEAR_EXAMPLE
+                or wid in REPORT7_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1
 
-        if wid in REPORT6_CLEAR_THEME and row[idx['theme']]:
+        if (wid in REPORT6_CLEAR_THEME or wid in REPORT7_CLEAR_THEME) \
+                and row[idx['theme']]:
             row[idx['theme']] = ''
             theme_cleared += 1
+
+        # Baslik kelimenin kendisi hataliydi (gecersiz mastar, kucuk harfli
+        # ozel isim). En son uygulanir: yukaridaki eslesmeler eski `bare`
+        # degeriyle calisiyor olmali.
+        ru_fix = REPORT7_RU.get(wid)
+        if ru_fix and ru_fix[0] == bare and row[idx['ru']] != ru_fix[1]:
+            row[idx['ru']] = ru_fix[1]
+            bare = ru_fix[1]
 
         sadelesmis = tek_anlam(row[idx['tr']])
         if sadelesmis != row[idx['tr']]:
@@ -246,8 +270,12 @@ def main():
         | set(REPORT4_TR) | set(REPORT4_EXTRA) | set(REPORT5_TR) \
         | set(REPORT5_MANUAL) | set(REPORT6_TR) | set(REPORT6_EXAMPLE) \
         | set(REPORT6_POS) | set(REPORT6_TRANSLIT) | set(REPORT6_ACCENTED) \
-        | REPORT6_CLEAR_EXAMPLE | REPORT6_CLEAR_THEME
-    lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP)
+        | REPORT6_CLEAR_EXAMPLE | REPORT6_CLEAR_THEME \
+        | set(REPORT7_TR) | set(REPORT7_EXAMPLE) | set(REPORT7_POS) \
+        | set(REPORT7_TRANSLIT) | set(REPORT7_ACCENTED) | set(REPORT7_RU) \
+        | REPORT7_CLEAR_EXAMPLE | REPORT7_CLEAR_THEME
+    lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP
+                  - REPORT7_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
               % (len(lost), ', '.join(lost[:10])))
