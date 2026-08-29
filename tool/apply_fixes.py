@@ -95,6 +95,16 @@ from report10_fixes import (  # noqa: E402
     REPORT10_TR,
     REPORT10_TRANSLIT,
 )
+from report11_fixes import (  # noqa: E402
+    REPORT11_ACCENTED,
+    REPORT11_CLEAR_EXAMPLE,
+    REPORT11_CLEAR_THEME,
+    REPORT11_EXAMPLE,
+    REPORT11_POS,
+    REPORT11_RU,
+    REPORT11_TR,
+    REPORT11_TRANSLIT,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -192,7 +202,7 @@ def main():
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
                        REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
                        REPORT5_MANUAL, REPORT6_TR, REPORT7_TR, REPORT8_TR,
-                       REPORT9_TR, REPORT10_TR):
+                       REPORT9_TR, REPORT10_TR, REPORT11_TR):
             report = source.get(wid)
             if not report:
                 continue
@@ -221,7 +231,7 @@ def main():
 
         new_pos = (REPORT_POS.get(wid) or REPORT5_POS.get(wid)
                    or REPORT6_POS.get(wid) or REPORT7_POS.get(wid)
-                   or REPORT9_POS.get(wid))
+                   or REPORT9_POS.get(wid) or REPORT11_POS.get(wid))
         if new_pos and row[idx['pos']] != new_pos:
             row[idx['pos']] = new_pos
             pos_fixed += 1
@@ -231,13 +241,15 @@ def main():
             row[idx['translit']] = elle_okunus[1]
 
         new_translit = (REPORT2_TRANSLIT.get(wid) or REPORT6_TRANSLIT.get(wid)
-                        or REPORT7_TRANSLIT.get(wid) or REPORT10_TRANSLIT.get(wid))
+                        or REPORT7_TRANSLIT.get(wid) or REPORT10_TRANSLIT.get(wid)
+                        or REPORT11_TRANSLIT.get(wid))
         if new_translit and row[idx['translit']] != new_translit:
             row[idx['translit']] = new_translit
             translit_fixed += 1
 
         new_accented = (REPORT6_ACCENTED.get(wid) or REPORT7_ACCENTED.get(wid)
-                        or REPORT9_ACCENTED.get(wid) or REPORT10_ACCENTED.get(wid))
+                        or REPORT9_ACCENTED.get(wid) or REPORT10_ACCENTED.get(wid)
+                        or REPORT11_ACCENTED.get(wid))
         if new_accented and row[idx['accented']] != new_accented:
             row[idx['accented']] = new_accented
             accented_fixed += 1
@@ -247,7 +259,7 @@ def main():
         new_example = (REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
                        or REPORT6_EXAMPLE.get(wid) or REPORT7_EXAMPLE.get(wid)
                        or REPORT8_EXAMPLE.get(wid) or REPORT9_EXAMPLE.get(wid)
-                       or REPORT10_EXAMPLE.get(wid))
+                       or REPORT10_EXAMPLE.get(wid) or REPORT11_EXAMPLE.get(wid))
         if new_example:
             ex_ru, ex_tr = new_example
             if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
@@ -260,7 +272,8 @@ def main():
                 or wid in REPORT7_CLEAR_EXAMPLE
                 or wid in REPORT8_CLEAR_EXAMPLE
                 or wid in REPORT9_CLEAR_EXAMPLE
-                or wid in REPORT10_CLEAR_EXAMPLE) and row[idx['exRu']]:
+                or wid in REPORT10_CLEAR_EXAMPLE
+                or wid in REPORT11_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1
@@ -268,7 +281,8 @@ def main():
         if (wid in REPORT6_CLEAR_THEME or wid in REPORT7_CLEAR_THEME
                 or wid in REPORT8_CLEAR_THEME
                 or wid in REPORT9_CLEAR_THEME
-                or wid in REPORT10_CLEAR_THEME) and row[idx['theme']]:
+                or wid in REPORT10_CLEAR_THEME
+                or wid in REPORT11_CLEAR_THEME) and row[idx['theme']]:
             row[idx['theme']] = ''
             theme_cleared += 1
 
@@ -276,7 +290,8 @@ def main():
         # ozel isim). En son uygulanir: yukaridaki eslesmeler eski `bare`
         # degeriyle calisiyor olmali.
         ru_fix = (REPORT7_RU.get(wid) or REPORT8_RU.get(wid)
-                  or REPORT9_RU.get(wid) or REPORT10_RU.get(wid))
+                  or REPORT9_RU.get(wid) or REPORT10_RU.get(wid)
+                  or REPORT11_RU.get(wid))
         if ru_fix and ru_fix[0] == bare and row[idx['ru']] != ru_fix[1]:
             row[idx['ru']] = ru_fix[1]
             bare = ru_fix[1]
@@ -320,7 +335,10 @@ def main():
         | REPORT9_CLEAR_EXAMPLE | REPORT9_CLEAR_THEME \
         | set(REPORT10_TR) | set(REPORT10_EXAMPLE) | set(REPORT10_RU) \
         | set(REPORT10_TRANSLIT) | set(REPORT10_ACCENTED) \
-        | REPORT10_CLEAR_EXAMPLE | REPORT10_CLEAR_THEME
+        | REPORT10_CLEAR_EXAMPLE | REPORT10_CLEAR_THEME \
+        | set(REPORT11_TR) | set(REPORT11_EXAMPLE) | set(REPORT11_RU) \
+        | set(REPORT11_TRANSLIT) | set(REPORT11_ACCENTED) | set(REPORT11_POS) \
+        | REPORT11_CLEAR_EXAMPLE | REPORT11_CLEAR_THEME
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP
                   - REPORT7_DROP - REPORT8_DROP - REPORT10_DROP)
     if lost:
