@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/models/study_unit.dart';
@@ -33,6 +35,55 @@ class PassedUnitsNotifier extends Notifier<Set<String>> {
 final passedUnitsProvider =
     NotifierProvider<PassedUnitsNotifier, Set<String>>(PassedUnitsNotifier.new);
 
+/// Bir bölüm/yazma testi tam puanla geçilemeden yarıda bırakılırsa, o turda
+/// yanlış yapılan kelimeler burada saklanıyor.
+///
+/// Önceden bu yalnızca ekranın kendi State'inde tutuluyordu: "Bitir"e basıp
+/// çıkan kullanıcı bölümü yeniden açtığında bütün bölüm baştan soruluyordu,
+/// oysa "Yanlışlarına dön" ile aynı ekranda kalsaydı yalnızca yanlışları
+/// görecekti. Artık bu tutarsızlık yok: nereden çıkarsa çıksın, bölüme dönen
+/// kullanıcı kaldığı yerden — yalnızca hâlâ bilmediği kelimelerden — devam
+/// ediyor. Tamamı doğru cevaplanınca kayıt siliniyor.
+class PendingWrongNotifier extends Notifier<Map<String, List<String>>> {
+  static const _key = 'pending_wrong_words';
+
+  @override
+  Map<String, List<String>> build() {
+    final raw = ref.read(sharedPreferencesProvider).getString(_key);
+    if (raw == null) return const {};
+    final decoded = json.decode(raw) as Map<String, dynamic>;
+    return {
+      for (final entry in decoded.entries)
+        entry.key: (entry.value as List).cast<String>(),
+    };
+  }
+
+  void setWrong(String testId, List<String> wordIds) {
+    final next = {...state};
+    if (wordIds.isEmpty) {
+      next.remove(testId);
+    } else {
+      next[testId] = wordIds;
+    }
+    _persist(next);
+  }
+
+  void clear(String testId) {
+    if (!state.containsKey(testId)) return;
+    _persist({...state}..remove(testId));
+  }
+
+  void _persist(Map<String, List<String>> value) {
+    state = value;
+    ref.read(sharedPreferencesProvider).setString(_key, json.encode(value));
+  }
+}
+
+final pendingWrongProvider =
+    NotifierProvider<PendingWrongNotifier, Map<String, List<String>>>(
+  PendingWrongNotifier.new,
+);
+
 /// Bir destenin bölümleri, kullanıcı ilerlemesiyle birlikte.
 ///
 /// Tek provider hem bölümü hem durumunu döndürüyor: bölüm listesi ekranının
@@ -44,6 +95,7 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
   final words = ref.watch(deckWordsProvider(deckId));
   final learned = ref.watch(learnedProvider);
   final passedByTest = ref.watch(passedUnitsProvider);
+  final pendingWrong = ref.watch(pendingWrongProvider);
   final units = StudyUnit.split(deckId, words);
 
   // Sirali ilerleme: bir onceki bolum gecilmeden sonraki acilmaz. Onceden
@@ -68,6 +120,7 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
         learned: units[i].words.where((w) => learned.contains(w.id)).length,
         unlocked: i <= lastPassed + lookahead,
         testPassed: passedByTest.contains(units[i].id),
+        pendingWrong: pendingWrong[units[i].id]?.length ?? 0,
       ),
   ];
 });

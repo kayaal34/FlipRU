@@ -5,6 +5,7 @@ import '../../core/theme/app_palette.dart';
 import '../../core/utils/haptics.dart';
 import '../../core/widgets/pressable.dart';
 import '../../providers/settings_provider.dart';
+import '../../providers/unit_providers.dart';
 import '../../providers/writing_test_providers.dart';
 import '../quiz/writing_quiz_screen.dart';
 
@@ -30,11 +31,19 @@ class WritingTestsScreen extends ConsumerWidget {
         ..showSnackBar(SnackBar(content: Text(s.unitLockedHint)));
       return;
     }
+    // Daha once yarida birakilmis (tam puan alinmamis) bir denemeden kalan
+    // yanlislar varsa, teste donen kullanici butun sorulari degil yalnizca
+    // o kelimeleri gorur.
+    final pending = ref.read(pendingWrongProvider)[test.id];
+    final words = (pending == null || pending.isEmpty)
+        ? test.words
+        : test.words.where((w) => pending.contains(w.id)).toList();
+
     Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => WritingQuizScreen(
           title: '${_baslik(s)} ${test.index}',
-          words: test.words,
+          words: words,
           direction: direction,
           testId: test.id,
         ),
@@ -145,6 +154,7 @@ class _TestKutusu extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
     final kilitli = !test.unlocked;
+    final pendingCount = ref.watch(pendingWrongProvider)[test.id]?.length ?? 0;
     final renk = kilitli
         ? palette.textTertiary
         : (test.passed ? palette.learned : palette.star);
@@ -170,6 +180,8 @@ class _TestKutusu extends ConsumerWidget {
                 Icon(Icons.lock_rounded, size: 22, color: renk)
               else if (test.passed)
                 Icon(Icons.check_circle_rounded, size: 24, color: renk)
+              else if (pendingCount > 0)
+                Icon(Icons.replay_rounded, size: 22, color: renk)
               else
                 Text(
                   '${test.index}',
@@ -180,7 +192,11 @@ class _TestKutusu extends ConsumerWidget {
                 ),
               const SizedBox(height: 5),
               Text(
-                kilitli ? s.locked : s.words(test.words.length),
+                // Yarida kalan bir deneme varsa kalan kelime sayisi
+                // gosteriliyor: "hepsi degil, sadece bu kadari kaldi".
+                kilitli
+                    ? s.locked
+                    : s.words(pendingCount > 0 ? pendingCount : test.words.length),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodySmall

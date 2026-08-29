@@ -101,14 +101,21 @@ class LevelTestUnitsScreen extends ConsumerWidget {
       return;
     }
 
-    // Bolum testi bolumun butun kelimelerini soruyor: "20/20" ancak boyle
-    // anlamli oluyor. Celdiriciler sozlugun tamamindan geldigi icin kelime
-    // sayisi sinirina gerek yok.
+    // Bolum testi normalde bolumun butun kelimelerini soruyor. Ama daha once
+    // yarida birakilmis (tam puan alinmamis) bir denemeden kalan yanlislar
+    // varsa, bolume donen kullanici butun 20 kelimeyi degil yalnizca o
+    // kelimeleri gorur — "Bitir" ile cikmak "Yanlislarina don"dan farksiz
+    // olsun diye.
+    final pending = ref.read(pendingWrongProvider)[progress.unit.id];
+    final words = (pending == null || pending.isEmpty)
+        ? progress.unit.words
+        : progress.unit.words.where((w) => pending.contains(w.id)).toList();
+
     _startQuiz(
       context,
       title: '${progress.unit.titleOf(s)} · ${s.test}',
-      words: progress.unit.words,
-      questionCount: progress.unit.words.length,
+      words: words,
+      questionCount: words.length,
       // Bolum testini gecmek bolumu tamamlamis sayar ve sonrakini acar —
       // calisma tarafindaki testle ayni davranis.
       unitId: progress.unit.id,
@@ -188,6 +195,8 @@ class _UnitTestTile extends StatelessWidget {
                 Icon(Icons.lock_rounded, size: 22, color: color)
               else if (progress.testPassed)
                 Icon(Icons.workspace_premium_rounded, size: 24, color: color)
+              else if (progress.pendingWrong > 0)
+                Icon(Icons.replay_rounded, size: 22, color: color)
               else
                 Icon(Icons.quiz_outlined, size: 22, color: color),
               const SizedBox(height: 7),
@@ -202,7 +211,12 @@ class _UnitTestTile extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                '${progress.learned}/${progress.total}',
+                // Yarida kalan bir deneme varsa kalan kelime sayisi
+                // gosteriliyor: kullaniciya "hepsi degil, sadece bu kadari
+                // kaldi" mesaji net versin.
+                !locked && progress.pendingWrong > 0
+                    ? strings.words(progress.pendingWrong)
+                    : '${progress.learned}/${progress.total}',
                 style: textTheme.bodySmall?.copyWith(
                   color: palette.textTertiary,
                   fontSize: 11,

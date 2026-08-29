@@ -58,6 +58,7 @@ class UnitProgress {
     required this.learned,
     required this.unlocked,
     this.testPassed = false,
+    this.pendingWrong = 0,
   });
 
   final StudyUnit unit;
@@ -68,6 +69,13 @@ class UnitProgress {
 
   /// Bölüm testi başarıyla geçildi mi.
   final bool testPassed;
+
+  /// Yarıda bırakılan bir testten kalan, hâlâ yanlış bilinen kelime sayısı.
+  ///
+  /// Sıfırdan büyükse kullanıcı bu bölümü daha önce denemiş ama tam
+  /// bitirmemiş demektir; bir sonraki giriş bütün bölümü değil, yalnızca
+  /// bu kadar kelimeyi soracak.
+  final int pendingWrong;
 
   int get total => unit.words.length;
   double get ratio => total == 0 ? 0 : learned / total;
