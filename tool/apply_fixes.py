@@ -48,6 +48,15 @@ from report5_fixes import (  # noqa: E402
     REPORT5_POS,
     REPORT5_TR,
 )
+from report6_fixes import (  # noqa: E402
+    REPORT6_ACCENTED,
+    REPORT6_CLEAR_EXAMPLE,
+    REPORT6_CLEAR_THEME,
+    REPORT6_EXAMPLE,
+    REPORT6_POS,
+    REPORT6_TR,
+    REPORT6_TRANSLIT,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -125,6 +134,7 @@ def main():
     kept = []
     changed = dropped = cleared = pos_fixed = 0
     translit_fixed = examples_set = tekilendi = anlam_fixed = 0
+    accented_fixed = theme_cleared = 0
     seen = set()
     seen_ids = set()
     mismatched = []
@@ -141,7 +151,7 @@ def main():
         new_tr = FIXES.get(bare)
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
                        REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
-                       REPORT5_MANUAL):
+                       REPORT5_MANUAL, REPORT6_TR):
             report = source.get(wid)
             if not report:
                 continue
@@ -168,7 +178,7 @@ def main():
             row[idx['tr']] = new_tr
             changed += 1
 
-        new_pos = REPORT_POS.get(wid) or REPORT5_POS.get(wid)
+        new_pos = REPORT_POS.get(wid) or REPORT5_POS.get(wid) or REPORT6_POS.get(wid)
         if new_pos and row[idx['pos']] != new_pos:
             row[idx['pos']] = new_pos
             pos_fixed += 1
@@ -177,14 +187,20 @@ def main():
         if elle_okunus and elle_okunus[0] == bare:
             row[idx['translit']] = elle_okunus[1]
 
-        new_translit = REPORT2_TRANSLIT.get(wid)
+        new_translit = REPORT2_TRANSLIT.get(wid) or REPORT6_TRANSLIT.get(wid)
         if new_translit and row[idx['translit']] != new_translit:
             row[idx['translit']] = new_translit
             translit_fixed += 1
 
+        new_accented = REPORT6_ACCENTED.get(wid)
+        if new_accented and row[idx['accented']] != new_accented:
+            row[idx['accented']] = new_accented
+            accented_fixed += 1
+
         # Cumle yazmak silmekten once gelir: ikinci tur, birinci turda
         # silinmis bir cumlenin yerine dogrusunu koyabiliyor.
-        new_example = REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
+        new_example = (REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
+                       or REPORT6_EXAMPLE.get(wid))
         if new_example:
             ex_ru, ex_tr = new_example
             if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
@@ -192,10 +208,15 @@ def main():
                 row[idx['exTr']] = ex_tr
                 examples_set += 1
         elif (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE
-                or wid in REPORT5_CLEAR_EXAMPLE) and row[idx['exRu']]:
+                or wid in REPORT5_CLEAR_EXAMPLE
+                or wid in REPORT6_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1
+
+        if wid in REPORT6_CLEAR_THEME and row[idx['theme']]:
+            row[idx['theme']] = ''
+            theme_cleared += 1
 
         sadelesmis = tek_anlam(row[idx['tr']])
         if sadelesmis != row[idx['tr']]:
@@ -223,7 +244,9 @@ def main():
     known_ids = set(REPORT_TR) | set(REPORT2_TR) | set(REPORT2_EXAMPLE) \
         | set(REPORT2_TRANSLIT) | set(REPORT3_TR) | set(REPORT3_EXTRA) \
         | set(REPORT4_TR) | set(REPORT4_EXTRA) | set(REPORT5_TR) \
-        | set(REPORT5_MANUAL)
+        | set(REPORT5_MANUAL) | set(REPORT6_TR) | set(REPORT6_EXAMPLE) \
+        | set(REPORT6_POS) | set(REPORT6_TRANSLIT) | set(REPORT6_ACCENTED) \
+        | REPORT6_CLEAR_EXAMPLE | REPORT6_CLEAR_THEME
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
@@ -236,9 +259,11 @@ def main():
     print('\nduzeltilen ceviri : %d' % changed)
     print('duzeltilen tur    : %d' % pos_fixed)
     print('duzeltilen okunus : %d' % translit_fixed)
+    print('duzeltilen vurgu  : %d' % accented_fixed)
     print('yazilan ornek     : %d' % examples_set)
     print('cikarilan kelime  : %d' % dropped)
     print('silinen ornek     : %d' % cleared)
+    print('temizlenen tema   : %d' % theme_cleared)
     print('tek anlama dusen  : %d' % tekilendi)
     print('karsiligi duzelen : %d' % anlam_fixed)
     print('kalan kelime      : %d' % len(kept))
