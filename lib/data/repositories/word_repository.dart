@@ -10,7 +10,7 @@ import '../models/word.dart';
 /// Kelime kaynağı.
 ///
 /// Veri `assets/data/words.json` içinde satır-dizisi biçiminde tutuluyor
-/// (nesne yerine dizi: 16 bin kayıtta yaklaşık %40 daha küçük ve daha hızlı
+/// (nesne yerine dizi: ~9 bin kayıtta yaklaşık %40 daha küçük ve daha hızlı
 /// çözümleniyor). Çözümleme ana iş parçacığını kilitlememesi için ayrı bir
 /// isolate'te yapılıyor.
 class WordRepository {

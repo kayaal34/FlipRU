@@ -36,7 +36,6 @@ flutter:
 
   assets:
     - assets/data/words.json
-    - assets/images/logo.png
 
   # Inter gömülü: uygulama tamamen çevrimdışı çalışsın ve Kiril + Türkçe
   # karakterler ile vurgu işareti (U+0301) her cihazda aynı görünsün.

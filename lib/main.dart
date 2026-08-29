@@ -21,7 +21,7 @@ Future<void> main() async {
     ),
   );
 
-  // Tercihler ve 16 bin kelimelik havuz uygulama çizilmeden hazırlanıyor;
+  // Tercihler ve ~9 bin kelimelik havuz uygulama çizilmeden hazırlanıyor;
   // böylece ilk karede doğru tema ve doğru ilerleme görünüyor. JSON çözümlemesi
   // ayrı bir isolate'te yapıldığı için açılış donmuyor.
   final prefs = await SharedPreferences.getInstance();
