@@ -68,6 +68,14 @@ from report7_fixes import (  # noqa: E402
     REPORT7_TR,
     REPORT7_TRANSLIT,
 )
+from report8_fixes import (  # noqa: E402
+    REPORT8_CLEAR_EXAMPLE,
+    REPORT8_CLEAR_THEME,
+    REPORT8_DROP,
+    REPORT8_EXAMPLE,
+    REPORT8_RU,
+    REPORT8_TR,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -155,7 +163,7 @@ def main():
         wid = row[idx['id']]
         if (bare in DROP or bare in CONTENT_DROP
                 or wid in REPORT2_DROP or wid in REPORT4_DROP
-                or wid in REPORT7_DROP):
+                or wid in REPORT7_DROP or wid in REPORT8_DROP):
             dropped += 1
             continue
 
@@ -163,7 +171,7 @@ def main():
         new_tr = FIXES.get(bare)
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
                        REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
-                       REPORT5_MANUAL, REPORT6_TR, REPORT7_TR):
+                       REPORT5_MANUAL, REPORT6_TR, REPORT7_TR, REPORT8_TR):
             report = source.get(wid)
             if not report:
                 continue
@@ -214,7 +222,8 @@ def main():
         # Cumle yazmak silmekten once gelir: ikinci tur, birinci turda
         # silinmis bir cumlenin yerine dogrusunu koyabiliyor.
         new_example = (REPORT2_EXAMPLE.get(wid) or REPORT5_EXAMPLE.get(wid)
-                       or REPORT6_EXAMPLE.get(wid) or REPORT7_EXAMPLE.get(wid))
+                       or REPORT6_EXAMPLE.get(wid) or REPORT7_EXAMPLE.get(wid)
+                       or REPORT8_EXAMPLE.get(wid))
         if new_example:
             ex_ru, ex_tr = new_example
             if (row[idx['exRu']], row[idx['exTr']]) != (ex_ru, ex_tr):
@@ -224,20 +233,21 @@ def main():
         elif (bare in DROP_EXAMPLE or wid in REPORT_CLEAR_EXAMPLE
                 or wid in REPORT5_CLEAR_EXAMPLE
                 or wid in REPORT6_CLEAR_EXAMPLE
-                or wid in REPORT7_CLEAR_EXAMPLE) and row[idx['exRu']]:
+                or wid in REPORT7_CLEAR_EXAMPLE
+                or wid in REPORT8_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1
 
-        if (wid in REPORT6_CLEAR_THEME or wid in REPORT7_CLEAR_THEME) \
-                and row[idx['theme']]:
+        if (wid in REPORT6_CLEAR_THEME or wid in REPORT7_CLEAR_THEME
+                or wid in REPORT8_CLEAR_THEME) and row[idx['theme']]:
             row[idx['theme']] = ''
             theme_cleared += 1
 
         # Baslik kelimenin kendisi hataliydi (gecersiz mastar, kucuk harfli
         # ozel isim). En son uygulanir: yukaridaki eslesmeler eski `bare`
         # degeriyle calisiyor olmali.
-        ru_fix = REPORT7_RU.get(wid)
+        ru_fix = REPORT7_RU.get(wid) or REPORT8_RU.get(wid)
         if ru_fix and ru_fix[0] == bare and row[idx['ru']] != ru_fix[1]:
             row[idx['ru']] = ru_fix[1]
             bare = ru_fix[1]
@@ -273,9 +283,11 @@ def main():
         | REPORT6_CLEAR_EXAMPLE | REPORT6_CLEAR_THEME \
         | set(REPORT7_TR) | set(REPORT7_EXAMPLE) | set(REPORT7_POS) \
         | set(REPORT7_TRANSLIT) | set(REPORT7_ACCENTED) | set(REPORT7_RU) \
-        | REPORT7_CLEAR_EXAMPLE | REPORT7_CLEAR_THEME
+        | REPORT7_CLEAR_EXAMPLE | REPORT7_CLEAR_THEME \
+        | set(REPORT8_TR) | set(REPORT8_EXAMPLE) | set(REPORT8_RU) \
+        | REPORT8_CLEAR_EXAMPLE | REPORT8_CLEAR_THEME
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP
-                  - REPORT7_DROP)
+                  - REPORT7_DROP - REPORT8_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
               % (len(lost), ', '.join(lost[:10])))
