@@ -58,3 +58,8 @@ __pycache__/
 
 # Disariya gonderilen inceleme dosyalari export_words.py ile yeniden uretilir.
 /tool/export/
+
+# Play Store imzalama sirlari: repoya asla girmemeli.
+/android/key.properties
+*.jks
+*.keystore
