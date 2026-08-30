@@ -77,6 +77,14 @@ class LearnedNotifier extends Notifier<Set<String>> {
     _persist(const {});
   }
 
+  /// Yalnizca QA derlemesi (bkz. lib/core/config/qa_mode.dart) icerik
+  /// incelemesi icin butun kelimeleri tek seferde "öğrenilmiş" isaretler.
+  /// Gunluk hedef sayacini etkilemez -- bu gercek bir ogrenme degil.
+  void seedAll(Iterable<String> ids) {
+    state = {...ids};
+    _persist(state);
+  }
+
   void _persist(Set<String> ids) {
     ref.read(sharedPreferencesProvider).setStringList(_key, ids.toList());
   }

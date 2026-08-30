@@ -30,6 +30,13 @@ class PassedUnitsNotifier extends Notifier<Set<String>> {
     state = const {};
     ref.read(sharedPreferencesProvider).setStringList(_key, const []);
   }
+
+  /// Yalnizca QA derlemesi icin: verilen butun bolum/test kimliklerini tek
+  /// seferde gecilmis isaretler.
+  void seedAll(Iterable<String> unitIds) {
+    state = {...unitIds};
+    ref.read(sharedPreferencesProvider).setStringList(_key, state.toList());
+  }
 }
 
 final passedUnitsProvider =

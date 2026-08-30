@@ -16,10 +16,24 @@ flutter pub get
 > (ör. `C:\Users\yahya\Desktop\russian-words-app`). Şu an derlemeler
 > `C:\Users\yahya\leksika_build` altındaki kopyadan alınıyor.
 
-Telefonda:
+Telefonda (Play Store'a giden asıl uygulama):
 
 ```bash
-flutter run
+flutter run --flavor prod
+```
+
+> **Not:** Projede iki Android flavor'ı var — `prod` (Play Store) ve `qa`
+> (içerik incelemesi için, ayrı applicationId'yle aynı telefona ikinci bir
+> uygulama olarak kurulur, bkz. `lib/main_qa.dart`). Flavor eklenmeden önce
+> `flutter run`/`flutter build` flavor'sız çalışıyordu; artık **release
+> derlemelerinde `--flavor prod` şart**, yoksa Gradle hangi flavor'ı
+> istediğinizi bilemez.
+
+QA derlemesi (tüm kelimeler "öğrenilmiş", tüm bölüm/testler açık gelir):
+
+```bash
+flutter build apk --flavor qa -t lib/main_qa.dart
+flutter install --flavor qa -t lib/main_qa.dart
 ```
 
 Testler:
