@@ -37,6 +37,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["appLabel"] = "FlipRU"
     }
 
     signingConfigs {
@@ -59,6 +60,25 @@ android {
             } else {
                 signingConfigs.getByName("debug")
             }
+        }
+    }
+
+    flavorDimensions += "track"
+    productFlavors {
+        // Play Store'a giden asil surum.
+        create("prod") {
+            dimension = "track"
+        }
+        // Icerik incelemesi icin: ayri applicationId sayesinde Play
+        // Console'daki kapali test surumuyle ayni telefonda yan yana durur,
+        // ustune yazmaz. Her zaman debug anahtariyla imzalanir -- Play
+        // Store'a hic gitmeyecegi icin gercek yayin anahtarina gerek yok.
+        create("qa") {
+            dimension = "track"
+            applicationIdSuffix = ".qa"
+            versionNameSuffix = "-qa"
+            manifestPlaceholders["appLabel"] = "FlipRU QA"
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }

@@ -4,10 +4,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app.dart';
+import 'core/config/qa_mode.dart';
 import 'data/repositories/word_repository.dart';
 import 'providers/app_providers.dart';
 
 Future<void> main() async {
+  await bootstrap();
+}
+
+/// Gerçek Play Store girişi ve QA girişi (bkz. main_qa.dart) aynı kurulumu
+/// paylaşıyor; ikisini ayıran tek şey `qaMode` bayrağı.
+Future<void> bootstrap() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([
@@ -27,12 +34,20 @@ Future<void> main() async {
   final prefs = await SharedPreferences.getInstance();
   final repository = await WordRepository.load();
 
+  final container = ProviderContainer(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+      wordRepositoryProvider.overrideWithValue(repository),
+    ],
+  );
+
+  // QA derlemesinde arayüz çizilmeden önce her şeyi "öğrenilmiş/geçilmiş"
+  // olarak isaretliyoruz ki uygulama acildiginda zaten tamami acik gelsin.
+  if (qaMode) seedQaProgress(container);
+
   runApp(
-    ProviderScope(
-      overrides: [
-        sharedPreferencesProvider.overrideWithValue(prefs),
-        wordRepositoryProvider.overrideWithValue(repository),
-      ],
+    UncontrolledProviderScope(
+      container: container,
       child: const FlipRuApp(),
     ),
   );
