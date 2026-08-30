@@ -46,9 +46,11 @@ REPORT9_ACCENTED = {
 }
 
 # id -> pos
+# Uygulamanin PartOfSpeech modeli yalnizca 'noun'/'verb'/'adj'/'other'
+# taniyor; "numeral" gibi degerler 'other'a esitleniyor.
 REPORT9_POS = {
-    'w06689': 'numeral',   # devyatnadtsat'
-    'w06493': 'adjective',  # beremennaya
+    'w06689': 'other',  # devyatnadtsat' (sayi)
+    'w06493': 'adj',    # beremennaya
 }
 
 REPORT9_EXAMPLE = {
