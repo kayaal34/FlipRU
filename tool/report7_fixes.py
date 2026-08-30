@@ -389,12 +389,15 @@ REPORT7_DROP = {
 }
 
 # id -> yeni pos
+# Uygulamanin PartOfSpeech modeli yalnizca 'noun'/'verb'/'adj'/'other'
+# taniyor (bkz. report6_fixes.py'deki not); "adverb" gibi degerler 'other'a
+# esitleniyor.
 REPORT7_POS = {
-    'w02678': 'noun',   # uçёnıy
-    'w02683': 'adjective',  # zelyonıy
-    'w02757': 'adjective',  # pravıy
-    'w02187': 'adverb',     # podryad
-    'w03124': 'noun',   # slujaşçiy
+    'w02678': 'noun',  # uçёnıy
+    'w02683': 'adj',   # zelyonıy
+    'w02757': 'adj',   # pravıy
+    'w02187': 'other', # podryad (zarf)
+    'w03124': 'noun',  # slujaşçiy
 }
 
 # Tema yanlis isaretlenen ve halen bos olmayan kayitlar temizlendi.

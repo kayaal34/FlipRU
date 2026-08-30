@@ -299,15 +299,21 @@ REPORT6_CLEAR_EXAMPLE = {
 }
 
 # id -> yeni pos
+#
+# Not: uygulamanin PartOfSpeech modeli yalnizca 4 deger taniyor: 'noun',
+# 'verb', 'adj', ve digeri icin 'other' (bkz. lib/data/models/word.dart,
+# PartOfSpeech.byKey). "adjective", "adverb", "preposition", "interjection"
+# gibi acik yazilmis degerler sessizce 'other'a duser -- asagidaki degerler
+# bu yuzden kisa forma cekildi (ilk yazildiginda hataliydi, sonra duzeltildi).
 REPORT6_POS = {
-    'w00000': 'interjection',  # privet
-    'w00143': 'adverb',        # tut
-    'w00217': 'preposition',   # pered
-    'w00668': 'adjective',     # belyy
-    'w00849': 'adjective',     # krasnyy
-    'w00073': 'adverb',        # kak
-    'w01940': 'adjective',     # goluboy (rapor "w01930" diyordu)
-    'w01995': 'adjective',     # prostoy
+    'w00000': 'other',  # privet (unlem)
+    'w00143': 'other',  # tut (zarf)
+    'w00217': 'other',  # pered (edat)
+    'w00668': 'adj',    # belyy
+    'w00849': 'adj',    # krasnyy
+    'w00073': 'other',  # kak (zarf)
+    'w01940': 'adj',    # goluboy (rapor "w01930" diyordu)
+    'w01995': 'adj',    # prostoy
 }
 
 # id -> yeni translit. Sistemik hata: kelime basi "и" oncesinde olmayan bir
