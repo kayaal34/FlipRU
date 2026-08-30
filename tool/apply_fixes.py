@@ -105,6 +105,7 @@ from report11_fixes import (  # noqa: E402
     REPORT11_TR,
     REPORT11_TRANSLIT,
 )
+from report12_fixes import REPORT12_ACCENTED, REPORT12_DROP  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -193,7 +194,7 @@ def main():
         if (bare in DROP or bare in CONTENT_DROP
                 or wid in REPORT2_DROP or wid in REPORT4_DROP
                 or wid in REPORT7_DROP or wid in REPORT8_DROP
-                or wid in REPORT10_DROP):
+                or wid in REPORT10_DROP or wid in REPORT12_DROP):
             dropped += 1
             continue
 
@@ -249,7 +250,7 @@ def main():
 
         new_accented = (REPORT6_ACCENTED.get(wid) or REPORT7_ACCENTED.get(wid)
                         or REPORT9_ACCENTED.get(wid) or REPORT10_ACCENTED.get(wid)
-                        or REPORT11_ACCENTED.get(wid))
+                        or REPORT11_ACCENTED.get(wid) or REPORT12_ACCENTED.get(wid))
         if new_accented and row[idx['accented']] != new_accented:
             row[idx['accented']] = new_accented
             accented_fixed += 1
@@ -338,9 +339,11 @@ def main():
         | REPORT10_CLEAR_EXAMPLE | REPORT10_CLEAR_THEME \
         | set(REPORT11_TR) | set(REPORT11_EXAMPLE) | set(REPORT11_RU) \
         | set(REPORT11_TRANSLIT) | set(REPORT11_ACCENTED) | set(REPORT11_POS) \
-        | REPORT11_CLEAR_EXAMPLE | REPORT11_CLEAR_THEME
+        | REPORT11_CLEAR_EXAMPLE | REPORT11_CLEAR_THEME \
+        | REPORT12_DROP | set(REPORT12_ACCENTED)
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP
-                  - REPORT7_DROP - REPORT8_DROP - REPORT10_DROP)
+                  - REPORT7_DROP - REPORT8_DROP - REPORT10_DROP
+                  - REPORT12_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
               % (len(lost), ', '.join(lost[:10])))
