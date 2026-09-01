@@ -106,6 +106,12 @@ from report11_fixes import (  # noqa: E402
     REPORT11_TRANSLIT,
 )
 from report12_fixes import REPORT12_ACCENTED, REPORT12_DROP  # noqa: E402
+from report13_fixes import (  # noqa: E402
+    REPORT13_CLEAR_EXAMPLE,
+    REPORT13_DROP,
+    REPORT13_EXAMPLE,
+    REPORT13_TR,
+)
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PATH = os.path.join(ROOT, 'assets', 'data', 'words.json')
@@ -194,7 +200,8 @@ def main():
         if (bare in DROP or bare in CONTENT_DROP
                 or wid in REPORT2_DROP or wid in REPORT4_DROP
                 or wid in REPORT7_DROP or wid in REPORT8_DROP
-                or wid in REPORT10_DROP or wid in REPORT12_DROP):
+                or wid in REPORT10_DROP or wid in REPORT12_DROP
+                or wid in REPORT13_DROP):
             dropped += 1
             continue
 
@@ -203,7 +210,7 @@ def main():
         for source in (REPORT_TR, REPORT2_TR, REPORT3_TR, REPORT3_EXTRA,
                        REPORT4_TR, REPORT4_EXTRA, REPORT5_TR,
                        REPORT5_MANUAL, REPORT6_TR, REPORT7_TR, REPORT8_TR,
-                       REPORT9_TR, REPORT10_TR, REPORT11_TR):
+                       REPORT9_TR, REPORT10_TR, REPORT11_TR, REPORT13_TR):
             report = source.get(wid)
             if not report:
                 continue
@@ -274,10 +281,22 @@ def main():
                 or wid in REPORT8_CLEAR_EXAMPLE
                 or wid in REPORT9_CLEAR_EXAMPLE
                 or wid in REPORT10_CLEAR_EXAMPLE
-                or wid in REPORT11_CLEAR_EXAMPLE) and row[idx['exRu']]:
+                or wid in REPORT11_CLEAR_EXAMPLE
+                or wid in REPORT13_CLEAR_EXAMPLE) and row[idx['exRu']]:
             row[idx['exRu']] = ''
             row[idx['exTr']] = ''
             cleared += 1
+
+        # Rapor 13: sadece cumlenin cevirisi yanlisti, Rusca cumle ayni
+        # kaliyor -- kimlik kaymasina karsi ru kontrolu yapiliyor.
+        r13 = REPORT13_EXAMPLE.get(wid)
+        if r13:
+            r13_ru, r13_tr = r13
+            if r13_ru != bare:
+                mismatched.append((wid, bare, r13_ru))
+            elif row[idx['exTr']] != r13_tr:
+                row[idx['exTr']] = r13_tr
+                examples_set += 1
 
         if (wid in REPORT6_CLEAR_THEME or wid in REPORT7_CLEAR_THEME
                 or wid in REPORT8_CLEAR_THEME
@@ -340,10 +359,12 @@ def main():
         | set(REPORT11_TR) | set(REPORT11_EXAMPLE) | set(REPORT11_RU) \
         | set(REPORT11_TRANSLIT) | set(REPORT11_ACCENTED) | set(REPORT11_POS) \
         | REPORT11_CLEAR_EXAMPLE | REPORT11_CLEAR_THEME \
-        | REPORT12_DROP | set(REPORT12_ACCENTED)
+        | REPORT12_DROP | set(REPORT12_ACCENTED) \
+        | set(REPORT13_TR) | set(REPORT13_EXAMPLE) | REPORT13_CLEAR_EXAMPLE \
+        | REPORT13_DROP
     lost = sorted(known_ids - seen_ids - REPORT2_DROP - REPORT4_DROP
                   - REPORT7_DROP - REPORT8_DROP - REPORT10_DROP
-                  - REPORT12_DROP)
+                  - REPORT12_DROP - REPORT13_DROP)
     if lost:
         print('rapordaki id veri setinde yok (%d): %s'
               % (len(lost), ', '.join(lost[:10])))
