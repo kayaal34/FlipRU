@@ -5,7 +5,7 @@ description: "FlipRU — cevrimdisi Rusca-Turkce kelime ogrenme uygulamasi"
 publish_to: 'none'
 
 # Android'de versionName / versionCode olarak kullaniliyor.
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ^3.10.4
