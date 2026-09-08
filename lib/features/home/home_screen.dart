@@ -7,13 +7,10 @@ import '../../core/theme/app_typography.dart';
 import '../../core/widgets/pressable.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/segmented_switch.dart';
-import '../../core/widgets/starred_hero_card.dart';
 import '../../data/models/deck.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
 import '../alphabet/alphabet_screen.dart';
-import '../learned/learned_screen.dart';
-import '../starred/starred_screen.dart';
 import '../units/unit_list_screen.dart';
 import 'widgets/deck_tiles.dart';
 import '../../providers/settings_provider.dart';
@@ -38,18 +35,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     }
     // Doğrudan karta değil, bölüm listesine giriyoruz: kullanıcı önce neyi
     // çalışacağını görsün, sırayla ilerlesin.
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => UnitListScreen(deck: deck)),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => UnitListScreen(deck: deck)));
   }
-
 
   @override
   Widget build(BuildContext context) {
     final s = ref.watch(stringsProvider);
     final levelDecks = ref.watch(levelDecksProvider);
     final themeDecks = ref.watch(themeDecksProvider);
-    final starredCount = ref.watch(starredProvider).length;
 
     return Scaffold(
       body: SafeArea(
@@ -64,32 +59,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 children: [
                   const _HomeHeader(),
                   const SizedBox(height: 22),
-                  StarredHeroCard(
-                    title: s.starredTitle,
-                    subtitle: starredCount == 0
-                        ? s.starredEmptyHint
-                        : '${s.words(starredCount)} ${s.starredWaiting}',
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const StarredScreen(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  _LearnedCard(
-                    count: ref.watch(overallProgressProvider).learned,
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const LearnedScreen(),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
+                  // Yildizli/Ogrendigim kartlari burada degil, Pratik
+                  // sekmesinde duruyor: ana ekran "bugun ne yapmaliyim"
+                  // sorusuna ve destelere ayrildi.
                   _AlphabetCard(
                     onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => const AlphabetScreen(),
-                      ),
+                      MaterialPageRoute(builder: (_) => const AlphabetScreen()),
                     ),
                   ),
                   const SizedBox(height: 26),
@@ -124,8 +99,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 for (final deck in levelDecks) ...[
                                   DeckRow(
                                     deck: deck,
-                                    progress:
-                                        ref.watch(deckProgressProvider(deck.id)),
+                                    progress: ref.watch(
+                                      deckProgressProvider(deck.id),
+                                    ),
                                     onTap: () => _openDeck(deck),
                                   ),
                                   const SizedBox(height: 10),
@@ -144,8 +120,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 for (final deck in themeDecks)
                                   DeckCard(
                                     deck: deck,
-                                    progress:
-                                        ref.watch(deckProgressProvider(deck.id)),
+                                    progress: ref.watch(
+                                      deckProgressProvider(deck.id),
+                                    ),
                                     onTap: () => _openDeck(deck),
                                   ),
                               ],
@@ -233,8 +210,9 @@ class _HomeHeader extends ConsumerWidget {
                       )
                     : Text(
                         '%${(daily.ratio * 100).round()}',
-                        style: textTheme.labelMedium
-                            ?.copyWith(color: palette.textPrimary),
+                        style: textTheme.labelMedium?.copyWith(
+                          color: palette.textPrimary,
+                        ),
                       ),
               ),
               const SizedBox(width: 14),
@@ -246,7 +224,7 @@ class _HomeHeader extends ConsumerWidget {
                       daily.goalReached
                           ? s.goalDone
                           : '${s.todayProgress} ${daily.today} / ${daily.goal} '
-                              '${s.wordUnit(daily.goal)}',
+                                '${s.wordUnit(daily.goal)}',
                       style: textTheme.labelLarge,
                     ),
                     const SizedBox(height: 3),
@@ -259,14 +237,16 @@ class _HomeHeader extends ConsumerWidget {
                               > 0 => s.encourageGoing,
                               _ => s.encourageStart,
                             },
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textSecondary),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textSecondary,
+                      ),
                     ),
                     const SizedBox(height: 2),
                     Text(
                       '${s.words(overall.learned)} ${s.learnedWords}',
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textTertiary),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textTertiary,
+                      ),
                     ),
                   ],
                 ),
@@ -373,11 +353,7 @@ class _AlphabetCard extends ConsumerWidget {
                 color: palette.accentSoft,
                 borderRadius: BorderRadius.circular(13),
               ),
-              child: Icon(
-                Icons.abc_rounded,
-                color: palette.accent,
-                size: 26,
-              ),
+              child: Icon(Icons.abc_rounded, color: palette.accent, size: 26),
             ),
             const SizedBox(width: 13),
             Expanded(
@@ -388,72 +364,9 @@ class _AlphabetCard extends ConsumerWidget {
                   const SizedBox(height: 2),
                   Text(
                     s.alphabetCardSub,
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.chevron_right_rounded,
-              size: 24,
-              color: palette.textTertiary,
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _LearnedCard extends ConsumerWidget {
-  const _LearnedCard({required this.count, required this.onTap});
-
-  final int count;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
-    final textTheme = Theme.of(context).textTheme;
-    final s = ref.watch(stringsProvider);
-
-    return Pressable(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          color: palette.surface,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: palette.separator),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 44,
-              height: 44,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: palette.learned.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(13),
-              ),
-              child: Icon(
-                Icons.check_circle_rounded,
-                color: palette.learned,
-                size: 22,
-              ),
-            ),
-            const SizedBox(width: 13),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(s.myLearned, style: textTheme.titleMedium),
-                  const SizedBox(height: 2),
-                  Text(
-                    count == 0 ? s.learnedListSub : s.words(count),
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ],
               ),

@@ -476,11 +476,11 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pumpAndSettle();
 
-      // Once dil sorulur; secenekler kendi dillerinde yazili.
-      expect(find.text('Türkçe'), findsOneWidget);
-      expect(find.text('Русский'), findsOneWidget);
+      // Once ne ogrendigi sorulur; secenekler kendi dillerinde yazili.
+      expect(find.text('Rusça öğreniyorum'), findsOneWidget);
+      expect(find.text('Я учу турецкий'), findsOneWidget);
 
-      await tester.tap(find.text('Türkçe'));
+      await tester.tap(find.text('Rusça öğreniyorum'));
       await tester.pumpAndSettle();
 
       expect(find.text('Atla'), findsOneWidget);
@@ -503,7 +503,7 @@ void main() {
       await tester.pump(const Duration(seconds: 2));
       await tester.pumpAndSettle();
 
-      await tester.tap(find.text('Русский'));
+      await tester.tap(find.text('Я учу турецкий'));
       await tester.pumpAndSettle();
 
       // Tanitim metinleri secilen dile gecti.
@@ -511,18 +511,21 @@ void main() {
       expect(find.text('Atla'), findsNothing);
       final c = container();
       expect(c.read(settingsProvider).language, AppLanguage.ru);
+      // Hedef dil secimi calisma yonunu de belirliyor.
+      expect(c.read(settingsProvider).direction, StudyDirection.trToRu);
     });
   });
 
   group('ekranlar', () {
-    testWidgets('ana ekran seviyeleri ve yıldızlı kartı gösterir',
+    testWidgets('ana ekran seviyeleri ve alfabe kartını gösterir',
         (tester) async {
       await boot(tester);
 
       expect(find.byType(CardSwiper), findsNothing);
-      expect(find.text('Yıldızlı Kelimelerim'), findsOneWidget);
-      expect(find.text('Yıldızlı Kelimelerim'), findsOneWidget);
+      expect(find.text('Rus Alfabesi'), findsOneWidget);
       expect(find.text('Başlangıç'), findsOneWidget);
+      // Yildizli/Ogrendigim artik yalnizca Pratik sekmesinde.
+      expect(find.text('Yıldızlı Kelimelerim'), findsNothing);
     });
 
     testWidgets('temalar sekmesine geçilebiliyor', (tester) async {
