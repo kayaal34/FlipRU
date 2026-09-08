@@ -54,13 +54,13 @@ class AccountScreen extends ConsumerWidget {
                       onTap: starred == 0
                           ? null
                           : () => _confirm(
-                                context,
-                                title: t.clearStars,
-                                message: '$starred · ${t.clearStarsSub}',
-                                onConfirm: () =>
-                                    ref.read(starredProvider.notifier).clear(),
-                                strings: t,
-                              ),
+                              context,
+                              title: t.clearStars,
+                              message: '$starred · ${t.clearStarsSub}',
+                              onConfirm: () =>
+                                  ref.read(starredProvider.notifier).clear(),
+                              strings: t,
+                            ),
                     ),
                     SettingsRow(
                       title: t.resetProgress,
@@ -70,21 +70,22 @@ class AccountScreen extends ConsumerWidget {
                       onTap: learned == 0 && streak == 0
                           ? null
                           : () => _confirm(
-                                context,
-                                title: t.resetProgress,
-                                message: '${t.words(learned)} · '
-                                    '${t.days(streak)} · '
-                                    '${t.resetProgressSub}',
-                                onConfirm: () {
-                                  ref.read(learnedProvider.notifier).clear();
-                                  ref
-                                      .read(dailyProgressProvider.notifier)
-                                      .clear();
-                                  ref.read(visitProvider.notifier).clear();
-                                  ref.read(passedUnitsProvider.notifier).clear();
-                                },
-                                strings: t,
-                              ),
+                              context,
+                              title: t.resetProgress,
+                              message:
+                                  '${t.words(learned)} · '
+                                  '${t.days(streak)} · '
+                                  '${t.resetProgressSub}',
+                              onConfirm: () {
+                                ref.read(learnedProvider.notifier).clear();
+                                ref
+                                    .read(dailyProgressProvider.notifier)
+                                    .clear();
+                                ref.read(visitProvider.notifier).clear();
+                                ref.read(passedUnitsProvider.notifier).clear();
+                              },
+                              strings: t,
+                            ),
                     ),
                     SettingsRow(
                       title: t.resetSettings,
@@ -95,8 +96,7 @@ class AccountScreen extends ConsumerWidget {
                         context,
                         title: t.resetSettings,
                         message: t.resetSettingsSub,
-                        onConfirm:
-                            ref.read(settingsProvider.notifier).reset,
+                        onConfirm: ref.read(settingsProvider.notifier).reset,
                         strings: t,
                       ),
                     ),
@@ -128,8 +128,9 @@ class AccountScreen extends ConsumerWidget {
                 Text(
                   t.uninstallNote,
                   textAlign: TextAlign.center,
-                  style:
-                      textTheme.bodySmall?.copyWith(color: palette.textTertiary),
+                  style: textTheme.bodySmall?.copyWith(
+                    color: palette.textTertiary,
+                  ),
                 ),
               ],
             ),
@@ -152,9 +153,7 @@ class AccountScreen extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: palette.surfaceRaised,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(title),
         content: Column(
           mainAxisSize: MainAxisSize.min,
@@ -164,16 +163,18 @@ class AccountScreen extends ConsumerWidget {
             const SizedBox(height: 14),
             Row(
               children: [
-                Icon(Icons.warning_amber_rounded,
-                    size: 18, color: palette.review),
+                Icon(
+                  Icons.warning_amber_rounded,
+                  size: 18,
+                  color: palette.review,
+                ),
                 const SizedBox(width: 7),
                 Expanded(
                   child: Text(
                     strings.irreversible,
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall
-                        ?.copyWith(color: palette.review),
+                    style: Theme.of(
+                      context,
+                    ).textTheme.bodySmall?.copyWith(color: palette.review),
                   ),
                 ),
               ],

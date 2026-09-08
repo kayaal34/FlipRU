@@ -51,11 +51,7 @@ class StarredHeroCard extends StatelessWidget {
                 color: palette.star.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(13),
               ),
-              child: Icon(
-                Icons.star_rounded,
-                color: palette.star,
-                size: 23,
-              ),
+              child: Icon(Icons.star_rounded, color: palette.star, size: 23),
             ),
             const SizedBox(width: 13),
             Expanded(
@@ -66,8 +62,9 @@ class StarredHeroCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ],
               ),

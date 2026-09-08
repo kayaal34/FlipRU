@@ -81,11 +81,11 @@ enum PartOfSpeech {
   other;
 
   static PartOfSpeech byKey(String key) => switch (key) {
-        'noun' => noun,
-        'verb' => verb,
-        'adj' => adjective,
-        _ => other,
-      };
+    'noun' => noun,
+    'verb' => verb,
+    'adj' => adjective,
+    _ => other,
+  };
 }
 
 @immutable

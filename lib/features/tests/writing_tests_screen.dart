@@ -109,8 +109,9 @@ class WritingTestsScreen extends ConsumerWidget {
                             const SizedBox(height: 2),
                             Text(
                               s.writingTestsSub,
-                              style: textTheme.bodySmall
-                                  ?.copyWith(color: palette.textTertiary),
+                              style: textTheme.bodySmall?.copyWith(
+                                color: palette.textTertiary,
+                              ),
                             ),
                           ],
                         ),
@@ -169,9 +170,7 @@ class _TestKutusu extends ConsumerWidget {
           decoration: BoxDecoration(
             color: palette.surface,
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: test.passed ? renk : palette.separator,
-            ),
+            border: Border.all(color: test.passed ? renk : palette.separator),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -196,11 +195,14 @@ class _TestKutusu extends ConsumerWidget {
                 // gosteriliyor: "hepsi degil, sadece bu kadari kaldi".
                 kilitli
                     ? s.locked
-                    : s.words(pendingCount > 0 ? pendingCount : test.words.length),
+                    : s.words(
+                        pendingCount > 0 ? pendingCount : test.words.length,
+                      ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodySmall
-                    ?.copyWith(color: palette.textTertiary),
+                style: textTheme.bodySmall?.copyWith(
+                  color: palette.textTertiary,
+                ),
               ),
             ],
           ),

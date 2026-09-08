@@ -129,9 +129,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     } else {
       // Yarida birakilirsa ("Bitir") bolume donuldugunde bastan degil,
       // yalnizca hala bilinmeyen kelimelerden devam edilsin diye kaydediliyor.
-      ref
-          .read(pendingWrongProvider.notifier)
-          .setWrong(unitId, [for (final w in _wrong) w.id]);
+      ref.read(pendingWrongProvider.notifier).setWrong(unitId, [
+        for (final w in _wrong) w.id,
+      ]);
     }
   }
 
@@ -144,10 +144,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   void _useJoker() {
     if (_revealed || _jokerUsed) return;
     final question = _questions[_index];
-    final wrong = question.options
-        .where((o) => o.turkish != question.word.turkish)
-        .toList()
-      ..shuffle(_random);
+    final wrong =
+        question.options
+            .where((o) => o.turkish != question.word.turkish)
+            .toList()
+          ..shuffle(_random);
 
     Haptics.light();
     setState(() {
@@ -195,16 +196,16 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
         onRetryWrong: _wrong.isEmpty
             ? null
             : () => Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(
-                    builder: (_) => QuizScreen(
-                      title: widget.title,
-                      words: List.of(_wrong),
-                      accent: widget.accent,
-                      questionCount: _wrong.length,
-                      unitId: widget.unitId,
-                    ),
+                MaterialPageRoute(
+                  builder: (_) => QuizScreen(
+                    title: widget.title,
+                    words: List.of(_wrong),
+                    accent: widget.accent,
+                    questionCount: _wrong.length,
+                    unitId: widget.unitId,
                   ),
                 ),
+              ),
       );
     }
 
@@ -245,8 +246,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                           Text(
                             '${s.quizProgress} ${_index + 1} / '
                             '${_questions.length}',
-                            style: textTheme.bodySmall
-                                ?.copyWith(color: palette.textTertiary),
+                            style: textTheme.bodySmall?.copyWith(
+                              color: palette.textTertiary,
+                            ),
                           ),
                           Row(
                             children: [
@@ -258,8 +260,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                               const SizedBox(width: 12),
                               Text(
                                 '$_correct ${s.quizCorrect}',
-                                style: textTheme.bodySmall
-                                    ?.copyWith(color: palette.learned),
+                                style: textTheme.bodySmall?.copyWith(
+                                  color: palette.learned,
+                                ),
                               ),
                             ],
                           ),
@@ -276,23 +279,26 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                         const SizedBox(height: 10),
                         Text(
                           s.quizQuestion,
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: palette.textTertiary),
+                          style: textTheme.bodySmall?.copyWith(
+                            color: palette.textTertiary,
+                          ),
                         ),
                         const SizedBox(height: 14),
                         Text(
                           question.word.accented,
                           textAlign: TextAlign.center,
                           style: textTheme.displayLarge?.copyWith(
-                            fontSize:
-                                question.word.russian.length > 13 ? 30 : 38,
+                            fontSize: question.word.russian.length > 13
+                                ? 30
+                                : 38,
                           ),
                         ),
                         const SizedBox(height: 6),
                         Text(
                           question.word.transliteration,
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: palette.textTertiary),
+                          style: textTheme.bodySmall?.copyWith(
+                            color: palette.textTertiary,
+                          ),
                         ),
                         const SizedBox(height: 28),
                         for (final option in question.options)
@@ -374,18 +380,13 @@ class _JokerButton extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.lightbulb_rounded,
-              size: 16,
-              color: palette.star,
-            ),
+            Icon(Icons.lightbulb_rounded, size: 16, color: palette.star),
             const SizedBox(width: 4),
             Text(
               ref.watch(stringsProvider).joker,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodySmall
-                  ?.copyWith(color: palette.star),
+              style: Theme.of(
+                context,
+              ).textTheme.bodySmall?.copyWith(color: palette.star),
             ),
           ],
         ),
@@ -414,29 +415,29 @@ class _OptionTile extends StatelessWidget {
 
     final (background, border, foreground, icon) = switch (state) {
       _OptionState.idle => (
-          palette.surface,
-          palette.separator,
-          palette.textPrimary,
-          null,
-        ),
+        palette.surface,
+        palette.separator,
+        palette.textPrimary,
+        null,
+      ),
       _OptionState.correct => (
-          palette.learnedSoft,
-          palette.learned,
-          palette.learned,
-          Icons.check_circle_rounded,
-        ),
+        palette.learnedSoft,
+        palette.learned,
+        palette.learned,
+        Icons.check_circle_rounded,
+      ),
       _OptionState.wrong => (
-          palette.reviewSoft,
-          palette.review,
-          palette.review,
-          Icons.cancel_rounded,
-        ),
+        palette.reviewSoft,
+        palette.review,
+        palette.review,
+        Icons.cancel_rounded,
+      ),
       _OptionState.dimmed => (
-          palette.surface,
-          palette.separator,
-          palette.textTertiary,
-          null,
-        ),
+        palette.surface,
+        palette.separator,
+        palette.textTertiary,
+        null,
+      ),
     };
 
     return GestureDetector(

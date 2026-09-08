@@ -26,8 +26,18 @@ final notificationServiceProvider = Provider<NotificationService>(
 
 final speechServiceProvider = Provider<SpeechService>((ref) {
   final service = SpeechService();
-  // Ayarlardaki hız değişimini motora yansıt.
-  service.setRate(ref.watch(settingsProvider.select((s) => s.speechRate)).value);
+  // Ayarlardaki hız ve ses seçimini motora yansıt.
+  service.setRate(
+    ref.watch(settingsProvider.select((s) => s.speechRate)).value,
+  );
+  service.setPreferredVoice(
+    'ru-RU',
+    ref.watch(settingsProvider.select((s) => s.ruVoice)),
+  );
+  service.setPreferredVoice(
+    'tr-TR',
+    ref.watch(settingsProvider.select((s) => s.trVoice)),
+  );
   ref.onDispose(service.stop);
   return service;
 });

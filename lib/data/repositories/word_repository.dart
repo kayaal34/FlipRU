@@ -15,8 +15,8 @@ import '../models/word.dart';
 /// isolate'te yapılıyor.
 class WordRepository {
   WordRepository._(this._words)
-      : _byLevel = _groupBy(_words, (w) => w.level),
-        _byTheme = _groupByTheme(_words);
+    : _byLevel = _groupBy(_words, (w) => w.level),
+      _byTheme = _groupByTheme(_words);
 
   final List<Word> _words;
   final Map<WordLevel, List<Word>> _byLevel;
@@ -37,9 +37,7 @@ class WordRepository {
   static List<Word> _parse(String raw) {
     final decoded = json.decode(raw) as Map<String, dynamic>;
     final rows = decoded['rows'] as List<dynamic>;
-    return [
-      for (final row in rows) Word.fromRow(row as List<dynamic>),
-    ];
+    return [for (final row in rows) Word.fromRow(row as List<dynamic>)];
   }
 
   static Map<WordLevel, List<Word>> _groupBy(
@@ -70,23 +68,23 @@ class WordRepository {
 
   /// Yalnızca kelime içeren temalar deste olarak gösterilir.
   List<Deck> get levelDecks => [
-        for (final level in WordLevel.values)
-          if (_byLevel[level]!.isNotEmpty) Deck.fromLevel(level),
-      ];
+    for (final level in WordLevel.values)
+      if (_byLevel[level]!.isNotEmpty) Deck.fromLevel(level),
+  ];
 
   List<Deck> get themeDecks => [
-        for (final theme in WordTheme.values)
-          if (_byTheme[theme]!.length >= 12) Deck.fromTheme(theme),
-      ];
+    for (final theme in WordTheme.values)
+      if (_byTheme[theme]!.length >= 12) Deck.fromTheme(theme),
+  ];
 
   List<Word> wordsOf(Deck deck, {Set<String> starredIds = const {}}) {
     return switch (deck.kind) {
       DeckKind.level => _byLevel[deck.level]!,
       DeckKind.theme => _byTheme[deck.theme]!,
       DeckKind.starred => [
-          for (final word in _words)
-            if (starredIds.contains(word.id)) word,
-        ],
+        for (final word in _words)
+          if (starredIds.contains(word.id)) word,
+      ],
     };
   }
 

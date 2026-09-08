@@ -75,8 +75,9 @@ class _LearnedScreenState extends ConsumerState<LearnedScreen> {
                   child: Text(
                     s.learnedEmpty,
                     textAlign: TextAlign.center,
-                    style: textTheme.bodyMedium
-                        ?.copyWith(color: palette.textTertiary),
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ),
               )
@@ -122,8 +123,9 @@ class _LearnedScreenState extends ConsumerState<LearnedScreen> {
                           children: [
                             Text(
                               s.words(shown.length),
-                              style: textTheme.bodySmall
-                                  ?.copyWith(color: palette.textTertiary),
+                              style: textTheme.bodySmall?.copyWith(
+                                color: palette.textTertiary,
+                              ),
                             ),
                           ],
                         ),
@@ -133,13 +135,18 @@ class _LearnedScreenState extends ConsumerState<LearnedScreen> {
                             ? Center(
                                 child: Text(
                                   s.searchNoResult,
-                                  style: textTheme.bodyMedium
-                                      ?.copyWith(color: palette.textTertiary),
+                                  style: textTheme.bodyMedium?.copyWith(
+                                    color: palette.textTertiary,
+                                  ),
                                 ),
                               )
                             : ListView.separated(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 28),
+                                padding: const EdgeInsets.fromLTRB(
+                                  20,
+                                  0,
+                                  20,
+                                  28,
+                                ),
                                 itemCount: shown.length,
                                 separatorBuilder: (_, _) =>
                                     const SizedBox(height: 10),
@@ -203,14 +210,16 @@ class _LearnedRow extends StatelessWidget {
                     word.turkish,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodyMedium
-                        ?.copyWith(color: palette.textSecondary),
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: palette.textSecondary,
+                    ),
                   ),
                   const SizedBox(height: 1),
                   Text(
                     word.transliteration,
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ],
               ),

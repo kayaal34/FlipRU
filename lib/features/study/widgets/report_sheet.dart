@@ -42,11 +42,11 @@ class _ReportSheet extends StatefulWidget {
 
 class _ReportSheetState extends State<_ReportSheet> {
   static String _label(ReportReason reason, Strings s) => switch (reason) {
-        ReportReason.translation => s.reportReasonTranslation,
-        ReportReason.example => s.reportReasonExample,
-        ReportReason.pronunciation => s.reportReasonPronunciation,
-        ReportReason.other => s.reportReasonOther,
-      };
+    ReportReason.translation => s.reportReasonTranslation,
+    ReportReason.example => s.reportReasonExample,
+    ReportReason.pronunciation => s.reportReasonPronunciation,
+    ReportReason.other => s.reportReasonOther,
+  };
 
   ReportReason? _reason;
   final _noteController = TextEditingController();
@@ -61,7 +61,9 @@ class _ReportSheetState extends State<_ReportSheet> {
     final reason = _reason;
     if (reason == null) return;
     Haptics.medium();
-    widget.ref.read(reportProvider.notifier).add(
+    widget.ref
+        .read(reportProvider.notifier)
+        .add(
           WordReport(
             wordId: widget.word.id,
             russian: widget.word.russian,
@@ -75,9 +77,7 @@ class _ReportSheetState extends State<_ReportSheet> {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        SnackBar(
-          content: Text(widget.ref.read(stringsProvider).reportSaved),
-        ),
+        SnackBar(content: Text(widget.ref.read(stringsProvider).reportSaved)),
       );
   }
 
@@ -126,8 +126,10 @@ class _ReportSheetState extends State<_ReportSheet> {
                   setState(() => _reason = reason);
                 },
                 child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 14,
+                    vertical: 13,
+                  ),
                   decoration: BoxDecoration(
                     color: _reason == reason
                         ? palette.accent.withValues(alpha: 0.14)
@@ -164,8 +166,9 @@ class _ReportSheetState extends State<_ReportSheet> {
             style: textTheme.bodyMedium?.copyWith(color: palette.textPrimary),
             decoration: InputDecoration(
               hintText: s.reportNote,
-              hintStyle:
-                  textTheme.bodyMedium?.copyWith(color: palette.textTertiary),
+              hintStyle: textTheme.bodyMedium?.copyWith(
+                color: palette.textTertiary,
+              ),
               filled: true,
               fillColor: palette.surfaceSunken,
               border: OutlineInputBorder(

@@ -9,6 +9,7 @@ import '../../data/models/study_unit.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
+import '../../providers/unit_providers.dart';
 import '../quiz/quiz_screen.dart';
 import '../study/study_screen.dart';
 import '../study/widgets/report_sheet.dart';
@@ -122,15 +123,41 @@ class UnitDetailScreen extends ConsumerWidget {
                   flex: 2,
                   child: FilledButton(
                     style: FilledButton.styleFrom(backgroundColor: deck.tint),
-                    onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (_) => StudyScreen(
-                          title: '${deck.titleOf(s)} · ${unit.titleOf(s)}',
-                          words: unit.words,
-                          accent: deck.tint,
+                    onPressed: () {
+                      // Seans bitiminde kullanıcıyı bir sonraki bölüme
+                      // taşıyabilmek için sıradaki bölümü şimdiden bakıyoruz.
+                      final units = ref.read(deckUnitsProvider(deck.id));
+                      final next = units.length > unit.index + 1
+                          ? units[unit.index + 1].unit
+                          : null;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => StudyScreen(
+                            title: '${deck.titleOf(s)} · ${unit.titleOf(s)}',
+                            words: unit.words,
+                            accent: deck.tint,
+                            nextLabel: next == null
+                                ? null
+                                : '${s.unit} ${next.index + 1}',
+                            onNext: next == null
+                                ? null
+                                : (ctx) {
+                                    // Özet ekranı yerine sıradaki bölüm
+                                    // geçsin; geri tuşu bölüm listesine
+                                    // dönsün, bitmiş seansa değil.
+                                    Navigator.of(ctx).pushReplacement(
+                                      MaterialPageRoute(
+                                        builder: (_) => UnitDetailScreen(
+                                          deck: deck,
+                                          unit: next,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                          ),
                         ),
-                      ),
-                    ),
+                      );
+                    },
                     child: Text(s.studyWithCards),
                   ),
                 ),

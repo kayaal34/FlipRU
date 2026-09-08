@@ -41,23 +41,22 @@ class WordReport {
   final DateTime createdAt;
 
   Map<String, Object> toMap() => {
-        'wordId': wordId,
-        'ru': russian,
-        'tr': turkish,
-        'reason': reason.name,
-        'note': note,
-        'at': createdAt.toIso8601String(),
-      };
+    'wordId': wordId,
+    'ru': russian,
+    'tr': turkish,
+    'reason': reason.name,
+    'note': note,
+    'at': createdAt.toIso8601String(),
+  };
 
   factory WordReport.fromMap(Map<String, Object?> map) => WordReport(
-        wordId: map['wordId'] as String? ?? '',
-        russian: map['ru'] as String? ?? '',
-        turkish: map['tr'] as String? ?? '',
-        reason: ReportReason.byKey(map['reason'] as String? ?? ''),
-        note: map['note'] as String? ?? '',
-        createdAt:
-            DateTime.tryParse(map['at'] as String? ?? '') ?? DateTime(2026),
-      );
+    wordId: map['wordId'] as String? ?? '',
+    russian: map['ru'] as String? ?? '',
+    turkish: map['tr'] as String? ?? '',
+    reason: ReportReason.byKey(map['reason'] as String? ?? ''),
+    note: map['note'] as String? ?? '',
+    createdAt: DateTime.tryParse(map['at'] as String? ?? '') ?? DateTime(2026),
+  );
 
   /// Paylaşım metni — bize e-posta/mesaj olarak gelecek biçim.
   String toLine() {

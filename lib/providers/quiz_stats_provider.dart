@@ -28,18 +28,18 @@ class QuizResult {
   double get ratio => total == 0 ? 0 : correct / total;
 
   Map<String, Object> toMap() => {
-        'c': correct,
-        't': total,
-        'at': at.toIso8601String(),
-        if (kind.isNotEmpty) 'k': kind,
-      };
+    'c': correct,
+    't': total,
+    'at': at.toIso8601String(),
+    if (kind.isNotEmpty) 'k': kind,
+  };
 
   factory QuizResult.fromMap(Map<String, Object?> map) => QuizResult(
-        correct: map['c'] as int? ?? 0,
-        total: map['t'] as int? ?? 0,
-        at: DateTime.tryParse(map['at'] as String? ?? '') ?? DateTime(2026),
-        kind: map['k'] as String? ?? '',
-      );
+    correct: map['c'] as int? ?? 0,
+    total: map['t'] as int? ?? 0,
+    at: DateTime.tryParse(map['at'] as String? ?? '') ?? DateTime(2026),
+    kind: map['k'] as String? ?? '',
+  );
 }
 
 /// Çözülen testlerin geçmişi.
@@ -81,15 +81,13 @@ class QuizStatsNotifier extends Notifier<List<QuizResult>> {
 
   void _persist(List<QuizResult> value) {
     state = value;
-    ref.read(sharedPreferencesProvider).setString(
-          _key,
-          json.encode([for (final r in value) r.toMap()]),
-        );
+    ref
+        .read(sharedPreferencesProvider)
+        .setString(_key, json.encode([for (final r in value) r.toMap()]));
   }
 }
 
-final quizStatsProvider =
-    NotifierProvider<QuizStatsNotifier, List<QuizResult>>(
+final quizStatsProvider = NotifierProvider<QuizStatsNotifier, List<QuizResult>>(
   QuizStatsNotifier.new,
 );
 

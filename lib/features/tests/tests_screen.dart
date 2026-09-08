@@ -57,10 +57,7 @@ class TestsScreen extends ConsumerWidget {
                   style: AppTypography.largeTitle(palette.textPrimary),
                 ),
                 const SizedBox(height: 2),
-                Text(
-                  t.testsSubtitle,
-                  style: textTheme.bodyMedium,
-                ),
+                Text(t.testsSubtitle, style: textTheme.bodyMedium),
                 const SizedBox(height: 22),
 
                 _TestCard(
@@ -155,8 +152,9 @@ class TestsScreen extends ConsumerWidget {
                 const SizedBox(height: 26),
                 Text(
                   t.levelTests,
-                  style: textTheme.labelSmall
-                      ?.copyWith(color: palette.textTertiary),
+                  style: textTheme.labelSmall?.copyWith(
+                    color: palette.textTertiary,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 for (final deck in ref.watch(levelDecksProvider))
@@ -164,7 +162,6 @@ class TestsScreen extends ConsumerWidget {
                     padding: const EdgeInsets.only(bottom: 10),
                     child: _LevelTestRow(deck: deck),
                   ),
-
               ],
             ),
           ),
@@ -226,9 +223,7 @@ class _LevelTestRow extends ConsumerWidget {
       // Dogrudan teste girmek yerine bolum listesine gidiyoruz: B2'de 2.500
       // kelimeyi tek testte sormak ogretici degil.
       onTap: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => LevelTestUnitsScreen(deck: deck),
-        ),
+        MaterialPageRoute(builder: (_) => LevelTestUnitsScreen(deck: deck)),
       ),
       trailing: Text(
         '${known.length}/${words.length}',
@@ -329,16 +324,14 @@ class _TestCard extends StatelessWidget {
                       subtitle,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textTertiary),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textTertiary,
+                      ),
                     ),
                   ],
                 ),
               ),
-              if (trailing != null) ...[
-                const SizedBox(width: 8),
-                trailing!,
-              ],
+              if (trailing != null) ...[const SizedBox(width: 8), trailing!],
               const SizedBox(width: 4),
               Icon(
                 Icons.chevron_right_rounded,

@@ -40,10 +40,7 @@ class WidgetService {
         word.transliteration,
       );
       await HomeWidget.saveWidgetData<String>('widget_turkish', word.turkish);
-      await HomeWidget.saveWidgetData<String>(
-        'widget_level',
-        word.level.label,
-      );
+      await HomeWidget.saveWidgetData<String>('widget_level', word.level.label);
       await HomeWidget.saveWidgetData<String>(
         'widget_streak',
         streak > 0 ? '🔥 $streak' : '',

@@ -40,8 +40,9 @@ class StarredNotifier extends Notifier<Set<String>> {
   }
 }
 
-final starredProvider =
-    NotifierProvider<StarredNotifier, Set<String>>(StarredNotifier.new);
+final starredProvider = NotifierProvider<StarredNotifier, Set<String>>(
+  StarredNotifier.new,
+);
 
 /// "Öğrendim" olarak işaretlenmiş kelimeler. İlerleme yüzdeleri buradan gelir.
 class LearnedNotifier extends Notifier<Set<String>> {
@@ -90,8 +91,9 @@ class LearnedNotifier extends Notifier<Set<String>> {
   }
 }
 
-final learnedProvider =
-    NotifierProvider<LearnedNotifier, Set<String>>(LearnedNotifier.new);
+final learnedProvider = NotifierProvider<LearnedNotifier, Set<String>>(
+  LearnedNotifier.new,
+);
 
 // ───────────────────────────── Türetilmiş veri ────────────────────────────
 
@@ -103,11 +105,13 @@ final themeDecksProvider = Provider<List<Deck>>(
   (ref) => ref.watch(wordRepositoryProvider).themeDecks,
 );
 
-final allDecksProvider = Provider<List<Deck>>((ref) => [
-      ...ref.watch(levelDecksProvider),
-      ...ref.watch(themeDecksProvider),
-      Deck.starred,
-    ]);
+final allDecksProvider = Provider<List<Deck>>(
+  (ref) => [
+    ...ref.watch(levelDecksProvider),
+    ...ref.watch(themeDecksProvider),
+    Deck.starred,
+  ],
+);
 
 final deckByIdProvider = Provider.family<Deck, String>(
   (ref, deckId) =>
@@ -125,8 +129,9 @@ final deckWordsProvider = Provider.family<List<Word>, String>((ref, deckId) {
       : repository.wordsOf(deck);
 
   // Ayarda istenirse yalnızca birden fazla sözlüğün doğruladığı kelimeler.
-  final hideLowConfidence =
-      ref.watch(settingsProvider.select((s) => s.hideLowConfidence));
+  final hideLowConfidence = ref.watch(
+    settingsProvider.select((s) => s.hideLowConfidence),
+  );
   if (!hideLowConfidence) return words;
   return [
     for (final word in words)

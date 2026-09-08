@@ -18,6 +18,8 @@ class SessionSummaryScreen extends ConsumerWidget {
     required this.learnedWords,
     required this.reviewWords,
     this.accent,
+    this.nextLabel,
+    this.onNext,
     super.key,
   });
 
@@ -25,6 +27,10 @@ class SessionSummaryScreen extends ConsumerWidget {
   final List<Word> learnedWords;
   final List<Word> reviewWords;
   final Color? accent;
+
+  /// Varsa "sonraki bölüm" düğmesi gösterilir.
+  final String? nextLabel;
+  final void Function(BuildContext context)? onNext;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -60,8 +66,9 @@ class SessionSummaryScreen extends ConsumerWidget {
                         ),
                         Text(
                           s.percentLearned,
-                          style: textTheme.bodySmall
-                              ?.copyWith(color: palette.textTertiary),
+                          style: textTheme.bodySmall?.copyWith(
+                            color: palette.textTertiary,
+                          ),
                         ),
                       ],
                     ),
@@ -117,6 +124,31 @@ class SessionSummaryScreen extends ConsumerWidget {
                         '${s.studyReviewWords} (${reviewWords.length})',
                       ),
                     ),
+                  if (nextLabel != null && onNext != null) ...[
+                    const SizedBox(height: 10),
+                    // Tekrar edilecek kelime varsa asil eylem odur; sonraki
+                    // bolum o durumda ikincil duruyor.
+                    reviewWords.isEmpty
+                        ? FilledButton(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: tint,
+                            ),
+                            onPressed: () => onNext!(context),
+                            child: Text(nextLabel!),
+                          )
+                        : OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(52),
+                              side: BorderSide(color: palette.separator),
+                              foregroundColor: palette.textPrimary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(16),
+                              ),
+                            ),
+                            onPressed: () => onNext!(context),
+                            child: Text(nextLabel!),
+                          ),
+                  ],
                   const SizedBox(height: 8),
                   TextButton(
                     onPressed: () =>

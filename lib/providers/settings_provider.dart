@@ -36,8 +36,9 @@ class SettingsNotifier extends Notifier<AppSettings> {
   void reset() => update((_) => const AppSettings());
 }
 
-final settingsProvider =
-    NotifierProvider<SettingsNotifier, AppSettings>(SettingsNotifier.new);
+final settingsProvider = NotifierProvider<SettingsNotifier, AppSettings>(
+  SettingsNotifier.new,
+);
 
 /// Seçili dile göre arayüz metinleri.
 final stringsProvider = Provider<Strings>(

@@ -15,33 +15,32 @@ abstract final class AppTypography {
     required double spacing,
     required double height,
     required Color color,
-  }) =>
-      TextStyle(
-        fontFamily: family,
-        fontSize: size,
-        fontWeight: weight,
-        letterSpacing: spacing,
-        height: height,
-        color: color,
-      );
+  }) => TextStyle(
+    fontFamily: family,
+    fontSize: size,
+    fontWeight: weight,
+    letterSpacing: spacing,
+    height: height,
+    color: color,
+  );
 
   /// Rusça kelimenin kart üzerinde gösterildiği "hero" stil.
   static TextStyle hero(Color color) => _base(
-        size: 46,
-        weight: FontWeight.w700,
-        spacing: -1.4,
-        height: 1.08,
-        color: color,
-      );
+    size: 46,
+    weight: FontWeight.w700,
+    spacing: -1.4,
+    height: 1.08,
+    color: color,
+  );
 
   /// Ana ekran büyük başlığı (iOS Large Title).
   static TextStyle largeTitle(Color color) => _base(
-        size: 34,
-        weight: FontWeight.w800,
-        spacing: -1.1,
-        height: 1.12,
-        color: color,
-      );
+    size: 34,
+    weight: FontWeight.w800,
+    spacing: -1.1,
+    height: 1.12,
+    color: color,
+  );
 
   static TextTheme textTheme(Color primary, Color secondary) {
     return TextTheme(

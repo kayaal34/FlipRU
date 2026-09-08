@@ -46,9 +46,6 @@ Future<void> bootstrap() async {
   if (qaMode) seedQaProgress(container);
 
   runApp(
-    UncontrolledProviderScope(
-      container: container,
-      child: const FlipRuApp(),
-    ),
+    UncontrolledProviderScope(container: container, child: const FlipRuApp()),
   );
 }

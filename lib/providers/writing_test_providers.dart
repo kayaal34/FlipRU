@@ -71,8 +71,8 @@ class WritingTest {
 /// Yazılacak metin: yöne göre Rusça kelime ya da Türkçe karşılık.
 String writingAnswer(Word word, WritingDirection direction) =>
     direction == WritingDirection.trToRu
-        ? word.russian.toLowerCase()
-        : word.turkish.toLowerCase();
+    ? word.russian.toLowerCase()
+    : word.turkish.toLowerCase();
 
 /// Türkçe tarafta yalnızca düz karşılıklar işe yarıyor.
 ///
@@ -80,8 +80,10 @@ String writingAnswer(Word word, WritingDirection direction) =>
 /// harf harf yazdırılamaz; havuza alınmıyor.
 final _duzTurkce = RegExp(r'^[a-zçğıöşü ]+$');
 
-final _writingPoolProvider =
-    Provider.family<List<Word>, WritingDirection>((ref, direction) {
+final _writingPoolProvider = Provider.family<List<Word>, WritingDirection>((
+  ref,
+  direction,
+) {
   final seviyeSirasi = ['a1', 'a2', 'b1'];
   int harfSayisi(Word w) =>
       writingAnswer(w, direction).replaceAll(RegExp(r'[ -]'), '').length;
@@ -96,8 +98,8 @@ final _writingPoolProvider =
         word,
   ];
   words.sort((a, b) {
-    final s = seviyeSirasi.indexOf(a.level.name) -
-        seviyeSirasi.indexOf(b.level.name);
+    final s =
+        seviyeSirasi.indexOf(a.level.name) - seviyeSirasi.indexOf(b.level.name);
     if (s != 0) return s;
     final u = harfSayisi(a) - harfSayisi(b);
     if (u != 0) return u;
@@ -112,36 +114,38 @@ int writingTestSize(int index) => index <= _shortTests ? 5 : 10;
 /// Yazma testleri, sırayla açılan hâlleriyle.
 final writingTestsProvider =
     Provider.family<List<WritingTest>, WritingDirection>((ref, direction) {
-  final havuz = ref.watch(_writingPoolProvider(direction));
-  final gecilen = ref.watch(passedUnitsProvider);
-  if (havuz.isEmpty) return const [];
+      final havuz = ref.watch(_writingPoolProvider(direction));
+      final gecilen = ref.watch(passedUnitsProvider);
+      if (havuz.isEmpty) return const [];
 
-  // Havuz eşit dilimlere bölünüyor ve her test kendi diliminin başından
-  // soruları alıyor. Böylece ilk testler havuzun en kolay ucundan, son
-  // testler en zor ucundan geliyor; arada düzgün bir tırmanış oluyor.
-  final dilim = havuz.length ~/ kWritingTestCount;
+      // Havuz eşit dilimlere bölünüyor ve her test kendi diliminin başından
+      // soruları alıyor. Böylece ilk testler havuzun en kolay ucundan, son
+      // testler en zor ucundan geliyor; arada düzgün bir tırmanış oluyor.
+      final dilim = havuz.length ~/ kWritingTestCount;
 
-  final testler = <WritingTest>[];
-  var oncekiGecildi = true;
-  for (var i = 1; i <= kWritingTestCount; i++) {
-    final adet = writingTestSize(i);
-    final basi = (i - 1) * dilim;
-    final kelimeler = havuz.skip(basi).take(adet).toList();
-    if (kelimeler.length < adet) break;
+      final testler = <WritingTest>[];
+      var oncekiGecildi = true;
+      for (var i = 1; i <= kWritingTestCount; i++) {
+        final adet = writingTestSize(i);
+        final basi = (i - 1) * dilim;
+        final kelimeler = havuz.skip(basi).take(adet).toList();
+        if (kelimeler.length < adet) break;
 
-    final id = direction == WritingDirection.trToRu
-        ? 'yazma_$i'
-        : 'anlam_$i';
-    final gecti = gecilen.contains(id);
-    testler.add(WritingTest(
-      index: i,
-      direction: direction,
-      words: kelimeler,
-      // İlk test hep açık; sonrakiler bir öncekini geçince açılıyor.
-      unlocked: oncekiGecildi,
-      passed: gecti,
-    ));
-    oncekiGecildi = gecti;
-  }
-  return testler;
-});
+        final id = direction == WritingDirection.trToRu
+            ? 'yazma_$i'
+            : 'anlam_$i';
+        final gecti = gecilen.contains(id);
+        testler.add(
+          WritingTest(
+            index: i,
+            direction: direction,
+            words: kelimeler,
+            // İlk test hep açık; sonrakiler bir öncekini geçince açılıyor.
+            unlocked: oncekiGecildi,
+            passed: gecti,
+          ),
+        );
+        oncekiGecildi = gecti;
+      }
+      return testler;
+    });

@@ -30,7 +30,6 @@ class LevelTestUnitsScreen extends ConsumerWidget {
     final units = ref.watch(deckUnitsProvider(deck.id));
     final s = ref.watch(stringsProvider);
 
-
     return Scaffold(
       appBar: AppBar(
         title: Text('${deck.subtitleOf(s)} · ${s.test}'),
@@ -53,8 +52,9 @@ class LevelTestUnitsScreen extends ConsumerWidget {
                       children: [
                         Text(
                           s.unitTestsTitle,
-                          style: textTheme.labelSmall
-                              ?.copyWith(color: palette.textTertiary),
+                          style: textTheme.labelSmall?.copyWith(
+                            color: palette.textTertiary,
+                          ),
                         ),
                       ],
                     ),
@@ -65,11 +65,11 @@ class LevelTestUnitsScreen extends ConsumerWidget {
                   sliver: SliverGrid(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      mainAxisSpacing: 12,
-                      crossAxisSpacing: 12,
-                      childAspectRatio: 0.86,
-                    ),
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 12,
+                          crossAxisSpacing: 12,
+                          childAspectRatio: 0.86,
+                        ),
                     delegate: SliverChildBuilderDelegate(
                       (context, index) => _UnitTestTile(
                         progress: units[index],
@@ -206,8 +206,9 @@ class _UnitTestTile extends StatelessWidget {
                     : '${strings.unit} ${progress.unit.index + 1}',
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.labelMedium
-                    ?.copyWith(color: palette.textSecondary),
+                style: textTheme.labelMedium?.copyWith(
+                  color: palette.textSecondary,
+                ),
               ),
               const SizedBox(height: 6),
               Text(

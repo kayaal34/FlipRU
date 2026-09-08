@@ -68,7 +68,8 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
     // Hatırlatma ayarı ya da bugünün hedef durumu değiştiğinde yeniden planla.
     ref.listen(
       settingsProvider.select(
-        (s) => (s.reminderEnabled, s.reminderHour, s.reminderMinute, s.dailyGoal),
+        (s) =>
+            (s.reminderEnabled, s.reminderHour, s.reminderMinute, s.dailyGoal),
       ),
       (_, _) => _syncReminders(),
     );

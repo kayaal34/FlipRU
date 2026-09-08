@@ -67,9 +67,10 @@ class DeckRow extends ConsumerWidget {
                     progress.isComplete
                         ? '${progress.total} ${s.allDone}'
                         : '${progress.learned} / ${progress.total} '
-                            '${s.wordUnit(progress.total)}',
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
+                              '${s.wordUnit(progress.total)}',
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ],
               ),

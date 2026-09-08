@@ -133,19 +133,14 @@ class _FlipLogoState extends State<FlipLogo>
   Widget _card(double s, double flip, {required bool back}) {
     final angle = math.pi * flip;
     final showFront = math.cos(angle) >= 0;
-    final letter = back
-        ? (showFront ? 'TR' : 'RU')
-        : (showFront ? 'RU' : 'TR');
+    final letter = back ? (showFront ? 'TR' : 'RU') : (showFront ? 'RU' : 'TR');
 
     final transform = Matrix4.identity()
       ..setEntry(3, 2, _perspective)
       ..rotateY(showFront ? angle : angle + math.pi);
 
     return Transform.translate(
-      offset: Offset(
-        s * (back ? _backX : _frontX),
-        s * (back ? -0.02 : 0.02),
-      ),
+      offset: Offset(s * (back ? _backX : _frontX), s * (back ? -0.02 : 0.02)),
       child: Transform.rotate(
         angle: (back ? 15.0 : -7.0) * math.pi / 180,
         child: Transform(

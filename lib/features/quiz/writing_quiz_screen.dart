@@ -211,9 +211,9 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
         } else {
           // Yarida birakilirsa ("Bitir") teste donuldugunde bastan degil,
           // yalnizca hala bilinmeyen kelimelerden devam edilsin.
-          ref
-              .read(pendingWrongProvider.notifier)
-              .setWrong(testId, [for (final w in _wrong) w.id]);
+          ref.read(pendingWrongProvider.notifier).setWrong(testId, [
+            for (final w in _wrong) w.id,
+          ]);
         }
       }
       setState(() => _index = _questions.length);

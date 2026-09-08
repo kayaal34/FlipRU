@@ -19,16 +19,15 @@ class ReportNotifier extends Notifier<List<WordReport>> {
     final decoded = json.decode(raw) as List<dynamic>;
     return [
       for (final item in decoded)
-        WordReport.fromMap((item as Map<String, dynamic>).cast<String, Object?>()),
+        WordReport.fromMap(
+          (item as Map<String, dynamic>).cast<String, Object?>(),
+        ),
     ];
   }
 
   /// Aynı kelime için birden fazla bildirim tutmuyoruz; sonuncusu geçerli.
   void add(WordReport report) {
-    final next = [
-      ...state.where((r) => r.wordId != report.wordId),
-      report,
-    ];
+    final next = [...state.where((r) => r.wordId != report.wordId), report];
     _persist(next);
   }
 
@@ -53,12 +52,12 @@ class ReportNotifier extends Notifier<List<WordReport>> {
 
   void _persist(List<WordReport> value) {
     state = value;
-    ref.read(sharedPreferencesProvider).setString(
-          _key,
-          json.encode([for (final r in value) r.toMap()]),
-        );
+    ref
+        .read(sharedPreferencesProvider)
+        .setString(_key, json.encode([for (final r in value) r.toMap()]));
   }
 }
 
-final reportProvider =
-    NotifierProvider<ReportNotifier, List<WordReport>>(ReportNotifier.new);
+final reportProvider = NotifierProvider<ReportNotifier, List<WordReport>>(
+  ReportNotifier.new,
+);
