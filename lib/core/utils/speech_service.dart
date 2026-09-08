@@ -17,6 +17,7 @@ class SpeechService {
 
   /// Dil kodu -> kullanıcının seçtiği ses adı. Boşsa motorun varsayılanı.
   final Map<String, String> _voices = {};
+  final Map<String, List<String>> _voiceCache = {};
 
   void setPreferredVoice(String language, String voiceName) {
     _voices[language] = voiceName;
@@ -61,6 +62,8 @@ class SpeechService {
   Future<List<String>> voicesFor(String language) async {
     await _ensureInitialized();
     if (!_available) return const [];
+    final cached = _voiceCache[language];
+    if (cached != null) return cached;
     try {
       final raw = await _tts.getVoices as List<dynamic>?;
       if (raw == null) return const [];
@@ -80,6 +83,7 @@ class SpeechService {
         }
       }
       final names = bySpeaker.values.toList()..sort();
+      _voiceCache[language] = names;
       return names;
     } catch (_) {
       return const [];
@@ -130,7 +134,14 @@ class SpeechService {
     if (!await supportsLanguage(language)) return false;
     try {
       await _tts.stop();
-      final voice = voiceOverride ?? _voices[language] ?? '';
+      // Kayıtlı ses adı bu cihazda olmayabilir: Android ayarları yedekten
+      // yeni telefona taşıyor, kullanıcı ses paketini kaldırmış olabiliyor.
+      // Böyle bir durumda susmak yerine motorun varsayılanına düşüyoruz.
+      final wanted = voiceOverride ?? _voices[language] ?? '';
+      final voice =
+          wanted.isEmpty || (await voicesFor(language)).contains(wanted)
+          ? wanted
+          : '';
       if (voice.isEmpty) {
         if (language != _language) {
           await _tts.setLanguage(language);
