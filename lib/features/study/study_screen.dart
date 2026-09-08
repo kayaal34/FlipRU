@@ -132,10 +132,21 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     // Dil kurulu değilse sessizce geçmek yerine nedenini söylüyoruz;
     // kullanıcı aksi hâlde hoparlörü bozuk sanıyor.
     final s = ref.read(stringsProvider);
+    final speech = ref.read(speechServiceProvider);
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           s.ttsMissing(language.startsWith('tr') ? 'Türkçe' : 'Rusça'),
+        ),
+        duration: const Duration(seconds: 6),
+        action: SnackBarAction(
+          label: s.ttsInstall,
+          onPressed: () {
+            // Kullanıcı indirdikten sonra geri döndüğünde "yok" cevabı
+            // önbellekte kalmasın.
+            speech.forgetLanguageSupport();
+            speech.openVoiceInstaller();
+          },
         ),
       ),
     );
