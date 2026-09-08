@@ -101,18 +101,37 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     if (!_settings.autoSpeak || _topIndex >= _words.length) return;
     final word = _words[_topIndex];
     // Soru yüzü hangi dildeyse o okunur; karşı dili okumak cevabı verirdi.
+    // Otomatik okumada uyarı göstermiyoruz: her kartta tekrarlanırdı.
     if (_reversedFlags[_topIndex]) {
-      _speak(word.turkish, 'tr-TR');
+      _speak(word.turkish, 'tr-TR', false);
     } else {
-      _speak(word.russian);
+      _speak(word.russian, 'ru-RU', false);
     }
   }
 
   int get _learnedCount => _history.where((r) => r.learned).length;
   int get _reviewCount => _history.length - _learnedCount;
 
-  void _speak(String text, [String language = 'ru-RU']) =>
-      ref.read(speechServiceProvider).speak(text, language: language);
+  Future<void> _speak(
+    String text, [
+    String language = 'ru-RU',
+    bool notify = true,
+  ]) async {
+    final spoke = await ref
+        .read(speechServiceProvider)
+        .speak(text, language: language);
+    if (spoke || !notify || !mounted) return;
+    // Dil kurulu değilse sessizce geçmek yerine nedenini söylüyoruz;
+    // kullanıcı aksi hâlde hoparlörü bozuk sanıyor.
+    final s = ref.read(stringsProvider);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          s.ttsMissing(language.startsWith('tr') ? 'Türkçe' : 'Rusça'),
+        ),
+      ),
+    );
+  }
 
   bool _onSwipe(int previousIndex, int? currentIndex, CardSwiperDirection d) {
     final word = _words[previousIndex];

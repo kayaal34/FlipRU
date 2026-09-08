@@ -115,6 +115,7 @@ class Strings {
     required this.testsSubtitle,
     required this.dailyTest,
     required this.dailyTestSub,
+    required this.ttsMissingTemplate,
     required this.alphabetTitle,
     required this.alphabetCardSub,
     required this.alphabetIntroTemplate,
@@ -301,6 +302,7 @@ class Strings {
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
+  final String ttsMissingTemplate;
   final String alphabetTitle, alphabetCardSub, alphabetIntroTemplate;
   final String alphabetSound, alphabetExample;
   final String needFourLearned, starredTestSub;
@@ -384,6 +386,10 @@ class Strings {
 
   /// "7 harf" / "7 букв"
   String letters(int count) => '$count ${_agree(letterForms, count)}';
+
+  /// Cihazda o dilin TTS sesi kurulu olmadığında gösterilir.
+  String ttsMissing(String languageName) =>
+      ttsMissingTemplate.replaceFirst('{}', languageName);
 
   /// "Rus alfabesinde 33 harf var." / "В турецком алфавите 29 букв."
   String alphabetIntro(int count) =>
@@ -492,6 +498,8 @@ class Strings {
     testsSubtitle: 'Bildiklerini ölç, yazarak pekiştir',
     dailyTest: 'Günün testi',
     dailyTestSub: 'Öğrendiklerinden 15 rastgele soru',
+    ttsMissingTemplate: 'Cihazında {} seslendirme sesi yüklü değil. '
+        'Telefon ayarlarındaki "Metin okuma" bölümünden indirebilirsin.',
     alphabetTitle: 'Rus Alfabesi',
     alphabetCardSub: 'Kiril harflerini tanı, okunuşlarını öğren',
     alphabetIntroTemplate:
@@ -569,7 +577,8 @@ class Strings {
     rateFast: 'Hızlı',
     haptics: 'Dokunsal geri bildirim',
     hapticsSub: 'Kart çevirme ve kaydırmada hafif titreşim',
-    soundFooter: 'Telaffuz cihazının Rusça ses paketini kullanır.',
+    soundFooter: 'Telaffuz, cihazının ses paketlerini kullanır: '
+        'Rusça yüzde Rusça, Türkçe yüzde Türkçe okur.',
     myData: 'Verilerim',
     accountAndData: 'Hesap ve veri',
     reports: 'Hatalı kelime bildirimleri',
@@ -798,6 +807,8 @@ class Strings {
     testsSubtitle: 'Проверяй знания и закрепляй письмом',
     dailyTest: 'Тест дня',
     dailyTestSub: '15 случайных вопросов из выученного',
+    ttsMissingTemplate: 'На устройстве не установлен голос «{}». '
+        'Его можно скачать в настройках телефона, раздел «Синтез речи».',
     alphabetTitle: 'Турецкий алфавит',
     alphabetCardSub: 'Изучите турецкие буквы и их произношение',
     alphabetIntroTemplate:

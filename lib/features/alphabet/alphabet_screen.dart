@@ -250,11 +250,20 @@ class _LetterSheet extends ConsumerWidget {
                   ),
                 ),
                 IconButton.filledTonal(
-                  onPressed: () {
+                  onPressed: () async {
                     Haptics.selection();
-                    ref
+                    final messenger = ScaffoldMessenger.of(context);
+                    final spoke = await ref
                         .read(speechServiceProvider)
                         .speak(letter.example, language: ttsLanguage);
+                    if (spoke) return;
+                    messenger.showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          s.ttsMissing(teachesCyrillic ? 'Rusça' : 'Türkçe'),
+                        ),
+                      ),
+                    );
                   },
                   icon: const Icon(Icons.volume_up_rounded),
                 ),
