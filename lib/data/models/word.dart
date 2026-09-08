@@ -96,6 +96,7 @@ class Word {
     required this.accented,
     required this.transliteration,
     required this.turkish,
+    this.turkishTranslit = '',
     required this.exampleRu,
     required this.exampleTr,
     required this.level,
@@ -116,6 +117,10 @@ class Word {
   final String transliteration;
 
   final String turkish;
+
+  /// Türkçe karşılığın Kiril harfleriyle okunuşu (ör. `кёпек`).
+  /// Yalnızca arayüz dili Rusça olduğunda gösterilir.
+  final String turkishTranslit;
 
   /// Örnek cümle. Her kelimede bulunmayabilir.
   final String exampleRu;
@@ -158,6 +163,8 @@ class Word {
       exampleRu: row[8] as String,
       exampleTr: row[9] as String,
       confidence: row[10] as int,
+      // Veri dosyasi bu alan eklenmeden once uretilmis olabilir.
+      turkishTranslit: row.length > 11 ? row[11] as String : '',
     );
   }
 

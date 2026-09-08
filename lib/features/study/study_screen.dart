@@ -99,16 +99,20 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
 
   void _maybeAutoSpeak() {
     if (!_settings.autoSpeak || _topIndex >= _words.length) return;
-    // Türkçe yüzle başlayan kartta Rusçayı okumak cevabı vermek olur.
-    if (_reversedFlags[_topIndex]) return;
-    _speak(_words[_topIndex].russian);
+    final word = _words[_topIndex];
+    // Soru yüzü hangi dildeyse o okunur; karşı dili okumak cevabı verirdi.
+    if (_reversedFlags[_topIndex]) {
+      _speak(word.turkish, 'tr-TR');
+    } else {
+      _speak(word.russian);
+    }
   }
 
   int get _learnedCount => _history.where((r) => r.learned).length;
   int get _reviewCount => _history.length - _learnedCount;
 
-  void _speak(String text) =>
-      ref.read(speechServiceProvider).speak(text);
+  void _speak(String text, [String language = 'ru-RU']) =>
+      ref.read(speechServiceProvider).speak(text, language: language);
 
   bool _onSwipe(int previousIndex, int? currentIndex, CardSwiperDirection d) {
     final word = _words[previousIndex];
@@ -238,6 +242,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
                         reversed: _reversedFlags[index],
                         showTransliteration: _settings.showTransliteration,
                         showStressMarks: _settings.showStressMarks,
+                        showTurkishTranslit:
+                            _settings.language == AppLanguage.ru,
                         // Arka kartlara paket zaten 0 gönderiyor.
                         dragPercent: horizontalOffset / 100,
                         onFlip: () => setState(() => _isFlipped = !_isFlipped),
