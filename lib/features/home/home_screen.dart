@@ -58,16 +58,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const _HomeHeader(),
-                  const SizedBox(height: 22),
+                  const SizedBox(height: 26),
                   // Yildizli/Ogrendigim kartlari burada degil, Pratik
                   // sekmesinde duruyor: ana ekran "bugun ne yapmaliyim"
                   // sorusuna ve destelere ayrildi.
-                  _AlphabetCard(
-                    onTap: () => Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => const AlphabetScreen()),
-                    ),
-                  ),
-                  const SizedBox(height: 26),
                   SegmentedSwitch(
                     labels: [s.levels, s.themes],
                     selectedIndex: _tab,
@@ -96,6 +90,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                           ? Column(
                               key: const ValueKey('levels'),
                               children: [
+                                // Alfabe seviyelerin basinda: A1'den once
+                                // ogrenilmesi gereken sey o. Temalar
+                                // sekmesinde yeri yok.
+                                _AlphabetCard(
+                                  onTap: () => Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (_) => const AlphabetScreen(),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
                                 for (final deck in levelDecks) ...[
                                   DeckRow(
                                     deck: deck,
