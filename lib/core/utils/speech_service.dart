@@ -12,6 +12,7 @@ class SpeechService {
   final FlutterTts _tts = FlutterTts();
   bool _initialized = false;
   bool _available = false;
+  String _language = 'ru-RU';
 
   bool get isAvailable => _available;
 
@@ -30,7 +31,7 @@ class SpeechService {
     if (_initialized) return;
     _initialized = true;
     try {
-      await _tts.setLanguage('ru-RU');
+      await _tts.setLanguage(_language);
       await _tts.setSpeechRate(kIsWeb ? _rate * 2 : _rate);
       await _tts.setPitch(1.0);
       await _tts.setVolume(1.0);
@@ -42,11 +43,17 @@ class SpeechService {
     }
   }
 
-  Future<void> speak(String text) async {
+  /// [language] yalnızca alfabe ekranında Türkçe okumak için değişiyor;
+  /// kelime kartları varsayılan Rusça sesi kullanmaya devam ediyor.
+  Future<void> speak(String text, {String language = 'ru-RU'}) async {
     await _ensureInitialized();
     if (!_available || text.trim().isEmpty) return;
     try {
       await _tts.stop();
+      if (language != _language) {
+        _language = language;
+        await _tts.setLanguage(language);
+      }
       await _tts.speak(text);
     } catch (_) {
       // Ses yoksa sessizce geç.

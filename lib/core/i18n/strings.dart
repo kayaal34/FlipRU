@@ -115,6 +115,11 @@ class Strings {
     required this.testsSubtitle,
     required this.dailyTest,
     required this.dailyTestSub,
+    required this.alphabetTitle,
+    required this.alphabetCardSub,
+    required this.alphabetIntroTemplate,
+    required this.alphabetSound,
+    required this.alphabetExample,
     required this.myLearned,
     required this.myStarred,
     required this.fromWords,
@@ -296,6 +301,8 @@ class Strings {
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
+  final String alphabetTitle, alphabetCardSub, alphabetIntroTemplate;
+  final String alphabetSound, alphabetExample;
   final String needFourLearned, starredTestSub;
   final String unitTestsTitle;
   final String levelTests, levelTestNeed, levelTestKnown;
@@ -377,6 +384,10 @@ class Strings {
 
   /// "7 harf" / "7 букв"
   String letters(int count) => '$count ${_agree(letterForms, count)}';
+
+  /// "Rus alfabesinde 33 harf var." / "В турецком алфавите 29 букв."
+  String alphabetIntro(int count) =>
+      alphabetIntroTemplate.replaceFirst('{}', letters(count));
 
   /// "3 / 25 test geçildi"
   String writingTestsDone(int done, int total) =>
@@ -481,6 +492,13 @@ class Strings {
     testsSubtitle: 'Bildiklerini ölç, yazarak pekiştir',
     dailyTest: 'Günün testi',
     dailyTestSub: 'Öğrendiklerinden 15 rastgele soru',
+    alphabetTitle: 'Rus Alfabesi',
+    alphabetCardSub: 'Kiril harflerini tanı, okunuşlarını öğren',
+    alphabetIntroTemplate:
+        'Kiril alfabesinde {} var. Her harfe dokunarak okunuşunu, '
+        'kuraldışı durumlarını ve örnek kelimesini görebilirsin.',
+    alphabetSound: 'Okunuş',
+    alphabetExample: 'ÖRNEK KELİME',
     myLearned: 'Öğrendiğim Kelimeler',
     myStarred: 'Yıldızlı kelimelerim',
     fromWords: 'öğrenildi',
@@ -780,6 +798,13 @@ class Strings {
     testsSubtitle: 'Проверяй знания и закрепляй письмом',
     dailyTest: 'Тест дня',
     dailyTestSub: '15 случайных вопросов из выученного',
+    alphabetTitle: 'Турецкий алфавит',
+    alphabetCardSub: 'Изучите турецкие буквы и их произношение',
+    alphabetIntroTemplate:
+        'В турецком алфавите {}. Нажмите на любую букву, чтобы увидеть '
+        'произношение, особые случаи и пример слова.',
+    alphabetSound: 'Звук',
+    alphabetExample: 'ПРИМЕР СЛОВА',
     myLearned: 'Выученные слова',
     myStarred: 'Избранные слова',
     fromWords: 'выучено',
