@@ -1,5 +1,21 @@
 import 'package:flutter/foundation.dart';
 
+/// Harflerin öğrenme zorluğuna göre bölündüğü üç grup.
+///
+/// 33 harfi eşit ağırlıkta dizmek işin asıl zor kısmını gizliyordu: Latin
+/// okuru için acı, tanıdık görünüp farklı okunan harflerde (В, Р, С…).
+/// Gruplar bu ayrımı görünür kılıyor.
+enum LetterGroup {
+  /// Görünüşü de sesi de tanıdık: öğrenilecek yeni bir şey yok.
+  same,
+
+  /// Tuzak: tanıdık görünüyor ama başka okunuyor.
+  trap,
+
+  /// Tamamen yeni şekil.
+  fresh,
+}
+
 /// Alfabe ekranındaki tek bir harf.
 ///
 /// Metinler öğrenenin kendi dilinde tutuluyor: Kiril alfabesi Türkçe
@@ -14,8 +30,11 @@ class AlphabetLetter {
     required this.sound,
     required this.example,
     required this.meaning,
+    required this.group,
     this.note,
   });
+
+  final LetterGroup group;
 
   /// Büyük harf (`А`).
   final String upper;

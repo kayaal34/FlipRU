@@ -44,6 +44,7 @@ class AppSettings {
     this.hapticsEnabled = true,
     this.autoSpeak = false,
     this.speechRate = SpeechRate.normal,
+    this.alphabetDone = const <String>{},
     this.ruVoice = '',
     this.trVoice = '',
     this.showTransliteration = true,
@@ -78,6 +79,9 @@ class AppSettings {
 
   /// Secilen TTS sesinin cihazdaki adi; bos ise motorun
   /// varsayilani kullanilir.
+  /// Tamamlanan alfabe dersleri (`same`, `trap`, `fresh`, `read`).
+  final Set<String> alphabetDone;
+
   final String ruVoice;
   final String trVoice;
 
@@ -118,6 +122,7 @@ class AppSettings {
     bool? hapticsEnabled,
     bool? autoSpeak,
     SpeechRate? speechRate,
+    Set<String>? alphabetDone,
     String? ruVoice,
     String? trVoice,
     bool? showTransliteration,
@@ -140,6 +145,7 @@ class AppSettings {
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
       autoSpeak: autoSpeak ?? this.autoSpeak,
       speechRate: speechRate ?? this.speechRate,
+      alphabetDone: alphabetDone ?? this.alphabetDone,
       ruVoice: ruVoice ?? this.ruVoice,
       trVoice: trVoice ?? this.trVoice,
       showTransliteration: showTransliteration ?? this.showTransliteration,
@@ -199,6 +205,9 @@ class AppSettings {
       hapticsEnabled: map['haptics'] as bool? ?? true,
       autoSpeak: map['autoSpeak'] as bool? ?? false,
       speechRate: pick(SpeechRate.values, map['speechRate'], SpeechRate.normal),
+      alphabetDone: {
+        for (final v in (map['alphabetDone'] as List? ?? const [])) '$v',
+      },
       ruVoice: map['ruVoice'] as String? ?? '',
       trVoice: map['trVoice'] as String? ?? '',
       showTransliteration: map['showTranslit'] as bool? ?? true,
