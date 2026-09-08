@@ -11,6 +11,7 @@ import '../../core/widgets/starred_hero_card.dart';
 import '../../data/models/deck.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
+import '../alphabet/alphabet_screen.dart';
 import '../learned/learned_screen.dart';
 import '../starred/starred_screen.dart';
 import '../units/unit_list_screen.dart';
@@ -80,6 +81,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (_) => const LearnedScreen(),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  _AlphabetCard(
+                    onTap: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => const AlphabetScreen(),
                       ),
                     ),
                   ),
@@ -329,6 +338,69 @@ class _StreakBadge extends ConsumerWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AlphabetCard extends ConsumerWidget {
+  const _AlphabetCard({required this.onTap});
+
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+
+    return Pressable(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: palette.surface,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: palette.separator),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 44,
+              height: 44,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: palette.accentSoft,
+                borderRadius: BorderRadius.circular(13),
+              ),
+              child: Icon(
+                Icons.abc_rounded,
+                color: palette.accent,
+                size: 26,
+              ),
+            ),
+            const SizedBox(width: 13),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(s.alphabetTitle, style: textTheme.titleMedium),
+                  const SizedBox(height: 2),
+                  Text(
+                    s.alphabetCardSub,
+                    style: textTheme.bodySmall
+                        ?.copyWith(color: palette.textTertiary),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 24,
+              color: palette.textTertiary,
+            ),
+          ],
+        ),
       ),
     );
   }

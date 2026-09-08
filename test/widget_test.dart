@@ -528,6 +528,7 @@ void main() {
     testWidgets('temalar sekmesine geçilebiliyor', (tester) async {
       await boot(tester);
 
+      await tester.ensureVisible(find.text('Temalar'));
       await tester.tap(find.text('Temalar'));
       await tester.pumpAndSettle();
 
@@ -556,6 +557,7 @@ void main() {
         (tester) async {
       await boot(tester);
 
+      await tester.ensureVisible(find.text('Başlangıç'));
       await tester.tap(find.text('Başlangıç'));
       await tester.pumpAndSettle();
 
@@ -575,6 +577,7 @@ void main() {
         (tester) async {
       await boot(tester);
 
+      await tester.ensureVisible(find.text('Başlangıç'));
       await tester.tap(find.text('Başlangıç'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Bölüm 1'));
@@ -595,6 +598,7 @@ void main() {
     testWidgets('bölüm listesinde yıldızlama çalışır', (tester) async {
       await boot(tester);
 
+      await tester.ensureVisible(find.text('Başlangıç'));
       await tester.tap(find.text('Başlangıç'));
       await tester.pumpAndSettle();
       await tester.tap(find.text('Bölüm 1'));

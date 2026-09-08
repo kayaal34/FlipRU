@@ -1,0 +1,274 @@
+import 'models/alphabet_letter.dart';
+
+/// Kiril alfabesi — Rusça öğrenen Türk kullanıcı için.
+const russianAlphabet = <AlphabetLetter>[
+  AlphabetLetter(
+    upper: 'А', lower: 'а', name: 'a', sound: 'a',
+    example: 'а́рмия', meaning: 'ordu',
+  ),
+  AlphabetLetter(
+    upper: 'Б', lower: 'б', name: 'be', sound: 'b',
+    example: 'брат', meaning: 'erkek kardeş',
+  ),
+  AlphabetLetter(
+    upper: 'В', lower: 'в', name: 've', sound: 'v',
+    example: 'вода́', meaning: 'su',
+  ),
+  AlphabetLetter(
+    upper: 'Г', lower: 'г', name: 'ge', sound: 'g',
+    example: 'год', meaning: 'yıl',
+  ),
+  AlphabetLetter(
+    upper: 'Д', lower: 'д', name: 'de', sound: 'd',
+    example: 'дом', meaning: 'ev',
+  ),
+  AlphabetLetter(
+    upper: 'Е', lower: 'е', name: 'ye', sound: 'ye',
+    example: 'е́сли', meaning: 'eğer',
+    note: 'Vurgusuz hecede “yi”ye yaklaşır.',
+  ),
+  AlphabetLetter(
+    upper: 'Ё', lower: 'ё', name: 'yo', sound: 'yo',
+    example: 'ёлка', meaning: 'çam ağacı',
+    note: 'Her zaman vurguludur; yazıda çoğu kez “е” olarak basılır.',
+  ),
+  AlphabetLetter(
+    upper: 'Ж', lower: 'ж', name: 'je', sound: 'j',
+    example: 'жена́', meaning: 'eş, karı',
+  ),
+  AlphabetLetter(
+    upper: 'З', lower: 'з', name: 'ze', sound: 'z',
+    example: 'зима́', meaning: 'kış',
+  ),
+  AlphabetLetter(
+    upper: 'И', lower: 'и', name: 'i', sound: 'i',
+    example: 'и́мя', meaning: 'isim',
+  ),
+  AlphabetLetter(
+    upper: 'Й', lower: 'й', name: 'kısa i', sound: 'y',
+    example: 'чай', meaning: 'çay',
+    note: 'Tek başına hece kurmaz, hep bir sesliye yaslanır.',
+  ),
+  AlphabetLetter(
+    upper: 'К', lower: 'к', name: 'ka', sound: 'k',
+    example: 'кни́га', meaning: 'kitap',
+  ),
+  AlphabetLetter(
+    upper: 'Л', lower: 'л', name: 'el', sound: 'l',
+    example: 'луна́', meaning: 'ay (gökyüzü)',
+  ),
+  AlphabetLetter(
+    upper: 'М', lower: 'м', name: 'em', sound: 'm',
+    example: 'ма́ма', meaning: 'anne',
+  ),
+  AlphabetLetter(
+    upper: 'Н', lower: 'н', name: 'en', sound: 'n',
+    example: 'ночь', meaning: 'gece',
+  ),
+  AlphabetLetter(
+    upper: 'О', lower: 'о', name: 'o', sound: 'o',
+    example: 'о́сень', meaning: 'sonbahar',
+    note: 'Vurgusuz hecede “a”ya kayar: молоко́ → “malakó”.',
+  ),
+  AlphabetLetter(
+    upper: 'П', lower: 'п', name: 'pe', sound: 'p',
+    example: 'па́па', meaning: 'baba',
+  ),
+  AlphabetLetter(
+    upper: 'Р', lower: 'р', name: 'er', sound: 'r',
+    example: 'ры́ба', meaning: 'balık',
+    note: 'Türkçedekinden daha titrek, dil ucuyla söylenir.',
+  ),
+  AlphabetLetter(
+    upper: 'С', lower: 'с', name: 'es', sound: 's',
+    example: 'со́лнце', meaning: 'güneş',
+  ),
+  AlphabetLetter(
+    upper: 'Т', lower: 'т', name: 'te', sound: 't',
+    example: 'стол', meaning: 'masa',
+  ),
+  AlphabetLetter(
+    upper: 'У', lower: 'у', name: 'u', sound: 'u',
+    example: 'у́тро', meaning: 'sabah',
+  ),
+  AlphabetLetter(
+    upper: 'Ф', lower: 'ф', name: 'ef', sound: 'f',
+    example: 'фильм', meaning: 'film',
+  ),
+  AlphabetLetter(
+    upper: 'Х', lower: 'х', name: 'ha', sound: 'h',
+    example: 'хлеб', meaning: 'ekmek',
+    note: 'Gırtlaktan, “ıhlamur”daki h gibi sürtünerek çıkar.',
+  ),
+  AlphabetLetter(
+    upper: 'Ц', lower: 'ц', name: 'tse', sound: 'ts',
+    example: 'цвето́к', meaning: 'çiçek',
+  ),
+  AlphabetLetter(
+    upper: 'Ч', lower: 'ч', name: 'çe', sound: 'ç',
+    example: 'час', meaning: 'saat',
+  ),
+  AlphabetLetter(
+    upper: 'Ш', lower: 'ш', name: 'şa', sound: 'ş',
+    example: 'шко́ла', meaning: 'okul',
+  ),
+  AlphabetLetter(
+    upper: 'Щ', lower: 'щ', name: 'şça', sound: 'şç',
+    example: 'щи', meaning: 'lahana çorbası',
+    note: 'Ш’den daha ince ve uzun; dil damağa yaklaşır.',
+  ),
+  AlphabetLetter(
+    upper: 'Ъ', lower: 'ъ', name: 'sert işaret', sound: '—',
+    example: 'подъе́зд', meaning: 'apartman girişi',
+    note: 'Sesi yoktur; kendinden sonraki sesliyi ayırarak okutur.',
+  ),
+  AlphabetLetter(
+    upper: 'Ы', lower: 'ы', name: 'ı', sound: 'ı',
+    example: 'сын', meaning: 'oğul',
+  ),
+  AlphabetLetter(
+    upper: 'Ь', lower: 'ь', name: 'yumuşak işaret', sound: '—',
+    example: 'соль', meaning: 'tuz',
+    note: 'Sesi yoktur; önündeki ünsüzü inceltir.',
+  ),
+  AlphabetLetter(
+    upper: 'Э', lower: 'э', name: 'e', sound: 'e',
+    example: 'э́то', meaning: 'bu',
+  ),
+  AlphabetLetter(
+    upper: 'Ю', lower: 'ю', name: 'yu', sound: 'yu',
+    example: 'юг', meaning: 'güney',
+  ),
+  AlphabetLetter(
+    upper: 'Я', lower: 'я', name: 'ya', sound: 'ya',
+    example: 'я́блоко', meaning: 'elma',
+  ),
+];
+
+/// Türk alfabesi — Türkçe öğrenen Rus kullanıcı için.
+const turkishAlphabet = <AlphabetLetter>[
+  AlphabetLetter(
+    upper: 'A', lower: 'a', name: 'а', sound: 'а',
+    example: 'anne', meaning: 'мама',
+  ),
+  AlphabetLetter(
+    upper: 'B', lower: 'b', name: 'бе', sound: 'б',
+    example: 'baba', meaning: 'папа',
+  ),
+  AlphabetLetter(
+    upper: 'C', lower: 'c', name: 'дже', sound: 'дж',
+    example: 'cam', meaning: 'стекло',
+    note: 'Читается как «дж» в слове «джем», не как русское «ц».',
+  ),
+  AlphabetLetter(
+    upper: 'Ç', lower: 'ç', name: 'че', sound: 'ч',
+    example: 'çay', meaning: 'чай',
+  ),
+  AlphabetLetter(
+    upper: 'D', lower: 'd', name: 'де', sound: 'д',
+    example: 'deniz', meaning: 'море',
+  ),
+  AlphabetLetter(
+    upper: 'E', lower: 'e', name: 'э', sound: 'э',
+    example: 'ev', meaning: 'дом',
+  ),
+  AlphabetLetter(
+    upper: 'F', lower: 'f', name: 'фе', sound: 'ф',
+    example: 'fil', meaning: 'слон',
+  ),
+  AlphabetLetter(
+    upper: 'G', lower: 'g', name: 'ге', sound: 'г',
+    example: 'gül', meaning: 'роза',
+  ),
+  AlphabetLetter(
+    upper: 'Ğ', lower: 'ğ', name: 'юмушак ге', sound: '—',
+    example: 'dağ', meaning: 'гора',
+    note: 'Своего звука нет: удлиняет предыдущий гласный. dağ → «даа».',
+  ),
+  AlphabetLetter(
+    upper: 'H', lower: 'h', name: 'хе', sound: 'х',
+    example: 'hava', meaning: 'воздух',
+    note: 'Мягче русского «х», ближе к придыханию.',
+  ),
+  AlphabetLetter(
+    upper: 'I', lower: 'ı', name: 'ы', sound: 'ы',
+    example: 'ışık', meaning: 'свет',
+    note: 'Заглавная — I без точки. Не путать с İ.',
+  ),
+  AlphabetLetter(
+    upper: 'İ', lower: 'i', name: 'и', sound: 'и',
+    example: 'insan', meaning: 'человек',
+    note: 'Заглавная пишется с точкой: İstanbul.',
+  ),
+  AlphabetLetter(
+    upper: 'J', lower: 'j', name: 'же', sound: 'ж',
+    example: 'jeton', meaning: 'жетон',
+  ),
+  AlphabetLetter(
+    upper: 'K', lower: 'k', name: 'ке', sound: 'к',
+    example: 'kitap', meaning: 'книга',
+  ),
+  AlphabetLetter(
+    upper: 'L', lower: 'l', name: 'ле', sound: 'л',
+    example: 'limon', meaning: 'лимон',
+  ),
+  AlphabetLetter(
+    upper: 'M', lower: 'm', name: 'ме', sound: 'м',
+    example: 'masa', meaning: 'стол',
+  ),
+  AlphabetLetter(
+    upper: 'N', lower: 'n', name: 'не', sound: 'н',
+    example: 'nehir', meaning: 'река',
+  ),
+  AlphabetLetter(
+    upper: 'O', lower: 'o', name: 'о', sound: 'о',
+    example: 'okul', meaning: 'школа',
+    note: 'Всегда чёткое «о», без редукции в «а».',
+  ),
+  AlphabetLetter(
+    upper: 'Ö', lower: 'ö', name: 'ё', sound: 'ё',
+    example: 'göz', meaning: 'глаз',
+    note: 'Как «ё» в слове «нём», но без начального «й».',
+  ),
+  AlphabetLetter(
+    upper: 'P', lower: 'p', name: 'пе', sound: 'п',
+    example: 'para', meaning: 'деньги',
+  ),
+  AlphabetLetter(
+    upper: 'R', lower: 'r', name: 'ре', sound: 'р',
+    example: 'renk', meaning: 'цвет',
+  ),
+  AlphabetLetter(
+    upper: 'S', lower: 's', name: 'се', sound: 'с',
+    example: 'su', meaning: 'вода',
+  ),
+  AlphabetLetter(
+    upper: 'Ş', lower: 'ş', name: 'ше', sound: 'ш',
+    example: 'şeker', meaning: 'сахар',
+  ),
+  AlphabetLetter(
+    upper: 'T', lower: 't', name: 'те', sound: 'т',
+    example: 'tuz', meaning: 'соль',
+  ),
+  AlphabetLetter(
+    upper: 'U', lower: 'u', name: 'у', sound: 'у',
+    example: 'uzun', meaning: 'длинный',
+  ),
+  AlphabetLetter(
+    upper: 'Ü', lower: 'ü', name: 'ю', sound: 'ю',
+    example: 'üzüm', meaning: 'виноград',
+    note: 'Как «ю» в слове «мюсли», но без начального «й».',
+  ),
+  AlphabetLetter(
+    upper: 'V', lower: 'v', name: 'ве', sound: 'в',
+    example: 'vakit', meaning: 'время',
+  ),
+  AlphabetLetter(
+    upper: 'Y', lower: 'y', name: 'йе', sound: 'й',
+    example: 'yol', meaning: 'дорога',
+  ),
+  AlphabetLetter(
+    upper: 'Z', lower: 'z', name: 'зе', sound: 'з',
+    example: 'zaman', meaning: 'время',
+  ),
+];
