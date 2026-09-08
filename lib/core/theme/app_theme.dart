@@ -19,15 +19,16 @@ abstract final class AppTheme {
       canvasColor: p.canvas,
       textTheme: textTheme,
       extensions: [p],
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: p.accent,
-        brightness: brightness,
-      ).copyWith(
-        primary: p.accent,
-        surface: p.surface,
-        onSurface: p.textPrimary,
-        error: p.review,
-      ),
+      colorScheme:
+          ColorScheme.fromSeed(
+            seedColor: p.accent,
+            brightness: brightness,
+          ).copyWith(
+            primary: p.accent,
+            surface: p.surface,
+            onSurface: p.textPrimary,
+            error: p.review,
+          ),
       // iOS'taki gibi kenardan kaydırarak geri gitme, Android'de de aktif.
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {

@@ -161,11 +161,11 @@ class _NavItem extends StatelessWidget {
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 220),
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
-                  color: color,
-                  fontSize: 10.5,
-                  letterSpacing: 0.1,
-                  fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                ),
+              color: color,
+              fontSize: 10.5,
+              letterSpacing: 0.1,
+              fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+            ),
             child: Text(label),
           ),
         ],

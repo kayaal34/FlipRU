@@ -55,8 +55,7 @@ class SettingsSection extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(6, 9, 6, 0),
             child: Text(
               footer!,
-              style:
-                  textTheme.bodySmall?.copyWith(color: palette.textTertiary),
+              style: textTheme.bodySmall?.copyWith(color: palette.textTertiary),
             ),
           ),
       ],
@@ -102,8 +101,9 @@ class SettingsSwitch extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     subtitle!,
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ],
               ],
@@ -170,8 +170,9 @@ class SettingsOptions<T> extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         subtitle!,
-                        style: textTheme.bodySmall
-                            ?.copyWith(color: palette.textTertiary),
+                        style: textTheme.bodySmall?.copyWith(
+                          color: palette.textTertiary,
+                        ),
                       ),
                     ],
                   ],
@@ -229,9 +230,9 @@ class _OptionChip extends StatelessWidget {
         child: Text(
           label,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                color: selected ? Colors.white : palette.textSecondary,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-              ),
+            color: selected ? Colors.white : palette.textSecondary,
+            fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+          ),
         ),
       ),
     );
@@ -276,20 +277,28 @@ class SettingsRow extends StatelessWidget {
         child: Row(
           children: [
             if (icon != null) ...[
-              Icon(icon, size: 20, color: danger ? color : palette.textSecondary),
+              Icon(
+                icon,
+                size: 20,
+                color: danger ? color : palette.textSecondary,
+              ),
               const SizedBox(width: 13),
             ],
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: textTheme.bodyLarge?.copyWith(color: color)),
+                  Text(
+                    title,
+                    style: textTheme.bodyLarge?.copyWith(color: color),
+                  ),
                   if (subtitle != null) ...[
                     const SizedBox(height: 2),
                     Text(
                       subtitle!,
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textTertiary),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textTertiary,
+                      ),
                     ),
                   ],
                 ],
@@ -298,8 +307,9 @@ class SettingsRow extends StatelessWidget {
             if (trailing != null)
               Text(
                 trailing!,
-                style: textTheme.bodyMedium
-                    ?.copyWith(color: palette.textTertiary),
+                style: textTheme.bodyMedium?.copyWith(
+                  color: palette.textTertiary,
+                ),
               ),
             if (onTap != null && !danger) ...[
               const SizedBox(width: 4),

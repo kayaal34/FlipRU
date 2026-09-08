@@ -143,8 +143,9 @@ class QuizResultView extends StatelessWidget {
                           Flexible(
                             child: Text(
                               strings.unitUnlocked,
-                              style: textTheme.bodyMedium
-                                  ?.copyWith(color: palette.learned),
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: palette.learned,
+                              ),
                             ),
                           ),
                         ],
@@ -191,6 +192,7 @@ class QuizResultView extends StatelessWidget {
     );
   }
 }
+
 /// Sonuc ekranindaki "18 dogru" / "2 yanlis" etiketi.
 class _ScoreChip extends StatelessWidget {
   const _ScoreChip({
@@ -218,8 +220,9 @@ class _ScoreChip extends StatelessWidget {
           const SizedBox(width: 7),
           Text(
             label,
-            style:
-                Theme.of(context).textTheme.labelLarge?.copyWith(color: color),
+            style: Theme.of(
+              context,
+            ).textTheme.labelLarge?.copyWith(color: color),
           ),
         ],
       ),

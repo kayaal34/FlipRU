@@ -44,6 +44,8 @@ class AppSettings {
     this.hapticsEnabled = true,
     this.autoSpeak = false,
     this.speechRate = SpeechRate.normal,
+    this.ruVoice = '',
+    this.trVoice = '',
     this.showTransliteration = true,
     this.showStressMarks = true,
     this.hideLearned = false,
@@ -73,6 +75,11 @@ class AppSettings {
   /// Kart açıldığında Rusçayı otomatik seslendir.
   final bool autoSpeak;
   final SpeechRate speechRate;
+
+  /// Secilen TTS sesinin cihazdaki adi; bos ise motorun
+  /// varsayilani kullanilir.
+  final String ruVoice;
+  final String trVoice;
 
   final bool showTransliteration;
   final bool showStressMarks;
@@ -111,6 +118,8 @@ class AppSettings {
     bool? hapticsEnabled,
     bool? autoSpeak,
     SpeechRate? speechRate,
+    String? ruVoice,
+    String? trVoice,
     bool? showTransliteration,
     bool? showStressMarks,
     bool? hideLearned,
@@ -131,6 +140,8 @@ class AppSettings {
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
       autoSpeak: autoSpeak ?? this.autoSpeak,
       speechRate: speechRate ?? this.speechRate,
+      ruVoice: ruVoice ?? this.ruVoice,
+      trVoice: trVoice ?? this.trVoice,
       showTransliteration: showTransliteration ?? this.showTransliteration,
       showStressMarks: showStressMarks ?? this.showStressMarks,
       hideLearned: hideLearned ?? this.hideLearned,
@@ -144,25 +155,27 @@ class AppSettings {
   }
 
   Map<String, Object> toMap() => {
-        'language': language.name,
-        'themeMode': themeMode.name,
-        'direction': direction.name,
-        'sessionSize': sessionSize,
-        'dailyGoal': dailyGoal,
-        'shuffle': shuffle,
-        'haptics': hapticsEnabled,
-        'autoSpeak': autoSpeak,
-        'speechRate': speechRate.name,
-        'showTranslit': showTransliteration,
-        'showStress': showStressMarks,
-        'hideLearned': hideLearned,
-        'hideLowConf': hideLowConfidence,
-        'onboardingDone': onboardingDone,
-        'reminderOn': reminderEnabled,
-        'reminderHour': reminderHour,
-        'reminderMinute': reminderMinute,
-        'widgetRefresh': widgetRefresh.name,
-      };
+    'language': language.name,
+    'themeMode': themeMode.name,
+    'direction': direction.name,
+    'sessionSize': sessionSize,
+    'dailyGoal': dailyGoal,
+    'shuffle': shuffle,
+    'haptics': hapticsEnabled,
+    'autoSpeak': autoSpeak,
+    'speechRate': speechRate.name,
+    'ruVoice': ruVoice,
+    'trVoice': trVoice,
+    'showTranslit': showTransliteration,
+    'showStress': showStressMarks,
+    'hideLearned': hideLearned,
+    'hideLowConf': hideLowConfidence,
+    'onboardingDone': onboardingDone,
+    'reminderOn': reminderEnabled,
+    'reminderHour': reminderHour,
+    'reminderMinute': reminderMinute,
+    'widgetRefresh': widgetRefresh.name,
+  };
 
   factory AppSettings.fromMap(Map<String, Object?> map) {
     T pick<T extends Enum>(List<T> values, Object? key, T fallback) {
@@ -175,14 +188,19 @@ class AppSettings {
     return AppSettings(
       language: AppLanguage.byKey(map['language'] as String?),
       themeMode: pick(ThemeMode.values, map['themeMode'], ThemeMode.system),
-      direction:
-          pick(StudyDirection.values, map['direction'], StudyDirection.ruToTr),
+      direction: pick(
+        StudyDirection.values,
+        map['direction'],
+        StudyDirection.ruToTr,
+      ),
       sessionSize: map['sessionSize'] as int? ?? 20,
       dailyGoal: map['dailyGoal'] as int? ?? 20,
       shuffle: map['shuffle'] as bool? ?? true,
       hapticsEnabled: map['haptics'] as bool? ?? true,
       autoSpeak: map['autoSpeak'] as bool? ?? false,
       speechRate: pick(SpeechRate.values, map['speechRate'], SpeechRate.normal),
+      ruVoice: map['ruVoice'] as String? ?? '',
+      trVoice: map['trVoice'] as String? ?? '',
       showTransliteration: map['showTranslit'] as bool? ?? true,
       showStressMarks: map['showStress'] as bool? ?? true,
       hideLearned: map['hideLearned'] as bool? ?? false,

@@ -45,8 +45,7 @@ class WordDetailScreen extends ConsumerWidget {
             ),
             tooltip: isStarred ? s.starRemove : s.starAdd,
             onPressed: () {
-              final added =
-                  ref.read(starredProvider.notifier).toggle(word.id);
+              final added = ref.read(starredProvider.notifier).toggle(word.id);
               added ? Haptics.medium() : Haptics.light();
             },
           ),
@@ -148,8 +147,10 @@ class WordDetailScreen extends ConsumerWidget {
                   title: s.meaning,
                   child: Text(
                     word.turkish,
-                    style: textTheme.headlineMedium
-                        ?.copyWith(color: palette.textPrimary, height: 1.3),
+                    style: textTheme.headlineMedium?.copyWith(
+                      color: palette.textPrimary,
+                      height: 1.3,
+                    ),
                   ),
                 ),
 
@@ -203,8 +204,9 @@ class WordDetailScreen extends ConsumerWidget {
                         icon: isLearned
                             ? Icons.check_circle_rounded
                             : Icons.circle_outlined,
-                        color:
-                            isLearned ? palette.learned : palette.textTertiary,
+                        color: isLearned
+                            ? palette.learned
+                            : palette.textTertiary,
                         label: isLearned ? s.learnedYes : s.learnedNo,
                         actionLabel: isLearned ? s.markReview : s.markLearned,
                         onAction: () {
@@ -245,8 +247,9 @@ class WordDetailScreen extends ConsumerWidget {
                     ),
                     label: Text(
                       s.reportWord,
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textTertiary),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textTertiary,
+                      ),
                     ),
                   ),
                 ),
@@ -278,8 +281,9 @@ class _Section extends StatelessWidget {
           children: [
             Text(
               title,
-              style: textTheme.labelSmall
-                  ?.copyWith(color: palette.textTertiary),
+              style: textTheme.labelSmall?.copyWith(
+                color: palette.textTertiary,
+              ),
             ),
             const Spacer(),
             ?action,
@@ -351,9 +355,7 @@ class _Chip extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
         color: filled ? color.withValues(alpha: 0.14) : Colors.transparent,
-        border: filled
-            ? null
-            : Border.all(color: color.withValues(alpha: 0.4)),
+        border: filled ? null : Border.all(color: color.withValues(alpha: 0.4)),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(

@@ -34,32 +34,32 @@ class Deck {
   /// Baslik ve alt baslik burada tutulmuyor: arayuz dili degisince yeniden
   /// uretilmeleri gerekiyor, deste listesi ise repository'de onbellekleniyor.
   String titleOf(Strings strings) => switch (kind) {
-        DeckKind.level => level!.label,
-        DeckKind.theme => strings.themeName(theme!),
-        DeckKind.starred => strings.starredTitle,
-      };
+    DeckKind.level => level!.label,
+    DeckKind.theme => strings.themeName(theme!),
+    DeckKind.starred => strings.starredTitle,
+  };
 
   String subtitleOf(Strings strings) => switch (kind) {
-        DeckKind.level => strings.levelName(level!),
-        DeckKind.theme => strings.themeDeckSubtitle(theme!),
-        DeckKind.starred => strings.starredEmptyHint,
-      };
+    DeckKind.level => strings.levelName(level!),
+    DeckKind.theme => strings.themeDeckSubtitle(theme!),
+    DeckKind.starred => strings.starredEmptyHint,
+  };
 
   factory Deck.fromLevel(WordLevel level) => Deck(
-        id: 'level_${level.name}',
-        kind: DeckKind.level,
-        icon: _levelIcons[level]!,
-        tint: _levelTints[level]!,
-        level: level,
-      );
+    id: 'level_${level.name}',
+    kind: DeckKind.level,
+    icon: _levelIcons[level]!,
+    tint: _levelTints[level]!,
+    level: level,
+  );
 
   factory Deck.fromTheme(WordTheme theme) => Deck(
-        id: 'theme_${theme.name}',
-        kind: DeckKind.theme,
-        icon: theme.icon,
-        tint: theme.tint,
-        theme: theme,
-      );
+    id: 'theme_${theme.name}',
+    kind: DeckKind.theme,
+    icon: theme.icon,
+    tint: theme.tint,
+    theme: theme,
+  );
 
   static const starred = Deck(
     id: 'starred',

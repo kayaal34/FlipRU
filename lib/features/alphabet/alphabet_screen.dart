@@ -27,10 +27,7 @@ class AlphabetScreen extends ConsumerWidget {
     final letters = teachesCyrillic ? russianAlphabet : turkishAlphabet;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(s.alphabetTitle),
-        centerTitle: false,
-      ),
+      appBar: AppBar(title: Text(s.alphabetTitle), centerTitle: false),
       body: SafeArea(
         top: false,
         child: Center(
@@ -44,9 +41,9 @@ class AlphabetScreen extends ConsumerWidget {
                     child: Text(
                       s.alphabetIntro(letters.length),
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: palette.textTertiary,
-                            height: 1.4,
-                          ),
+                        color: palette.textTertiary,
+                        height: 1.4,
+                      ),
                     ),
                   ),
                 ),
@@ -55,11 +52,11 @@ class AlphabetScreen extends ConsumerWidget {
                   sliver: SliverGrid(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      childAspectRatio: 0.92,
-                    ),
+                          crossAxisCount: 4,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          childAspectRatio: 0.92,
+                        ),
                     delegate: SliverChildBuilderDelegate(
                       childCount: letters.length,
                       (context, index) => _LetterTile(
@@ -92,10 +89,8 @@ class AlphabetScreen extends ConsumerWidget {
     showModalBottomSheet<void>(
       context: context,
       backgroundColor: Colors.transparent,
-      builder: (_) => _LetterSheet(
-        letter: letter,
-        teachesCyrillic: teachesCyrillic,
-      ),
+      builder: (_) =>
+          _LetterSheet(letter: letter, teachesCyrillic: teachesCyrillic),
     );
   }
 }
@@ -124,8 +119,9 @@ class _LetterTile extends StatelessWidget {
           children: [
             Text(
               letter.pair,
-              style: AppTypography.hero(palette.textPrimary)
-                  .copyWith(fontSize: 24),
+              style: AppTypography.hero(
+                palette.textPrimary,
+              ).copyWith(fontSize: 24),
             ),
             const SizedBox(height: 4),
             Text(
@@ -186,8 +182,9 @@ class _LetterSheet extends ConsumerWidget {
               children: [
                 Text(
                   letter.pair,
-                  style: AppTypography.hero(palette.textPrimary)
-                      .copyWith(fontSize: 44),
+                  style: AppTypography.hero(
+                    palette.textPrimary,
+                  ).copyWith(fontSize: 44),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
@@ -198,8 +195,9 @@ class _LetterSheet extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         '${s.alphabetSound}: ${letter.sound}',
-                        style: textTheme.bodySmall
-                            ?.copyWith(color: palette.textTertiary),
+                        style: textTheme.bodySmall?.copyWith(
+                          color: palette.textTertiary,
+                        ),
                       ),
                     ],
                   ),
@@ -243,8 +241,9 @@ class _LetterSheet extends ConsumerWidget {
                       const SizedBox(height: 2),
                       Text(
                         letter.meaning,
-                        style: textTheme.bodyMedium
-                            ?.copyWith(color: palette.textTertiary),
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: palette.textTertiary,
+                        ),
                       ),
                     ],
                   ),

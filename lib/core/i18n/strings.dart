@@ -116,6 +116,12 @@ class Strings {
     required this.dailyTest,
     required this.dailyTestSub,
     required this.ttsMissingTemplate,
+    required this.voiceRu,
+    required this.voiceTr,
+    required this.voicePickerHint,
+    required this.voiceDefault,
+    required this.voiceNone,
+    required this.voiceNumberedTemplate,
     required this.alphabetTitle,
     required this.alphabetCardSub,
     required this.alphabetIntroTemplate,
@@ -309,6 +315,8 @@ class Strings {
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
   final String ttsMissingTemplate;
+  final String voiceRu, voiceTr, voicePickerHint, voiceDefault;
+  final String voiceNone, voiceNumberedTemplate;
   final String alphabetTitle, alphabetCardSub, alphabetIntroTemplate;
   final String alphabetSound, alphabetExample;
   final String needFourLearned, starredTestSub;
@@ -396,6 +404,9 @@ class Strings {
   /// "7 harf" / "7 букв"
   String letters(int count) => '$count ${_agree(letterForms, count)}';
 
+  /// "Ses 3" / "Голос 3"
+  String voiceNumbered(int n) => voiceNumberedTemplate.replaceFirst('{}', '$n');
+
   /// Cihazda o dilin TTS sesi kurulu olmadığında gösterilir.
   String ttsMissing(String languageName) =>
       ttsMissingTemplate.replaceFirst('{}', languageName);
@@ -405,10 +416,9 @@ class Strings {
       alphabetIntroTemplate.replaceFirst('{}', letters(count));
 
   /// "3 / 25 test geçildi"
-  String writingTestsDone(int done, int total) =>
-      writingTestsDoneTemplate
-          .replaceFirst('{}', '$done')
-          .replaceFirst('{}', '$total');
+  String writingTestsDone(int done, int total) => writingTestsDoneTemplate
+      .replaceFirst('{}', '$done')
+      .replaceFirst('{}', '$total');
 
   /// Sayiyi kendin yazdiginda ("3 / 20 слов") yalnizca ismin dogru bicimi.
   String wordUnit(int count) => _agree(wordForms, count);
@@ -495,7 +505,8 @@ class Strings {
     learnedListSub: 'Öğrendiğin kelimelerin listesi',
     searchLearned: 'Öğrendiğin kelimelerde ara',
     searchNoResult: 'Eşleşen kelime yok',
-    learnedEmpty: 'Henüz kelime öğrenmedin. Bir bölüm çalış, '
+    learnedEmpty:
+        'Henüz kelime öğrenmedin. Bir bölüm çalış, '
         'öğrendiklerin burada birikir.',
     nextQuestion: 'Sonraki soru',
     seeResult: 'Sonucu gör',
@@ -507,8 +518,15 @@ class Strings {
     testsSubtitle: 'Bildiklerini ölç, yazarak pekiştir',
     dailyTest: 'Günün testi',
     dailyTestSub: 'Öğrendiklerinden 15 rastgele soru',
-    ttsMissingTemplate: 'Cihazında {} seslendirme sesi yüklü değil. '
+    ttsMissingTemplate:
+        'Cihazında {} seslendirme sesi yüklü değil. '
         'Telefon ayarlarındaki "Metin okuma" bölümünden indirebilirsin.',
+    voiceRu: 'Rusça sesi',
+    voiceTr: 'Türkçe sesi',
+    voicePickerHint: 'Dokunduğun sesi hemen dinlersin.',
+    voiceDefault: 'Varsayılan ses',
+    voiceNone: 'Bu dil için cihazda ses bulunamadı.',
+    voiceNumberedTemplate: 'Ses {}',
     alphabetTitle: 'Rus Alfabesi',
     alphabetCardSub: 'Kiril harflerini tanı, okunuşlarını öğren',
     alphabetIntroTemplate:
@@ -535,7 +553,8 @@ class Strings {
     allTime: 'Tüm zamanlar',
     statsNoData: 'Bu dönemde çalışılmış gün yok',
     statsEmptyTitle: 'Burası yakında dolacak',
-    statsEmptyBody: 'İlk kelimelerini çalıştıkça günlük serin, en verimli '
+    statsEmptyBody:
+        'İlk kelimelerini çalıştıkça günlük serin, en verimli '
         'günün ve ilerleme grafiğin burada birikmeye başlayacak.',
     bestDay: 'En verimli gün',
     activeDays: 'Çalışılan gün sayısı',
@@ -589,7 +608,8 @@ class Strings {
     rateFast: 'Hızlı',
     haptics: 'Dokunsal geri bildirim',
     hapticsSub: 'Kart çevirme ve kaydırmada hafif titreşim',
-    soundFooter: 'Telaffuz, cihazının ses paketlerini kullanır: '
+    soundFooter:
+        'Telaffuz, cihazının ses paketlerini kullanır: '
         'Rusça yüzde Rusça, Türkçe yüzde Türkçe okur.',
     myData: 'Verilerim',
     accountAndData: 'Hesap ve veri',
@@ -601,29 +621,35 @@ class Strings {
     version: 'Sürüm 1.0.0',
     privacy: 'Gizlilik Politikası',
     terms: 'Hizmet Kullanım Şartları',
-    aboutFooter: 'Sözlük verisi Vikisözlük (WikDict) ve Badestrand Rusça '
+    aboutFooter:
+        'Sözlük verisi Vikisözlük (WikDict) ve Badestrand Rusça '
         'sözlüğünden; örnek cümleler Tatoeba, TED2020, WikiMatrix ve '
         'OpenSubtitles derlemlerinden derlenmiştir.',
     onboardSkip: 'Atla',
     onboardNext: 'Devam',
     onboardStart: 'Başlayalım',
     onboardTitle1: 'Rusça öğrenmeye başla',
-    onboardBody1: '8.000 kelimeden fazlası, okunuşu ve örnek cümlesiyle. '
+    onboardBody1:
+        '8.000 kelimeden fazlası, okunuşu ve örnek cümlesiyle. '
         'Başlangıçtan ileri seviyeye, adım adım.',
     onboardTitle2: 'Kartı çevir, kaydır',
-    onboardBody2: 'Karta dokun, anlamı görün. Bildiğin kelimeyi sağa kaydır, '
+    onboardBody2:
+        'Karta dokun, anlamı görün. Bildiğin kelimeyi sağa kaydır, '
         'tekrar etmen gerekeni sola. Her bölüm 20 kelime.',
     onboardTitleAlphabet: 'Kiril alfabesini biliyor musun?',
-    onboardBodyAlphabet: 'Harfleri tanımadan kelime ezberlemek zor. '
+    onboardBodyAlphabet:
+        'Harfleri tanımadan kelime ezberlemek zor. '
         'İstersen 33 harfle başlayalım, istersen doğrudan kelimelere geç.',
     onboardAlphabetStart: 'Alfabeyle başlayalım',
     onboardAlphabetSkip: 'Biliyorum, kelimelere geçelim',
     onboardTitleWidget: 'Widget’ı ana ekranına ekle',
-    onboardBodyWidget: 'Her gün yeni bir kelime ve günlük serin, uygulamayı '
+    onboardBodyWidget:
+        'Her gün yeni bir kelime ve günlük serin, uygulamayı '
         'açmadan telefonunun ana ekranında. Ana ekranına uzun bas, widget '
         'listesinden FlipRU’yu seç.',
     onboardTitle3: 'Günlük hedefin ne olsun?',
-    onboardBody3: 'Her gün bu kadar yeni kelime. Sonradan ayarlardan '
+    onboardBody3:
+        'Her gün bu kadar yeni kelime. Sonradan ayarlardan '
         'değiştirebilirsin.',
     deleteOps: 'Silme işlemleri',
     deleteOpsFooter: 'Buradaki işlemlerin hiçbiri geri alınamaz.',
@@ -642,7 +668,8 @@ class Strings {
     reportTitle: 'Neyi bildirmek istiyorsun?',
     reportSubmit: 'Bildir',
     reportNote: 'İstersen doğrusunu yaz (isteğe bağlı)',
-    reportSaved: 'Bildirimin kaydedildi. Ayarlar › Hesap ve veri bölümünden '
+    reportSaved:
+        'Bildirimin kaydedildi. Ayarlar › Hesap ve veri bölümünden '
         'bize gönderebilirsin.',
     reportReasonTranslation: 'Çeviri yanlış',
     reportReasonExample: 'Örnek cümle saçma',
@@ -650,13 +677,15 @@ class Strings {
     reportReasonOther: 'Başka bir sorun',
     reportsTitle: 'Hatalı kelimeler',
     reportsEmpty: 'Henüz bildirim yok',
-    reportsEmptyBody: 'Çeviri ya da örnek cümle sana yanlış geldiyse kartın '
+    reportsEmptyBody:
+        'Çeviri ya da örnek cümle sana yanlış geldiyse kartın '
         'altındaki bağlantıya dokun.',
     reportsSend: 'Bize gönder',
     reportsClear: 'Tümünü sil',
     reportRemove: 'Bildirimi kaldır',
     starredScreenEmpty: 'Henüz yıldızlı kelime yok',
-    starredScreenEmptyBody: 'Çalışırken zorlandığın kelimenin yıldızına dokun; '
+    starredScreenEmptyBody:
+        'Çalışırken zorlandığın kelimenin yıldızına dokun; '
         'hepsi burada toplansın.',
     studyAll: 'Hepsini çalış',
     splashTagline: '8.000+ kelime, örnek cümlelerle',
@@ -677,13 +706,15 @@ class Strings {
     widgetEvery6h: '6 saatte bir',
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
-    widgetFooter: 'Widget’ı ana ekranına eklersen her gün yeni bir kelimeyi '
+    widgetFooter:
+        'Widget’ı ana ekranına eklersen her gün yeni bir kelimeyi '
         've günlük serini uygulamayı açmadan görürsün. Eklemek için ana '
         'ekranına uzun bas, widget listesinden FlipRU’yu seç. Widget '
         'yalnızca uygulamayı açtığında tazelenir.',
     notifChannel: 'Günlük hatırlatma',
     notifChannelDesc: 'Çalışma setini tamamlamadığında hatırlatır',
-    deckEmptyHint: 'Kartların üzerindeki yıldıza dokunarak kelime ekleyebilirsin.',
+    deckEmptyHint:
+        'Kartların üzerindeki yıldıza dokunarak kelime ekleyebilirsin.',
     singleSourceWarning: 'Bu çeviri tek kaynaktan; hatalı olabilir',
     themeSubtitle: '{} terimleri',
     levelDescriptions: {
@@ -812,7 +843,8 @@ class Strings {
     learnedListSub: 'Список выученных слов',
     searchLearned: 'Поиск среди выученных',
     searchNoResult: 'Ничего не найдено',
-    learnedEmpty: 'Ты ещё не выучил слов. Позанимайся разделом — '
+    learnedEmpty:
+        'Ты ещё не выучил слов. Позанимайся разделом — '
         'выученное соберётся здесь.',
     nextQuestion: 'Следующий вопрос',
     seeResult: 'Посмотреть результат',
@@ -824,8 +856,15 @@ class Strings {
     testsSubtitle: 'Проверяй знания и закрепляй письмом',
     dailyTest: 'Тест дня',
     dailyTestSub: '15 случайных вопросов из выученного',
-    ttsMissingTemplate: 'На устройстве не установлен голос «{}». '
+    ttsMissingTemplate:
+        'На устройстве не установлен голос «{}». '
         'Его можно скачать в настройках телефона, раздел «Синтез речи».',
+    voiceRu: 'Русский голос',
+    voiceTr: 'Турецкий голос',
+    voicePickerHint: 'Нажмите на голос, чтобы услышать его.',
+    voiceDefault: 'Голос по умолчанию',
+    voiceNone: 'Голоса для этого языка не найдены.',
+    voiceNumberedTemplate: 'Голос {}',
     alphabetTitle: 'Турецкий алфавит',
     alphabetCardSub: 'Изучите турецкие буквы и их произношение',
     alphabetIntroTemplate:
@@ -852,7 +891,8 @@ class Strings {
     allTime: 'Всё время',
     statsNoData: 'В этот период занятий не было',
     statsEmptyTitle: 'Скоро здесь появятся цифры',
-    statsEmptyBody: 'Как только вы начнёте учить слова, здесь соберутся '
+    statsEmptyBody:
+        'Как только вы начнёте учить слова, здесь соберутся '
         'ваша серия дней, лучший день и график прогресса.',
     bestDay: 'Лучший день',
     activeDays: 'Дней занятий',
@@ -917,29 +957,35 @@ class Strings {
     version: 'Версия 1.0.0',
     privacy: 'Политика конфиденциальности',
     terms: 'Условия использования',
-    aboutFooter: 'Словарные данные — из Викисловаря (WikDict) и русского '
+    aboutFooter:
+        'Словарные данные — из Викисловаря (WikDict) и русского '
         'словаря Badestrand; примеры — из корпусов Tatoeba, TED2020, '
         'WikiMatrix и OpenSubtitles.',
     onboardSkip: 'Пропустить',
     onboardNext: 'Далее',
     onboardStart: 'Начнём',
     onboardTitle1: 'Начни учить слова',
-    onboardBody1: 'Более 8.000 слов с произношением и примерами. '
+    onboardBody1:
+        'Более 8.000 слов с произношением и примерами. '
         'От начального уровня до продвинутого, шаг за шагом.',
     onboardTitle2: 'Переверни карточку, свайпни',
-    onboardBody2: 'Нажми на карточку, чтобы увидеть значение. Знаешь слово — '
+    onboardBody2:
+        'Нажми на карточку, чтобы увидеть значение. Знаешь слово — '
         'свайп вправо, нужно повторить — влево. В разделе 20 слов.',
     onboardTitleAlphabet: 'Знаете турецкий алфавит?',
-    onboardBodyAlphabet: 'Учить слова, не зная букв, тяжело. '
+    onboardBodyAlphabet:
+        'Учить слова, не зная букв, тяжело. '
         'Можно начать с 29 букв или сразу перейти к словам.',
     onboardAlphabetStart: 'Начнём с алфавита',
     onboardAlphabetSkip: 'Знаю, перейдём к словам',
     onboardTitleWidget: 'Добавь виджет на главный экран',
-    onboardBodyWidget: 'Каждый день новое слово и твоя серия — прямо на '
+    onboardBodyWidget:
+        'Каждый день новое слово и твоя серия — прямо на '
         'главном экране, без запуска приложения. Долгое нажатие на главном '
         'экране, затем FlipRU в списке виджетов.',
     onboardTitle3: 'Какая у тебя дневная цель?',
-    onboardBody3: 'Столько новых слов каждый день. Потом можно изменить '
+    onboardBody3:
+        'Столько новых слов каждый день. Потом можно изменить '
         'в настройках.',
     deleteOps: 'Удаление данных',
     deleteOpsFooter: 'Ни одно из этих действий нельзя отменить.',
@@ -958,7 +1004,8 @@ class Strings {
     reportTitle: 'О чём хочешь сообщить?',
     reportSubmit: 'Отправить',
     reportNote: 'Напиши верный вариант (необязательно)',
-    reportSaved: 'Сообщение сохранено. Отправить можно в разделе '
+    reportSaved:
+        'Сообщение сохранено. Отправить можно в разделе '
         '«Аккаунт и данные».',
     reportReasonTranslation: 'Неверный перевод',
     reportReasonExample: 'Странный пример',
@@ -966,13 +1013,15 @@ class Strings {
     reportReasonOther: 'Другая проблема',
     reportsTitle: 'Ошибки в словах',
     reportsEmpty: 'Сообщений пока нет',
-    reportsEmptyBody: 'Если перевод или пример кажется неверным, нажми на '
+    reportsEmptyBody:
+        'Если перевод или пример кажется неверным, нажми на '
         'ссылку под карточкой.',
     reportsSend: 'Отправить нам',
     reportsClear: 'Удалить все',
     reportRemove: 'Убрать сообщение',
     starredScreenEmpty: 'Избранных слов пока нет',
-    starredScreenEmptyBody: 'Нажимай на звёздочку у трудных слов — они '
+    starredScreenEmptyBody:
+        'Нажимай на звёздочку у трудных слов — они '
         'соберутся здесь.',
     studyAll: 'Учить все',
     splashTagline: '8.000+ слов с примерами',
@@ -993,7 +1042,8 @@ class Strings {
     widgetEvery6h: 'Каждые 6 часов',
     widgetEvery12h: 'Каждые 12 часов',
     widgetDaily: 'Раз в день',
-    widgetFooter: 'Добавь виджет на главный экран — каждый день новое слово '
+    widgetFooter:
+        'Добавь виджет на главный экран — каждый день новое слово '
         'и твоя серия будут видны без запуска приложения. Долгое нажатие '
         'на главном экране, затем FlipRU в списке виджетов. Виджет '
         'обновляется при открытии приложения.',

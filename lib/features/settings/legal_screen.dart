@@ -51,8 +51,9 @@ class LegalScreen extends StatelessWidget {
                 if (document != LegalDocument.contact) ...[
                   Text(
                     'Last updated: 16 August 2026',
-                    style: textTheme.bodySmall
-                        ?.copyWith(color: palette.textTertiary),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                   const SizedBox(height: 18),
                 ],
@@ -136,10 +137,7 @@ class LegalScreen extends StatelessWidget {
       'You can reset your progress, stars and preferences at any time from '
           'Settings › Account. Uninstalling the app also erases all data.',
     ),
-    (
-      'Contact',
-      'For questions or data requests, write to $kIletisimAdresi.',
-    ),
+    ('Contact', 'For questions or data requests, write to $kIletisimAdresi.'),
   ];
 
   static const List<(String, String)> _terms = [

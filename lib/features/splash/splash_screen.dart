@@ -112,18 +112,18 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
                   Text(
                     'FlipRU',
                     style: Theme.of(context).textTheme.displayLarge?.copyWith(
-                          fontSize: 36,
-                          letterSpacing: -1.2,
-                        ),
+                      fontSize: 36,
+                      letterSpacing: -1.2,
+                    ),
                   ),
                   const SizedBox(height: 5),
                   Text(
                     ref.watch(stringsProvider).splashTagline,
                     textAlign: TextAlign.center,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: palette.textTertiary,
-                          height: 1.45,
-                        ),
+                      color: palette.textTertiary,
+                      height: 1.45,
+                    ),
                   ),
                 ],
               ),

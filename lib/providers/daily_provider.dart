@@ -24,9 +24,7 @@ class DailyProgressNotifier extends Notifier<Map<String, int>> {
     final raw = ref.read(sharedPreferencesProvider).getString(_key);
     if (raw == null) return const {};
     final decoded = json.decode(raw) as Map<String, dynamic>;
-    return {
-      for (final entry in decoded.entries) entry.key: entry.value as int,
-    };
+    return {for (final entry in decoded.entries) entry.key: entry.value as int};
   }
 
   /// Bir kelime ilk kez "öğrendim" işaretlendiğinde çağrılır.
@@ -47,16 +45,14 @@ class DailyProgressNotifier extends Notifier<Map<String, int>> {
           entry.key: entry.value,
     };
     state = pruned;
-    ref
-        .read(sharedPreferencesProvider)
-        .setString(_key, json.encode(pruned));
+    ref.read(sharedPreferencesProvider).setString(_key, json.encode(pruned));
   }
 }
 
 final dailyProgressProvider =
     NotifierProvider<DailyProgressNotifier, Map<String, int>>(
-  DailyProgressNotifier.new,
-);
+      DailyProgressNotifier.new,
+    );
 
 /// Uygulamanın açıldığı günler. Seri (streak) buradan hesaplanıyor:
 /// kullanıcı bir gün hiç girmezse seri sıfırlanır.
@@ -90,8 +86,9 @@ class VisitNotifier extends Notifier<Set<String>> {
   }
 }
 
-final visitProvider =
-    NotifierProvider<VisitNotifier, Set<String>>(VisitNotifier.new);
+final visitProvider = NotifierProvider<VisitNotifier, Set<String>>(
+  VisitNotifier.new,
+);
 
 /// Kesintisiz giriş serisi.
 final streakProvider = Provider<int>((ref) {
@@ -141,9 +138,9 @@ final learningStatsProvider = Provider<LearningStats>((ref) {
   final now = DateTime.now();
 
   List<int> window(int days) => [
-        for (var i = days - 1; i >= 0; i--)
-          history[_dayKey(now.subtract(Duration(days: i)))] ?? 0,
-      ];
+    for (var i = days - 1; i >= 0; i--)
+      history[_dayKey(now.subtract(Duration(days: i)))] ?? 0,
+  ];
 
   final week = window(7);
   final month = window(30);
@@ -154,9 +151,11 @@ final learningStatsProvider = Provider<LearningStats>((ref) {
   var allTime = const <int>[];
   if (keys.isNotEmpty) {
     final ilk = DateTime.parse(keys.first);
-    final gun = DateTime(now.year, now.month, now.day)
-        .difference(DateTime(ilk.year, ilk.month, ilk.day))
-        .inDays;
+    final gun = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).difference(DateTime(ilk.year, ilk.month, ilk.day)).inDays;
     allTime = window(gun < 0 ? 1 : gun + 1);
   }
 

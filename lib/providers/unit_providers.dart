@@ -39,8 +39,9 @@ class PassedUnitsNotifier extends Notifier<Set<String>> {
   }
 }
 
-final passedUnitsProvider =
-    NotifierProvider<PassedUnitsNotifier, Set<String>>(PassedUnitsNotifier.new);
+final passedUnitsProvider = NotifierProvider<PassedUnitsNotifier, Set<String>>(
+  PassedUnitsNotifier.new,
+);
 
 /// Bir bölüm/yazma testi tam puanla geçilemeden yarıda bırakılırsa, o turda
 /// yanlış yapılan kelimeler burada saklanıyor.
@@ -88,8 +89,8 @@ class PendingWrongNotifier extends Notifier<Map<String, List<String>>> {
 
 final pendingWrongProvider =
     NotifierProvider<PendingWrongNotifier, Map<String, List<String>>>(
-  PendingWrongNotifier.new,
-);
+      PendingWrongNotifier.new,
+    );
 
 /// Bir destenin bölümleri, kullanıcı ilerlemesiyle birlikte.
 ///
@@ -112,10 +113,9 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
   var lastPassed = -1;
   final passedFlags = <bool>[];
   for (var i = 0; i < units.length; i++) {
-    final count =
-        units[i].words.where((w) => learned.contains(w.id)).length;
-    final passed = passedByTest.contains(units[i].id) ||
-        count >= units[i].passThreshold;
+    final count = units[i].words.where((w) => learned.contains(w.id)).length;
+    final passed =
+        passedByTest.contains(units[i].id) || count >= units[i].passThreshold;
     passedFlags.add(passed);
     if (passed) lastPassed = i;
   }

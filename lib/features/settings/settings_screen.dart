@@ -8,6 +8,7 @@ import '../../data/models/app_settings.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/report_provider.dart';
 import '../../providers/settings_provider.dart';
+import 'voice_picker_sheet.dart';
 import 'account_screen.dart';
 import 'legal_screen.dart';
 import 'reports_screen.dart';
@@ -108,16 +109,18 @@ class SettingsScreen extends ConsumerWidget {
                       subtitle: t.stressMarksSub,
                       icon: Icons.format_overline_rounded,
                       value: settings.showStressMarks,
-                      onChanged: (v) =>
-                          notifier.update((s) => s.copyWith(showStressMarks: v)),
+                      onChanged: (v) => notifier.update(
+                        (s) => s.copyWith(showStressMarks: v),
+                      ),
                     ),
                     SettingsSwitch(
                       title: t.translitTitle,
                       subtitle: t.translitSub,
                       icon: Icons.record_voice_over_rounded,
                       value: settings.showTransliteration,
-                      onChanged: (v) => notifier
-                          .update((s) => s.copyWith(showTransliteration: v)),
+                      onChanged: (v) => notifier.update(
+                        (s) => s.copyWith(showTransliteration: v),
+                      ),
                     ),
                     SettingsSwitch(
                       title: t.shuffle,
@@ -154,8 +157,7 @@ class SettingsScreen extends ConsumerWidget {
                               .read(notificationServiceProvider)
                               .requestPermission();
                         }
-                        notifier
-                            .update((s) => s.copyWith(reminderEnabled: v));
+                        notifier.update((s) => s.copyWith(reminderEnabled: v));
                       },
                     ),
                     SettingsRow(
@@ -236,6 +238,24 @@ class SettingsScreen extends ConsumerWidget {
                           ..speak('Привет');
                       },
                     ),
+                    SettingsRow(
+                      title: t.voiceRu,
+                      icon: Icons.record_voice_over_rounded,
+                      onTap: () => VoicePickerSheet.show(
+                        context,
+                        language: 'ru-RU',
+                        title: t.voiceRu,
+                      ),
+                    ),
+                    SettingsRow(
+                      title: t.voiceTr,
+                      icon: Icons.record_voice_over_outlined,
+                      onTap: () => VoicePickerSheet.show(
+                        context,
+                        language: 'tr-TR',
+                        title: t.voiceTr,
+                      ),
+                    ),
                     SettingsSwitch(
                       title: t.haptics,
                       subtitle: t.hapticsSub,
@@ -281,9 +301,7 @@ class SettingsScreen extends ConsumerWidget {
                 SettingsSection(
                   title: t.about,
                   footer: t.aboutFooter,
-                  children: [
-                    const _VersionRow(),
-                  ],
+                  children: [const _VersionRow()],
                 ),
                 const SizedBox(height: 22),
                 const _LegalLinks(),
@@ -291,10 +309,9 @@ class SettingsScreen extends ConsumerWidget {
                 Center(
                   child: Text(
                     'FlipRU',
-                    style: Theme.of(context)
-                        .textTheme
-                        .titleLarge
-                        ?.copyWith(color: palette.textTertiary),
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      color: palette.textTertiary,
+                    ),
                   ),
                 ),
               ],
@@ -304,7 +321,6 @@ class SettingsScreen extends ConsumerWidget {
       ),
     );
   }
-
 }
 
 /// Sürüm satırı.
@@ -330,24 +346,22 @@ class _LegalLinks extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final style = Theme.of(context).textTheme.bodySmall?.copyWith(
-          color: palette.textTertiary,
-          fontSize: 11.5,
-          decoration: TextDecoration.underline,
-          decorationColor: palette.textTertiary,
-        );
+      color: palette.textTertiary,
+      fontSize: 11.5,
+      decoration: TextDecoration.underline,
+      decorationColor: palette.textTertiary,
+    );
 
     Widget link(LegalDocument document) => GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: () => Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (_) => LegalScreen(document: document),
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-            child: Text(document.title, style: style),
-          ),
-        );
+      behavior: HitTestBehavior.opaque,
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(builder: (_) => LegalScreen(document: document)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Text(document.title, style: style),
+      ),
+    );
 
     return Wrap(
       alignment: WrapAlignment.center,

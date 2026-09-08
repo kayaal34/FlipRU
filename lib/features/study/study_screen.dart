@@ -27,12 +27,19 @@ class StudyScreen extends ConsumerStatefulWidget {
     required this.title,
     required this.words,
     this.accent,
+    this.nextLabel,
+    this.onNext,
     super.key,
   });
 
   final String title;
   final List<Word> words;
   final Color? accent;
+
+  /// Seans bitiminde "sonraki bölüme geç" düğmesi için. Yıldızlı gibi
+  /// bölüm kavramı olmayan seanslarda boş bırakılıyor.
+  final String? nextLabel;
+  final void Function(BuildContext context)? onNext;
 
   @override
   ConsumerState<StudyScreen> createState() => _StudyScreenState();
@@ -73,8 +80,9 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     var list = [...widget.words];
 
     if (_settings.hideLearned) {
-      final remaining =
-          list.where((word) => !learned.contains(word.id)).toList();
+      final remaining = list
+          .where((word) => !learned.contains(word.id))
+          .toList();
       // Deste tamamen öğrenilmişse boş ekran yerine tekrar çalıştır.
       if (remaining.isNotEmpty) list = remaining;
     }
@@ -183,6 +191,8 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
         builder: (_) => SessionSummaryScreen(
           deckTitle: widget.title,
           accent: widget.accent,
+          nextLabel: widget.nextLabel,
+          onNext: widget.onNext,
           learnedWords: [
             for (final r in _history)
               if (r.learned) r.word,
@@ -366,8 +376,9 @@ class _StudyHeader extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       '$current / $total ${strings.wordsCounter}',
-                      style: textTheme.bodySmall
-                          ?.copyWith(color: palette.textTertiary),
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textTertiary,
+                      ),
                     ),
                   ],
                 ),
@@ -416,11 +427,7 @@ class _StudyHeader extends StatelessWidget {
 }
 
 class _Tally extends StatelessWidget {
-  const _Tally({
-    required this.count,
-    required this.color,
-    required this.icon,
-  });
+  const _Tally({required this.count, required this.color, required this.icon});
 
   final int count;
   final Color color;
@@ -437,10 +444,10 @@ class _Tally extends StatelessWidget {
           width: 20,
           child: Text(
             '$count',
-            style: Theme.of(context)
-                .textTheme
-                .labelMedium
-                ?.copyWith(color: color, fontWeight: FontWeight.w700),
+            style: Theme.of(context).textTheme.labelMedium?.copyWith(
+              color: color,
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ),
       ],
@@ -493,11 +500,7 @@ class _EmptyDeckState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.style_outlined,
-              size: 54,
-              color: palette.textTertiary,
-            ),
+            Icon(Icons.style_outlined, size: 54, color: palette.textTertiary),
             const SizedBox(height: 18),
             Text(strings.deckEmpty, style: textTheme.titleLarge),
             const SizedBox(height: 8),

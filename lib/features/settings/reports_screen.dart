@@ -16,7 +16,8 @@ import '../../providers/settings_provider.dart';
 class ReportsScreen extends ConsumerWidget {
   const ReportsScreen({super.key});
 
-  static String _reasonLabel(ReportReason reason, Strings s) => switch (reason) {
+  static String _reasonLabel(ReportReason reason, Strings s) =>
+      switch (reason) {
         ReportReason.translation => s.reportReasonTranslation,
         ReportReason.example => s.reportReasonExample,
         ReportReason.pronunciation => s.reportReasonPronunciation,
@@ -105,8 +106,9 @@ class ReportsScreen extends ConsumerWidget {
                                   const SizedBox(height: 3),
                                   Text(
                                     _reasonLabel(report.reason, t),
-                                    style: textTheme.bodySmall
-                                        ?.copyWith(color: palette.review),
+                                    style: textTheme.bodySmall?.copyWith(
+                                      color: palette.review,
+                                    ),
                                   ),
                                   if (report.note.isNotEmpty) ...[
                                     const SizedBox(height: 3),
@@ -159,8 +161,7 @@ class ReportsScreen extends ConsumerWidget {
                   child: FilledButton(
                     onPressed: () async {
                       Haptics.light();
-                      final text =
-                          ref.read(reportProvider.notifier).asText();
+                      final text = ref.read(reportProvider.notifier).asText();
                       const konu = 'FlipRU — hatalı kelime bildirimleri';
 
                       // Once posta uygulamasi, alici hazir gelsin diye.
