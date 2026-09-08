@@ -8,13 +8,14 @@ import '../../core/utils/haptics.dart';
 import '../../core/widgets/pressable.dart';
 import '../../data/models/app_settings.dart';
 import '../../providers/settings_provider.dart';
+import '../alphabet/alphabet_screen.dart';
 import '../shell/app_shell.dart';
 
 /// İlk açılış tanıtımı.
 ///
-/// Önceden kullanıcı doğrudan ana ekrana düşüyordu: kart çevirmenin,
-/// kaydırmanın ve bölüm mantığının nasıl işlediğini kimse anlatmıyordu.
-/// Üç sayfa — ne olduğu, nasıl çalıştığı, günlük hedef — sonra uygulama.
+/// Üç sayfa: ne olduğu, alfabeyi bilip bilmediği, günlük hedef. Kaydırma
+/// ve widget tanıtımı çıkarıldı — ilki kartın kendi ipucunda zaten yazıyor,
+/// ikincisi kullanıcıdan bir karar istemiyordu.
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
 
@@ -26,7 +27,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   final _controller = PageController();
   int _page = 0;
 
-  static const _pages = 4;
+  static const _pages = 3;
+
+  /// Son sayfada "alfabeyle başla" seçilirse bitişte alfabe ekranı açılır.
+  bool _startWithAlphabet = false;
 
   @override
   void dispose() {
@@ -54,9 +58,15 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     // ekranindan gelen bir geri cagirma kullaniliyordu; o ekran bu noktada
     // coktan kapanmis oluyor ve olu bir context'e dokunuluyordu.
     if (!mounted) return;
-    Navigator.of(context).pushReplacement(
+    final navigator = Navigator.of(context);
+    navigator.pushReplacement(
       MaterialPageRoute(builder: (_) => const AppShell()),
     );
+    // Alfabe, kabuğun üstüne açılıyor: geri tuşu kullanıcıyı ana ekrana
+    // bırakıyor, alfabeyi atlamak için ayrı bir yol aramasına gerek kalmıyor.
+    if (_startWithAlphabet) {
+      navigator.push(MaterialPageRoute(builder: (_) => const AlphabetScreen()));
+    }
   }
 
   @override
@@ -91,19 +101,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                         title: s.onboardTitle1,
                         body: s.onboardBody1,
                       ),
-                      _Slide(
-                        icon: Icons.swipe_rounded,
-                        tint: palette.learned,
-                        title: s.onboardTitle2,
-                        body: s.onboardBody2,
-                      ),
-                      _Slide(
-                        icon: Icons.widgets_rounded,
-                        // Hedef sayfasi zaten altin; iki sayfa arka arkaya
-                        // ayni renk olmasin diye burada mor kullaniliyor.
-                        tint: palette.accent,
-                        title: s.onboardTitleWidget,
-                        body: s.onboardBodyWidget,
+                      _AlphabetSlide(
+                        strings: s,
+                        selected: _startWithAlphabet,
+                        onSelect: (value) {
+                          Haptics.selection();
+                          setState(() => _startWithAlphabet = value);
+                        },
                       ),
                       _GoalSlide(
                         strings: s,
@@ -204,6 +208,129 @@ class _Slide extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// İkinci sayfa: alfabeyi bilip bilmediğini sorar.
+///
+/// Yeni başlayan için alfabe ilk gün gereken tek şey; bilen için ise ana
+/// ekranda sürekli duran bir kart fazlalık. Soruyu burada bir kez sormak
+/// ikisini de memnun ediyor.
+class _AlphabetSlide extends StatelessWidget {
+  const _AlphabetSlide({
+    required this.strings,
+    required this.selected,
+    required this.onSelect,
+  });
+
+  final Strings strings;
+  final bool selected;
+  final ValueChanged<bool> onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 28),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 116,
+            height: 116,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              color: palette.learned.withValues(alpha: 0.14),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(Icons.abc_rounded, size: 60, color: palette.learned),
+          ),
+          const SizedBox(height: 34),
+          Text(
+            strings.onboardTitleAlphabet,
+            textAlign: TextAlign.center,
+            style: AppTypography.largeTitle(palette.textPrimary),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            strings.onboardBodyAlphabet,
+            textAlign: TextAlign.center,
+            style: textTheme.bodyLarge?.copyWith(
+              color: palette.textSecondary,
+              height: 1.5,
+            ),
+          ),
+          const SizedBox(height: 26),
+          _AlphabetChoice(
+            label: strings.onboardAlphabetStart,
+            selected: selected,
+            onTap: () => onSelect(true),
+          ),
+          const SizedBox(height: 10),
+          _AlphabetChoice(
+            label: strings.onboardAlphabetSkip,
+            selected: !selected,
+            onTap: () => onSelect(false),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AlphabetChoice extends StatelessWidget {
+  const _AlphabetChoice({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Pressable(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
+        decoration: BoxDecoration(
+          color: selected ? palette.accentSoft : palette.surface,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: selected ? palette.accent : palette.separator,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              selected
+                  ? Icons.radio_button_checked_rounded
+                  : Icons.radio_button_unchecked_rounded,
+              size: 21,
+              color: selected ? palette.accent : palette.textTertiary,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                label,
+                style: textTheme.titleSmall?.copyWith(
+                  color: palette.textPrimary,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

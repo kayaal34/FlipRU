@@ -139,6 +139,8 @@ class Strings {
     required this.last30,
     required this.allTime,
     required this.statsNoData,
+    required this.statsEmptyTitle,
+    required this.statsEmptyBody,
     required this.bestDay,
     required this.activeDays,
     required this.dailyAverage,
@@ -210,6 +212,10 @@ class Strings {
     required this.onboardBody1,
     required this.onboardTitle2,
     required this.onboardBody2,
+    required this.onboardTitleAlphabet,
+    required this.onboardBodyAlphabet,
+    required this.onboardAlphabetStart,
+    required this.onboardAlphabetSkip,
     required this.onboardTitleWidget,
     required this.onboardBodyWidget,
     required this.onboardTitle3,
@@ -312,6 +318,7 @@ class Strings {
   final String last7, last30, bestDay, activeDays, dailyAverage;
   final String goalHitDays;
   final String allTime, statsNoData;
+  final String statsEmptyTitle, statsEmptyBody;
   final String quizSection, quizCount, quizAccuracy, quizBest, quizLast;
   final String quizNone;
 
@@ -336,6 +343,8 @@ class Strings {
   final String onboardTitle1, onboardBody1;
   final String onboardTitle2, onboardBody2;
   final String onboardTitleWidget, onboardBodyWidget;
+  final String onboardTitleAlphabet, onboardBodyAlphabet;
+  final String onboardAlphabetStart, onboardAlphabetSkip;
   final String onboardTitle3, onboardBody3;
   final String deleteOps, deleteOpsFooter;
   final String clearStars, clearStarsSub, resetProgress, resetProgressSub;
@@ -524,7 +533,10 @@ class Strings {
     last7: '7 gün',
     last30: '30 gün',
     allTime: 'Tüm zamanlar',
-    statsNoData: 'Henüz kayıtlı gün yok',
+    statsNoData: 'Bu dönemde çalışılmış gün yok',
+    statsEmptyTitle: 'Burası yakında dolacak',
+    statsEmptyBody: 'İlk kelimelerini çalıştıkça günlük serin, en verimli '
+        'günün ve ilerleme grafiğin burada birikmeye başlayacak.',
     bestDay: 'En verimli gün',
     activeDays: 'Çalışılan gün sayısı',
     dailyAverage: 'Günlük ortalama',
@@ -601,6 +613,11 @@ class Strings {
     onboardTitle2: 'Kartı çevir, kaydır',
     onboardBody2: 'Karta dokun, anlamı görün. Bildiğin kelimeyi sağa kaydır, '
         'tekrar etmen gerekeni sola. Her bölüm 20 kelime.',
+    onboardTitleAlphabet: 'Kiril alfabesini biliyor musun?',
+    onboardBodyAlphabet: 'Harfleri tanımadan kelime ezberlemek zor. '
+        'İstersen 33 harfle başlayalım, istersen doğrudan kelimelere geç.',
+    onboardAlphabetStart: 'Alfabeyle başlayalım',
+    onboardAlphabetSkip: 'Biliyorum, kelimelere geçelim',
     onboardTitleWidget: 'Widget’ı ana ekranına ekle',
     onboardBodyWidget: 'Her gün yeni bir kelime ve günlük serin, uygulamayı '
         'açmadan telefonunun ana ekranında. Ana ekranına uzun bas, widget '
@@ -833,7 +850,10 @@ class Strings {
     last7: '7 дней',
     last30: '30 дней',
     allTime: 'Всё время',
-    statsNoData: 'Пока нет данных',
+    statsNoData: 'В этот период занятий не было',
+    statsEmptyTitle: 'Скоро здесь появятся цифры',
+    statsEmptyBody: 'Как только вы начнёте учить слова, здесь соберутся '
+        'ваша серия дней, лучший день и график прогресса.',
     bestDay: 'Лучший день',
     activeDays: 'Дней занятий',
     dailyAverage: 'В среднем за день',
@@ -909,6 +929,11 @@ class Strings {
     onboardTitle2: 'Переверни карточку, свайпни',
     onboardBody2: 'Нажми на карточку, чтобы увидеть значение. Знаешь слово — '
         'свайп вправо, нужно повторить — влево. В разделе 20 слов.',
+    onboardTitleAlphabet: 'Знаете турецкий алфавит?',
+    onboardBodyAlphabet: 'Учить слова, не зная букв, тяжело. '
+        'Можно начать с 29 букв или сразу перейти к словам.',
+    onboardAlphabetStart: 'Начнём с алфавита',
+    onboardAlphabetSkip: 'Знаю, перейдём к словам',
     onboardTitleWidget: 'Добавь виджет на главный экран',
     onboardBodyWidget: 'Каждый день новое слово и твоя серия — прямо на '
         'главном экране, без запуска приложения. Долгое нажатие на главном '

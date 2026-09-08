@@ -1,8 +1,9 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/i18n/strings.dart';
 import '../../core/theme/app_palette.dart';
+import '../../core/theme/app_typography.dart';
 import '../../core/widgets/segmented_switch.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
@@ -42,7 +43,6 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final stats = ref.watch(learningStatsProvider);
     final streak = ref.watch(streakProvider);
     final total = ref.watch(overallProgressProvider).learned;
-    final starred = ref.watch(starredProvider).length;
     final t = ref.watch(stringsProvider);
     final quiz = ref.watch(quizSummaryProvider);
     final hedef = ref.watch(settingsProvider).dailyGoal;
@@ -58,6 +58,10 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
       _ => stats.allTimeDaily,
     };
     final toplam = seri.fold(0, (a, b) => a + b);
+    // Hic calisma yoksa sifirlarla dolu kutular, bos grafik ve "0 gun"
+    // satirlari ayni seyi uc kez soyluyordu; onun yerine tek bir karsilama
+    // gosteriliyor.
+    final hicVeriYok = total == 0 && !stats.allTimeDaily.any((v) => v > 0);
     final enIyi = seri.isEmpty ? 0 : seri.reduce((a, b) => a > b ? a : b);
     final aktif = seri.where((v) => v > 0).length;
     final ortalama = seri.isEmpty ? 0.0 : toplam / seri.length;
@@ -73,207 +77,199 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
         child: Center(
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 640),
-            child: ListView(
-              padding: const EdgeInsets.fromLTRB(20, 4, 20, 32),
-              children: [
-                Row(
-                  children: [
-                    Expanded(
-                      child: _StatBox(
-                        value: '$total',
-                        label: t.statLearned,
-                        color: palette.learned,
-                        icon: Icons.check_circle_rounded,
+            child: hicVeriYok
+                ? _EmptyStats(strings: t)
+                : ListView(
+                    padding: const EdgeInsets.fromLTRB(20, 4, 20, 32),
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _StatBox(
+                              value: '$total',
+                              label: t.statLearned,
+                              color: palette.learned,
+                              icon: Icons.check_circle_rounded,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: _StatBox(
+                              value: '$streak',
+                              label: t.statStreak,
+                              color: palette.star,
+                              icon: Icons.local_fire_department_rounded,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: _StatBox(
-                        value: '$streak',
-                        label: t.statStreak,
-                        color: palette.star,
-                        icon: Icons.local_fire_department_rounded,
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: _StatBox(
+                              value: '${stats.thisWeek}',
+                              label: t.statWeek,
+                              color: palette.accent,
+                              icon: Icons.calendar_view_week_rounded,
+                            ),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: _StatBox(
+                              value: '${stats.thisMonth}',
+                              label: t.statMonth,
+                              color: palette.accent,
+                              icon: Icons.calendar_month_rounded,
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: _StatBox(
-                        value: '${stats.thisWeek}',
-                        label: t.statWeek,
-                        color: palette.accent,
-                        icon: Icons.calendar_view_week_rounded,
+                      const SizedBox(height: 26),
+                      // Yildizli sayisi burada da duruyordu; ana ekran ve Pratik
+                      // ile birlikte ucuncu kopyaydi, kaldirildi.
+                      SegmentedSwitch(
+                        labels: [t.last7, t.last30, t.allTime],
+                        selectedIndex: _range,
+                        onChanged: (i) => setState(() => _range = i),
                       ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: _StatBox(
-                        value: '${stats.thisMonth}',
-                        label: t.statMonth,
-                        color: palette.accent,
-                        icon: Icons.calendar_month_rounded,
+                      const SizedBox(height: 16),
+                      // Yalnizca uzunluga degil toplama bakiyoruz: yedi gunluk
+                      // seri "0,0,0..." oldugunda da grafik bos ciziliyordu.
+                      if (toplam == 0)
+                        Container(
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                            color: palette.surface,
+                            borderRadius: BorderRadius.circular(18),
+                            border: Border.all(color: palette.separator),
+                          ),
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.bar_chart_rounded,
+                                size: 19,
+                                color: palette.textTertiary,
+                              ),
+                              const SizedBox(width: 11),
+                              Text(
+                                t.statsNoData,
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: palette.textTertiary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                      else
+                        _BarChart(
+                          values: _bucket(seri, 30),
+                          // Gun adlari yalnizca yedi gunluk gorunumde anlamli.
+                          labels: _range == 0 ? _weekLabels(t.weekdays) : null,
+                          color: palette.accent,
+                          compact: _range != 0,
+                        ),
+                      const SizedBox(height: 22),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: palette.surface,
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(color: palette.separator),
+                        ),
+                        child: Column(
+                          children: [
+                            _InfoRow(label: t.bestDay, value: t.words(enIyi)),
+                            Divider(color: palette.separator, height: 22),
+                            _InfoRow(label: t.activeDays, value: t.days(aktif)),
+                            Divider(color: palette.separator, height: 22),
+                            _InfoRow(
+                              label: t.goalHitDays,
+                              value: t.days(hedefTutan),
+                            ),
+                            Divider(color: palette.separator, height: 22),
+                            _InfoRow(
+                              label: t.dailyAverage,
+                              value:
+                                  '${ortalama.toStringAsFixed(1)} '
+                                  '${t.wordUnit(ortalama.round())}',
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 26),
-                // Yıldızlı sayısı eskiden Ayarlar'da duruyordu; kullanıcının
-                // kendi verisi olduğu için istatistiğe taşındı.
-                Text(
-                  t.myData,
-                  style: textTheme.labelSmall
-                      ?.copyWith(color: palette.textTertiary),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: palette.surface,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: palette.separator),
-                  ),
-                  child: _InfoRow(label: t.myStarred, value: '$starred'),
-                ),
-                const SizedBox(height: 26),
-                SegmentedSwitch(
-                  labels: [t.last7, t.last30, t.allTime],
-                  selectedIndex: _range,
-                  onChanged: (i) => setState(() => _range = i),
-                ),
-                const SizedBox(height: 16),
-                if (seri.isEmpty)
-                  Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: palette.surface,
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: palette.separator),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.bar_chart_rounded,
-                          size: 19,
+                      const SizedBox(height: 26),
+                      Text(
+                        t.quizSection,
+                        style: textTheme.labelSmall?.copyWith(
                           color: palette.textTertiary,
                         ),
-                        const SizedBox(width: 11),
-                        Text(
-                          t.statsNoData,
-                          style: textTheme.bodyMedium
-                              ?.copyWith(color: palette.textTertiary),
-                        ),
-                      ],
-                    ),
-                  )
-                else
-                  _BarChart(
-                    values: _bucket(seri, 30),
-                    // Gun adlari yalnizca yedi gunluk gorunumde anlamli.
-                    labels: _range == 0 ? _weekLabels(t.weekdays) : null,
-                    color: palette.accent,
-                    compact: _range != 0,
-                  ),
-                const SizedBox(height: 22),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: palette.surface,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: palette.separator),
-                  ),
-                  child: Column(
-                    children: [
-                      _InfoRow(label: t.bestDay, value: t.words(enIyi)),
-                      Divider(color: palette.separator, height: 22),
-                      _InfoRow(label: t.activeDays, value: t.days(aktif)),
-                      Divider(color: palette.separator, height: 22),
-                      _InfoRow(
-                        label: t.goalHitDays,
-                        value: t.days(hedefTutan),
                       ),
-                      Divider(color: palette.separator, height: 22),
-                      _InfoRow(
-                        label: t.dailyAverage,
-                        value: '${ortalama.toStringAsFixed(1)} '
-                            '${t.wordUnit(ortalama.round())}',
+                      const SizedBox(height: 12),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: palette.surface,
+                          borderRadius: BorderRadius.circular(18),
+                          border: Border.all(color: palette.separator),
+                        ),
+                        child: quiz.count == 0
+                            ? Row(
+                                children: [
+                                  Icon(
+                                    Icons.quiz_outlined,
+                                    size: 19,
+                                    color: palette.textTertiary,
+                                  ),
+                                  const SizedBox(width: 11),
+                                  Text(
+                                    t.quizNone,
+                                    style: textTheme.bodyMedium?.copyWith(
+                                      color: palette.textTertiary,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                children: [
+                                  _InfoRow(
+                                    label: t.dailyTest,
+                                    value: '${quiz.dailyCount}',
+                                  ),
+                                  Divider(color: palette.separator, height: 22),
+                                  _InfoRow(
+                                    label: t.writingTest,
+                                    value: '${quiz.writingCount}',
+                                  ),
+                                  Divider(color: palette.separator, height: 22),
+                                  _InfoRow(
+                                    label: t.quizCount,
+                                    value: '${quiz.count}',
+                                  ),
+                                  Divider(color: palette.separator, height: 22),
+                                  _InfoRow(
+                                    label: t.dailyTest,
+                                    value: '$gunlukTestSayisi',
+                                  ),
+                                  Divider(color: palette.separator, height: 22),
+                                  _InfoRow(
+                                    label: t.quizAccuracy,
+                                    value: '%${(quiz.accuracy * 100).round()}',
+                                  ),
+                                  Divider(color: palette.separator, height: 22),
+                                  _InfoRow(
+                                    label: t.quizBest,
+                                    value: '%${(quiz.bestRatio * 100).round()}',
+                                  ),
+                                  Divider(color: palette.separator, height: 22),
+                                  _InfoRow(
+                                    label: t.quizLast,
+                                    value: '%${(quiz.lastRatio * 100).round()}',
+                                  ),
+                                ],
+                              ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 26),
-                Text(
-                  t.quizSection,
-                  style: textTheme.labelSmall
-                      ?.copyWith(color: palette.textTertiary),
-                ),
-                const SizedBox(height: 12),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: palette.surface,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: palette.separator),
-                  ),
-                  child: quiz.count == 0
-                      ? Row(
-                          children: [
-                            Icon(
-                              Icons.quiz_outlined,
-                              size: 19,
-                              color: palette.textTertiary,
-                            ),
-                            const SizedBox(width: 11),
-                            Text(
-                              t.quizNone,
-                              style: textTheme.bodyMedium
-                                  ?.copyWith(color: palette.textTertiary),
-                            ),
-                          ],
-                        )
-                      : Column(
-                          children: [
-                            _InfoRow(
-                              label: t.dailyTest,
-                              value: '${quiz.dailyCount}',
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.writingTest,
-                              value: '${quiz.writingCount}',
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.quizCount,
-                              value: '${quiz.count}',
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.dailyTest,
-                              value: '$gunlukTestSayisi',
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.quizAccuracy,
-                              value: '%${(quiz.accuracy * 100).round()}',
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.quizBest,
-                              value: '%${(quiz.bestRatio * 100).round()}',
-                            ),
-                            Divider(color: palette.separator, height: 22),
-                            _InfoRow(
-                              label: t.quizLast,
-                              value: '%${(quiz.lastRatio * 100).round()}',
-                            ),
-                          ],
-                        ),
-                ),
-              ],
-            ),
           ),
         ),
       ),
@@ -395,11 +391,7 @@ class _StatBox extends StatelessWidget {
       ),
       child: Column(
         children: [
-          Icon(
-            icon,
-            color: color,
-            size: 21,
-          ),
+          Icon(icon, color: color, size: 21),
           const SizedBox(height: 9),
           Text(value, style: textTheme.headlineMedium?.copyWith(color: color)),
           const SizedBox(height: 2),
@@ -429,6 +421,67 @@ class _InfoRow extends StatelessWidget {
         Text(label, style: textTheme.bodyLarge),
         Text(value, style: textTheme.titleMedium),
       ],
+    );
+  }
+}
+
+/// Hiç çalışma kaydı yokken gösterilen karşılama.
+///
+/// Sıfırlarla dolu kutular yerine ne olacağını anlatıyor: ekran boş değil,
+/// "henüz" boş.
+class _EmptyStats extends StatelessWidget {
+  const _EmptyStats({required this.strings});
+
+  final Strings strings;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 32),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            width: 108,
+            height: 108,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  palette.accent.withValues(alpha: 0.20),
+                  palette.learned.withValues(alpha: 0.14),
+                ],
+              ),
+            ),
+            child: Icon(
+              Icons.insights_rounded,
+              size: 50,
+              color: palette.accent,
+            ),
+          ),
+          const SizedBox(height: 28),
+          Text(
+            strings.statsEmptyTitle,
+            textAlign: TextAlign.center,
+            style: AppTypography.largeTitle(palette.textPrimary),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            strings.statsEmptyBody,
+            textAlign: TextAlign.center,
+            style: textTheme.bodyMedium?.copyWith(
+              color: palette.textSecondary,
+              height: 1.55,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
