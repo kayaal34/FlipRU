@@ -24,6 +24,7 @@ class Flashcard extends StatelessWidget {
     this.reversed = false,
     this.showTransliteration = true,
     this.showStressMarks = true,
+    this.showTurkishTranslit = false,
     this.dragPercent = 0,
     super.key,
   });
@@ -33,7 +34,9 @@ class Flashcard extends StatelessWidget {
   final bool isStarred;
   final VoidCallback onFlip;
   final VoidCallback onStarToggle;
-  final ValueChanged<String> onSpeak;
+
+  /// (metin, TTS dil kodu) — Rusça yüzde `ru-RU`, Türkçe yüzde `tr-TR`.
+  final void Function(String text, String language) onSpeak;
 
   /// Hatalı çeviri/örnek bildirimi.
   final VoidCallback onReport;
@@ -45,6 +48,9 @@ class Flashcard extends StatelessWidget {
 
   final bool showTransliteration;
   final bool showStressMarks;
+
+  /// Rusça arayüzde Türkçe karşılığın Kiril okunuşunu gösterir.
+  final bool showTurkishTranslit;
   final double dragPercent;
 
   @override
@@ -55,6 +61,8 @@ class Flashcard extends StatelessWidget {
     final intensity = (dragPercent.abs() / 0.55).clamp(0.0, 1.0);
     final isLearnDirection = dragPercent > 0;
     final feedbackColor = isLearnDirection ? palette.learned : palette.review;
+    // Ön yüz `reversed`e, arka yüz onun tersine düşüyor.
+    final russianVisible = isFlipped == reversed;
 
     final russianFace = _RussianFace(
       strings: strings,
@@ -71,6 +79,7 @@ class Flashcard extends StatelessWidget {
       isPrompt: reversed,
       showTransliteration: showTransliteration,
       showStressMarks: showStressMarks,
+      showTurkishTranslit: showTurkishTranslit,
     );
 
     return GestureDetector(
@@ -108,7 +117,11 @@ class Flashcard extends StatelessWidget {
             left: 18,
             child: _CircleIconButton(
               icon: Icons.volume_up_rounded,
-              onTap: () => onSpeak(word.russian),
+              // Hangi yüz görünüyorsa o dil okunur: Türkçe yüzdeyken
+              // Rusçayı okumak hem cevabı verir hem yanlış sesi duyurur.
+              onTap: () => russianVisible
+                  ? onSpeak(word.russian, 'ru-RU')
+                  : onSpeak(word.turkish, 'tr-TR'),
               tooltip: strings.listen,
             ),
           ),
@@ -292,15 +305,20 @@ class _MeaningFace extends StatelessWidget {
     required this.isPrompt,
     required this.showTransliteration,
     required this.showStressMarks,
+    required this.showTurkishTranslit,
   });
 
   final Strings strings;
   final Word word;
-  final ValueChanged<String> onSpeak;
+  final void Function(String text, String language) onSpeak;
   final VoidCallback onReport;
   final bool isPrompt;
   final bool showTransliteration;
   final bool showStressMarks;
+  final bool showTurkishTranslit;
+
+  bool get _hasTurkishTranslit =>
+      showTurkishTranslit && word.turkishTranslit.isNotEmpty;
 
   @override
   Widget build(BuildContext context) {
@@ -324,6 +342,27 @@ class _MeaningFace extends StatelessWidget {
                 palette.textPrimary,
               ).copyWith(fontSize: word.turkish.length <= 14 ? 38 : 29),
             ),
+            if (_hasTurkishTranslit) ...[
+              const SizedBox(height: 14),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: palette.surfaceSunken,
+                  borderRadius: BorderRadius.circular(9),
+                ),
+                child: Text(
+                  word.turkishTranslit,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: palette.textSecondary,
+                    fontWeight: FontWeight.w600,
+                    letterSpacing: 0.2,
+                  ),
+                ),
+              ),
+            ],
             const Spacer(),
             _TapHint(label: strings.tapForRussian),
           ],
@@ -351,6 +390,16 @@ class _MeaningFace extends StatelessWidget {
                   height: 1.25,
                 ),
               ),
+              if (_hasTurkishTranslit) ...[
+                const SizedBox(height: 6),
+                Text(
+                  word.turkishTranslit,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: palette.textTertiary,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
               if (showTransliteration) ...[
                 const SizedBox(height: 10),
                 Text(
@@ -374,7 +423,7 @@ class _MeaningFace extends StatelessWidget {
                       behavior: HitTestBehavior.opaque,
                       onTap: () {
                         Haptics.light();
-                        onSpeak(word.exampleRu);
+                        onSpeak(word.exampleRu, 'ru-RU');
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
