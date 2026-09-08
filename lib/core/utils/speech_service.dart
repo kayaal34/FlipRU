@@ -13,6 +13,7 @@ class SpeechService {
   bool _initialized = false;
   bool _available = false;
   String _language = 'ru-RU';
+  final Map<String, bool> _support = {};
 
   bool get isAvailable => _available;
 
@@ -43,20 +44,41 @@ class SpeechService {
     }
   }
 
-  /// [language] yalnızca alfabe ekranında Türkçe okumak için değişiyor;
-  /// kelime kartları varsayılan Rusça sesi kullanmaya devam ediyor.
-  Future<void> speak(String text, {String language = 'ru-RU'}) async {
+  /// Cihazda o dilin sesi kurulu mu? Sonuç önbelleğe alınıyor.
+  ///
+  /// Kurulu olmayan dil için `setLanguage` sessizce başarısız oluyor ve
+  /// motor bir önceki dilde kalıyor: Türkçe kelimeyi Rusça sesle okumak,
+  /// hiç okumamaktan daha kötü olduğu için önce burada kontrol ediliyor.
+  Future<bool> supportsLanguage(String language) async {
     await _ensureInitialized();
-    if (!_available || text.trim().isEmpty) return;
+    if (!_available) return false;
+    final cached = _support[language];
+    if (cached != null) return cached;
+    var ok = false;
+    try {
+      ok = await _tts.isLanguageAvailable(language) == true;
+    } catch (_) {
+      ok = false;
+    }
+    _support[language] = ok;
+    return ok;
+  }
+
+  /// Okuyabildiyse `true` döner; dil kurulu değilse hiç ses çıkarmaz.
+  Future<bool> speak(String text, {String language = 'ru-RU'}) async {
+    await _ensureInitialized();
+    if (!_available || text.trim().isEmpty) return false;
+    if (!await supportsLanguage(language)) return false;
     try {
       await _tts.stop();
       if (language != _language) {
-        _language = language;
         await _tts.setLanguage(language);
+        _language = language;
       }
       await _tts.speak(text);
+      return true;
     } catch (_) {
-      // Ses yoksa sessizce geç.
+      return false;
     }
   }
 
