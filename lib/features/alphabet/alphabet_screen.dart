@@ -10,17 +10,22 @@ import '../../data/alphabet_data.dart';
 import '../../data/models/alphabet_letter.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/settings_provider.dart';
+import 'alphabet_lesson_screen.dart';
+import 'alphabet_reading_screen.dart';
 
 /// Arayüz dili Türkçeyse Kiril, Rusçaysa Türk alfabesini öğretir.
 ///
 /// Yön ayarına değil arayüz diline bakıyoruz: öğrenilecek alfabe her zaman
 /// kullanıcının bilmediği alfabe.
+///
+/// Ekran bir ders listesi: harfler zorluk grubuna bölünmüş, her grubun
+/// sonunda kısa bir sınav, en sonda gerçek kelime okuma var. Bütün harflerin
+/// ızgarası referans olarak altta duruyor.
 class AlphabetScreen extends ConsumerWidget {
   const AlphabetScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
     final s = ref.watch(stringsProvider);
     final language = ref.watch(settingsProvider).language;
     final teachesCyrillic = language == AppLanguage.tr;
@@ -36,13 +41,22 @@ class AlphabetScreen extends ConsumerWidget {
             child: CustomScrollView(
               slivers: [
                 SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+                  sliver: SliverToBoxAdapter(
+                    child: _LessonList(
+                      letters: letters,
+                      teachesCyrillic: teachesCyrillic,
+                    ),
+                  ),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(20, 26, 20, 12),
                   sliver: SliverToBoxAdapter(
                     child: Text(
-                      s.alphabetIntro(letters.length),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: palette.textTertiary,
-                        height: 1.4,
+                      s.alphabetAllLetters(letters.length),
+                      style: Theme.of(context).textTheme.labelSmall?.copyWith(
+                        color: context.palette.textTertiary,
+                        letterSpacing: 0.6,
                       ),
                     ),
                   ),
@@ -267,6 +281,175 @@ class _LetterSheet extends ConsumerWidget {
                   icon: const Icon(Icons.volume_up_rounded),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Üç harf grubu + okuma adımı. Tamamlananlar işaretli görünüyor.
+class _LessonList extends ConsumerWidget {
+  const _LessonList({required this.letters, required this.teachesCyrillic});
+
+  final List<AlphabetLetter> letters;
+  final bool teachesCyrillic;
+
+  List<AlphabetLetter> _of(LetterGroup group) => [
+    for (final l in letters)
+      if (l.group == group) l,
+  ];
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final s = ref.watch(stringsProvider);
+    final done = ref.watch(settingsProvider).alphabetDone;
+    final ttsLanguage = teachesCyrillic ? 'ru-RU' : 'tr-TR';
+
+    final lessons = <(String, String, String, List<AlphabetLetter>)>[
+      (
+        'same',
+        s.alphabetGroupSame,
+        s.alphabetGroupSameSub,
+        _of(LetterGroup.same),
+      ),
+      (
+        'trap',
+        s.alphabetGroupTrap,
+        s.alphabetGroupTrapSub,
+        _of(LetterGroup.trap),
+      ),
+      (
+        'fresh',
+        s.alphabetGroupFresh,
+        s.alphabetGroupFreshSub,
+        _of(LetterGroup.fresh),
+      ),
+    ];
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final (key, title, subtitle, group) in lessons)
+          if (group.isNotEmpty) ...[
+            _LessonCard(
+              title: title,
+              subtitle: subtitle,
+              badge: group.map((l) => l.upper).join(' '),
+              done: done.contains(key),
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => AlphabetLessonScreen(
+                    groupKey: key,
+                    title: title,
+                    letters: group,
+                    ttsLanguage: ttsLanguage,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+          ],
+        // Okuma adımı yalnızca Kiril tarafında: seçilen kelimeler Rusça.
+        if (teachesCyrillic)
+          _LessonCard(
+            title: s.alphabetReadTitle,
+            subtitle: s.alphabetReadSub,
+            badge: null,
+            done: done.contains('read'),
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) =>
+                    const AlphabetReadingScreen(ttsLanguage: 'ru-RU'),
+              ),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _LessonCard extends StatelessWidget {
+  const _LessonCard({
+    required this.title,
+    required this.subtitle,
+    required this.badge,
+    required this.done,
+    required this.onTap,
+  });
+
+  final String title;
+  final String subtitle;
+  final String? badge;
+  final bool done;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Pressable(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: palette.surface,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: done ? palette.learned : palette.separator),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 40,
+              height: 40,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: done
+                    ? palette.learned.withValues(alpha: 0.16)
+                    : palette.surfaceSunken,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                done ? Icons.check_rounded : Icons.school_rounded,
+                size: 20,
+                color: done ? palette.learned : palette.textTertiary,
+              ),
+            ),
+            const SizedBox(width: 13),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: textTheme.titleMedium),
+                  const SizedBox(height: 2),
+                  Text(
+                    subtitle,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
+                  ),
+                  if (badge != null) ...[
+                    const SizedBox(height: 6),
+                    Text(
+                      badge!,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.accent,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: 1,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            Icon(
+              Icons.chevron_right_rounded,
+              size: 24,
+              color: palette.textTertiary,
             ),
           ],
         ),

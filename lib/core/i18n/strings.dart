@@ -123,6 +123,19 @@ class Strings {
     required this.voiceDefault,
     required this.voiceNone,
     required this.voiceNumberedTemplate,
+    required this.alphabetGroupSame,
+    required this.alphabetGroupSameSub,
+    required this.alphabetGroupTrap,
+    required this.alphabetGroupTrapSub,
+    required this.alphabetGroupFresh,
+    required this.alphabetGroupFreshSub,
+    required this.alphabetToQuiz,
+    required this.alphabetQuizPrompt,
+    required this.alphabetReadTitle,
+    required this.alphabetReadSub,
+    required this.alphabetReadIntro,
+    required this.alphabetReadTapHint,
+    required this.alphabetAllLettersTemplate,
     required this.alphabetTitle,
     required this.alphabetCardSub,
     required this.alphabetIntroTemplate,
@@ -318,6 +331,12 @@ class Strings {
   final String ttsMissingTemplate, ttsInstall;
   final String voiceRu, voiceTr, voicePickerHint, voiceDefault;
   final String voiceNone, voiceNumberedTemplate;
+  final String alphabetGroupSame, alphabetGroupSameSub;
+  final String alphabetGroupTrap, alphabetGroupTrapSub;
+  final String alphabetGroupFresh, alphabetGroupFreshSub;
+  final String alphabetToQuiz, alphabetQuizPrompt;
+  final String alphabetReadTitle, alphabetReadSub, alphabetReadIntro;
+  final String alphabetReadTapHint, alphabetAllLettersTemplate;
   final String alphabetTitle, alphabetCardSub, alphabetIntroTemplate;
   final String alphabetSound, alphabetExample;
   final String needFourLearned, starredTestSub;
@@ -411,6 +430,10 @@ class Strings {
   /// Cihazda o dilin TTS sesi kurulu olmadığında gösterilir.
   String ttsMissing(String languageName) =>
       ttsMissingTemplate.replaceFirst('{}', languageName);
+
+  /// "33 harfin tamami" / "Bce 33 буквы"
+  String alphabetAllLetters(int count) =>
+      alphabetAllLettersTemplate.replaceFirst('{}', letters(count));
 
   /// "Rus alfabesinde 33 harf var." / "В турецком алфавите 29 букв."
   String alphabetIntro(int count) =>
@@ -529,6 +552,22 @@ class Strings {
     voiceDefault: 'Varsayılan ses',
     voiceNone: 'Bu dil için cihazda ses bulunamadı.',
     voiceNumberedTemplate: 'Ses {}',
+    alphabetGroupSame: 'Tanıdık harfler',
+    alphabetGroupSameSub: 'Göründüğü gibi okunuyor, yeni bir şey yok',
+    alphabetGroupTrap: 'Tuzak harfler',
+    alphabetGroupTrapSub:
+        'Tanıdık görünüyor ama başka okunuyor — asıl zor kısım',
+    alphabetGroupFresh: 'Yeni şekiller',
+    alphabetGroupFreshSub: 'Daha önce görmediğin harfler',
+    alphabetToQuiz: 'Sınava geç',
+    alphabetQuizPrompt: 'Bu harf nasıl okunur?',
+    alphabetReadTitle: 'Şimdi oku',
+    alphabetReadSub: 'Harfleri sökerek gerçek kelimeleri oku',
+    alphabetReadIntro:
+        'Bu kelimeleri daha önce hiç görmedin ama artık '
+        'okuyabilirsin. Harf harf sök, sonra dokunup anlamını kontrol et.',
+    alphabetReadTapHint: 'Anlamı için dokun',
+    alphabetAllLettersTemplate: 'TÜMÜ · {}',
     alphabetTitle: 'Rus Alfabesi',
     alphabetCardSub: 'Kiril harflerini tanı, okunuşlarını öğren',
     alphabetIntroTemplate:
@@ -868,6 +907,21 @@ class Strings {
     voiceDefault: 'Голос по умолчанию',
     voiceNone: 'Голоса для этого языка не найдены.',
     voiceNumberedTemplate: 'Голос {}',
+    alphabetGroupSame: 'Знакомые буквы',
+    alphabetGroupSameSub: 'Читаются так, как выглядят',
+    alphabetGroupTrap: 'Буквы-ловушки',
+    alphabetGroupTrapSub: 'Выглядят знакомо, но читаются иначе — самое сложное',
+    alphabetGroupFresh: 'Новые формы',
+    alphabetGroupFreshSub: 'Буквы, которых нет в кириллице',
+    alphabetToQuiz: 'К проверке',
+    alphabetQuizPrompt: 'Как читается эта буква?',
+    alphabetReadTitle: 'Теперь читайте',
+    alphabetReadSub: 'Прочитайте настоящие слова по буквам',
+    alphabetReadIntro:
+        'Вы никогда не видели эти слова, но уже можете их '
+        'прочитать. Разберите по буквам, затем нажмите и проверьте значение.',
+    alphabetReadTapHint: 'Нажмите, чтобы увидеть перевод',
+    alphabetAllLettersTemplate: 'ВСЕ · {}',
     alphabetTitle: 'Турецкий алфавит',
     alphabetCardSub: 'Изучите турецкие буквы и их произношение',
     alphabetIntroTemplate:

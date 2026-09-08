@@ -4,6 +4,7 @@ import 'models/alphabet_letter.dart';
 const russianAlphabet = <AlphabetLetter>[
   AlphabetLetter(
     upper: 'А',
+    group: LetterGroup.same,
     lower: 'а',
     name: 'a',
     sound: 'a',
@@ -12,6 +13,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Б',
+    group: LetterGroup.fresh,
     lower: 'б',
     name: 'be',
     sound: 'b',
@@ -20,6 +22,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'В',
+    group: LetterGroup.trap,
     lower: 'в',
     name: 've',
     sound: 'v',
@@ -28,6 +31,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Г',
+    group: LetterGroup.fresh,
     lower: 'г',
     name: 'ge',
     sound: 'g',
@@ -36,6 +40,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Д',
+    group: LetterGroup.fresh,
     lower: 'д',
     name: 'de',
     sound: 'd',
@@ -44,6 +49,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Е',
+    group: LetterGroup.fresh,
     lower: 'е',
     name: 'ye',
     sound: 'ye',
@@ -53,6 +59,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ё',
+    group: LetterGroup.fresh,
     lower: 'ё',
     name: 'yo',
     sound: 'yo',
@@ -62,6 +69,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ж',
+    group: LetterGroup.fresh,
     lower: 'ж',
     name: 'je',
     sound: 'j',
@@ -70,6 +78,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'З',
+    group: LetterGroup.fresh,
     lower: 'з',
     name: 'ze',
     sound: 'z',
@@ -78,6 +87,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'И',
+    group: LetterGroup.fresh,
     lower: 'и',
     name: 'i',
     sound: 'i',
@@ -86,6 +96,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Й',
+    group: LetterGroup.fresh,
     lower: 'й',
     name: 'kısa i',
     sound: 'y',
@@ -95,6 +106,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'К',
+    group: LetterGroup.same,
     lower: 'к',
     name: 'ka',
     sound: 'k',
@@ -103,6 +115,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Л',
+    group: LetterGroup.fresh,
     lower: 'л',
     name: 'el',
     sound: 'l',
@@ -111,6 +124,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'М',
+    group: LetterGroup.same,
     lower: 'м',
     name: 'em',
     sound: 'm',
@@ -119,6 +133,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Н',
+    group: LetterGroup.trap,
     lower: 'н',
     name: 'en',
     sound: 'n',
@@ -127,6 +142,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'О',
+    group: LetterGroup.same,
     lower: 'о',
     name: 'o',
     sound: 'o',
@@ -136,6 +152,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'П',
+    group: LetterGroup.fresh,
     lower: 'п',
     name: 'pe',
     sound: 'p',
@@ -144,6 +161,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Р',
+    group: LetterGroup.trap,
     lower: 'р',
     name: 'er',
     sound: 'r',
@@ -153,6 +171,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'С',
+    group: LetterGroup.trap,
     lower: 'с',
     name: 'es',
     sound: 's',
@@ -161,6 +180,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Т',
+    group: LetterGroup.same,
     lower: 'т',
     name: 'te',
     sound: 't',
@@ -169,6 +189,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'У',
+    group: LetterGroup.trap,
     lower: 'у',
     name: 'u',
     sound: 'u',
@@ -177,6 +198,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ф',
+    group: LetterGroup.fresh,
     lower: 'ф',
     name: 'ef',
     sound: 'f',
@@ -185,6 +207,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Х',
+    group: LetterGroup.trap,
     lower: 'х',
     name: 'ha',
     sound: 'h',
@@ -194,6 +217,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ц',
+    group: LetterGroup.fresh,
     lower: 'ц',
     name: 'tse',
     sound: 'ts',
@@ -202,6 +226,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ч',
+    group: LetterGroup.fresh,
     lower: 'ч',
     name: 'çe',
     sound: 'ç',
@@ -210,6 +235,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ш',
+    group: LetterGroup.fresh,
     lower: 'ш',
     name: 'şa',
     sound: 'ş',
@@ -218,6 +244,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Щ',
+    group: LetterGroup.fresh,
     lower: 'щ',
     name: 'şça',
     sound: 'şç',
@@ -227,6 +254,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ъ',
+    group: LetterGroup.fresh,
     lower: 'ъ',
     name: 'sert işaret',
     sound: '—',
@@ -236,6 +264,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ы',
+    group: LetterGroup.fresh,
     lower: 'ы',
     name: 'ı',
     sound: 'ı',
@@ -244,6 +273,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ь',
+    group: LetterGroup.fresh,
     lower: 'ь',
     name: 'yumuşak işaret',
     sound: '—',
@@ -253,6 +283,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Э',
+    group: LetterGroup.fresh,
     lower: 'э',
     name: 'e',
     sound: 'e',
@@ -261,6 +292,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ю',
+    group: LetterGroup.fresh,
     lower: 'ю',
     name: 'yu',
     sound: 'yu',
@@ -269,6 +301,7 @@ const russianAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Я',
+    group: LetterGroup.fresh,
     lower: 'я',
     name: 'ya',
     sound: 'ya',
@@ -281,6 +314,7 @@ const russianAlphabet = <AlphabetLetter>[
 const turkishAlphabet = <AlphabetLetter>[
   AlphabetLetter(
     upper: 'A',
+    group: LetterGroup.same,
     lower: 'a',
     name: 'а',
     sound: 'а',
@@ -289,6 +323,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'B',
+    group: LetterGroup.same,
     lower: 'b',
     name: 'бе',
     sound: 'б',
@@ -297,6 +332,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'C',
+    group: LetterGroup.trap,
     lower: 'c',
     name: 'дже',
     sound: 'дж',
@@ -306,6 +342,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ç',
+    group: LetterGroup.fresh,
     lower: 'ç',
     name: 'че',
     sound: 'ч',
@@ -314,6 +351,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'D',
+    group: LetterGroup.same,
     lower: 'd',
     name: 'де',
     sound: 'д',
@@ -322,6 +360,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'E',
+    group: LetterGroup.same,
     lower: 'e',
     name: 'э',
     sound: 'э',
@@ -330,6 +369,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'F',
+    group: LetterGroup.same,
     lower: 'f',
     name: 'фе',
     sound: 'ф',
@@ -338,6 +378,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'G',
+    group: LetterGroup.same,
     lower: 'g',
     name: 'ге',
     sound: 'г',
@@ -346,6 +387,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ğ',
+    group: LetterGroup.fresh,
     lower: 'ğ',
     name: 'юмушак ге',
     sound: '—',
@@ -355,6 +397,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'H',
+    group: LetterGroup.same,
     lower: 'h',
     name: 'хе',
     sound: 'х',
@@ -364,6 +407,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'I',
+    group: LetterGroup.trap,
     lower: 'ı',
     name: 'ы',
     sound: 'ы',
@@ -373,6 +417,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'İ',
+    group: LetterGroup.trap,
     lower: 'i',
     name: 'и',
     sound: 'и',
@@ -382,6 +427,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'J',
+    group: LetterGroup.same,
     lower: 'j',
     name: 'же',
     sound: 'ж',
@@ -390,6 +436,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'K',
+    group: LetterGroup.same,
     lower: 'k',
     name: 'ке',
     sound: 'к',
@@ -398,6 +445,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'L',
+    group: LetterGroup.same,
     lower: 'l',
     name: 'ле',
     sound: 'л',
@@ -406,6 +454,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'M',
+    group: LetterGroup.same,
     lower: 'm',
     name: 'ме',
     sound: 'м',
@@ -414,6 +463,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'N',
+    group: LetterGroup.same,
     lower: 'n',
     name: 'не',
     sound: 'н',
@@ -422,6 +472,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'O',
+    group: LetterGroup.same,
     lower: 'o',
     name: 'о',
     sound: 'о',
@@ -431,6 +482,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ö',
+    group: LetterGroup.fresh,
     lower: 'ö',
     name: 'ё',
     sound: 'ё',
@@ -440,6 +492,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'P',
+    group: LetterGroup.same,
     lower: 'p',
     name: 'пе',
     sound: 'п',
@@ -448,6 +501,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'R',
+    group: LetterGroup.same,
     lower: 'r',
     name: 'ре',
     sound: 'р',
@@ -456,6 +510,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'S',
+    group: LetterGroup.same,
     lower: 's',
     name: 'се',
     sound: 'с',
@@ -464,6 +519,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ş',
+    group: LetterGroup.fresh,
     lower: 'ş',
     name: 'ше',
     sound: 'ш',
@@ -472,6 +528,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'T',
+    group: LetterGroup.same,
     lower: 't',
     name: 'те',
     sound: 'т',
@@ -480,6 +537,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'U',
+    group: LetterGroup.same,
     lower: 'u',
     name: 'у',
     sound: 'у',
@@ -488,6 +546,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Ü',
+    group: LetterGroup.fresh,
     lower: 'ü',
     name: 'ю',
     sound: 'ю',
@@ -497,6 +556,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'V',
+    group: LetterGroup.same,
     lower: 'v',
     name: 'ве',
     sound: 'в',
@@ -505,6 +565,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Y',
+    group: LetterGroup.same,
     lower: 'y',
     name: 'йе',
     sound: 'й',
@@ -513,6 +574,7 @@ const turkishAlphabet = <AlphabetLetter>[
   ),
   AlphabetLetter(
     upper: 'Z',
+    group: LetterGroup.same,
     lower: 'z',
     name: 'зе',
     sound: 'з',
