@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 /// Rusça telaffuz için cihazın kendi TTS motorunu kullanır.
@@ -157,6 +158,27 @@ class SpeechService {
     } catch (_) {
       return false;
     }
+  }
+
+  /// Sistemin seslendirme verisi indirme ekranını açar.
+  ///
+  /// Ses paketi olmayan kullanıcıya "ayarlardan indir" demek yetmiyordu;
+  /// ekranı bulmak zor. Açılamazsa `false` döner.
+  Future<bool> openVoiceInstaller() async {
+    if (kIsWeb) return false;
+    try {
+      const channel = MethodChannel('com.flipru.app/tts');
+      return await channel.invokeMethod<bool>('installVoiceData') ?? false;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Dil desteği yeniden sorulsun: kullanıcı ses indirdikten sonra
+  /// uygulamayı kapatmadan tekrar denediğinde eski "yok" cevabı kalmasın.
+  void forgetLanguageSupport() {
+    _support.clear();
+    _voiceCache.clear();
   }
 
   Future<void> stop() async {

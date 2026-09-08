@@ -116,6 +116,7 @@ class Strings {
     required this.dailyTest,
     required this.dailyTestSub,
     required this.ttsMissingTemplate,
+    required this.ttsInstall,
     required this.voiceRu,
     required this.voiceTr,
     required this.voicePickerHint,
@@ -314,7 +315,7 @@ class Strings {
   final String quizNotEnough;
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
-  final String ttsMissingTemplate;
+  final String ttsMissingTemplate, ttsInstall;
   final String voiceRu, voiceTr, voicePickerHint, voiceDefault;
   final String voiceNone, voiceNumberedTemplate;
   final String alphabetTitle, alphabetCardSub, alphabetIntroTemplate;
@@ -521,6 +522,7 @@ class Strings {
     ttsMissingTemplate:
         'Cihazında {} seslendirme sesi yüklü değil. '
         'Telefon ayarlarındaki "Metin okuma" bölümünden indirebilirsin.',
+    ttsInstall: 'İndir',
     voiceRu: 'Rusça sesi',
     voiceTr: 'Türkçe sesi',
     voicePickerHint: 'Dokunduğun sesi hemen dinlersin.',
@@ -859,6 +861,7 @@ class Strings {
     ttsMissingTemplate:
         'На устройстве не установлен голос «{}». '
         'Его можно скачать в настройках телефона, раздел «Синтез речи».',
+    ttsInstall: 'Скачать',
     voiceRu: 'Русский голос',
     voiceTr: 'Турецкий голос',
     voicePickerHint: 'Нажмите на голос, чтобы услышать его.',
