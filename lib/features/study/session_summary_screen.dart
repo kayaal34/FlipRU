@@ -61,7 +61,7 @@ class SessionSummaryScreen extends ConsumerWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(
-                          '%${(ratio * 100).round()}',
+                          s.percent((ratio * 100).round()),
                           style: textTheme.displayLarge,
                         ),
                         Text(

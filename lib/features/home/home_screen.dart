@@ -247,7 +247,7 @@ class _HomeHeader extends ConsumerWidget {
                         color: palette.learned,
                       )
                     : Text(
-                        '%${(daily.ratio * 100).round()}',
+                        s.percent((daily.ratio * 100).round()),
                         style: textTheme.labelMedium?.copyWith(
                           color: palette.textPrimary,
                         ),
@@ -487,25 +487,17 @@ class _DailyTestCard extends ConsumerWidget {
         ),
         child: Row(
           children: [
-            // Onay kutusu: cozulmeden once soluk tik, cozulunce yesil.
-            Container(
-              width: 52,
-              height: 52,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: done
-                    ? palette.learned.withValues(alpha: 0.14)
-                    : palette.surfaceSunken,
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: done ? palette.learned : palette.separator,
-                  width: 1.6,
-                ),
-              ),
+            // Ustteki gunluk ilerleme kartiyla ayni halka: iki kutu yan yana
+            // durdugu icin ayni gorsel dili konusmalari gerekiyor.
+            ProgressRing(
+              value: done ? 1 : 0,
+              color: done ? palette.learned : palette.accent,
+              size: 52,
+              strokeWidth: 5,
               child: Icon(
-                Icons.check_rounded,
-                size: 26,
-                color: done ? palette.learned : palette.textTertiary,
+                done ? Icons.check_rounded : Icons.quiz_rounded,
+                size: 22,
+                color: done ? palette.learned : palette.accent,
               ),
             ),
             const SizedBox(width: 14),
