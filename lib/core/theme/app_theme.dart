@@ -81,7 +81,12 @@ abstract final class AppTheme {
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
           foregroundColor: p.accent,
-          minimumSize: const Size.fromHeight(50),
+          // Size.fromHeight en az genişliği de sonsuz yapıyor: her metin
+          // düğmesi satırın tamamını kaplıyordu. Uyarı pencerelerinde iki
+          // düğme yan yana sığmayıp alt alta diziliyor, tanıtımdaki "Atla"
+          // ise sağa yaslanmış görünmüyordu. Yükseklik dokunma hedefi için
+          // kalıyor, genişlik içeriğe göre.
+          minimumSize: const Size(64, 50),
           textStyle: textTheme.labelLarge,
         ),
       ),

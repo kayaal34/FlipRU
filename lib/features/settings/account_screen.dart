@@ -21,8 +21,6 @@ class AccountScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
-    final textTheme = Theme.of(context).textTheme;
     final learned = ref.watch(learnedProvider).length;
     final starred = ref.watch(starredProvider).length;
     final streak = ref.watch(streakProvider);
@@ -43,21 +41,27 @@ class AccountScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
               children: [
+                // Sifirlamalar sade satirlar.
+                //
+                // Dordu birden kirmiziydi; ekran bastan asagi uyari gibi
+                // duruyordu ve kirmizi hicbir seyi ayirt etmiyordu. Kirmizi
+                // artik yalnizca en asagidaki tek islemde — telefonun kendi
+                // ayarlarinda da, diger uygulamalarda da boyle.
                 SettingsSection(
-                  title: t.deleteOps,
+                  title: t.myData,
                   footer: t.deleteOpsFooter,
                   children: [
                     SettingsRow(
                       title: t.clearStars,
                       subtitle: t.clearStarsSub,
                       icon: PhosphorIconsRegular.star,
-                      danger: true,
                       onTap: starred == 0
                           ? null
                           : () => _confirm(
                               context,
                               title: t.clearStars,
                               message: '$starred · ${t.clearStarsSub}',
+                              confirmLabel: t.confirmClear,
                               onConfirm: () =>
                                   ref.read(starredProvider.notifier).clear(),
                               strings: t,
@@ -67,7 +71,6 @@ class AccountScreen extends ConsumerWidget {
                       title: t.resetProgress,
                       subtitle: t.resetProgressSub,
                       icon: PhosphorIconsRegular.arrowClockwise,
-                      danger: true,
                       onTap: learned == 0 && streak == 0
                           ? null
                           : () => _confirm(
@@ -77,6 +80,7 @@ class AccountScreen extends ConsumerWidget {
                                   '${t.words(learned)} · '
                                   '${t.days(streak)} · '
                                   '${t.resetProgressSub}',
+                              confirmLabel: t.confirmReset,
                               onConfirm: () {
                                 ref.read(learnedProvider.notifier).clear();
                                 ref
@@ -92,15 +96,22 @@ class AccountScreen extends ConsumerWidget {
                       title: t.resetSettings,
                       subtitle: t.resetSettingsSub,
                       icon: PhosphorIconsRegular.arrowCounterClockwise,
-                      danger: true,
                       onTap: () => _confirm(
                         context,
                         title: t.resetSettings,
                         message: t.resetSettingsSub,
+                        confirmLabel: t.confirmReset,
                         onConfirm: ref.read(settingsProvider.notifier).reset,
                         strings: t,
                       ),
                     ),
+                  ],
+                ),
+
+                // Geri donusu olmayan tek islem, kendi basina ve kirmizi.
+                SettingsSection(
+                  footer: t.uninstallNote,
+                  children: [
                     SettingsRow(
                       title: t.deleteAll,
                       subtitle: t.deleteAllSub,
@@ -110,7 +121,8 @@ class AccountScreen extends ConsumerWidget {
                         context,
                         title: t.deleteAll,
                         message: t.deleteAllSub,
-                        confirmLabel: t.deleteAll,
+                        confirmLabel: t.confirmDelete,
+                        danger: true,
                         onConfirm: () {
                           ref.read(learnedProvider.notifier).clear();
                           ref.read(starredProvider.notifier).clear();
@@ -124,14 +136,6 @@ class AccountScreen extends ConsumerWidget {
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(height: 24),
-                Text(
-                  t.uninstallNote,
-                  textAlign: TextAlign.center,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: palette.textTertiary,
-                  ),
                 ),
               ],
             ),
@@ -148,8 +152,12 @@ class AccountScreen extends ConsumerWidget {
     required VoidCallback onConfirm,
     required Strings strings,
     String? confirmLabel,
+    bool danger = false,
   }) async {
     final palette = context.palette;
+    // "Geri alinamaz" her isleme dogru ama kirmizi degil: uyari rengi her
+    // yerdeyse hicbir yerde ise yaramiyor.
+    final uyariRengi = danger ? palette.review : palette.textTertiary;
     final approved = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
@@ -165,9 +173,9 @@ class AccountScreen extends ConsumerWidget {
             Row(
               children: [
                 Icon(
-                  PhosphorIconsFill.warning,
+                  PhosphorIconsRegular.warningCircle,
                   size: 18,
-                  color: palette.review,
+                  color: uyariRengi,
                 ),
                 const SizedBox(width: 7),
                 Expanded(
@@ -175,7 +183,7 @@ class AccountScreen extends ConsumerWidget {
                     strings.irreversible,
                     style: Theme.of(
                       context,
-                    ).textTheme.bodySmall?.copyWith(color: palette.review),
+                    ).textTheme.bodySmall?.copyWith(color: uyariRengi),
                   ),
                 ),
               ],
@@ -188,7 +196,9 @@ class AccountScreen extends ConsumerWidget {
             child: Text(strings.cancel),
           ),
           TextButton(
-            style: TextButton.styleFrom(foregroundColor: palette.review),
+            style: TextButton.styleFrom(
+              foregroundColor: danger ? palette.review : palette.accent,
+            ),
             onPressed: () => Navigator.of(context).pop(true),
             child: Text(confirmLabel ?? strings.confirmDelete),
           ),
