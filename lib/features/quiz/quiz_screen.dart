@@ -250,21 +250,11 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                               color: palette.textTertiary,
                             ),
                           ),
-                          Row(
-                            children: [
-                              _JokerButton(
-                                used: _jokerUsed,
-                                disabled: _revealed,
-                                onTap: _useJoker,
-                              ),
-                              const SizedBox(width: 12),
-                              Text(
-                                '$_correct ${s.quizCorrect}',
-                                style: textTheme.bodySmall?.copyWith(
-                                  color: palette.learned,
-                                ),
-                              ),
-                            ],
+                          Text(
+                            '$_correct ${s.quizCorrect}',
+                            style: textTheme.bodySmall?.copyWith(
+                              color: palette.learned,
+                            ),
                           ),
                         ],
                       ),
@@ -310,6 +300,18 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                               onTap: () => _pick(option),
                             ),
                           ),
+                        // Joker siklarin altinda, saga yaslanmis: ustteki
+                        // ilerleme satirinda kayboluyordu, asil kullanildigi
+                        // yer ise burasi.
+                        if (!_revealed)
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: _JokerButton(
+                              used: _jokerUsed,
+                              disabled: _revealed,
+                              onTap: _useJoker,
+                            ),
+                          ),
                         const SizedBox(height: 12),
                       ],
                     ),
@@ -339,7 +341,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   _OptionState _stateOf(Word option, _Question question) {
     if (!_revealed) {
       return _eliminated.contains(option.turkish)
-          ? _OptionState.dimmed
+          ? _OptionState.eliminated
           : _OptionState.idle;
     }
     if (option.turkish == question.word.turkish) return _OptionState.correct;
@@ -395,7 +397,7 @@ class _JokerButton extends ConsumerWidget {
   }
 }
 
-enum _OptionState { idle, correct, wrong, dimmed }
+enum _OptionState { idle, correct, wrong, dimmed, eliminated }
 
 class _OptionTile extends StatelessWidget {
   const _OptionTile({
@@ -438,6 +440,14 @@ class _OptionTile extends StatelessWidget {
         palette.textTertiary,
         null,
       ),
+      // Jokerle elenen sik: solmak yerine ustu cizili. Solgun metin
+      // "okunmuyor" hissi veriyordu, cizgi "bu eleendi" diyor.
+      _OptionState.eliminated => (
+        palette.surface,
+        palette.separator,
+        palette.textTertiary,
+        null,
+      ),
     };
 
     return GestureDetector(
@@ -459,7 +469,14 @@ class _OptionTile extends StatelessWidget {
             Expanded(
               child: Text(
                 label,
-                style: textTheme.bodyLarge?.copyWith(color: foreground),
+                style: textTheme.bodyLarge?.copyWith(
+                  color: foreground,
+                  decoration: state == _OptionState.eliminated
+                      ? TextDecoration.lineThrough
+                      : null,
+                  decorationColor: foreground,
+                  decorationThickness: 2,
+                ),
               ),
             ),
             if (icon != null) Icon(icon, size: 20, color: foreground),

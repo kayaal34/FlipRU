@@ -10,6 +10,7 @@ import '../../core/widgets/segmented_switch.dart';
 import '../../data/models/deck.dart';
 import '../../providers/daily_provider.dart';
 import '../../providers/library_providers.dart';
+import '../../providers/quiz_stats_provider.dart';
 import '../alphabet/alphabet_screen.dart';
 import '../units/unit_list_screen.dart';
 import 'widgets/deck_tiles.dart';
@@ -58,6 +59,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const _HomeHeader(),
+                  const SizedBox(height: 18),
+                  const _DailyGoals(),
                   const SizedBox(height: 26),
                   // Yildizli/Ogrendigim kartlari burada degil, Pratik
                   // sekmesinde duruyor: ana ekran "bugun ne yapmaliyim"
@@ -416,6 +419,90 @@ class _AlphabetCard extends ConsumerWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// Günlük hedefler: bugün yapılması beklenen işler ve durumları.
+///
+/// Günlük kelime hedefi zaten üstteki kartta; buradaki liste "bugün başka
+/// ne var" sorusunu cevaplıyor. Tamamlananın üstü çiziliyor.
+class _DailyGoals extends ConsumerWidget {
+  const _DailyGoals();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+    final daily = ref.watch(dailySummaryProvider);
+    final testDone = ref.watch(dailyTestDoneProvider);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          s.dailyGoalsTitle,
+          style: textTheme.labelSmall?.copyWith(
+            color: palette.textTertiary,
+            letterSpacing: 0.6,
+          ),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(18),
+            border: Border.all(color: palette.separator),
+          ),
+          child: Column(
+            children: [
+              _GoalRow(label: s.goalWords(daily.goal), done: daily.goalReached),
+              Divider(color: palette.separator, height: 1, indent: 52),
+              _GoalRow(label: s.dailyTest, done: testDone),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _GoalRow extends StatelessWidget {
+  const _GoalRow({required this.label, required this.done});
+
+  final String label;
+  final bool done;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(16, 13, 16, 13),
+      child: Row(
+        children: [
+          Icon(
+            done
+                ? Icons.check_circle_rounded
+                : Icons.radio_button_unchecked_rounded,
+            size: 22,
+            color: done ? palette.learned : palette.textTertiary,
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Text(
+              label,
+              style: textTheme.bodyLarge?.copyWith(
+                color: done ? palette.textTertiary : palette.textPrimary,
+                decoration: done ? TextDecoration.lineThrough : null,
+                decorationColor: palette.textTertiary,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

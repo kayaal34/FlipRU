@@ -91,6 +91,21 @@ final quizStatsProvider = NotifierProvider<QuizStatsNotifier, List<QuizResult>>(
   QuizStatsNotifier.new,
 );
 
+/// Günün testi bugün çözüldü mü?
+///
+/// Ana ekrandaki günlük hedef listesi buna bakıyor; bir günde birden çok
+/// kez çözülmesi mümkün ama hedef bir kez tamamlandığında işaretleniyor.
+final dailyTestDoneProvider = Provider<bool>((ref) {
+  final now = DateTime.now();
+  return ref.watch(quizStatsProvider).any(
+    (r) =>
+        r.kind == 'daily' &&
+        r.at.year == now.year &&
+        r.at.month == now.month &&
+        r.at.day == now.day,
+  );
+});
+
 @immutable
 class QuizSummary {
   const QuizSummary({
