@@ -301,7 +301,7 @@ class _StreakBadge extends ConsumerWidget {
     // Yalnızca alev + sayı: "günlük seri" yazısı her açılışta aynı şeyi
     // tekrar ediyor ve selamlamanın yanında yer kaplıyordu.
     return Container(
-      padding: const EdgeInsets.fromLTRB(10, 6, 13, 6),
+      padding: const EdgeInsets.fromLTRB(11, 7, 14, 7),
       decoration: BoxDecoration(
         color: active
             ? palette.star.withValues(alpha: 0.15)
@@ -318,10 +318,10 @@ class _StreakBadge extends ConsumerWidget {
         children: [
           Icon(
             Icons.local_fire_department_rounded,
-            size: 21,
+            size: 23,
             color: active ? palette.star : palette.textTertiary,
           ),
-          const SizedBox(width: 5),
+          const SizedBox(width: 6),
           Text(
             '$days',
             style: textTheme.titleLarge?.copyWith(
@@ -388,7 +388,7 @@ class _AlphabetCard extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     s.alphabetCardSub,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.bodySmall?.copyWith(
                       color: palette.textTertiary,
