@@ -482,8 +482,8 @@ class _HeaderIconButton extends StatelessWidget {
         onTap();
       },
       child: Container(
-        width: 38,
-        height: 38,
+        width: 48,
+        height: 48,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: palette.surface,

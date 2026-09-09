@@ -581,8 +581,8 @@ class _StarButton extends StatelessWidget {
       onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 260),
-        width: 42,
-        height: 42,
+        width: 48,
+        height: 48,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isStarred
@@ -632,8 +632,8 @@ class _CircleIconButton extends StatelessWidget {
         onTap();
       },
       child: Container(
-        width: 42,
-        height: 42,
+        width: 48,
+        height: 48,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: palette.surfaceSunken,

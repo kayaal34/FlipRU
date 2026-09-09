@@ -30,6 +30,10 @@ class AppPalette extends ThemeExtension<AppPalette> {
   /// Scaffold arka planı.
   final Color canvas;
 
+  /// Koyu tema mı? Zemin parlaklığından çıkarılıyor, ayrı bir alan
+  /// tutmaya gerek yok.
+  bool get isDark => canvas.computeLuminance() < 0.5;
+
   /// Standart kart / liste satırı yüzeyi.
   final Color surface;
 
@@ -75,8 +79,8 @@ class AppPalette extends ThemeExtension<AppPalette> {
     track: Color(0xFFDCDCE6),
     separator: Color(0xFFE4E4EB),
     textPrimary: Color(0xFF0B0B0F),
-    textSecondary: Color(0xFF6C6C78),
-    textTertiary: Color(0xFFA2A2AE),
+    textSecondary: Color(0xFF5C5C68),
+    textTertiary: Color(0xFF6F6F7B),
     accent: Color(0xFF5E5CE6),
     accentSoft: Color(0xFFEDEDFE),
     learned: Color(0xFF16A34A),
@@ -117,7 +121,7 @@ class AppPalette extends ThemeExtension<AppPalette> {
     separator: Color(0xFF2A2A32),
     textPrimary: Color(0xFFF5F5F7),
     textSecondary: Color(0xFF9C9CA7),
-    textTertiary: Color(0xFF66666F),
+    textTertiary: Color(0xFF7F7F88),
     accent: Color(0xFF8886FF),
     accentSoft: Color(0xFF1E1D33),
     learned: Color(0xFF32D373),
