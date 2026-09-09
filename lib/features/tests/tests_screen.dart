@@ -1,4 +1,4 @@
-import 'dart:math';
+﻿import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,7 +11,6 @@ import '../../data/models/deck.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
-import '../../core/widgets/starred_hero_card.dart';
 import '../quiz/quiz_screen.dart';
 import '../../providers/writing_test_providers.dart';
 import 'writing_tests_screen.dart';
@@ -60,34 +59,35 @@ class TestsScreen extends ConsumerWidget {
                 Text(t.testsSubtitle, style: textTheme.bodyMedium),
                 const SizedBox(height: 22),
 
-                // Dort ana pratik yolu kare izgarada: liste halinde alt
-                // alta dizilince ekranin yarisini kapliyor ve hepsi ayni
-                // agirlikta gorunuyordu. Yildizli karti asagida tam
-                // genislikte kaliyor -- tek sayi izgarayi kirik birakirdi.
+                // Gunun testi tam genislikte: gunluk eylem o, digerlerinden
+                // once ve daha gorunur olmali.
+                _TestCard(
+                  icon: Icons.today_rounded,
+                  tint: palette.accent,
+                  title: t.dailyTest,
+                  subtitle: learned.length < _minLearned
+                      ? t.needFourLearned
+                      : t.dailyTestSub,
+                  enabled: learned.length >= _minLearned,
+                  onTap: () => _start(
+                    context,
+                    ref,
+                    t.dailyTest,
+                    _shuffled(learned, 15),
+                    kind: 'daily',
+                  ),
+                ),
+                const SizedBox(height: 12),
+                // Kalan dort yol kare izgarada; kareler kucuk tutuldu ki
+                // seviye testleri de ayni ekranda gorunsun.
                 GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
-                  childAspectRatio: 1.02,
+                  childAspectRatio: 1.32,
                   children: [
-                    _TestTile(
-                      icon: Icons.today_rounded,
-                      tint: palette.accent,
-                      title: t.dailyTest,
-                      subtitle: learned.length < _minLearned
-                          ? t.needFourLearned
-                          : t.dailyTestSub,
-                      enabled: learned.length >= _minLearned,
-                      onTap: () => _start(
-                        context,
-                        ref,
-                        t.dailyTest,
-                        _shuffled(learned, 15),
-                        kind: 'daily',
-                      ),
-                    ),
                     _TestTile(
                       icon: Icons.keyboard_rounded,
                       tint: palette.star,
@@ -131,29 +131,17 @@ class TestsScreen extends ConsumerWidget {
                         _shuffled(learned, learned.length),
                       ),
                     ),
+                    _TestTile(
+                      icon: Icons.star_rounded,
+                      tint: palette.star,
+                      title: t.starredTitle,
+                      subtitle: starred.isEmpty
+                          ? t.starredEmptyHint
+                          : t.starredTestSub,
+                      enabled: starred.isNotEmpty,
+                      onTap: () => _start(context, ref, t.myStarred, starred),
+                    ),
                   ],
-                ),
-                const SizedBox(height: 14),
-                // Ana ekrandaki kartin aynisi. Onceden burada duz bir satirdi
-                // ve "4 kelime" siniri vardi; quiz'in celdiricileri sozlugun
-                // tamamindan geldigi icin (bkz. randomDistractors) tek yildizli
-                // kelimeyle bile test kurulabiliyor — o sinir gereksizdi.
-                StarredHeroCard(
-                  title: t.starredTitle,
-                  subtitle: starred.isEmpty
-                      ? t.starredEmptyHint
-                      : t.starredTestSub,
-                  onTap: () {
-                    if (starred.isEmpty) {
-                      ScaffoldMessenger.of(context)
-                        ..hideCurrentSnackBar()
-                        ..showSnackBar(
-                          SnackBar(content: Text(t.starredEmptyHint)),
-                        );
-                      return;
-                    }
-                    _start(context, ref, t.myStarred, starred);
-                  },
                 ),
 
                 const SizedBox(height: 26),
@@ -392,40 +380,36 @@ class _TestTile extends StatelessWidget {
       child: Opacity(
         opacity: enabled ? 1 : 0.72,
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             color: palette.surface,
             borderRadius: BorderRadius.circular(20),
             border: Border.all(color: palette.separator),
           ),
+          // Alt yazi yok: kare kartta iki satir aciklama hem tasiyordu hem
+          // de kartlari buyutuyordu. Basliklar zaten kendini anlatiyor,
+          // kapali durumun gerekcesi dokununca bildirimde cikiyor.
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 46,
-                height: 46,
+                width: 38,
+                height: 38,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   color: tint.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(13),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: Icon(icon, color: tint, size: 24),
+                child: Icon(icon, color: tint, size: 21),
               ),
               const Spacer(),
-              Text(
-                title,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.titleMedium?.copyWith(height: 1.2),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                subtitle,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.bodySmall?.copyWith(
-                  color: palette.textTertiary,
-                  height: 1.3,
+              // Flexible: buyuk yazi olceginde bile tasmak yerine kirpiliyor.
+              Flexible(
+                child: Text(
+                  title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.titleMedium?.copyWith(height: 1.15),
                 ),
               ),
             ],

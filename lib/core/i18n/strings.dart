@@ -193,6 +193,8 @@ class Strings {
     required this.cards,
     required this.dailyGoal,
     required this.dailyGoalSub,
+    required this.dailyGoalsTitle,
+    required this.goalWordsTemplate,
     required this.shuffle,
     required this.shuffleSub,
     required this.skipLearned,
@@ -361,6 +363,7 @@ class Strings {
   final String dirRuTrDesc, dirTrRuDesc;
   final String sessionSize, sessionSizeSub, allCards, cards;
   final String dailyGoal, dailyGoalSub, shuffle, shuffleSub;
+  final String dailyGoalsTitle, goalWordsTemplate;
   final String skipLearned, skipLearnedSub;
   final String stressMarks, stressMarksSub, translitTitle, translitSub;
   final String reminder, dailyReminder, dailyReminderSub;
@@ -417,6 +420,9 @@ class Strings {
     if (n % 10 >= 2 && n % 10 <= 4) return forms[1];
     return forms[2];
   }
+
+  /// "20 kelime çalış" / "Выучить 20 слов"
+  String goalWords(int n) => goalWordsTemplate.replaceFirst('{}', words(n));
 
   /// "9 Eylül, Salı" / "9 сентября, вторник"
   String dateLine(DateTime d) =>
@@ -582,7 +588,7 @@ class Strings {
         'kuraldışı durumlarını ve örnek kelimesini görebilirsin.',
     alphabetSound: 'Okunuş',
     alphabetExample: 'ÖRNEK KELİME',
-    myLearned: 'Öğrendiğim Kelimeler',
+    myLearned: 'Öğrendiklerim',
     myStarred: 'Yıldızlı kelimelerim',
     fromWords: 'öğrenildi',
     needFourLearned: 'En az 20 kelime öğrenince açılır',
@@ -657,6 +663,8 @@ class Strings {
     cards: 'kart',
     dailyGoal: 'Günlük hedef',
     dailyGoalSub: 'Ana ekranda ilerlemen buna göre ölçülür',
+    dailyGoalsTitle: 'GÜNLÜK HEDEFLER',
+    goalWordsTemplate: '{} çalış',
     shuffle: 'Kartları karıştır',
     shuffleSub: 'Kapalıysa kelimeler sıklık sırasına göre gelir',
     skipLearned: 'Öğrenilenleri atla',
@@ -1034,6 +1042,8 @@ class Strings {
     cards: 'карт.',
     dailyGoal: 'Дневная цель',
     dailyGoalSub: 'По ней измеряется прогресс на главной',
+    dailyGoalsTitle: 'ЦЕЛИ НА ДЕНЬ',
+    goalWordsTemplate: 'Выучить {}',
     shuffle: 'Перемешивать карточки',
     shuffleSub: 'Если выключено — слова идут по частотности',
     skipLearned: 'Пропускать выученные',
