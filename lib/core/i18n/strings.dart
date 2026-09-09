@@ -576,7 +576,7 @@ class Strings {
     alphabetReadTapHint: 'Anlamı için dokun',
     alphabetAllLettersTemplate: 'TÜMÜ · {}',
     alphabetTitle: 'Rus Alfabesi',
-    alphabetCardSub: 'Kiril harflerini tanı, okunuşlarını öğren',
+    alphabetCardSub: 'Harfleri ve okunuşlarını öğren',
     alphabetIntroTemplate:
         'Kiril alfabesinde {} var. Her harfe dokunarak okunuşunu, '
         'kuraldışı durumlarını ve örnek kelimesini görebilirsin.',
@@ -953,7 +953,7 @@ class Strings {
     alphabetReadTapHint: 'Нажмите, чтобы увидеть перевод',
     alphabetAllLettersTemplate: 'ВСЕ · {}',
     alphabetTitle: 'Турецкий алфавит',
-    alphabetCardSub: 'Изучите турецкие буквы и их произношение',
+    alphabetCardSub: 'Буквы и их произношение',
     alphabetIntroTemplate:
         'В турецком алфавите {}. Нажмите на любую букву, чтобы увидеть '
         'произношение, особые случаи и пример слова.',

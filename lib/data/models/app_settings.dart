@@ -109,7 +109,7 @@ class AppSettings {
       '${reminderHour.toString().padLeft(2, '0')}:'
       '${reminderMinute.toString().padLeft(2, '0')}';
 
-  static const sessionSizeOptions = [10, 20, 30, 50, 0];
+  static const sessionSizeOptions = [5, 10, 20, 30, 50, 0];
   static const dailyGoalOptions = [5, 10, 20, 30, 50];
 
   AppSettings copyWith({

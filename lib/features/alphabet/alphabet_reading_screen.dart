@@ -170,7 +170,10 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
                         .read(settingsProvider.notifier)
                         .update(
                           (x) => x.copyWith(
-                            alphabetDone: {...x.alphabetDone, 'read'},
+                            alphabetDone: {
+                              ...x.alphabetDone,
+                              '${cyrillic ? 'ru' : 'tr'}:read',
+                            },
                           ),
                         );
                     Navigator.of(context).pop(true);

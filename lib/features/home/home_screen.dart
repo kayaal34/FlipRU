@@ -345,6 +345,14 @@ class _AlphabetCard extends ConsumerWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
+    final settings = ref.watch(settingsProvider);
+    // Uc harf grubu + okuma adimi.
+    const total = 4;
+    final prefix = settings.language == AppLanguage.tr ? 'ru' : 'tr';
+    final done = settings.alphabetDone
+        .where((k) => k.startsWith('$prefix:'))
+        .length;
+    final ratio = done / total;
 
     return Pressable(
       onTap: onTap,
@@ -380,6 +388,8 @@ class _AlphabetCard extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     s.alphabetCardSub,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: textTheme.bodySmall?.copyWith(
                       color: palette.textTertiary,
                     ),
@@ -387,10 +397,22 @@ class _AlphabetCard extends ConsumerWidget {
                 ],
               ),
             ),
-            Icon(
-              Icons.chevron_right_rounded,
-              size: 27,
-              color: palette.textTertiary,
+            // Seviye satirlarindaki gibi ilerleme halkasi: alfabe de
+            // bitirilebilir bir bolum, tamamlaninca tik gosteriyor.
+            ProgressRing(
+              value: ratio,
+              color: palette.accent,
+              size: 48,
+              child: done == total
+                  ? Icon(Icons.check_rounded, size: 23, color: palette.accent)
+                  : Text(
+                      '${(ratio * 100).round()}',
+                      style: textTheme.labelSmall?.copyWith(
+                        color: palette.textSecondary,
+                        fontSize: 12,
+                        letterSpacing: 0,
+                      ),
+                    ),
             ),
           ],
         ),

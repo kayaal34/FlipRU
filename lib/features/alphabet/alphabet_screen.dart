@@ -307,6 +307,9 @@ class _LessonList extends ConsumerWidget {
     final done = ref.watch(settingsProvider).alphabetDone;
     final ttsLanguage = teachesCyrillic ? 'ru-RU' : 'tr-TR';
 
+    // Anahtarlar alfabeye gore ayri: Kiril'i ogrenmek Turk alfabesini
+    // ogrenmis saymamali.
+    final prefix = teachesCyrillic ? 'ru' : 'tr';
     final lessons = <(String, String, String, List<AlphabetLetter>)>[
       (
         'same',
@@ -337,11 +340,11 @@ class _LessonList extends ConsumerWidget {
               title: title,
               subtitle: subtitle,
               badge: group.map((l) => l.upper).join(' '),
-              done: done.contains(key),
+              done: done.contains('$prefix:$key'),
               onTap: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => AlphabetLessonScreen(
-                    groupKey: key,
+                    groupKey: '$prefix:$key',
                     title: title,
                     letters: group,
                     ttsLanguage: ttsLanguage,
