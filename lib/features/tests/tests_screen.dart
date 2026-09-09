@@ -60,71 +60,78 @@ class TestsScreen extends ConsumerWidget {
                 Text(t.testsSubtitle, style: textTheme.bodyMedium),
                 const SizedBox(height: 22),
 
-                _TestCard(
-                  icon: Icons.today_rounded,
-                  tint: palette.accent,
-                  title: t.dailyTest,
-                  subtitle: learned.length < _minLearned
-                      ? t.needFourLearned
-                      : t.dailyTestSub,
-                  enabled: learned.length >= _minLearned,
-                  onTap: () => _start(
-                    context,
-                    ref,
-                    t.dailyTest,
-                    _shuffled(learned, 15),
-                    kind: 'daily',
-                  ),
-                ),
-                const SizedBox(height: 10),
-                _TestCard(
-                  icon: Icons.keyboard_rounded,
-                  tint: palette.star,
-                  title: t.writingTest,
-                  subtitle: t.writingTestSub,
-                  // Yazma testleri kendi havuzundan geliyor; ogrenilmis
-                  // kelime sarti yok, kolaydan zora sirali.
-                  enabled: true,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const WritingTestsScreen(
-                        direction: WritingDirection.trToRu,
+                // Dort ana pratik yolu kare izgarada: liste halinde alt
+                // alta dizilince ekranin yarisini kapliyor ve hepsi ayni
+                // agirlikta gorunuyordu. Yildizli karti asagida tam
+                // genislikte kaliyor -- tek sayi izgarayi kirik birakirdi.
+                GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 12,
+                  crossAxisSpacing: 12,
+                  childAspectRatio: 1.02,
+                  children: [
+                    _TestTile(
+                      icon: Icons.today_rounded,
+                      tint: palette.accent,
+                      title: t.dailyTest,
+                      subtitle: learned.length < _minLearned
+                          ? t.needFourLearned
+                          : t.dailyTestSub,
+                      enabled: learned.length >= _minLearned,
+                      onTap: () => _start(
+                        context,
+                        ref,
+                        t.dailyTest,
+                        _shuffled(learned, 15),
+                        kind: 'daily',
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                _TestCard(
-                  icon: Icons.translate_rounded,
-                  tint: palette.review,
-                  title: t.writingTestRu,
-                  subtitle: t.writingTestRuSub,
-                  enabled: true,
-                  onTap: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (_) => const WritingTestsScreen(
-                        direction: WritingDirection.ruToTr,
+                    _TestTile(
+                      icon: Icons.keyboard_rounded,
+                      tint: palette.star,
+                      title: t.writingTest,
+                      subtitle: t.writingTestSub,
+                      enabled: true,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const WritingTestsScreen(
+                            direction: WritingDirection.trToRu,
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(height: 10),
-                _TestCard(
-                  icon: Icons.check_circle_rounded,
-                  tint: palette.learned,
-                  title: t.myLearned,
-                  subtitle: learned.length < _minLearned
-                      ? t.needFourLearned
-                      : t.learnedMixedSub,
-                  enabled: learned.length >= _minLearned,
-                  // Her acilista yeniden karistiriliyor: ayni sirayla tekrar
-                  // etmek ezberletir, olcmez.
-                  onTap: () => _start(
-                    context,
-                    ref,
-                    t.myLearned,
-                    _shuffled(learned, learned.length),
-                  ),
+                    _TestTile(
+                      icon: Icons.translate_rounded,
+                      tint: palette.review,
+                      title: t.writingTestRu,
+                      subtitle: t.writingTestRuSub,
+                      enabled: true,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const WritingTestsScreen(
+                            direction: WritingDirection.ruToTr,
+                          ),
+                        ),
+                      ),
+                    ),
+                    _TestTile(
+                      icon: Icons.check_circle_rounded,
+                      tint: palette.learned,
+                      title: t.myLearned,
+                      subtitle: learned.length < _minLearned
+                          ? t.needFourLearned
+                          : t.learnedMixedSub,
+                      enabled: learned.length >= _minLearned,
+                      onTap: () => _start(
+                        context,
+                        ref,
+                        t.myLearned,
+                        _shuffled(learned, learned.length),
+                      ),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: 14),
                 // Ana ekrandaki kartin aynisi. Onceden burada duz bir satirdi
@@ -337,6 +344,89 @@ class _TestCard extends StatelessWidget {
                 Icons.chevron_right_rounded,
                 size: 24,
                 color: palette.textTertiary,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Pratik ekranının kare kartı.
+///
+/// Satır hâlinde her seçenek aynı ağırlıkta ve uzun bir liste oluyordu;
+/// kare düzen dördünü tek bakışta gösteriyor.
+class _TestTile extends StatelessWidget {
+  const _TestTile({
+    required this.icon,
+    required this.tint,
+    required this.title,
+    required this.subtitle,
+    required this.enabled,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final Color tint;
+  final String title;
+  final String subtitle;
+  final bool enabled;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+
+    return Pressable(
+      onTap: () {
+        if (!enabled) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(content: Text(subtitle)));
+          return;
+        }
+        onTap();
+      },
+      child: Opacity(
+        opacity: enabled ? 1 : 0.72,
+        child: Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: palette.separator),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: 46,
+                height: 46,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: tint.withValues(alpha: 0.14),
+                  borderRadius: BorderRadius.circular(13),
+                ),
+                child: Icon(icon, color: tint, size: 24),
+              ),
+              const Spacer(),
+              Text(
+                title,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.titleMedium?.copyWith(height: 1.2),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                subtitle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodySmall?.copyWith(
+                  color: palette.textTertiary,
+                  height: 1.3,
+                ),
               ),
             ],
           ),
