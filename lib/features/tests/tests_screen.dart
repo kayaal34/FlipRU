@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -65,7 +66,7 @@ class TestsScreen extends ConsumerWidget {
                   childAspectRatio: 1.55,
                   children: [
                     _TestTile(
-                      icon: Icons.keyboard_rounded,
+                      icon: PhosphorIconsRegular.keyboard,
                       tint: palette.star,
                       title: t.writingTest,
                       subtitle: t.writingTestSub,
@@ -79,7 +80,7 @@ class TestsScreen extends ConsumerWidget {
                       ),
                     ),
                     _TestTile(
-                      icon: Icons.translate_rounded,
+                      icon: PhosphorIconsRegular.translate,
                       tint: palette.review,
                       title: t.writingTestRu,
                       subtitle: t.writingTestRuSub,
@@ -96,7 +97,7 @@ class TestsScreen extends ConsumerWidget {
                     // gormek, aramak, dinlemek isteniyor. Test o listelerin
                     // basligindaki oynat dugmesinde.
                     _TestTile(
-                      icon: Icons.check_circle_rounded,
+                      icon: PhosphorIconsFill.checkCircle,
                       tint: palette.learned,
                       title: t.myLearned,
                       subtitle: t.learnedListSub,
@@ -108,7 +109,7 @@ class TestsScreen extends ConsumerWidget {
                       ),
                     ),
                     _TestTile(
-                      icon: Icons.star_rounded,
+                      icon: PhosphorIconsFill.star,
                       tint: palette.star,
                       title: t.starredTitle,
                       subtitle: starred.isEmpty
@@ -291,7 +292,7 @@ class _TestCard extends StatelessWidget {
               if (trailing != null) ...[const SizedBox(width: 8), trailing!],
               const SizedBox(width: 4),
               Icon(
-                Icons.chevron_right_rounded,
+                PhosphorIconsRegular.caretRight,
                 size: 24,
                 color: palette.textTertiary,
               ),

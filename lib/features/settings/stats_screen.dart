@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -82,7 +83,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                               value: '$total',
                               label: t.statLearned,
                               color: palette.learned,
-                              icon: Icons.check_circle_rounded,
+                              icon: PhosphorIconsFill.checkCircle,
                             ),
                           ),
                           const SizedBox(width: 10),
@@ -91,7 +92,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                               value: '$streak',
                               label: t.statStreak,
                               color: palette.star,
-                              icon: Icons.local_fire_department_rounded,
+                              icon: PhosphorIconsFill.fire,
                             ),
                           ),
                         ],
@@ -118,7 +119,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           child: Row(
                             children: [
                               Icon(
-                                Icons.bar_chart_rounded,
+                                PhosphorIconsRegular.chartBar,
                                 size: 19,
                                 color: palette.textTertiary,
                               ),
@@ -360,7 +361,7 @@ class _EmptyStats extends StatelessWidget {
               ),
             ),
             child: Icon(
-              Icons.insights_rounded,
+              PhosphorIconsRegular.chartLineUp,
               size: 50,
               color: palette.accent,
             ),

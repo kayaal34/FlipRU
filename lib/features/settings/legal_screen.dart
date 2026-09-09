@@ -1,5 +1,6 @@
 import '../../core/app_info.dart';
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../core/theme/app_palette.dart';
 
@@ -37,7 +38,7 @@ class LegalScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text(document.title),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),

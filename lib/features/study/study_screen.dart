@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -372,7 +373,7 @@ class _StudyHeader extends StatelessWidget {
           Row(
             children: [
               _HeaderIconButton(
-                icon: Icons.chevron_left_rounded,
+                icon: PhosphorIconsRegular.caretLeft,
                 onTap: onClose,
               ),
               Expanded(
@@ -404,7 +405,7 @@ class _StudyHeader extends StatelessWidget {
               _Tally(
                 count: learned,
                 color: palette.learned,
-                icon: Icons.check_rounded,
+                icon: PhosphorIconsBold.check,
               ),
               const SizedBox(width: 12),
               Expanded(
@@ -427,7 +428,7 @@ class _StudyHeader extends StatelessWidget {
               _Tally(
                 count: review,
                 color: palette.review,
-                icon: Icons.refresh_rounded,
+                icon: PhosphorIconsRegular.arrowsClockwise,
               ),
             ],
           ),
@@ -511,7 +512,7 @@ class _EmptyDeckState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.style_outlined, size: 54, color: palette.textTertiary),
+            Icon(PhosphorIconsRegular.cards, size: 54, color: palette.textTertiary),
             const SizedBox(height: 18),
             Text(strings.deckEmpty, style: textTheme.titleLarge),
             const SizedBox(height: 8),

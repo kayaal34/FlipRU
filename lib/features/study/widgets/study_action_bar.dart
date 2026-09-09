@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_palette.dart';
@@ -36,7 +37,7 @@ class StudyActionBar extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         _ActionButton(
-          icon: Icons.undo_rounded,
+          icon: PhosphorIconsRegular.arrowUUpLeft,
           size: 48,
           iconSize: 20,
           color: palette.textSecondary,
@@ -47,7 +48,7 @@ class StudyActionBar extends ConsumerWidget {
         ),
         const SizedBox(width: 16),
         _ActionButton(
-          icon: Icons.refresh_rounded,
+          icon: PhosphorIconsRegular.arrowsClockwise,
           size: 64,
           iconSize: 29,
           color: palette.review,
@@ -57,7 +58,7 @@ class StudyActionBar extends ConsumerWidget {
         ),
         const SizedBox(width: 16),
         _ActionButton(
-          icon: isFlipped ? Icons.flip_to_front_rounded : Icons.flip_rounded,
+          icon: isFlipped ? PhosphorIconsRegular.arrowsCounterClockwise : PhosphorIconsRegular.arrowsClockwise,
           size: 52,
           iconSize: 22,
           color: palette.accent,
@@ -67,7 +68,7 @@ class StudyActionBar extends ConsumerWidget {
         ),
         const SizedBox(width: 16),
         _ActionButton(
-          icon: Icons.check_rounded,
+          icon: PhosphorIconsBold.check,
           size: 64,
           iconSize: 31,
           color: palette.learned,

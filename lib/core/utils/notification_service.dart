@@ -17,6 +17,10 @@ class NotificationService {
   static const _channelId = 'daily_reminder';
   static const _horizonDays = 7;
 
+  /// Seri uyarisinin kimligi; gunluk hatirlatmalar 0.._horizonDays
+  /// araligini kullaniyor, cakismasin.
+  static const _streakId = 100;
+
   final FlutterLocalNotificationsPlugin _plugin =
       FlutterLocalNotificationsPlugin();
 
@@ -90,11 +94,19 @@ class NotificationService {
 
   /// [hour]:[minute] saatinde, önümüzdeki [_horizonDays] gün için hatırlatma
   /// kurar. [skipToday] bugünün hedefi tamamlandığında true geçilir.
+  ///
+  /// [streak] sıfırdan büyükse yarın akşam için ayrıca bir "serin tehlikede"
+  /// uyarısı kuruluyor. Arka planda çalışan bir şey olmadığı için bu uyarı
+  /// yalnızca yarını kapsıyor: kullanıcı yarın uygulamayı açarsa bütün
+  /// bildirimler silinip yeniden kuruluyor, yani uyarı sadece gelmediği gün
+  /// çalıyor. Öbür günü de kurmanın anlamı yok — seri o noktada zaten kopmuş
+  /// olur ve "serini kaybetme" demek yanlış olurdu.
   Future<void> scheduleDaily({
     required int hour,
     required int minute,
     required bool skipToday,
     required int goal,
+    required int streak,
     required Strings strings,
   }) async {
     await _ensureInitialized();
@@ -134,6 +146,30 @@ class NotificationService {
           scheduledDate: when,
           notificationDetails: details,
           // Kesin alarm izni istemiyoruz; birkaç dakika sapma sorun değil.
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        );
+      }
+
+      if (streak > 0) {
+        // Hatirlatmadan sonra, gunun bitmesine yakin bir saat.
+        var uyariSaat = hour + 2;
+        if (uyariSaat < 21) uyariSaat = 21;
+        if (uyariSaat > 23) uyariSaat = 23;
+
+        final uyari = tz.TZDateTime(
+          tz.local,
+          now.year,
+          now.month,
+          now.day + 1,
+          uyariSaat,
+          30,
+        );
+        await _plugin.zonedSchedule(
+          id: _streakId,
+          title: strings.streakNotifTitle,
+          body: strings.streakNotifBody.replaceFirst('{}', '$streak'),
+          scheduledDate: uyari,
+          notificationDetails: details,
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         );
       }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -573,7 +574,7 @@ void main() {
       expect(find.text('Kartlarla çalış'), findsOneWidget);
       expect(find.text('Test'), findsOneWidget);
       // Kelime listesi görünüyor ve yıldızlanabiliyor.
-      expect(find.byIcon(Icons.star_outline_rounded), findsWidgets);
+      expect(find.byIcon(PhosphorIconsRegular.star), findsWidgets);
     });
 
     testWidgets('bölümden kart çalışması başlar ve kart çevrilir',
@@ -612,7 +613,7 @@ void main() {
       );
       expect(container.read(starredProvider), isEmpty);
 
-      await tester.tap(find.byIcon(Icons.star_outline_rounded).first);
+      await tester.tap(find.byIcon(PhosphorIconsRegular.star).first);
       await tester.pumpAndSettle();
 
       expect(container.read(starredProvider), hasLength(1));

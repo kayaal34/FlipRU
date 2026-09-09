@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -23,7 +24,7 @@ class QuizScreen extends ConsumerStatefulWidget {
     required this.words,
     this.kind = '',
     this.accent,
-    this.questionCount = 15,
+    this.questionCount,
     this.unitId,
     super.key,
   });
@@ -34,7 +35,12 @@ class QuizScreen extends ConsumerStatefulWidget {
   /// Istatistikte ayirt etmek icin: bos ya da 'daily'.
   final String kind;
   final Color? accent;
-  final int questionCount;
+
+  /// Kaç soru sorulacak. `null` ise ayarlardaki değer kullanılıyor.
+  ///
+  /// Bölüm ve seviye testleri burayı açıkça dolduruyor: orada bölümün bütün
+  /// kelimeleri sorulmalı, yoksa tam puan şartı anlamsız kalırdı.
+  final int? questionCount;
 
   /// Bölüm testiyse: bütün sorular doğru cevaplanınca bu bölüm geçilmiş
   /// sayılır ve sonraki bölümün kilidi açılır. Yanlışı olan kullanıcı
@@ -67,7 +73,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     if (pool.length < 4) pool = [...widget.words];
     pool.shuffle(_random);
 
-    final count = min(widget.questionCount, pool.length);
+    final istenen =
+        widget.questionCount ??
+        ref.read(settingsProvider).quizQuestionCount;
+    final count = min(istenen, pool.length);
 
     return [
       for (final word in pool.take(count))
@@ -216,7 +225,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
       appBar: AppBar(
         title: Text(widget.title),
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded, size: 24),
+          icon: const Icon(PhosphorIconsRegular.x, size: 24),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
@@ -382,7 +391,7 @@ class _JokerButton extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.lightbulb_rounded, size: 16, color: palette.star),
+            Icon(PhosphorIconsFill.lightbulb, size: 16, color: palette.star),
             const SizedBox(width: 4),
             Text(
               ref.watch(stringsProvider).joker,
@@ -426,13 +435,13 @@ class _OptionTile extends StatelessWidget {
         palette.learnedSoft,
         palette.learned,
         palette.learned,
-        Icons.check_circle_rounded,
+        PhosphorIconsFill.checkCircle,
       ),
       _OptionState.wrong => (
         palette.reviewSoft,
         palette.review,
         palette.review,
-        Icons.cancel_rounded,
+        PhosphorIconsFill.xCircle,
       ),
       _OptionState.dimmed => (
         palette.surface,

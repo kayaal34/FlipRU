@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/theme/app_palette.dart';
 import '../../../core/theme/app_typography.dart';
@@ -116,7 +117,7 @@ class Flashcard extends StatelessWidget {
             top: 18,
             left: 18,
             child: _CircleIconButton(
-              icon: Icons.volume_up_rounded,
+              icon: PhosphorIconsRegular.speakerHigh,
               // Hangi yüz görünüyorsa o dil okunur: Türkçe yüzdeyken
               // Rusçayı okumak hem cevabı verir hem yanlış sesi duyurur.
               onTap: () => russianVisible
@@ -135,8 +136,8 @@ class Flashcard extends StatelessWidget {
                     ? strings.badgeLearned
                     : strings.badgeReview,
                 icon: isLearnDirection
-                    ? Icons.check_rounded
-                    : Icons.refresh_rounded,
+                    ? PhosphorIconsBold.check
+                    : PhosphorIconsRegular.arrowsClockwise,
                 color: feedbackColor,
                 intensity: intensity,
                 tiltLeft: isLearnDirection,
@@ -431,7 +432,7 @@ class _MeaningFace extends StatelessWidget {
                           vertical: 2,
                         ),
                         child: Icon(
-                          Icons.graphic_eq_rounded,
+                          PhosphorIconsRegular.waveform,
                           size: 17,
                           color: palette.accent,
                         ),
@@ -474,7 +475,7 @@ class _MeaningFace extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(
-                          Icons.flag_outlined,
+                          PhosphorIconsRegular.flag,
                           size: 14,
                           color: palette.textTertiary,
                         ),
@@ -511,7 +512,7 @@ class _TapHint extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(Icons.touch_app_rounded, size: 15, color: palette.textTertiary),
+        Icon(PhosphorIconsRegular.handTap, size: 15, color: palette.textTertiary),
         const SizedBox(width: 6),
         Text(
           label,
@@ -600,7 +601,7 @@ class _StarButton extends StatelessWidget {
             child: child,
           ),
           child: Icon(
-            isStarred ? Icons.star_rounded : Icons.star_outline_rounded,
+            isStarred ? PhosphorIconsFill.star : PhosphorIconsRegular.star,
             key: ValueKey(isStarred),
             size: 23,
             color: isStarred ? palette.star : palette.textTertiary,

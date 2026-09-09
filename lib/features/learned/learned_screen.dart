@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -7,7 +8,6 @@ import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/settings_provider.dart';
-import '../quiz/quiz_screen.dart';
 import '../words/word_detail_screen.dart';
 
 /// Öğrenilen kelimelerin listesi.
@@ -64,41 +64,9 @@ class _LearnedScreenState extends ConsumerState<LearnedScreen> {
       appBar: AppBar(
         title: Text(s.myLearned),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
-        actions: [
-          // Liste ve test ayni kapidan giriliyor: once kelimelerine bakiyor,
-          // hazir hissedince buradan olcuyor. Esik pratik ekranindakiyle ayni
-          // (20); altinda kalinca dugme kaybolmuyor, nedenini soyluyor.
-          if (learned.isNotEmpty)
-            IconButton(
-              icon: Icon(
-                Icons.play_circle_fill_rounded,
-                size: 30,
-                // Baslik cubugunun varsayilan siyahinda dugme koyu bir leke
-                // gibi duruyordu; vurgu rengi bunu bir eylem yapiyor.
-                color: palette.accent,
-              ),
-              tooltip: s.test,
-              onPressed: () {
-                if (learned.length < 20) {
-                  ScaffoldMessenger.of(context)
-                    ..hideCurrentSnackBar()
-                    ..showSnackBar(SnackBar(content: Text(s.needFourLearned)));
-                  return;
-                }
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => QuizScreen(
-                      title: s.myLearned,
-                      words: [...learned]..shuffle(),
-                    ),
-                  ),
-                );
-              },
-            ),
-        ],
       ),
       body: SafeArea(
         child: learned.isEmpty
@@ -127,11 +95,11 @@ class _LearnedScreenState extends ConsumerState<LearnedScreen> {
                           textInputAction: TextInputAction.search,
                           decoration: InputDecoration(
                             hintText: s.searchLearned,
-                            prefixIcon: const Icon(Icons.search_rounded),
+                            prefixIcon: const Icon(PhosphorIconsRegular.magnifyingGlass),
                             suffixIcon: _query.isEmpty
                                 ? null
                                 : IconButton(
-                                    icon: const Icon(Icons.close_rounded),
+                                    icon: const Icon(PhosphorIconsRegular.x),
                                     onPressed: () {
                                       _controller.clear();
                                       setState(() => _query = '');
@@ -259,14 +227,14 @@ class _LearnedRow extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                Icons.volume_up_rounded,
+                PhosphorIconsRegular.speakerHigh,
                 size: 21,
                 color: palette.textTertiary,
               ),
               onPressed: onSpeak,
             ),
             Icon(
-              Icons.chevron_right_rounded,
+              PhosphorIconsRegular.caretRight,
               size: 22,
               color: palette.textTertiary,
             ),

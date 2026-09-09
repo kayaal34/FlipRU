@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -63,7 +64,7 @@ class WritingTestsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(_baslik(s)),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
@@ -92,7 +93,7 @@ class WritingTestsScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(13),
                         ),
                         child: Icon(
-                          Icons.keyboard_rounded,
+                          PhosphorIconsRegular.keyboard,
                           color: palette.star,
                           size: 22,
                         ),
@@ -176,11 +177,11 @@ class _TestKutusu extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (kilitli)
-                Icon(Icons.lock_rounded, size: 22, color: renk)
+                Icon(PhosphorIconsFill.lock, size: 22, color: renk)
               else if (test.passed)
-                Icon(Icons.check_circle_rounded, size: 24, color: renk)
+                Icon(PhosphorIconsFill.checkCircle, size: 24, color: renk)
               else if (pendingCount > 0)
-                Icon(Icons.replay_rounded, size: 22, color: renk)
+                Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 22, color: renk)
               else
                 Text(
                   '${test.index}',

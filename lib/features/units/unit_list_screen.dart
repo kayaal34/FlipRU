@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -32,7 +33,7 @@ class UnitListScreen extends ConsumerWidget {
         deck.kind == DeckKind.level ? deck.subtitleOf(s) : deck.titleOf(s),
       ),
       leading: IconButton(
-        icon: const Icon(Icons.chevron_left_rounded, size: 28),
+        icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
         onPressed: () => Navigator.of(context).maybePop(),
       ),
     );
@@ -178,9 +179,9 @@ class _UnitTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (locked)
-                Icon(Icons.lock_rounded, size: 22, color: color)
+                Icon(PhosphorIconsFill.lock, size: 22, color: color)
               else if (progress.passed)
-                Icon(Icons.check_circle_rounded, size: 24, color: color)
+                Icon(PhosphorIconsFill.checkCircle, size: 24, color: color)
               else
                 Text(
                   '${progress.unit.index + 1}',

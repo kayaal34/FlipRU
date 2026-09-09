@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -34,13 +35,13 @@ class WordDetailScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(word.russian),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         actions: [
           IconButton(
             icon: Icon(
-              isStarred ? Icons.star_rounded : Icons.star_outline_rounded,
+              isStarred ? PhosphorIconsFill.star : PhosphorIconsRegular.star,
               color: isStarred ? palette.star : palette.textSecondary,
             ),
             tooltip: isStarred ? s.starRemove : s.starAdd,
@@ -135,7 +136,7 @@ class WordDetailScreen extends ConsumerWidget {
                           Haptics.light();
                           speech.speak(word.russian);
                         },
-                        icon: const Icon(Icons.volume_up_rounded, size: 19),
+                        icon: const Icon(PhosphorIconsRegular.speakerHigh, size: 19),
                         label: Text(s.listen),
                       ),
                     ],
@@ -160,7 +161,7 @@ class WordDetailScreen extends ConsumerWidget {
                     title: s.example,
                     action: IconButton(
                       icon: Icon(
-                        Icons.graphic_eq_rounded,
+                        PhosphorIconsRegular.waveform,
                         size: 19,
                         color: palette.accent,
                       ),
@@ -202,8 +203,8 @@ class WordDetailScreen extends ConsumerWidget {
                     children: [
                       _StatusRow(
                         icon: isLearned
-                            ? Icons.check_circle_rounded
-                            : Icons.circle_outlined,
+                            ? PhosphorIconsFill.checkCircle
+                            : PhosphorIconsRegular.circle,
                         color: isLearned
                             ? palette.learned
                             : palette.textTertiary,
@@ -220,8 +221,8 @@ class WordDetailScreen extends ConsumerWidget {
                       Divider(color: palette.separator, height: 24),
                       _StatusRow(
                         icon: isStarred
-                            ? Icons.star_rounded
-                            : Icons.star_outline_rounded,
+                            ? PhosphorIconsFill.star
+                            : PhosphorIconsRegular.star,
                         color: isStarred ? palette.star : palette.textTertiary,
                         label: isStarred ? s.starredYes : s.starredNo,
                         actionLabel: isStarred ? s.starRemove : s.starAdd,
@@ -241,7 +242,7 @@ class WordDetailScreen extends ConsumerWidget {
                   child: TextButton.icon(
                     onPressed: () => showReportSheet(context, ref, word),
                     icon: Icon(
-                      Icons.flag_outlined,
+                      PhosphorIconsRegular.flag,
                       size: 17,
                       color: palette.textTertiary,
                     ),

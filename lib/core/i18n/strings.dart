@@ -118,10 +118,6 @@ class Strings {
     required this.dailyTestSub,
     required this.ttsMissingTemplate,
     required this.ttsInstall,
-    required this.voiceRu,
-    required this.voiceTr,
-    required this.voicePickerHint,
-    required this.voiceDefault,
     required this.voiceNone,
     required this.voiceNumberedTemplate,
     required this.alphabetGroupSame,
@@ -201,6 +197,10 @@ class Strings {
     required this.goalWordsTemplate,
     required this.shuffle,
     required this.shuffleSub,
+    required this.quizLength,
+    required this.quizLengthSub,
+    required this.streakNotifTitle,
+    required this.streakNotifBody,
     required this.skipLearned,
     required this.skipLearnedSub,
     required this.stressMarks,
@@ -341,7 +341,6 @@ class Strings {
   final String testsTitle, testsSubtitle, dailyTest, dailyTestSub;
   final String myLearned, myStarred, fromWords;
   final String ttsMissingTemplate, ttsInstall;
-  final String voiceRu, voiceTr, voicePickerHint, voiceDefault;
   final String voiceNone, voiceNumberedTemplate;
   final String alphabetGroupSame, alphabetGroupSameSub;
   final String alphabetGroupTrap, alphabetGroupTrapSub;
@@ -374,6 +373,8 @@ class Strings {
   final String dailyGoal, dailyGoalSub, shuffle, shuffleSub;
   final String dailyGoalsTitle, goalWordsTemplate;
   final String dailyTestDone, dailyTestGo;
+  final String quizLength, quizLengthSub;
+  final String streakNotifTitle, streakNotifBody;
   final String skipLearned, skipLearnedSub;
   final String stressMarks, stressMarksSub, translitTitle, translitSub;
   final String reminder, dailyReminder, dailyReminderSub;
@@ -576,10 +577,6 @@ class Strings {
         'Cihazında {} seslendirme sesi yüklü değil. '
         'Telefon ayarlarındaki "Metin okuma" bölümünden indirebilirsin.',
     ttsInstall: 'İndir',
-    voiceRu: 'Rusça sesi',
-    voiceTr: 'Türkçe sesi',
-    voicePickerHint: 'Dokunduğun sesi hemen dinlersin.',
-    voiceDefault: 'Varsayılan ses',
     voiceNone: 'Bu dil için cihazda ses bulunamadı.',
     voiceNumberedTemplate: 'Ses {}',
     alphabetGroupSame: 'Tanıdık harfler',
@@ -687,8 +684,12 @@ class Strings {
     goalWordsTemplate: '{} çalış',
     shuffle: 'Kartları karıştır',
     shuffleSub: 'Kapalıysa kelimeler sıklık sırasına göre gelir',
-    skipLearned: 'Öğrenilenleri atla',
-    skipLearnedSub: 'Yeni seanslarda yalnızca bilmediklerin gelsin',
+    quizLength: 'Testteki soru sayısı',
+    quizLengthSub: 'Öğrendiklerim, yıldızlılar ve günün testi için',
+    streakNotifTitle: 'Serin tehlikede',
+    streakNotifBody: '{} günlük serini kaybetmemek için bugün uğra.',
+    skipLearned: 'Bildiklerimi tekrar sorma',
+    skipLearnedSub: 'Kart çalışırken yalnızca henüz öğrenmediklerin gelir',
     stressMarks: 'Vurgu işaretleri',
     stressMarksSub: 'возмо́жность — hangi hecenin vurgulu olduğunu gösterir',
     translitTitle: 'Türkçe okunuş',
@@ -708,8 +709,8 @@ class Strings {
     haptics: 'Dokunsal geri bildirim',
     hapticsSub: 'Kart çevirme ve kaydırmada hafif titreşim',
     soundFooter:
-        'Telaffuz, cihazının ses paketlerini kullanır: '
-        'Rusça yüzde Rusça, Türkçe yüzde Türkçe okur.',
+        'Telaffuz, cihazının ses paketlerini kullanır: kartın '
+        'Rusça yüzünü Rusça, Türkçe yüzünü Türkçe okur.',
     myData: 'Verilerim',
     accountAndData: 'Hesap ve veri',
     reports: 'Hatalı kelime bildirimleri',
@@ -960,10 +961,6 @@ class Strings {
         'На устройстве не установлен голос «{}». '
         'Его можно скачать в настройках телефона, раздел «Синтез речи».',
     ttsInstall: 'Скачать',
-    voiceRu: 'Русский голос',
-    voiceTr: 'Турецкий голос',
-    voicePickerHint: 'Нажмите на голос, чтобы услышать его.',
-    voiceDefault: 'Голос по умолчанию',
     voiceNone: 'Голоса для этого языка не найдены.',
     voiceNumberedTemplate: 'Голос {}',
     alphabetGroupSame: 'Знакомые буквы',
@@ -1070,8 +1067,12 @@ class Strings {
     goalWordsTemplate: 'Выучить {}',
     shuffle: 'Перемешивать карточки',
     shuffleSub: 'Если выключено — слова идут по частотности',
-    skipLearned: 'Пропускать выученные',
-    skipLearnedSub: 'В новых сессиях только незнакомые слова',
+    quizLength: 'Вопросов в тесте',
+    quizLengthSub: 'Для выученных, избранных и теста дня',
+    streakNotifTitle: 'Серия под угрозой',
+    streakNotifBody: 'Загляни сегодня, чтобы не потерять серию ({} дн.).',
+    skipLearned: 'Не повторять выученные',
+    skipLearnedSub: 'В карточках приходят только невыученные слова',
     stressMarks: 'Знаки ударения',
     stressMarksSub: 'возмо́жность — показывает ударный слог',
     translitTitle: 'Транскрипция',

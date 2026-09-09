@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -35,13 +36,13 @@ class ReportsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(t.reportsTitle),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         actions: [
           if (reports.isNotEmpty)
             IconButton(
-              icon: const Icon(Icons.delete_outline_rounded),
+              icon: const Icon(PhosphorIconsRegular.trash),
               tooltip: t.reportsClear,
               onPressed: () {
                 Haptics.medium();
@@ -59,7 +60,7 @@ class ReportsScreen extends ConsumerWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        Icons.flag_outlined,
+                        PhosphorIconsRegular.flag,
                         size: 46,
                         color: palette.textTertiary,
                       ),
@@ -124,7 +125,7 @@ class ReportsScreen extends ConsumerWidget {
                             ),
                             IconButton(
                               icon: Icon(
-                                Icons.close_rounded,
+                                PhosphorIconsRegular.x,
                                 size: 19,
                                 color: palette.textTertiary,
                               ),

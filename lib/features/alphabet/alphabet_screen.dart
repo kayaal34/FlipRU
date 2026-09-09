@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -278,7 +279,7 @@ class _LetterSheet extends ConsumerWidget {
                       ),
                     );
                   },
-                  icon: const Icon(Icons.volume_up_rounded),
+                  icon: const Icon(PhosphorIconsRegular.speakerHigh),
                 ),
               ],
             ),
@@ -413,7 +414,7 @@ class _LessonCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Icon(
-                done ? Icons.check_rounded : Icons.school_rounded,
+                done ? PhosphorIconsBold.check : PhosphorIconsRegular.graduationCap,
                 size: 20,
                 color: done ? palette.learned : palette.textTertiary,
               ),
@@ -448,7 +449,7 @@ class _LessonCard extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.chevron_right_rounded,
+              PhosphorIconsRegular.caretRight,
               size: 24,
               color: palette.textTertiary,
             ),

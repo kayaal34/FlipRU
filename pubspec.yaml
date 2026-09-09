@@ -24,7 +24,6 @@ dependencies:
   home_widget: ^0.9.3
   url_launcher: ^6.3.2
   phosphor_flutter: ^2.1.0
-  lucide_icons: ^0.257.0
 
 dev_dependencies:
   flutter_test:

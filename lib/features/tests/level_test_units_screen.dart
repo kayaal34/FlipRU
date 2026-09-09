@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -34,7 +35,7 @@ class LevelTestUnitsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('${deck.subtitleOf(s)} · ${s.test}'),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
@@ -192,13 +193,13 @@ class _UnitTestTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (locked)
-                Icon(Icons.lock_rounded, size: 22, color: color)
+                Icon(PhosphorIconsFill.lock, size: 22, color: color)
               else if (progress.testPassed)
-                Icon(Icons.workspace_premium_rounded, size: 24, color: color)
+                Icon(PhosphorIconsFill.medal, size: 24, color: color)
               else if (progress.pendingWrong > 0)
-                Icon(Icons.replay_rounded, size: 22, color: color)
+                Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 22, color: color)
               else
-                Icon(Icons.quiz_outlined, size: 22, color: color),
+                Icon(PhosphorIconsRegular.exam, size: 22, color: color),
               const SizedBox(height: 7),
               Text(
                 locked

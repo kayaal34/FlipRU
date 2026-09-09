@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -150,7 +151,7 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
                             ),
                           ),
                           Icon(
-                            Icons.volume_up_rounded,
+                            PhosphorIconsRegular.speakerHigh,
                             size: 21,
                             color: palette.textTertiary,
                           ),

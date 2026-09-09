@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_palette.dart';
@@ -145,8 +146,8 @@ class _ReportSheetState extends State<_ReportSheet> {
                     children: [
                       Icon(
                         _reason == reason
-                            ? Icons.radio_button_checked_rounded
-                            : Icons.radio_button_unchecked_rounded,
+                            ? PhosphorIconsRegular.radioButton
+                            : PhosphorIconsRegular.circle,
                         size: 19,
                         color: _reason == reason
                             ? palette.accent

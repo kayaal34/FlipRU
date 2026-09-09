@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -22,10 +23,14 @@ class AppShell extends ConsumerStatefulWidget {
 class _AppShellState extends ConsumerState<AppShell> {
   int _index = 0;
 
+  /// (secili, secili degil) ciftleri.
+  ///
+  /// Phosphor'un ayni cizimi hem dolu hem cizgi halde veriyor; secili sekme
+  /// dolu olunca hangi sekmede oldugun hapa bakmadan da anlasiliyor.
   static const _tabIcons = [
-    (Icons.home_rounded, Icons.home_outlined),
-    (Icons.school_rounded, Icons.school_outlined),
-    (Icons.settings_rounded, Icons.settings_outlined),
+    (PhosphorIconsFill.house, PhosphorIconsRegular.house),
+    (PhosphorIconsFill.graduationCap, PhosphorIconsRegular.graduationCap),
+    (PhosphorIconsFill.gearSix, PhosphorIconsRegular.gearSix),
   ];
 
   @override
