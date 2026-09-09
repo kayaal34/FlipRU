@@ -73,19 +73,28 @@ class SegmentedSwitch extends StatelessWidget {
                           Haptics.selection();
                           onChanged(i);
                         },
+                        // Sistem yazı boyutu büyütüldüğünde uzun etiketler
+                        // ("Tüm zamanlar") sabit yüksekliğe sığmayıp
+                        // kırpılıyordu; kesmek yerine küçültüyoruz.
                         child: Center(
-                          child: AnimatedDefaultTextStyle(
-                            duration: const Duration(milliseconds: 220),
-                            style: textTheme.labelLarge!.copyWith(
-                              fontSize: 15,
-                              color: i == selectedIndex
-                                  ? Colors.white
-                                  : palette.textSecondary,
-                              fontWeight: i == selectedIndex
-                                  ? FontWeight.w700
-                                  : FontWeight.w500,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 6),
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: AnimatedDefaultTextStyle(
+                                duration: const Duration(milliseconds: 220),
+                                style: textTheme.labelLarge!.copyWith(
+                                  fontSize: 15,
+                                  color: i == selectedIndex
+                                      ? Colors.white
+                                      : palette.textSecondary,
+                                  fontWeight: i == selectedIndex
+                                      ? FontWeight.w700
+                                      : FontWeight.w500,
+                                ),
+                                child: Text(labels[i], maxLines: 1),
+                              ),
                             ),
-                            child: Text(labels[i]),
                           ),
                         ),
                       ),
