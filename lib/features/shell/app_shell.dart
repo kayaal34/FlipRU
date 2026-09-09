@@ -61,12 +61,12 @@ class _AppShellState extends ConsumerState<AppShell> {
         child: SafeArea(
           top: false,
           child: SizedBox(
-            height: 64,
+            height: 72,
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final tab = constraints.maxWidth / _tabIcons.length;
-                const pillW = 60.0;
-                const pillH = 32.0;
+                const pillW = 64.0;
+                const pillH = 36.0;
                 return Stack(
                   children: [
                     // Secili sekmenin arkasindaki hap, sekmeler arasinda
@@ -152,17 +152,17 @@ class _NavItem extends StatelessWidget {
               child: Icon(
                 selected ? filled : outlined,
                 key: ValueKey(selected),
-                size: 23,
+                size: 26,
                 color: color,
               ),
             ),
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: 5),
           AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 220),
             style: Theme.of(context).textTheme.labelSmall!.copyWith(
               color: color,
-              fontSize: 10.5,
+              fontSize: 12,
               letterSpacing: 0.1,
               fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
             ),

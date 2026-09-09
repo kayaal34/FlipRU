@@ -36,7 +36,7 @@ enum WidgetRefresh {
 class AppSettings {
   const AppSettings({
     this.language = AppLanguage.tr,
-    this.themeMode = ThemeMode.system,
+    this.themeMode = ThemeMode.light,
     this.direction = StudyDirection.ruToTr,
     this.sessionSize = 20,
     this.dailyGoal = 20,
