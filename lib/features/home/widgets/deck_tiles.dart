@@ -30,18 +30,18 @@ class DeckRow extends ConsumerWidget {
     return Pressable(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(14),
+        padding: const EdgeInsets.all(17),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(color: palette.separator),
           boxShadow: palette.ambientShadow,
         ),
         child: Row(
           children: [
             Container(
-              width: 46,
-              height: 46,
+              width: 54,
+              height: 54,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: deck.tint.withValues(alpha: 0.14),
@@ -52,7 +52,7 @@ class DeckRow extends ConsumerWidget {
                 style: textTheme.labelLarge?.copyWith(
                   color: deck.tint,
                   fontWeight: FontWeight.w800,
-                  fontSize: 15,
+                  fontSize: 17,
                 ),
               ),
             ),
@@ -61,8 +61,11 @@ class DeckRow extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(deck.subtitleOf(s), style: textTheme.titleMedium),
-                  const SizedBox(height: 3),
+                  Text(
+                    deck.subtitleOf(s),
+                    style: textTheme.titleMedium?.copyWith(fontSize: 19),
+                  ),
+                  const SizedBox(height: 4),
                   Text(
                     progress.isComplete
                         ? '${progress.total} ${s.allDone}'
@@ -79,9 +82,9 @@ class DeckRow extends ConsumerWidget {
             ProgressRing(
               value: progress.ratio,
               color: deck.tint,
-              size: 42,
+              size: 48,
               child: progress.isComplete
-                  ? Icon(Icons.check_rounded, size: 20, color: deck.tint)
+                  ? Icon(Icons.check_rounded, size: 23, color: deck.tint)
                   : Text(
                       '${(progress.ratio * 100).round()}',
                       style: textTheme.labelSmall?.copyWith(

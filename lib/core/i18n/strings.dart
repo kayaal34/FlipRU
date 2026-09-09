@@ -172,6 +172,8 @@ class Strings {
     required this.quizLast,
     required this.quizNone,
     required this.weekdays,
+    required this.weekdaysLong,
+    required this.months,
     required this.settingsTitle,
     required this.appearance,
     required this.theme,
@@ -352,6 +354,7 @@ class Strings {
 
   /// Pazartesiden pazara, grafik ekseninde kullanılıyor.
   final List<String> weekdays;
+  final List<String> weekdaysLong, months;
   final String settingsTitle, appearance, theme;
   final String themeSystem, themeLight, themeDark, language;
   final String study, direction, dirRuTr, dirTrRu;
@@ -414,6 +417,10 @@ class Strings {
     if (n % 10 >= 2 && n % 10 <= 4) return forms[1];
     return forms[2];
   }
+
+  /// "9 Eylül, Salı" / "9 сентября, вторник"
+  String dateLine(DateTime d) =>
+      '${d.day} ${months[d.month - 1]}, ${weekdaysLong[d.weekday - 1]}';
 
   /// "5 слов" / "5 kelime"
   String words(int count) => '$count ${_agree(wordForms, count)}';
@@ -608,6 +615,29 @@ class Strings {
     quizLast: 'Son test',
     quizNone: 'Henüz test çözmedin',
     weekdays: ['Pzt', 'Sal', 'Çar', 'Per', 'Cum', 'Cmt', 'Paz'],
+    weekdaysLong: [
+      'Pazartesi',
+      'Salı',
+      'Çarşamba',
+      'Perşembe',
+      'Cuma',
+      'Cumartesi',
+      'Pazar',
+    ],
+    months: [
+      'Ocak',
+      'Şubat',
+      'Mart',
+      'Nisan',
+      'Mayıs',
+      'Haziran',
+      'Temmuz',
+      'Ağustos',
+      'Eylül',
+      'Ekim',
+      'Kasım',
+      'Aralık',
+    ],
     settingsTitle: 'Ayarlar',
     appearance: 'Görünüm',
     theme: 'Tema',
@@ -962,6 +992,29 @@ class Strings {
     quizLast: 'Последний тест',
     quizNone: 'Тестов пока не было',
     weekdays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'],
+    weekdaysLong: [
+      'понедельник',
+      'вторник',
+      'среда',
+      'четверг',
+      'пятница',
+      'суббота',
+      'воскресенье',
+    ],
+    months: [
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря',
+    ],
     settingsTitle: 'Настройки',
     appearance: 'Внешний вид',
     theme: 'Тема',
