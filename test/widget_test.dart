@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flipru/providers/writing_test_providers.dart';
 import 'package:flipru/app.dart';
 import 'package:flipru/data/models/app_settings.dart';
+import 'package:flipru/features/settings/settings_screen.dart';
 import 'package:flipru/core/i18n/strings.dart';
 import 'package:flipru/data/models/deck.dart';
 import 'package:flipru/data/models/word.dart';
@@ -547,14 +548,39 @@ void main() {
       await tester.tap(find.text('Ayarlar'));
       await tester.pumpAndSettle();
 
-      expect(find.text('Çalışma yönü'), findsOneWidget);
-      expect(find.text('Günlük hedef'), findsOneWidget);
+      // "Hesap ve veri" listenin başına taşındı; ayarlar artık onun altında
+      // ve 800x600 test ekranına sığmıyor.
+      final liste = find.descendant(
+        of: find.byType(SettingsScreen),
+        matching: find.byType(ListView),
+      );
 
+      await tester.dragUntilVisible(
+        find.text('Koyu'),
+        liste,
+        const Offset(0, -120),
+      );
+      // dragUntilVisible parca parca gorununce duruyor; satir o an alt
+      // menunun altinda kalabiliyor ve dokunus menuye gidiyor.
+      await tester.ensureVisible(find.text('Koyu'));
+      await tester.pumpAndSettle();
       await tester.tap(find.text('Koyu'));
       await tester.pumpAndSettle();
+      expect(Theme.of(tester.element(liste)).brightness, Brightness.dark);
 
-      final context = tester.element(find.text('Görünüm'.toUpperCase()));
-      expect(Theme.of(context).brightness, Brightness.dark);
+      await tester.dragUntilVisible(
+        find.text('Çalışma yönü'),
+        liste,
+        const Offset(0, -120),
+      );
+      expect(find.text('Çalışma yönü'), findsOneWidget);
+
+      await tester.dragUntilVisible(
+        find.text('Günlük hedef'),
+        liste,
+        const Offset(0, -120),
+      );
+      expect(find.text('Günlük hedef'), findsOneWidget);
     });
 
     testWidgets('deste bölüm listesini açar, bölüm kelimeleri gösterir',
