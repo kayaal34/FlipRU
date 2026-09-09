@@ -152,6 +152,7 @@ class Strings {
     required this.levelTestNeed,
     required this.levelTestKnown,
     required this.statsTitle,
+    required this.statsRowSub,
     required this.statLearned,
     required this.statStreak,
     required this.statWeek,
@@ -353,6 +354,7 @@ class Strings {
   final String needFourLearned, starredTestSub;
   final String unitTestsTitle;
   final String levelTests, levelTestNeed, levelTestKnown;
+  final String statsRowSub;
   final String statsTitle, statLearned, statStreak, statWeek, statMonth;
   final String last7, last30, bestDay, activeDays, dailyAverage;
   final String goalHitDays;
@@ -613,6 +615,7 @@ class Strings {
     levelTestNeed: 'Bu seviyeden en az 20 kelime öğren',
     levelTestKnown: 'öğrenilmiş kelime',
     statsTitle: 'İstatistikler',
+    statsRowSub: 'Serin, ilerlemen ve grafiğin',
     statLearned: 'Öğrenilen kelime',
     statStreak: 'Günlük seri',
     statWeek: 'Son 7 gün',
@@ -995,6 +998,7 @@ class Strings {
     levelTestNeed: 'Выучи хотя бы 20 слов этого уровня',
     levelTestKnown: 'выученных слов',
     statsTitle: 'Статистика',
+    statsRowSub: 'Серия, прогресс и график',
     statLearned: 'Выучено слов',
     statStreak: 'Дней подряд',
     statWeek: 'За 7 дней',

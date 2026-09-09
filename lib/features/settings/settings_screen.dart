@@ -10,6 +10,7 @@ import '../../providers/report_provider.dart';
 import '../../providers/settings_provider.dart';
 import 'voice_picker_sheet.dart';
 import 'account_screen.dart';
+import 'stats_screen.dart';
 import 'legal_screen.dart';
 import 'reports_screen.dart';
 import 'widgets/settings_tiles.dart';
@@ -274,6 +275,16 @@ class SettingsScreen extends ConsumerWidget {
                 SettingsSection(
                   title: t.accountAndData,
                   children: [
+                    // Istatistik ayri bir sekmeydi; haftada bir acilan bir
+                    // ekran icin alt menude yer tutmak pahaliydi.
+                    SettingsRow(
+                      title: t.statsTitle,
+                      subtitle: t.statsRowSub,
+                      icon: Icons.insights_rounded,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const StatsScreen()),
+                      ),
+                    ),
                     SettingsRow(
                       title: t.reports,
                       icon: Icons.flag_rounded,
