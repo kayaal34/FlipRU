@@ -63,10 +63,9 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final hedefTutan = seri.where((v) => v >= hedef).length;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.statsTitle),
-        automaticallyImplyLeading: false,
-      ),
+      // Artik sekme degil, ana ekrandaki seri rozetinden aciliyor: geri
+      // dugmesi gerekiyor.
+      appBar: AppBar(title: Text(t.statsTitle)),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(

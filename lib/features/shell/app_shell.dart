@@ -5,11 +5,13 @@ import '../../core/theme/app_palette.dart';
 import '../../core/utils/haptics.dart';
 import '../home/home_screen.dart';
 import '../settings/settings_screen.dart';
-import '../settings/stats_screen.dart';
 import '../tests/tests_screen.dart';
 import '../../providers/settings_provider.dart';
 
-/// Uygulamanın dört ana sekmesi.
+/// Uygulamanın üç ana sekmesi.
+///
+/// İstatistik ayrı bir sekmeydi ama haftada bir açılan bir ekran için alt
+/// menüde yer tutmak pahalıydı; ana ekrandaki seri rozetine taşındı.
 class AppShell extends ConsumerStatefulWidget {
   const AppShell({super.key});
 
@@ -22,16 +24,15 @@ class _AppShellState extends ConsumerState<AppShell> {
 
   static const _tabIcons = [
     (Icons.home_rounded, Icons.home_outlined),
-    (Icons.quiz_rounded, Icons.quiz_outlined),
-    (Icons.insights_rounded, Icons.insights_outlined),
-    (Icons.tune_rounded, Icons.tune_outlined),
+    (Icons.school_rounded, Icons.school_outlined),
+    (Icons.settings_rounded, Icons.settings_outlined),
   ];
 
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     final s = ref.watch(stringsProvider);
-    final labels = [s.tabHome, s.tabTests, s.tabStats, s.tabSettings];
+    final labels = [s.tabHome, s.tabTests, s.tabSettings];
 
     return Scaffold(
       // IndexedStack sekme değişiminde kaydırma konumunu koruyor.
@@ -40,7 +41,6 @@ class _AppShellState extends ConsumerState<AppShell> {
         children: const [
           HomeScreen(),
           TestsScreen(),
-          StatsScreen(),
           SettingsScreen(),
         ],
       ),
