@@ -278,6 +278,11 @@ class Strings {
     required this.reportsSend,
     required this.reportsClear,
     required this.reportRemove,
+    required this.reportsSending,
+    required this.reportsSentBadge,
+    required this.reportsSendOk,
+    required this.reportsSendFail,
+    required this.reportsAllSent,
     required this.starredScreenEmpty,
     required this.starredScreenEmptyBody,
     required this.studyAll,
@@ -406,6 +411,11 @@ class Strings {
   final String reportReasonPronunciation, reportReasonOther;
   final String reportsTitle, reportsEmpty, reportsEmptyBody;
   final String reportsSend, reportsClear, reportRemove;
+
+  /// Bildirimler artık posta uygulaması açmadan gönderiliyor;
+  /// kullanıcının gidip gitmediğini görmesi gerekiyor.
+  final String reportsSending, reportsSentBadge;
+  final String reportsSendOk, reportsSendFail, reportsAllSent;
   final String starredScreenEmpty, starredScreenEmptyBody, studyAll;
   final String splashTagline, notificationTitle, notificationBody;
   final String retryWrong, quizWrong, perfectScore;
@@ -776,9 +786,7 @@ class Strings {
     reportTitle: 'Neyi bildirmek istiyorsun?',
     reportSubmit: 'Bildir',
     reportNote: 'İstersen doğrusunu yaz (isteğe bağlı)',
-    reportSaved:
-        'Bildirimin kaydedildi. Ayarlar › Hesap ve veri bölümünden '
-        'bize gönderebilirsin.',
+    reportSaved: 'Bildirimin bize gönderildi. Teşekkürler!',
     reportReasonTranslation: 'Çeviri yanlış',
     reportReasonExample: 'Örnek cümle saçma',
     reportReasonPronunciation: 'Okunuş / vurgu yanlış',
@@ -791,6 +799,13 @@ class Strings {
     reportsSend: 'Bize gönder',
     reportsClear: 'Tümünü sil',
     reportRemove: 'Bildirimi kaldır',
+    reportsSending: 'Gönderiliyor…',
+    reportsSentBadge: 'Gönderildi',
+    reportsSendOk: 'Bildirimlerin bize ulaştı. Teşekkürler!',
+    reportsSendFail:
+        'Şu an gönderilemedi. Bildirimlerin kayıtlı — bağlantı '
+        'gelince kendiliğinden gidecek.',
+    reportsAllSent: 'Hepsi gönderildi.',
     starredScreenEmpty: 'Henüz yıldızlı kelime yok',
     starredScreenEmptyBody:
         'Çalışırken zorlandığın kelimenin yıldızına dokun; '
@@ -1159,9 +1174,7 @@ class Strings {
     reportTitle: 'О чём хочешь сообщить?',
     reportSubmit: 'Отправить',
     reportNote: 'Напиши верный вариант (необязательно)',
-    reportSaved:
-        'Сообщение сохранено. Отправить можно в разделе '
-        '«Аккаунт и данные».',
+    reportSaved: 'Сообщение отправлено нам. Спасибо!',
     reportReasonTranslation: 'Неверный перевод',
     reportReasonExample: 'Странный пример',
     reportReasonPronunciation: 'Ошибка в ударении',
@@ -1174,6 +1187,13 @@ class Strings {
     reportsSend: 'Отправить нам',
     reportsClear: 'Удалить все',
     reportRemove: 'Убрать сообщение',
+    reportsSending: 'Отправляем…',
+    reportsSentBadge: 'Отправлено',
+    reportsSendOk: 'Сообщения дошли до нас. Спасибо!',
+    reportsSendFail:
+        'Сейчас не отправилось. Сообщения сохранены — уйдут, как '
+        'только появится связь.',
+    reportsAllSent: 'Всё отправлено.',
     starredScreenEmpty: 'Избранных слов пока нет',
     starredScreenEmptyBody:
         'Нажимай на звёздочку у трудных слов — они '
