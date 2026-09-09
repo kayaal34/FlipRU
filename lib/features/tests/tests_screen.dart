@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -8,10 +6,10 @@ import '../../core/theme/app_typography.dart';
 import '../../providers/settings_provider.dart';
 import '../../core/widgets/pressable.dart';
 import '../../data/models/deck.dart';
-import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
-import '../quiz/quiz_screen.dart';
+import '../learned/learned_screen.dart';
+import '../starred/starred_screen.dart';
 import '../../providers/writing_test_providers.dart';
 import 'writing_tests_screen.dart';
 import 'level_test_units_screen.dart';
@@ -31,13 +29,9 @@ class TestsScreen extends ConsumerWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final repository = ref.watch(wordRepositoryProvider);
-    final learnedIds = ref.watch(learnedProvider);
     final starredIds = ref.watch(starredProvider);
     final t = ref.watch(stringsProvider);
 
-    final learned = repository.allWords
-        .where((w) => learnedIds.contains(w.id))
-        .toList(growable: false);
     final starred = repository.allWords
         .where((w) => starredIds.contains(w.id))
         .toList(growable: false);
@@ -98,19 +92,19 @@ class TestsScreen extends ConsumerWidget {
                         ),
                       ),
                     ),
+                    // Bu ikisi teste degil listeye gidiyor: once kelimelerini
+                    // gormek, aramak, dinlemek isteniyor. Test o listelerin
+                    // basligindaki oynat dugmesinde.
                     _TestTile(
                       icon: Icons.check_circle_rounded,
                       tint: palette.learned,
                       title: t.myLearned,
-                      subtitle: learned.length < _minLearned
-                          ? t.needFourLearned
-                          : t.learnedMixedSub,
-                      enabled: learned.length >= _minLearned,
-                      onTap: () => _start(
-                        context,
-                        ref,
-                        t.myLearned,
-                        _shuffled(learned, learned.length),
+                      subtitle: t.learnedListSub,
+                      enabled: true,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const LearnedScreen(),
+                        ),
                       ),
                     ),
                     _TestTile(
@@ -120,8 +114,12 @@ class TestsScreen extends ConsumerWidget {
                       subtitle: starred.isEmpty
                           ? t.starredEmptyHint
                           : t.starredTestSub,
-                      enabled: starred.isNotEmpty,
-                      onTap: () => _start(context, ref, t.myStarred, starred),
+                      enabled: true,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const StarredScreen(),
+                        ),
+                      ),
                     ),
                   ],
                 ),
@@ -147,24 +145,6 @@ class TestsScreen extends ConsumerWidget {
     );
   }
 
-  List<Word> _shuffled(List<Word> words, int count) {
-    final copy = [...words]..shuffle(Random());
-    return copy.take(count).toList();
-  }
-
-  void _start(
-    BuildContext context,
-    WidgetRef ref,
-    String title,
-    List<Word> words, {
-    String kind = '',
-  }) {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => QuizScreen(title: title, words: words, kind: kind),
-      ),
-    );
-  }
 }
 
 class _LevelTestRow extends ConsumerWidget {

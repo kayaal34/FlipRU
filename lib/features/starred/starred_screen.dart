@@ -8,6 +8,7 @@ import '../../core/i18n/strings.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
+import '../quiz/quiz_screen.dart';
 import '../study/study_screen.dart';
 import '../words/word_detail_screen.dart';
 import '../../providers/settings_provider.dart';
@@ -33,6 +34,29 @@ class StarredScreen extends ConsumerWidget {
           icon: const Icon(Icons.chevron_left_rounded, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
+        actions: [
+          // Alttaki dugme kartlarla calistiriyor, bu ise olcuyor. Ikisi de
+          // ayni listenin uzerinde; pratik ekraninda ayri kutular tutmaya
+          // gerek kalmiyor.
+          if (words.isNotEmpty)
+            IconButton(
+              icon: Icon(
+                Icons.play_circle_fill_rounded,
+                size: 30,
+                color: palette.accent,
+              ),
+              tooltip: s.test,
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => QuizScreen(
+                    title: s.myStarred,
+                    words: words,
+                    accent: palette.star,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
       body: SafeArea(
         child: words.isEmpty
