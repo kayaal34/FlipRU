@@ -54,11 +54,19 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
       await service.cancelAll();
       return;
     }
+    // Hatirlatma artik varsayilan olarak acik geliyor, yani izni kullanicinin
+    // bir dugmeye basmasindan once istemek gerekiyor. Tanitim bitene kadar
+    // beklemek sart: ilk karsilama ekraninin uzerine sistem izin penceresi
+    // acmak, uygulamanin ne oldugunu anlamadan karar vermek demek.
+    if (settings.onboardingDone) {
+      await service.requestPermission();
+    }
     await service.scheduleDaily(
       hour: settings.reminderHour,
       minute: settings.reminderMinute,
       skipToday: ref.read(dailySummaryProvider).goalReached,
       goal: settings.dailyGoal,
+      streak: ref.read(streakProvider),
       strings: ref.read(stringsProvider),
     );
   }
@@ -68,8 +76,13 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
     // Hatırlatma ayarı ya da bugünün hedef durumu değiştiğinde yeniden planla.
     ref.listen(
       settingsProvider.select(
-        (s) =>
-            (s.reminderEnabled, s.reminderHour, s.reminderMinute, s.dailyGoal),
+        (s) => (
+          s.reminderEnabled,
+          s.reminderHour,
+          s.reminderMinute,
+          s.dailyGoal,
+          s.onboardingDone,
+        ),
       ),
       (_, _) => _syncReminders(),
     );

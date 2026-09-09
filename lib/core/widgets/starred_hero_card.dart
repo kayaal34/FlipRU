@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../theme/app_palette.dart';
 import 'pressable.dart';
@@ -51,7 +52,7 @@ class StarredHeroCard extends StatelessWidget {
                 color: palette.star.withValues(alpha: 0.14),
                 borderRadius: BorderRadius.circular(13),
               ),
-              child: Icon(Icons.star_rounded, color: palette.star, size: 23),
+              child: Icon(PhosphorIconsFill.star, color: palette.star, size: 23),
             ),
             const SizedBox(width: 13),
             Expanded(
@@ -70,7 +71,7 @@ class StarredHeroCard extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.chevron_right_rounded,
+              PhosphorIconsRegular.caretRight,
               size: 24,
               color: palette.textTertiary,
             ),

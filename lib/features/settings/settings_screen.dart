@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -8,7 +9,6 @@ import '../../data/models/app_settings.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/report_provider.dart';
 import '../../providers/settings_provider.dart';
-import 'voice_picker_sheet.dart';
 import 'account_screen.dart';
 import 'stats_screen.dart';
 import 'legal_screen.dart';
@@ -45,7 +45,7 @@ class SettingsScreen extends ConsumerWidget {
                   children: [
                     SettingsOptions<AppLanguage>(
                       title: t.language,
-                      icon: Icons.language_rounded,
+                      icon: PhosphorIconsRegular.globeHemisphereWest,
                       options: AppLanguage.values,
                       selected: settings.language,
                       labelOf: (l) => l.label,
@@ -54,7 +54,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     SettingsOptions<ThemeMode>(
                       title: t.theme,
-                      icon: Icons.contrast_rounded,
+                      icon: PhosphorIconsRegular.circleHalf,
                       options: ThemeMode.values,
                       selected: settings.themeMode,
                       labelOf: (mode) => switch (mode) {
@@ -77,7 +77,7 @@ class SettingsScreen extends ConsumerWidget {
                       subtitle: settings.direction == StudyDirection.ruToTr
                           ? t.dirRuTrDesc
                           : t.dirTrRuDesc,
-                      icon: Icons.swap_horiz_rounded,
+                      icon: PhosphorIconsRegular.arrowsLeftRight,
                       options: StudyDirection.values,
                       selected: settings.direction,
                       labelOf: (d) =>
@@ -88,7 +88,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsOptions<int>(
                       title: t.sessionSize,
                       subtitle: t.sessionSizeSub,
-                      icon: Icons.style_rounded,
+                      icon: PhosphorIconsRegular.cards,
                       options: AppSettings.sessionSizeOptions,
                       selected: settings.sessionSize,
                       labelOf: (n) => n == 0 ? t.allCards : '$n ${t.cards}',
@@ -98,17 +98,28 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsOptions<int>(
                       title: t.dailyGoal,
                       subtitle: t.dailyGoalSub,
-                      icon: Icons.flag_rounded,
+                      icon: PhosphorIconsRegular.flag,
                       options: AppSettings.dailyGoalOptions,
                       selected: settings.dailyGoal,
                       labelOf: (n) => '$n',
                       onChanged: (n) =>
                           notifier.update((s) => s.copyWith(dailyGoal: n)),
                     ),
+                    SettingsOptions<int>(
+                      title: t.quizLength,
+                      subtitle: t.quizLengthSub,
+                      icon: PhosphorIconsRegular.exam,
+                      options: AppSettings.quizCountOptions,
+                      selected: settings.quizQuestionCount,
+                      labelOf: (n) => '$n',
+                      onChanged: (n) => notifier.update(
+                        (s) => s.copyWith(quizQuestionCount: n),
+                      ),
+                    ),
                     SettingsSwitch(
                       title: t.stressMarks,
                       subtitle: t.stressMarksSub,
-                      icon: Icons.format_overline_rounded,
+                      icon: PhosphorIconsRegular.textAUnderline,
                       value: settings.showStressMarks,
                       onChanged: (v) => notifier.update(
                         (s) => s.copyWith(showStressMarks: v),
@@ -117,7 +128,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsSwitch(
                       title: t.translitTitle,
                       subtitle: t.translitSub,
-                      icon: Icons.record_voice_over_rounded,
+                      icon: PhosphorIconsRegular.microphoneStage,
                       value: settings.showTransliteration,
                       onChanged: (v) => notifier.update(
                         (s) => s.copyWith(showTransliteration: v),
@@ -126,7 +137,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsSwitch(
                       title: t.shuffle,
                       subtitle: t.shuffleSub,
-                      icon: Icons.shuffle_rounded,
+                      icon: PhosphorIconsRegular.shuffle,
                       value: settings.shuffle,
                       onChanged: (v) =>
                           notifier.update((s) => s.copyWith(shuffle: v)),
@@ -134,7 +145,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsSwitch(
                       title: t.skipLearned,
                       subtitle: t.skipLearnedSub,
-                      icon: Icons.filter_alt_rounded,
+                      icon: PhosphorIconsRegular.funnel,
                       value: settings.hideLearned,
                       onChanged: (v) =>
                           notifier.update((s) => s.copyWith(hideLearned: v)),
@@ -150,7 +161,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsSwitch(
                       title: t.dailyReminder,
                       subtitle: t.dailyReminderSub,
-                      icon: Icons.notifications_active_rounded,
+                      icon: PhosphorIconsRegular.bellRinging,
                       value: settings.reminderEnabled,
                       onChanged: (v) async {
                         if (v) {
@@ -163,7 +174,7 @@ class SettingsScreen extends ConsumerWidget {
                     ),
                     SettingsRow(
                       title: t.reminderTime,
-                      icon: Icons.access_time_rounded,
+                      icon: PhosphorIconsRegular.clock,
                       trailing: settings.reminderLabel,
                       onTap: settings.reminderEnabled
                           ? () async {
@@ -195,7 +206,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsOptions<WidgetRefresh>(
                       title: t.widgetRefreshTitle,
                       subtitle: t.widgetRefreshSub,
-                      icon: Icons.widgets_rounded,
+                      icon: PhosphorIconsRegular.squaresFour,
                       options: WidgetRefresh.values,
                       selected: settings.widgetRefresh,
                       labelOf: (r) => switch (r) {
@@ -217,14 +228,14 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsSwitch(
                       title: t.autoSpeak,
                       subtitle: t.autoSpeakSub,
-                      icon: Icons.volume_up_rounded,
+                      icon: PhosphorIconsRegular.speakerHigh,
                       value: settings.autoSpeak,
                       onChanged: (v) =>
                           notifier.update((s) => s.copyWith(autoSpeak: v)),
                     ),
                     SettingsOptions<SpeechRate>(
                       title: t.speechRate,
-                      icon: Icons.speed_rounded,
+                      icon: PhosphorIconsRegular.gauge,
                       options: SpeechRate.values,
                       selected: settings.speechRate,
                       labelOf: (r) => switch (r) {
@@ -239,28 +250,10 @@ class SettingsScreen extends ConsumerWidget {
                           ..speak('Привет');
                       },
                     ),
-                    SettingsRow(
-                      title: t.voiceRu,
-                      icon: Icons.record_voice_over_rounded,
-                      onTap: () => VoicePickerSheet.show(
-                        context,
-                        language: 'ru-RU',
-                        title: t.voiceRu,
-                      ),
-                    ),
-                    SettingsRow(
-                      title: t.voiceTr,
-                      icon: Icons.record_voice_over_outlined,
-                      onTap: () => VoicePickerSheet.show(
-                        context,
-                        language: 'tr-TR',
-                        title: t.voiceTr,
-                      ),
-                    ),
                     SettingsSwitch(
                       title: t.haptics,
                       subtitle: t.hapticsSub,
-                      icon: Icons.vibration_rounded,
+                      icon: PhosphorIconsRegular.vibrate,
                       value: settings.hapticsEnabled,
                       onChanged: (v) {
                         notifier.update((s) => s.copyWith(hapticsEnabled: v));
@@ -280,14 +273,14 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsRow(
                       title: t.statsTitle,
                       subtitle: t.statsRowSub,
-                      icon: Icons.insights_rounded,
+                      icon: PhosphorIconsRegular.chartLineUp,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(builder: (_) => const StatsScreen()),
                       ),
                     ),
                     SettingsRow(
                       title: t.reports,
-                      icon: Icons.flag_rounded,
+                      icon: PhosphorIconsRegular.flag,
                       trailing: '${reports.length}',
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -298,7 +291,7 @@ class SettingsScreen extends ConsumerWidget {
                     SettingsRow(
                       title: t.account,
                       subtitle: t.accountSub,
-                      icon: Icons.person_rounded,
+                      icon: PhosphorIconsRegular.user,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (_) => const AccountScreen(),
@@ -344,7 +337,7 @@ class _VersionRow extends ConsumerWidget {
     return SettingsRow(
       title: 'FlipRU',
       subtitle: t.appSubtitle,
-      icon: Icons.auto_stories_rounded,
+      icon: PhosphorIconsRegular.bookOpenText,
       trailing: t.version,
     );
   }

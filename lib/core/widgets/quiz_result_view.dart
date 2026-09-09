@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../i18n/strings.dart';
 import '../theme/app_palette.dart';
@@ -61,7 +62,7 @@ class QuizResultView extends StatelessWidget {
                         border: Border.all(color: palette.learned, width: 4),
                       ),
                       child: Icon(
-                        Icons.check_rounded,
+                        PhosphorIconsBold.check,
                         size: 96,
                         color: palette.learned,
                       ),
@@ -91,14 +92,14 @@ class QuizResultView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       _ScoreChip(
-                        icon: Icons.check_circle_rounded,
+                        icon: PhosphorIconsFill.checkCircle,
                         color: palette.learned,
                         label: '$correct ${strings.correctOf}',
                       ),
                       if (wrong.isNotEmpty) ...[
                         const SizedBox(width: 10),
                         _ScoreChip(
-                          icon: Icons.cancel_rounded,
+                          icon: PhosphorIconsFill.xCircle,
                           color: palette.review,
                           label: '${wrong.length} ${strings.quizWrong}',
                         ),
@@ -135,7 +136,7 @@ class QuizResultView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Icon(
-                            Icons.lock_open_rounded,
+                            PhosphorIconsRegular.lockOpen,
                             size: 19,
                             color: palette.learned,
                           ),
@@ -160,7 +161,7 @@ class QuizResultView extends StatelessWidget {
                         minimumSize: const Size.fromHeight(52),
                       ),
                       onPressed: onRetryWrong,
-                      icon: const Icon(Icons.replay_rounded, size: 20),
+                      icon: const Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 20),
                       label: Text(strings.retryWrong),
                     ),
                     const SizedBox(height: 10),

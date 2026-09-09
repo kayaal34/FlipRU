@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -39,7 +40,7 @@ class UnitDetailScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text('${s.unit} ${unit.index + 1}'),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
@@ -248,7 +249,7 @@ class _WordRow extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Icon(
-                  Icons.check_circle_rounded,
+                  PhosphorIconsFill.checkCircle,
                   size: 18,
                   color: palette.learned,
                 ),
@@ -272,7 +273,7 @@ class _WordRow extends StatelessWidget {
                         Tooltip(
                           message: strings.singleSourceWarning,
                           child: Icon(
-                            Icons.help_outline_rounded,
+                            PhosphorIconsRegular.question,
                             size: 15,
                             color: palette.star,
                           ),
@@ -299,7 +300,7 @@ class _WordRow extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                Icons.volume_up_rounded,
+                PhosphorIconsRegular.speakerHigh,
                 size: 19,
                 color: palette.textTertiary,
               ),
@@ -311,7 +312,7 @@ class _WordRow extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                isStarred ? Icons.star_rounded : Icons.star_outline_rounded,
+                isStarred ? PhosphorIconsFill.star : PhosphorIconsRegular.star,
                 size: 21,
                 color: isStarred ? palette.star : palette.textTertiary,
               ),
@@ -320,7 +321,7 @@ class _WordRow extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                Icons.flag_outlined,
+                PhosphorIconsRegular.flag,
                 size: 18,
                 color: palette.textTertiary,
               ),

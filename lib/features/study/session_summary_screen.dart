@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -90,7 +91,7 @@ class SessionSummaryScreen extends ConsumerWidget {
                     children: [
                       Expanded(
                         child: _StatTile(
-                          icon: Icons.check_circle_rounded,
+                          icon: PhosphorIconsFill.checkCircle,
                           color: palette.learned,
                           value: learnedWords.length,
                           label: s.sessionLearned,
@@ -99,7 +100,7 @@ class SessionSummaryScreen extends ConsumerWidget {
                       const SizedBox(width: 12),
                       Expanded(
                         child: _StatTile(
-                          icon: Icons.refresh_rounded,
+                          icon: PhosphorIconsRegular.arrowsClockwise,
                           color: palette.review,
                           value: reviewWords.length,
                           label: s.sessionReview,

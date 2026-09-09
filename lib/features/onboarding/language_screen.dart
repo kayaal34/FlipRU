@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -162,7 +163,7 @@ class _LanguageOption extends StatelessWidget {
               ),
             ),
             Icon(
-              Icons.chevron_right_rounded,
+              PhosphorIconsRegular.caretRight,
               size: 26,
               color: palette.textTertiary,
             ),

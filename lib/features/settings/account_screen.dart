@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -31,7 +32,7 @@ class AccountScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(t.account),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
@@ -49,7 +50,7 @@ class AccountScreen extends ConsumerWidget {
                     SettingsRow(
                       title: t.clearStars,
                       subtitle: t.clearStarsSub,
-                      icon: Icons.star_outline_rounded,
+                      icon: PhosphorIconsRegular.star,
                       danger: true,
                       onTap: starred == 0
                           ? null
@@ -65,7 +66,7 @@ class AccountScreen extends ConsumerWidget {
                     SettingsRow(
                       title: t.resetProgress,
                       subtitle: t.resetProgressSub,
-                      icon: Icons.restart_alt_rounded,
+                      icon: PhosphorIconsRegular.arrowClockwise,
                       danger: true,
                       onTap: learned == 0 && streak == 0
                           ? null
@@ -90,7 +91,7 @@ class AccountScreen extends ConsumerWidget {
                     SettingsRow(
                       title: t.resetSettings,
                       subtitle: t.resetSettingsSub,
-                      icon: Icons.settings_backup_restore_rounded,
+                      icon: PhosphorIconsRegular.arrowCounterClockwise,
                       danger: true,
                       onTap: () => _confirm(
                         context,
@@ -103,7 +104,7 @@ class AccountScreen extends ConsumerWidget {
                     SettingsRow(
                       title: t.deleteAll,
                       subtitle: t.deleteAllSub,
-                      icon: Icons.delete_forever_rounded,
+                      icon: PhosphorIconsFill.trash,
                       danger: true,
                       onTap: () => _confirm(
                         context,
@@ -164,7 +165,7 @@ class AccountScreen extends ConsumerWidget {
             Row(
               children: [
                 Icon(
-                  Icons.warning_amber_rounded,
+                  PhosphorIconsFill.warning,
                   size: 18,
                   color: palette.review,
                 ),

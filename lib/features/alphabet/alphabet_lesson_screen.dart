@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -173,7 +174,7 @@ class _AlphabetLessonScreenState extends ConsumerState<AlphabetLessonScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Icon(
-                    Icons.volume_up_rounded,
+                    PhosphorIconsRegular.speakerHigh,
                     size: 20,
                     color: palette.accent,
                   ),

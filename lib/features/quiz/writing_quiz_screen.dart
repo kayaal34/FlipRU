@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -260,7 +261,7 @@ class _WritingQuizScreenState extends ConsumerState<WritingQuizScreen> {
       appBar: AppBar(
         title: Text(widget.title),
         leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
+          icon: const Icon(PhosphorIconsRegular.x),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
       ),
@@ -608,14 +609,14 @@ class _Keyboard extends StatelessWidget {
           children: [
             Expanded(
               child: _Key(
-                icon: Icons.backspace_outlined,
+                icon: PhosphorIconsRegular.backspace,
                 tint: palette.review,
                 onTap: onBackspace,
               ),
             ),
             Expanded(
               child: _Key(
-                icon: Icons.lightbulb_rounded,
+                icon: PhosphorIconsFill.lightbulb,
                 tint: palette.star,
                 badge: '$jokerLeft',
                 onTap: onJoker,
@@ -623,7 +624,7 @@ class _Keyboard extends StatelessWidget {
             ),
             Expanded(
               child: _Key(
-                icon: Icons.check_rounded,
+                icon: PhosphorIconsBold.check,
                 tint: palette.learned,
                 onTap: onSubmit,
               ),

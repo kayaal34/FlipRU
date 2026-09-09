@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -31,7 +32,7 @@ class StarredScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(s.starredTitle),
         leading: IconButton(
-          icon: const Icon(Icons.chevron_left_rounded, size: 28),
+          icon: const Icon(PhosphorIconsRegular.caretLeft, size: 28),
           onPressed: () => Navigator.of(context).maybePop(),
         ),
         actions: [
@@ -41,7 +42,7 @@ class StarredScreen extends ConsumerWidget {
           if (words.isNotEmpty)
             IconButton(
               icon: Icon(
-                Icons.play_circle_fill_rounded,
+                PhosphorIconsFill.playCircle,
                 size: 30,
                 color: palette.accent,
               ),
@@ -220,7 +221,7 @@ class _StarredRow extends StatelessWidget {
             ),
             IconButton(
               icon: Icon(
-                Icons.volume_up_rounded,
+                PhosphorIconsRegular.speakerHigh,
                 size: 20,
                 color: palette.textTertiary,
               ),
@@ -231,7 +232,7 @@ class _StarredRow extends StatelessWidget {
               },
             ),
             IconButton(
-              icon: Icon(Icons.star_rounded, size: 22, color: palette.star),
+              icon: Icon(PhosphorIconsFill.star, size: 22, color: palette.star),
               tooltip: strings.starRemove,
               onPressed: onUnstar,
             ),
@@ -267,7 +268,7 @@ class _EmptyState extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Icon(
-                Icons.star_outline_rounded,
+                PhosphorIconsRegular.star,
                 size: 38,
                 color: palette.star,
               ),

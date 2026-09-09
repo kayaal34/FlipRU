@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 /// Avrupa Dil Portfolyosu (CEFR) seviyeleri.
 ///
@@ -28,36 +29,36 @@ enum WordLevel {
 /// eşleniyor; eşlenemeyenlerin teması `null` olur ve tema destelerinde
 /// görünmezler.
 enum WordTheme {
-  politics(Icons.account_balance_rounded, Color(0xFF3B82F6)),
-  economy(Icons.trending_up_rounded, Color(0xFF10B981)),
-  health(Icons.favorite_rounded, Color(0xFFEF4444)),
-  science(Icons.science_rounded, Color(0xFF8B5CF6)),
-  environment(Icons.eco_rounded, Color(0xFF22C55E)),
-  education(Icons.school_rounded, Color(0xFFF59E0B)),
-  technology(Icons.memory_rounded, Color(0xFF06B6D4)),
-  work(Icons.badge_rounded, Color(0xFF6366F1)),
-  law(Icons.gavel_rounded, Color(0xFF78716C)),
-  transport(Icons.directions_bus_rounded, Color(0xFF0EA5E9)),
-  food(Icons.restaurant_rounded, Color(0xFFF97316)),
-  family(Icons.family_restroom_rounded, Color(0xFFEC4899)),
-  emotion(Icons.mood_rounded, Color(0xFFD946EF)),
-  body(Icons.accessibility_new_rounded, Color(0xFFF43F5E)),
-  home(Icons.chair_rounded, Color(0xFFA855F7)),
-  time(Icons.schedule_rounded, Color(0xFF64748B)),
-  culture(Icons.palette_rounded, Color(0xFFE11D48)),
-  sport(Icons.sports_soccer_rounded, Color(0xFF16A34A)),
-  military(Icons.shield_rounded, Color(0xFF4B5563)),
-  religion(Icons.brightness_low_rounded, Color(0xFF7C3AED)),
-  geography(Icons.public_rounded, Color(0xFF0891B2)),
-  agriculture(Icons.agriculture_rounded, Color(0xFF65A30D)),
-  construction(Icons.construction_rounded, Color(0xFFEA580C)),
-  clothing(Icons.checkroom_rounded, Color(0xFFDB2777)),
-  shopping(Icons.shopping_bag_rounded, Color(0xFF9333EA)),
-  media(Icons.newspaper_rounded, Color(0xFF475569)),
-  animals(Icons.pets_rounded, Color(0xFFCA8A04)),
-  travel(Icons.luggage_rounded, Color(0xFF14B8A6)),
-  personality(Icons.psychology_rounded, Color(0xFFBE185D)),
-  quantity(Icons.straighten_rounded, Color(0xFF57534E));
+  politics(PhosphorIconsRegular.bank, Color(0xFF3B82F6)),
+  economy(PhosphorIconsRegular.trendUp, Color(0xFF10B981)),
+  health(PhosphorIconsRegular.heart, Color(0xFFEF4444)),
+  science(PhosphorIconsRegular.flask, Color(0xFF8B5CF6)),
+  environment(PhosphorIconsRegular.leaf, Color(0xFF22C55E)),
+  education(PhosphorIconsRegular.graduationCap, Color(0xFFF59E0B)),
+  technology(PhosphorIconsRegular.cpu, Color(0xFF06B6D4)),
+  work(PhosphorIconsRegular.identificationBadge, Color(0xFF6366F1)),
+  law(PhosphorIconsRegular.gavel, Color(0xFF78716C)),
+  transport(PhosphorIconsRegular.bus, Color(0xFF0EA5E9)),
+  food(PhosphorIconsRegular.forkKnife, Color(0xFFF97316)),
+  family(PhosphorIconsRegular.users, Color(0xFFEC4899)),
+  emotion(PhosphorIconsRegular.smiley, Color(0xFFD946EF)),
+  body(PhosphorIconsRegular.personArmsSpread, Color(0xFFF43F5E)),
+  home(PhosphorIconsRegular.armchair, Color(0xFFA855F7)),
+  time(PhosphorIconsRegular.clock, Color(0xFF64748B)),
+  culture(PhosphorIconsRegular.palette, Color(0xFFE11D48)),
+  sport(PhosphorIconsRegular.soccerBall, Color(0xFF16A34A)),
+  military(PhosphorIconsRegular.shieldCheck, Color(0xFF4B5563)),
+  religion(PhosphorIconsRegular.sunDim, Color(0xFF7C3AED)),
+  geography(PhosphorIconsRegular.globe, Color(0xFF0891B2)),
+  agriculture(PhosphorIconsRegular.tractor, Color(0xFF65A30D)),
+  construction(PhosphorIconsRegular.hammer, Color(0xFFEA580C)),
+  clothing(PhosphorIconsRegular.tShirt, Color(0xFFDB2777)),
+  shopping(PhosphorIconsRegular.shoppingBag, Color(0xFF9333EA)),
+  media(PhosphorIconsRegular.newspaper, Color(0xFF475569)),
+  animals(PhosphorIconsRegular.pawPrint, Color(0xFFCA8A04)),
+  travel(PhosphorIconsRegular.suitcase, Color(0xFF14B8A6)),
+  personality(PhosphorIconsRegular.brain, Color(0xFFBE185D)),
+  quantity(PhosphorIconsRegular.ruler, Color(0xFF57534E));
 
   const WordTheme(this.icon, this.tint);
 

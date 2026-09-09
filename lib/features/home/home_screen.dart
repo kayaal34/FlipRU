@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_palette.dart';
@@ -163,10 +164,10 @@ class _HomeHeader extends ConsumerWidget {
 
   IconData _greetingIcon() {
     final hour = DateTime.now().hour;
-    if (hour < 6) return Icons.bedtime_rounded;
-    if (hour < 12) return Icons.wb_twilight_rounded;
-    if (hour < 18) return Icons.wb_sunny_rounded;
-    return Icons.nights_stay_rounded;
+    if (hour < 6) return PhosphorIconsFill.moon;
+    if (hour < 12) return PhosphorIconsFill.sunHorizon;
+    if (hour < 18) return PhosphorIconsFill.sun;
+    return PhosphorIconsFill.moonStars;
   }
 
   @override
@@ -242,7 +243,7 @@ class _HomeHeader extends ConsumerWidget {
                 strokeWidth: 5,
                 child: daily.goalReached
                     ? Icon(
-                        Icons.check_rounded,
+                        PhosphorIconsBold.check,
                         size: 22,
                         color: palette.learned,
                       )
@@ -331,7 +332,7 @@ class _StreakBadge extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(
-            Icons.local_fire_department_rounded,
+            PhosphorIconsFill.fire,
             size: 23,
             color: active ? palette.star : palette.textTertiary,
           ),
@@ -388,7 +389,7 @@ class _AlphabetCard extends ConsumerWidget {
                 color: palette.accentSoft,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(Icons.abc_rounded, color: palette.accent, size: 30),
+              child: Icon(PhosphorIconsRegular.textAa, color: palette.accent, size: 30),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -418,7 +419,7 @@ class _AlphabetCard extends ConsumerWidget {
               color: palette.accent,
               size: 48,
               child: done == total
-                  ? Icon(Icons.check_rounded, size: 23, color: palette.accent)
+                  ? Icon(PhosphorIconsBold.check, size: 23, color: palette.accent)
                   : Text(
                       '${(ratio * 100).round()}',
                       style: textTheme.labelSmall?.copyWith(
@@ -472,7 +473,7 @@ class _DailyTestCard extends ConsumerWidget {
           MaterialPageRoute(
             builder: (_) => QuizScreen(
               title: s.dailyTest,
-              words: secilen.take(15).toList(),
+              words: secilen,
               kind: 'daily',
             ),
           ),
@@ -495,7 +496,7 @@ class _DailyTestCard extends ConsumerWidget {
               size: 52,
               strokeWidth: 5,
               child: Icon(
-                done ? Icons.check_rounded : Icons.quiz_rounded,
+                done ? PhosphorIconsBold.check : PhosphorIconsRegular.exam,
                 size: 22,
                 color: done ? palette.learned : palette.accent,
               ),
@@ -518,7 +519,7 @@ class _DailyTestCard extends ConsumerWidget {
             ),
             if (!done)
               Icon(
-                Icons.chevron_right_rounded,
+                PhosphorIconsRegular.caretRight,
                 size: 26,
                 color: palette.textTertiary,
               ),

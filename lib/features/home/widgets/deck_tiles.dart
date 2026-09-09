@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_palette.dart';
@@ -84,7 +85,7 @@ class DeckRow extends ConsumerWidget {
               color: deck.tint,
               size: 48,
               child: progress.isComplete
-                  ? Icon(Icons.check_rounded, size: 23, color: deck.tint)
+                  ? Icon(PhosphorIconsBold.check, size: 23, color: deck.tint)
                   : Text(
                       '${(progress.ratio * 100).round()}',
                       style: textTheme.labelSmall?.copyWith(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../core/i18n/strings.dart';
 import 'word.dart';
@@ -64,16 +65,16 @@ class Deck {
   static const starred = Deck(
     id: 'starred',
     kind: DeckKind.starred,
-    icon: Icons.star_rounded,
+    icon: PhosphorIconsFill.star,
     tint: Color(0xFFEFA818),
   );
 
   static const _levelIcons = {
-    WordLevel.a1: Icons.looks_one_rounded,
-    WordLevel.a2: Icons.looks_two_rounded,
-    WordLevel.b1: Icons.looks_3_rounded,
-    WordLevel.b2: Icons.looks_4_rounded,
-    WordLevel.c1: Icons.looks_5_rounded,
+    WordLevel.a1: PhosphorIconsRegular.numberCircleOne,
+    WordLevel.a2: PhosphorIconsRegular.numberCircleTwo,
+    WordLevel.b1: PhosphorIconsRegular.numberCircleThree,
+    WordLevel.b2: PhosphorIconsRegular.numberCircleFour,
+    WordLevel.c1: PhosphorIconsRegular.numberCircleFive,
   };
 
   /// Seviye yükseldikçe soğuk mordan sıcak kırmızıya giden bir skala.

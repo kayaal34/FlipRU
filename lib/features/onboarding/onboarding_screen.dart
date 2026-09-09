@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
@@ -96,7 +97,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     onPageChanged: (i) => setState(() => _page = i),
                     children: [
                       _Slide(
-                        icon: Icons.menu_book_rounded,
+                        icon: PhosphorIconsRegular.bookOpen,
                         tint: palette.accent,
                         title: s.onboardTitle1,
                         body: s.onboardBody1,
@@ -247,7 +248,7 @@ class _AlphabetSlide extends StatelessWidget {
               color: palette.learned.withValues(alpha: 0.14),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.abc_rounded, size: 60, color: palette.learned),
+            child: Icon(PhosphorIconsRegular.textAa, size: 60, color: palette.learned),
           ),
           const SizedBox(height: 34),
           Text(
@@ -315,8 +316,8 @@ class _AlphabetChoice extends StatelessWidget {
           children: [
             Icon(
               selected
-                  ? Icons.radio_button_checked_rounded
-                  : Icons.radio_button_unchecked_rounded,
+                  ? PhosphorIconsRegular.radioButton
+                  : PhosphorIconsRegular.circle,
               size: 21,
               color: selected ? palette.accent : palette.textTertiary,
             ),
@@ -367,7 +368,7 @@ class _GoalSlide extends StatelessWidget {
               color: palette.star.withValues(alpha: 0.16),
               shape: BoxShape.circle,
             ),
-            child: Icon(Icons.flag_rounded, size: 54, color: palette.star),
+            child: Icon(PhosphorIconsRegular.flag, size: 54, color: palette.star),
           ),
           const SizedBox(height: 34),
           Text(

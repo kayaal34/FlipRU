@@ -16,14 +16,6 @@ class SpeechService {
   String _language = 'ru-RU';
   final Map<String, bool> _support = {};
 
-  /// Dil kodu -> kullanıcının seçtiği ses adı. Boşsa motorun varsayılanı.
-  final Map<String, String> _voices = {};
-  final Map<String, List<String>> _voiceCache = {};
-
-  void setPreferredVoice(String language, String voiceName) {
-    _voices[language] = voiceName;
-  }
-
   bool get isAvailable => _available;
 
   double _rate = 0.45;
@@ -53,54 +45,6 @@ class SpeechService {
     }
   }
 
-  /// Cihazdaki motorlar ve [language] için kullanılabilir sesler.
-  ///
-  /// Motorların (Google, Samsung…) ve aynı motor içindeki seslerin tınısı
-  /// belirgin biçimde farklı; kullanıcıya seçtirebilmek için listeleniyor.
-  /// Aynı konuşmacı motorda iki kez bulunuyor (`…-local` ve `…-network`);
-  /// listeye konuşmacı başına tek satır, internetsiz de çalışan `-local`
-  /// sürümüyle giriyor. Yoksa 11 satırın yarısı aynı sesin tekrarı olurdu.
-  Future<List<String>> voicesFor(String language) async {
-    await _ensureInitialized();
-    if (!_available) return const [];
-    final cached = _voiceCache[language];
-    if (cached != null) return cached;
-    try {
-      final raw = await _tts.getVoices as List<dynamic>?;
-      if (raw == null) return const [];
-      final prefix = language.split('-').first.toLowerCase();
-      final bySpeaker = <String, String>{};
-      for (final v in raw) {
-        if (v is! Map) continue;
-        final locale = '${v['locale']}'.toLowerCase();
-        if (!locale.startsWith(prefix)) continue;
-        final name = '${v['name']}';
-        final speaker = name
-            .replaceAll('-network', '')
-            .replaceAll('-local', '');
-        final current = bySpeaker[speaker];
-        if (current == null || name.endsWith('-local')) {
-          bySpeaker[speaker] = name;
-        }
-      }
-      final names = bySpeaker.values.toList()..sort();
-      _voiceCache[language] = names;
-      return names;
-    } catch (_) {
-      return const [];
-    }
-  }
-
-  Future<List<String>> engines() async {
-    await _ensureInitialized();
-    try {
-      final raw = await _tts.getEngines as List<dynamic>?;
-      return [for (final e in raw ?? const []) '$e'];
-    } catch (_) {
-      return const [];
-    }
-  }
-
   /// Cihazda o dilin sesi kurulu mu? Sonuç önbelleğe alınıyor.
   ///
   /// Kurulu olmayan dil için `setLanguage` sessizce başarısız oluyor ve
@@ -123,34 +67,18 @@ class SpeechService {
 
   /// Okuyabildiyse `true` döner; dil kurulu değilse hiç ses çıkarmaz.
   ///
-  /// [voiceOverride] yalnızca ayarlardaki ses seçicinin önizlemesi için:
-  /// kullanıcı listedeki sesi kaydetmeden dinleyebiliyor.
-  Future<bool> speak(
-    String text, {
-    String language = 'ru-RU',
-    String? voiceOverride,
-  }) async {
+  /// Ses seçimi yok, motorun o dil için varsayılan sesi kullanılıyor.
+  /// Ayarlarda altı ses listeleniyordu; isimleri cihazdan cihaza değiştiği
+  /// için kayıtlı seçim yeni telefonda bulunamıyordu ve zaten varsayılan
+  /// sesten daha iyisi çıkmıyordu.
+  Future<bool> speak(String text, {String language = 'ru-RU'}) async {
     await _ensureInitialized();
     if (!_available || text.trim().isEmpty) return false;
     if (!await supportsLanguage(language)) return false;
     try {
       await _tts.stop();
-      // Kayıtlı ses adı bu cihazda olmayabilir: Android ayarları yedekten
-      // yeni telefona taşıyor, kullanıcı ses paketini kaldırmış olabiliyor.
-      // Böyle bir durumda susmak yerine motorun varsayılanına düşüyoruz.
-      final wanted = voiceOverride ?? _voices[language] ?? '';
-      final voice =
-          wanted.isEmpty || (await voicesFor(language)).contains(wanted)
-          ? wanted
-          : '';
-      if (voice.isEmpty) {
-        if (language != _language) {
-          await _tts.setLanguage(language);
-          _language = language;
-        }
-      } else {
-        // setVoice dili de birlikte ayarlıyor.
-        await _tts.setVoice({'name': voice, 'locale': language});
+      if (language != _language) {
+        await _tts.setLanguage(language);
         _language = language;
       }
       await _tts.speak(text);
@@ -178,7 +106,6 @@ class SpeechService {
   /// uygulamayı kapatmadan tekrar denediğinde eski "yok" cevabı kalmasın.
   void forgetLanguageSupport() {
     _support.clear();
-    _voiceCache.clear();
   }
 
   Future<void> stop() async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/theme/app_palette.dart';
 import '../../../core/utils/haptics.dart';
@@ -314,7 +315,7 @@ class SettingsRow extends StatelessWidget {
             if (onTap != null && !danger) ...[
               const SizedBox(width: 4),
               Icon(
-                Icons.chevron_right_rounded,
+                PhosphorIconsRegular.caretRight,
                 size: 20,
                 color: palette.textTertiary,
               ),

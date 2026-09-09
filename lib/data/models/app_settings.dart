@@ -39,20 +39,19 @@ class AppSettings {
     this.themeMode = ThemeMode.light,
     this.direction = StudyDirection.ruToTr,
     this.sessionSize = 20,
+    this.quizQuestionCount = 15,
     this.dailyGoal = 20,
     this.shuffle = true,
     this.hapticsEnabled = true,
     this.autoSpeak = false,
     this.speechRate = SpeechRate.normal,
     this.alphabetDone = const <String>{},
-    this.ruVoice = '',
-    this.trVoice = '',
     this.showTransliteration = true,
     this.showStressMarks = true,
     this.hideLearned = false,
     this.hideLowConfidence = false,
     this.onboardingDone = false,
-    this.reminderEnabled = false,
+    this.reminderEnabled = true,
     this.reminderHour = 20,
     this.reminderMinute = 0,
     this.widgetRefresh = WidgetRefresh.daily,
@@ -70,6 +69,12 @@ class AppSettings {
   /// Günlük öğrenme hedefi (kelime).
   final int dailyGoal;
 
+  /// Çoktan seçmeli testlerde kaç soru sorulacak.
+  ///
+  /// Bölüm ve seviye testleri bunu dinlemiyor: orada bölümün bütün
+  /// kelimeleri soruluyor, yoksa tam puan şartı anlamsız olurdu.
+  final int quizQuestionCount;
+
   final bool shuffle;
   final bool hapticsEnabled;
 
@@ -77,13 +82,8 @@ class AppSettings {
   final bool autoSpeak;
   final SpeechRate speechRate;
 
-  /// Secilen TTS sesinin cihazdaki adi; bos ise motorun
-  /// varsayilani kullanilir.
   /// Tamamlanan alfabe dersleri (`same`, `trap`, `fresh`, `read`).
   final Set<String> alphabetDone;
-
-  final String ruVoice;
-  final String trVoice;
 
   final bool showTransliteration;
   final bool showStressMarks;
@@ -110,6 +110,7 @@ class AppSettings {
       '${reminderMinute.toString().padLeft(2, '0')}';
 
   static const sessionSizeOptions = [5, 10, 20, 30, 50, 0];
+  static const quizCountOptions = [5, 10, 15, 20, 30];
   static const dailyGoalOptions = [5, 10, 20, 30, 50];
 
   AppSettings copyWith({
@@ -117,14 +118,13 @@ class AppSettings {
     ThemeMode? themeMode,
     StudyDirection? direction,
     int? sessionSize,
+    int? quizQuestionCount,
     int? dailyGoal,
     bool? shuffle,
     bool? hapticsEnabled,
     bool? autoSpeak,
     SpeechRate? speechRate,
     Set<String>? alphabetDone,
-    String? ruVoice,
-    String? trVoice,
     bool? showTransliteration,
     bool? showStressMarks,
     bool? hideLearned,
@@ -140,14 +140,13 @@ class AppSettings {
       themeMode: themeMode ?? this.themeMode,
       direction: direction ?? this.direction,
       sessionSize: sessionSize ?? this.sessionSize,
+      quizQuestionCount: quizQuestionCount ?? this.quizQuestionCount,
       dailyGoal: dailyGoal ?? this.dailyGoal,
       shuffle: shuffle ?? this.shuffle,
       hapticsEnabled: hapticsEnabled ?? this.hapticsEnabled,
       autoSpeak: autoSpeak ?? this.autoSpeak,
       speechRate: speechRate ?? this.speechRate,
       alphabetDone: alphabetDone ?? this.alphabetDone,
-      ruVoice: ruVoice ?? this.ruVoice,
-      trVoice: trVoice ?? this.trVoice,
       showTransliteration: showTransliteration ?? this.showTransliteration,
       showStressMarks: showStressMarks ?? this.showStressMarks,
       hideLearned: hideLearned ?? this.hideLearned,
@@ -165,13 +164,13 @@ class AppSettings {
     'themeMode': themeMode.name,
     'direction': direction.name,
     'sessionSize': sessionSize,
+    'quizCount': quizQuestionCount,
     'dailyGoal': dailyGoal,
+    'alphabetDone': alphabetDone.toList(),
     'shuffle': shuffle,
     'haptics': hapticsEnabled,
     'autoSpeak': autoSpeak,
     'speechRate': speechRate.name,
-    'ruVoice': ruVoice,
-    'trVoice': trVoice,
     'showTranslit': showTransliteration,
     'showStress': showStressMarks,
     'hideLearned': hideLearned,
@@ -200,6 +199,7 @@ class AppSettings {
         StudyDirection.ruToTr,
       ),
       sessionSize: map['sessionSize'] as int? ?? 20,
+      quizQuestionCount: map['quizCount'] as int? ?? 15,
       dailyGoal: map['dailyGoal'] as int? ?? 20,
       shuffle: map['shuffle'] as bool? ?? true,
       hapticsEnabled: map['haptics'] as bool? ?? true,
@@ -208,14 +208,12 @@ class AppSettings {
       alphabetDone: {
         for (final v in (map['alphabetDone'] as List? ?? const [])) '$v',
       },
-      ruVoice: map['ruVoice'] as String? ?? '',
-      trVoice: map['trVoice'] as String? ?? '',
       showTransliteration: map['showTranslit'] as bool? ?? true,
       showStressMarks: map['showStress'] as bool? ?? true,
       hideLearned: map['hideLearned'] as bool? ?? false,
       hideLowConfidence: map['hideLowConf'] as bool? ?? false,
       onboardingDone: map['onboardingDone'] as bool? ?? false,
-      reminderEnabled: map['reminderOn'] as bool? ?? false,
+      reminderEnabled: map['reminderOn'] as bool? ?? true,
       reminderHour: map['reminderHour'] as int? ?? 20,
       reminderMinute: map['reminderMinute'] as int? ?? 0,
       widgetRefresh: pick(
