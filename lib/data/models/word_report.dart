@@ -28,6 +28,7 @@ class WordReport {
     required this.reason,
     required this.note,
     required this.createdAt,
+    this.sent = false,
   });
 
   final String wordId;
@@ -40,6 +41,10 @@ class WordReport {
 
   final DateTime createdAt;
 
+  /// Bize ulaştı mı? Gönderilen bildirim listede kalıyor ama bir daha
+  /// gönderilmiyor: aynı kelime iki kez düşerse hangisi doğru bilmiyoruz.
+  final bool sent;
+
   Map<String, Object> toMap() => {
     'wordId': wordId,
     'ru': russian,
@@ -47,6 +52,7 @@ class WordReport {
     'reason': reason.name,
     'note': note,
     'at': createdAt.toIso8601String(),
+    'sent': sent,
   };
 
   factory WordReport.fromMap(Map<String, Object?> map) => WordReport(
@@ -56,6 +62,17 @@ class WordReport {
     reason: ReportReason.byKey(map['reason'] as String? ?? ''),
     note: map['note'] as String? ?? '',
     createdAt: DateTime.tryParse(map['at'] as String? ?? '') ?? DateTime(2026),
+    sent: map['sent'] as bool? ?? false,
+  );
+
+  WordReport copyWith({bool? sent}) => WordReport(
+    wordId: wordId,
+    russian: russian,
+    turkish: turkish,
+    reason: reason,
+    note: note,
+    createdAt: createdAt,
+    sent: sent ?? this.sent,
   );
 
   /// Paylaşım metni — bize e-posta/mesaj olarak gelecek biçim.

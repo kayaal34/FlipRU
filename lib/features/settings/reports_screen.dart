@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../../core/app_info.dart';
 
 import '../../core/theme/app_palette.dart';
 import '../../core/i18n/strings.dart';
@@ -13,8 +9,12 @@ import '../../data/models/word_report.dart';
 import '../../providers/report_provider.dart';
 import '../../providers/settings_provider.dart';
 
-/// Kullanıcının bildirdiği hatalı kelimeler ve bunları bize gönderme yolu.
-class ReportsScreen extends ConsumerWidget {
+/// Kullanıcının bildirdiği hatalı kelimeler.
+///
+/// Bildirimler kaydedildikleri anda gönderiliyor; bu ekran gidemeyenler
+/// için ikinci bir şans. Ekran açıldığında da sessizce yeniden deniyor,
+/// çoğu zaman kullanıcının hiçbir şeye dokunması gerekmiyor.
+class ReportsScreen extends ConsumerStatefulWidget {
   const ReportsScreen({super.key});
 
   static String _reasonLabel(ReportReason reason, Strings s) =>
@@ -26,11 +26,46 @@ class ReportsScreen extends ConsumerWidget {
       };
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ReportsScreen> createState() => _ReportsScreenState();
+}
+
+class _ReportsScreenState extends ConsumerState<ReportsScreen> {
+  bool _sending = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Ekran acilirken bekleyenleri sessizce dene: agi olan kullanici
+    // dugmeyi hic gormeden isi bitmis oluyor.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (ref.read(reportProvider.notifier).pending.isNotEmpty) _send();
+    });
+  }
+
+  Future<void> _send() async {
+    if (_sending) return;
+    setState(() => _sending = true);
+    final gonderilen = await ref.read(reportProvider.notifier).flush();
+    if (!mounted) return;
+    setState(() => _sending = false);
+
+    final t = ref.read(stringsProvider);
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(
+        SnackBar(
+          content: Text(gonderilen > 0 ? t.reportsSendOk : t.reportsSendFail),
+        ),
+      );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final reports = ref.watch(reportProvider);
     final t = ref.watch(stringsProvider);
+    final bekleyen = reports.where((r) => !r.sent).length;
 
     return Scaffold(
       appBar: AppBar(
@@ -98,15 +133,30 @@ class ReportsScreen extends ConsumerWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    '${report.russian} → ${report.turkish}',
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: textTheme.titleMedium,
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          '${report.russian} → '
+                                          '${report.turkish}',
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: textTheme.titleMedium,
+                                        ),
+                                      ),
+                                      if (report.sent) ...[
+                                        const SizedBox(width: 7),
+                                        Icon(
+                                          PhosphorIconsFill.checkCircle,
+                                          size: 15,
+                                          color: palette.learned,
+                                        ),
+                                      ],
+                                    ],
                                   ),
                                   const SizedBox(height: 3),
                                   Text(
-                                    _reasonLabel(report.reason, t),
+                                    ReportsScreen._reasonLabel(report.reason, t),
                                     style: textTheme.bodySmall?.copyWith(
                                       color: palette.review,
                                     ),
@@ -159,33 +209,52 @@ class ReportsScreen extends ConsumerWidget {
                 heightFactor: 1,
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 600),
-                  child: FilledButton(
-                    onPressed: () async {
-                      Haptics.light();
-                      final text = ref.read(reportProvider.notifier).asText();
-                      const konu = 'FlipRU — hatalı kelime bildirimleri';
-
-                      // Once posta uygulamasi, alici hazir gelsin diye.
-                      //
-                      // Onceden dogrudan paylasim sayfasi aciliyordu: dugme
-                      // "Bize gonder" diyor ama "biz"in kim oldugunu
-                      // soylemiyordu, kullanicinin adresi kendisinin bilmesi
-                      // ve yazmasi gerekiyordu. Bildirimler bu yuzden bize
-                      // hic ulasmiyordu.
-                      final posta = Uri(
-                        scheme: 'mailto',
-                        path: kIletisimAdresi,
-                        query: Uri.encodeFull('subject=$konu&body=$text'),
-                      );
-                      if (await launchUrl(posta)) return;
-
-                      // Posta uygulamasi yoksa paylasim sayfasina dusuyoruz.
-                      await SharePlus.instance.share(
-                        ShareParams(text: text, subject: konu),
-                      );
-                    },
-                    child: Text('${t.reportsSend} (${reports.length})'),
-                  ),
+                  // Bekleyen yoksa dugme yerine tek satirlik bir onay:
+                  // basacak bir sey birakmak "acaba gitti mi?" sorusunu
+                  // dogurur.
+                  child: bekleyen == 0
+                      ? Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              PhosphorIconsFill.checkCircle,
+                              size: 18,
+                              color: palette.learned,
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              t.reportsAllSent,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: palette.textSecondary,
+                              ),
+                            ),
+                          ],
+                        )
+                      : FilledButton(
+                          onPressed: _sending
+                              ? null
+                              : () {
+                                  Haptics.light();
+                                  _send();
+                                },
+                          child: _sending
+                              ? Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const SizedBox(
+                                      width: 17,
+                                      height: 17,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2.2,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    const SizedBox(width: 11),
+                                    Text(t.reportsSending),
+                                  ],
+                                )
+                              : Text('${t.reportsSend} ($bekleyen)'),
+                        ),
                 ),
               ),
             ),
