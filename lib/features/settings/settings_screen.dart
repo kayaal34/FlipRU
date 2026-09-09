@@ -39,6 +39,46 @@ class SettingsScreen extends ConsumerWidget {
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
               children: [
                 const SizedBox(height: 16),
+                // ───────────────────── Hesap ve veri ───────────────────────
+                //
+                // Listenin basinda: buradakiler ayar degil, gidilecek yer.
+                // Istatistik ayri bir sekmeydi, alt menuden kaldirilinca en
+                // alta dusmustu ve kimse iki ekran kaydirip bulamiyordu.
+                // Asagisi ise ayarlar — bir kez kurulup unutulan seyler.
+                SettingsSection(
+                  title: t.accountAndData,
+                  children: [
+                    SettingsRow(
+                      title: t.statsTitle,
+                      subtitle: t.statsRowSub,
+                      icon: PhosphorIconsRegular.chartLineUp,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const StatsScreen()),
+                      ),
+                    ),
+                    SettingsRow(
+                      title: t.reports,
+                      icon: PhosphorIconsRegular.flag,
+                      trailing: '${reports.length}',
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const ReportsScreen(),
+                        ),
+                      ),
+                    ),
+                    SettingsRow(
+                      title: t.account,
+                      subtitle: t.accountSub,
+                      icon: PhosphorIconsRegular.user,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const AccountScreen(),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+
                 // ───────────────────────── Görünüm ─────────────────────────
                 SettingsSection(
                   title: t.appearance,
@@ -259,44 +299,6 @@ class SettingsScreen extends ConsumerWidget {
                         notifier.update((s) => s.copyWith(hapticsEnabled: v));
                         if (v) Haptics.medium();
                       },
-                    ),
-                  ],
-                ),
-
-                // Öğrenilen / yıldızlı / seri sayıları İstatistik ekranında
-                // duruyor; aynı veriyi iki yerde göstermek kafa karıştırıyordu.
-                SettingsSection(
-                  title: t.accountAndData,
-                  children: [
-                    // Istatistik ayri bir sekmeydi; haftada bir acilan bir
-                    // ekran icin alt menude yer tutmak pahaliydi.
-                    SettingsRow(
-                      title: t.statsTitle,
-                      subtitle: t.statsRowSub,
-                      icon: PhosphorIconsRegular.chartLineUp,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const StatsScreen()),
-                      ),
-                    ),
-                    SettingsRow(
-                      title: t.reports,
-                      icon: PhosphorIconsRegular.flag,
-                      trailing: '${reports.length}',
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const ReportsScreen(),
-                        ),
-                      ),
-                    ),
-                    SettingsRow(
-                      title: t.account,
-                      subtitle: t.accountSub,
-                      icon: PhosphorIconsRegular.user,
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => const AccountScreen(),
-                        ),
-                      ),
                     ),
                   ],
                 ),
