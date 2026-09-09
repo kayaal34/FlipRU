@@ -67,7 +67,10 @@ abstract final class AppTheme {
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: p.accent,
-          foregroundColor: Colors.white,
+          // Koyu temada vurgu rengi açık mor; üzerinde beyaz yazı yalnızca
+          // 3.04:1 kontrast veriyordu (AA için 4.5 gerek). Koyu zemin
+          // rengiyle 6.5:1'e çıkıyor.
+          foregroundColor: p.isDark ? p.canvas : Colors.white,
           minimumSize: const Size.fromHeight(54),
           textStyle: textTheme.labelLarge?.copyWith(fontSize: 16),
           shape: RoundedRectangleBorder(

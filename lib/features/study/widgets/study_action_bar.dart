@@ -37,7 +37,7 @@ class StudyActionBar extends ConsumerWidget {
       children: [
         _ActionButton(
           icon: Icons.undo_rounded,
-          size: 46,
+          size: 48,
           iconSize: 20,
           color: palette.textSecondary,
           background: palette.surface,
