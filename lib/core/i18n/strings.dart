@@ -261,6 +261,8 @@ class Strings {
     required this.irreversible,
     required this.cancel,
     required this.confirmDelete,
+    required this.confirmReset,
+    required this.confirmClear,
     required this.uninstallNote,
     required this.reportTitle,
     required this.reportSubmit,
@@ -395,6 +397,10 @@ class Strings {
   final String clearStars, clearStarsSub, resetProgress, resetProgressSub;
   final String resetSettings, resetSettingsSub, deleteAll, deleteAllSub;
   final String irreversible, cancel, confirmDelete, uninstallNote;
+
+  /// Onay penceresinin butonu ne yaptigini soylesin: sifirlamada
+  /// "Sil" yaziyordu, yapilan is silmek degilken.
+  final String confirmReset, confirmClear;
   final String reportTitle, reportSubmit, reportNote, reportSaved;
   final String reportReasonTranslation, reportReasonExample;
   final String reportReasonPronunciation, reportReasonOther;
@@ -572,7 +578,7 @@ class Strings {
     testsTitle: 'Pratik',
     testsSubtitle: 'Bildiklerini ölç, yazarak pekiştir',
     dailyTest: 'Günün testi',
-    dailyTestSub: 'Öğrendiklerinden 15 rastgele soru',
+    dailyTestSub: 'Öğrendiklerinden rastgele sorular',
     ttsMissingTemplate:
         'Cihazında {} seslendirme sesi yüklü değil. '
         'Telefon ayarlarındaki "Metin okuma" bölümünden indirebilirsin.',
@@ -612,7 +618,7 @@ class Strings {
     levelTestNeed: 'Bu seviyeden en az 20 kelime öğren',
     levelTestKnown: 'öğrenilmiş kelime',
     statsTitle: 'İstatistikler',
-    statsRowSub: 'Serin, ilerlemen ve grafiğin',
+    statsRowSub: 'İlerleme grafiğin ve çalışma günlerin',
     statLearned: 'Öğrenilen kelime',
     statStreak: 'Günlük seri',
     statWeek: 'Son 7 gün',
@@ -623,8 +629,8 @@ class Strings {
     statsNoData: 'Bu dönemde çalışılmış gün yok',
     statsEmptyTitle: 'Burası yakında dolacak',
     statsEmptyBody:
-        'İlk kelimelerini çalıştıkça günlük serin, en verimli '
-        'günün ve ilerleme grafiğin burada birikmeye başlayacak.',
+        'İlk kelimelerini çalıştıkça kaç gün üst üste çalıştığın, en '
+        'verimli günün ve ilerleme grafiğin burada birikmeye başlayacak.',
     bestDay: 'En verimli gün',
     activeDays: 'Çalışılan gün sayısı',
     dailyAverage: 'Günlük ortalama',
@@ -673,7 +679,7 @@ class Strings {
     dirRuTrDesc: 'Rusça kelimeyi görüp anlamını hatırla',
     dirTrRuDesc: 'Türkçe anlamı görüp Rusçasını hatırla',
     sessionSize: 'Seans uzunluğu',
-    sessionSizeSub: 'Bir oturumda kaç kart gelsin',
+    sessionSizeSub: 'Bir seansta kaç kart gelsin',
     allCards: 'Tümü',
     cards: 'kart',
     dailyGoal: 'Günlük hedef',
@@ -683,11 +689,11 @@ class Strings {
     dailyTestGo: 'Teste git',
     goalWordsTemplate: '{} çalış',
     shuffle: 'Kartları karıştır',
-    shuffleSub: 'Kapalıysa kelimeler sıklık sırasına göre gelir',
+    shuffleSub: 'Kapalıysa kelimeler en sık kullanılandan başlar',
     quizLength: 'Testteki soru sayısı',
     quizLengthSub: 'Öğrendiklerim, yıldızlılar ve günün testi için',
-    streakNotifTitle: 'Serin tehlikede',
-    streakNotifBody: '{} günlük serini kaybetmemek için bugün uğra.',
+    streakNotifTitle: 'Seri bozulmak üzere',
+    streakNotifBody: '{} günlük seriyi kaybetmemek için bugün uğra.',
     skipLearned: 'Bildiklerimi tekrar sorma',
     skipLearnedSub: 'Kart çalışırken yalnızca henüz öğrenmediklerin gelir',
     stressMarks: 'Vurgu işaretleri',
@@ -696,7 +702,7 @@ class Strings {
     translitSub: "vaz-MOJ-nast' — kartın altında görünür",
     reminder: 'Hatırlatma',
     dailyReminder: 'Günlük hatırlatma',
-    dailyReminderSub: 'Setini tamamlamadıysan hatırlatalım',
+    dailyReminderSub: 'Günlük hedefini tamamlamadıysan hatırlatırız',
     reminderTime: 'Hatırlatma saati',
     reminderFooter: 'Bildirim yalnızca o gün hedefini tamamlamadıysan gelir.',
     soundVibration: 'Ses ve titreşim',
@@ -715,7 +721,7 @@ class Strings {
     accountAndData: 'Hesap ve veri',
     reports: 'Hatalı kelime bildirimleri',
     account: 'Hesap',
-    accountSub: 'Verilerim, sıfırlama ve silme işlemleri',
+    accountSub: 'İlerlemeni sıfırla, verilerini sil',
     about: 'Hakkında',
     appSubtitle: 'Rusça kelime öğrenme uygulaması',
     version: 'Sürüm 1.0.0',
@@ -744,15 +750,15 @@ class Strings {
     onboardAlphabetSkip: 'Biliyorum, kelimelere geçelim',
     onboardTitleWidget: 'Widget’ı ana ekranına ekle',
     onboardBodyWidget:
-        'Her gün yeni bir kelime ve günlük serin, uygulamayı '
-        'açmadan telefonunun ana ekranında. Ana ekranına uzun bas, widget '
-        'listesinden FlipRU’yu seç.',
+        'Her gün yeni bir kelime ve kaç gündür üst üste çalıştığın, '
+        'uygulamayı açmadan telefonunun ana ekranında. Ana ekranına uzun '
+        'bas, widget listesinden FlipRU’yu seç.',
     onboardTitle3: 'Günlük hedefin ne olsun?',
     onboardBody3:
         'Her gün bu kadar yeni kelime. Sonradan ayarlardan '
         'değiştirebilirsin.',
     deleteOps: 'Silme işlemleri',
-    deleteOpsFooter: 'Buradaki işlemlerin hiçbiri geri alınamaz.',
+    deleteOpsFooter: 'Bu işlemlerin hiçbiri geri alınamaz.',
     clearStars: 'Yıldızları temizle',
     clearStarsSub: 'Kaydettiğin kelimeler listeden çıkar',
     resetProgress: 'İlerlemeyi sıfırla',
@@ -760,10 +766,12 @@ class Strings {
     resetSettings: 'Ayarları varsayılana döndür',
     resetSettingsSub: 'Tercihler sıfırlanır, kelime verisi kalır',
     deleteAll: 'Her şeyi sil',
-    deleteAllSub: 'İlerleme, yıldızlar, ayarlar ve bildirimler',
+    deleteAllSub: 'İlerleme, yıldızlar, ayarlar ve hata bildirimleri',
     irreversible: 'Bu işlem geri alınamaz.',
     cancel: 'Vazgeç',
     confirmDelete: 'Sil',
+    confirmReset: 'Sıfırla',
+    confirmClear: 'Temizle',
     uninstallNote: 'Uygulamayı telefondan kaldırmak da bütün veriyi siler.',
     reportTitle: 'Neyi bildirmek istiyorsun?',
     reportSubmit: 'Bildir',
@@ -807,12 +815,12 @@ class Strings {
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
     widgetFooter:
-        'Widget’ı ana ekranına eklersen her gün yeni bir kelimeyi '
-        've günlük serini uygulamayı açmadan görürsün. Eklemek için ana '
-        'ekranına uzun bas, widget listesinden FlipRU’yu seç. Widget '
-        'yalnızca uygulamayı açtığında tazelenir.',
+        'Widget’ı ana ekranına eklersen her gün yeni bir kelimeyi ve '
+        'gün sayını uygulamayı açmadan görürsün. Eklemek için ana ekranına '
+        'uzun bas, widget listesinden FlipRU’yu seç. Widget yalnızca '
+        'uygulamayı açtığında tazelenir.',
     notifChannel: 'Günlük hatırlatma',
-    notifChannelDesc: 'Çalışma setini tamamlamadığında hatırlatır',
+    notifChannelDesc: 'Günlük hedefini tamamlamadığında hatırlatır',
     deckEmptyHint:
         'Kartların üzerindeki yıldıza dokunarak kelime ekleyebilirsin.',
     singleSourceWarning: 'Bu çeviri tek kaynaktan; hatalı olabilir',
@@ -956,7 +964,7 @@ class Strings {
     testsTitle: 'Практика',
     testsSubtitle: 'Проверяй знания и закрепляй письмом',
     dailyTest: 'Тест дня',
-    dailyTestSub: '15 случайных вопросов из выученного',
+    dailyTestSub: 'Случайные вопросы из выученного',
     ttsMissingTemplate:
         'На устройстве не установлен голос «{}». '
         'Его можно скачать в настройках телефона, раздел «Синтез речи».',
@@ -995,7 +1003,7 @@ class Strings {
     levelTestNeed: 'Выучи хотя бы 20 слов этого уровня',
     levelTestKnown: 'выученных слов',
     statsTitle: 'Статистика',
-    statsRowSub: 'Серия, прогресс и график',
+    statsRowSub: 'График прогресса и дни занятий',
     statLearned: 'Выучено слов',
     statStreak: 'Дней подряд',
     statWeek: 'За 7 дней',
@@ -1066,7 +1074,7 @@ class Strings {
     dailyTestGo: 'Перейти к тесту',
     goalWordsTemplate: 'Выучить {}',
     shuffle: 'Перемешивать карточки',
-    shuffleSub: 'Если выключено — слова идут по частотности',
+    shuffleSub: 'Если выключено — слова идут от самых частых',
     quizLength: 'Вопросов в тесте',
     quizLengthSub: 'Для выученных, избранных и теста дня',
     streakNotifTitle: 'Серия под угрозой',
@@ -1079,7 +1087,7 @@ class Strings {
     translitSub: "vaz-MOJ-nast' — показана под словом",
     reminder: 'Напоминание',
     dailyReminder: 'Ежедневное напоминание',
-    dailyReminderSub: 'Напомним, если не выполнил дневную норму',
+    dailyReminderSub: 'Напомним, если дневная цель не выполнена',
     reminderTime: 'Время напоминания',
     reminderFooter: 'Уведомление приходит, только если цель не выполнена.',
     soundVibration: 'Звук и вибрация',
@@ -1096,7 +1104,7 @@ class Strings {
     accountAndData: 'Аккаунт и данные',
     reports: 'Сообщения об ошибках',
     account: 'Аккаунт',
-    accountSub: 'Мои данные, сброс и удаление',
+    accountSub: 'Сброс прогресса и удаление данных',
     about: 'О приложении',
     appSubtitle: 'Приложение для изучения русских слов',
     version: 'Версия 1.0.0',
@@ -1141,10 +1149,12 @@ class Strings {
     resetSettings: 'Сбросить настройки',
     resetSettingsSub: 'Настройки сбросятся, словарь останется',
     deleteAll: 'Удалить всё',
-    deleteAllSub: 'Прогресс, избранное, настройки и сообщения',
+    deleteAllSub: 'Прогресс, избранное, настройки и сообщения об ошибках',
     irreversible: 'Это действие нельзя отменить.',
     cancel: 'Отмена',
     confirmDelete: 'Удалить',
+    confirmReset: 'Сбросить',
+    confirmClear: 'Очистить',
     uninstallNote: 'Удаление приложения также стирает все данные.',
     reportTitle: 'О чём хочешь сообщить?',
     reportSubmit: 'Отправить',
@@ -1193,7 +1203,7 @@ class Strings {
         'на главном экране, затем FlipRU в списке виджетов. Виджет '
         'обновляется при открытии приложения.',
     notifChannel: 'Ежедневное напоминание',
-    notifChannelDesc: 'Напоминает, если занятие не завершено',
+    notifChannelDesc: 'Напоминает, если дневная цель не выполнена',
     deckEmptyHint: 'Нажми на звёздочку на карточке, чтобы добавить слово.',
     singleSourceWarning: 'Перевод из одного источника — возможна ошибка',
     themeSubtitle: 'Термины: {}',

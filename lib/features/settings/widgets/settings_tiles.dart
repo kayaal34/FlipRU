@@ -7,13 +7,15 @@ import '../../../core/utils/haptics.dart';
 /// iOS ayarlar listesindeki gruplanmış bölüm.
 class SettingsSection extends StatelessWidget {
   const SettingsSection({
-    required this.title,
     required this.children,
+    this.title,
     this.footer,
     super.key,
   });
 
-  final String title;
+  /// Boş bırakılabilir: tek başına duran bir satırın üstünde başlık
+  /// tekrarı gürültü oluyor.
+  final String? title;
   final List<Widget> children;
   final String? footer;
 
@@ -25,13 +27,18 @@ class SettingsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(4, 26, 4, 9),
-          child: Text(
-            title.toUpperCase(),
-            style: textTheme.labelSmall?.copyWith(color: palette.textTertiary),
+        if (title == null)
+          const SizedBox(height: 26)
+        else
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4, 26, 4, 9),
+            child: Text(
+              title!.toUpperCase(),
+              style: textTheme.labelSmall?.copyWith(
+                color: palette.textTertiary,
+              ),
+            ),
           ),
-        ),
         DecoratedBox(
           decoration: BoxDecoration(
             color: palette.surface,
