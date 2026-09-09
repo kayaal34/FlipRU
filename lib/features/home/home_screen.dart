@@ -169,27 +169,19 @@ class _HomeHeader extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // Selamlama ve seri aynı satırda: seri tek başına bir satır
+        // kaplıyordu ve üst taraf boş görünüyordu.
         Row(
-          children: [
-            _StreakBadge(days: streak),
-            const Spacer(),
-          ],
-        ),
-        const SizedBox(height: 10),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    _greeting(s),
-                    style: AppTypography.largeTitle(palette.textPrimary),
-                  ),
-                ],
+              child: Text(
+                _greeting(s),
+                style: AppTypography.largeTitle(palette.textPrimary),
               ),
             ),
+            const SizedBox(width: 12),
+            _StreakBadge(days: streak),
           ],
         ),
         const SizedBox(height: 18),
@@ -275,16 +267,17 @@ class _StreakBadge extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
-    final s = ref.watch(stringsProvider);
     final active = days > 0;
 
+    // Yalnızca alev + sayı: "günlük seri" yazısı her açılışta aynı şeyi
+    // tekrar ediyor ve selamlamanın yanında yer kaplıyordu.
     return Container(
-      padding: const EdgeInsets.fromLTRB(13, 9, 16, 9),
+      padding: const EdgeInsets.fromLTRB(10, 6, 13, 6),
       decoration: BoxDecoration(
         color: active
             ? palette.star.withValues(alpha: 0.15)
             : palette.surfaceSunken,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: active
               ? palette.star.withValues(alpha: 0.45)
@@ -296,31 +289,16 @@ class _StreakBadge extends ConsumerWidget {
         children: [
           Icon(
             Icons.local_fire_department_rounded,
-            size: 26,
+            size: 21,
             color: active ? palette.star : palette.textTertiary,
           ),
-          const SizedBox(width: 7),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                '$days',
-                style: textTheme.headlineMedium?.copyWith(
-                  color: active ? palette.star : palette.textTertiary,
-                  height: 1,
-                ),
-              ),
-              const SizedBox(height: 2),
-              Text(
-                active ? s.streakDays : s.streakNone,
-                style: textTheme.bodySmall?.copyWith(
-                  color: palette.textTertiary,
-                  fontSize: 11,
-                  height: 1,
-                ),
-              ),
-            ],
+          const SizedBox(width: 5),
+          Text(
+            '$days',
+            style: textTheme.titleLarge?.copyWith(
+              color: active ? palette.star : palette.textTertiary,
+              height: 1,
+            ),
           ),
         ],
       ),
