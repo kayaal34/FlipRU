@@ -194,6 +194,8 @@ class Strings {
     required this.dailyGoal,
     required this.dailyGoalSub,
     required this.dailyGoalsTitle,
+    required this.dailyTestDone,
+    required this.dailyTestGo,
     required this.goalWordsTemplate,
     required this.shuffle,
     required this.shuffleSub,
@@ -364,6 +366,7 @@ class Strings {
   final String sessionSize, sessionSizeSub, allCards, cards;
   final String dailyGoal, dailyGoalSub, shuffle, shuffleSub;
   final String dailyGoalsTitle, goalWordsTemplate;
+  final String dailyTestDone, dailyTestGo;
   final String skipLearned, skipLearnedSub;
   final String stressMarks, stressMarksSub, translitTitle, translitSub;
   final String reminder, dailyReminder, dailyReminderSub;
@@ -664,6 +667,8 @@ class Strings {
     dailyGoal: 'Günlük hedef',
     dailyGoalSub: 'Ana ekranda ilerlemen buna göre ölçülür',
     dailyGoalsTitle: 'GÜNLÜK HEDEFLER',
+    dailyTestDone: 'Bugün çözüldü',
+    dailyTestGo: 'Teste git',
     goalWordsTemplate: '{} çalış',
     shuffle: 'Kartları karıştır',
     shuffleSub: 'Kapalıysa kelimeler sıklık sırasına göre gelir',
@@ -1043,6 +1048,8 @@ class Strings {
     dailyGoal: 'Дневная цель',
     dailyGoalSub: 'По ней измеряется прогресс на главной',
     dailyGoalsTitle: 'ЦЕЛИ НА ДЕНЬ',
+    dailyTestDone: 'Пройден сегодня',
+    dailyTestGo: 'Перейти к тесту',
     goalWordsTemplate: 'Выучить {}',
     shuffle: 'Перемешивать карточки',
     shuffleSub: 'Если выключено — слова идут по частотности',
