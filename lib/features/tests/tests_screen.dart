@@ -11,7 +11,6 @@ import '../../data/models/deck.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
-import '../../providers/quiz_stats_provider.dart';
 import '../quiz/quiz_screen.dart';
 import '../../providers/writing_test_providers.dart';
 import 'writing_tests_screen.dart';
@@ -35,7 +34,6 @@ class TestsScreen extends ConsumerWidget {
     final learnedIds = ref.watch(learnedProvider);
     final starredIds = ref.watch(starredProvider);
     final t = ref.watch(stringsProvider);
-    final dailyDone = ref.watch(dailyTestDoneProvider);
 
     final learned = repository.allWords
         .where((w) => learnedIds.contains(w.id))
@@ -61,31 +59,9 @@ class TestsScreen extends ConsumerWidget {
                 Text(t.testsSubtitle, style: textTheme.bodyMedium),
                 const SizedBox(height: 22),
 
-                // Gunun testi tam genislikte: gunluk eylem o, digerlerinden
-                // once ve daha gorunur olmali.
-                _TestCard(
-                  icon: dailyDone
-                      ? Icons.check_circle_rounded
-                      : Icons.today_rounded,
-                  tint: dailyDone ? palette.learned : palette.accent,
-                  title: t.dailyTest,
-                  subtitle: dailyDone
-                      ? t.dailyTestDone
-                      : learned.length < _minLearned
-                      ? t.needFourLearned
-                      : t.dailyTestSub,
-                  enabled: learned.length >= _minLearned,
-                  onTap: () => _start(
-                    context,
-                    ref,
-                    t.dailyTest,
-                    _shuffled(learned, 15),
-                    kind: 'daily',
-                  ),
-                ),
-                const SizedBox(height: 12),
-                // Kalan dort yol kare izgarada; kareler kucuk tutuldu ki
-                // seviye testleri de ayni ekranda gorunsun.
+                // Pratik yollari kare izgarada; kareler kucuk tutuldu ki
+                // seviye testleri de ayni ekranda gorunsun. Gunun testi
+                // burada degil ana ekrandaki gunluk hedefler kutusunda.
                 GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,

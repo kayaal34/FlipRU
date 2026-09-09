@@ -487,6 +487,7 @@ class _DailyTestCard extends ConsumerWidget {
         ),
         child: Row(
           children: [
+            // Onay kutusu: cozulmeden once soluk tik, cozulunce yesil.
             Container(
               width: 52,
               height: 52,
@@ -494,13 +495,17 @@ class _DailyTestCard extends ConsumerWidget {
               decoration: BoxDecoration(
                 color: done
                     ? palette.learned.withValues(alpha: 0.14)
-                    : palette.accentSoft,
-                shape: BoxShape.circle,
+                    : palette.surfaceSunken,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+                  color: done ? palette.learned : palette.separator,
+                  width: 1.6,
+                ),
               ),
               child: Icon(
-                done ? Icons.check_rounded : Icons.today_rounded,
-                size: 24,
-                color: done ? palette.learned : palette.accent,
+                Icons.check_rounded,
+                size: 26,
+                color: done ? palette.learned : palette.textTertiary,
               ),
             ),
             const SizedBox(width: 14),
