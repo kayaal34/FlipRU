@@ -157,6 +157,14 @@ class _HomeHeader extends ConsumerWidget {
     return s.greetingEvening;
   }
 
+  IconData _greetingIcon() {
+    final hour = DateTime.now().hour;
+    if (hour < 6) return Icons.bedtime_rounded;
+    if (hour < 12) return Icons.wb_twilight_rounded;
+    if (hour < 18) return Icons.wb_sunny_rounded;
+    return Icons.nights_stay_rounded;
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = context.palette;
@@ -170,14 +178,35 @@ class _HomeHeader extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Selamlama ve seri aynı satırda: seri tek başına bir satır
-        // kaplıyordu ve üst taraf boş görünüyordu.
+        // kaplıyordu ve üst taraf boş görünüyordu. Saate göre değişen
+        // simge ve tarih satırı, tek başına duran selamlamaya can veriyor.
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
-              child: Text(
-                _greeting(s),
-                style: AppTypography.largeTitle(palette.textPrimary),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(_greetingIcon(), size: 26, color: palette.star),
+                      const SizedBox(width: 9),
+                      Flexible(
+                        child: Text(
+                          _greeting(s),
+                          style: AppTypography.largeTitle(palette.textPrimary),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    s.dateLine(DateTime.now()),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textTertiary,
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(width: 12),
@@ -320,31 +349,35 @@ class _AlphabetCard extends ConsumerWidget {
     return Pressable(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(16),
+        // Seviye satirlariyla ayni olculer: ikisi de ayni listede.
+        padding: const EdgeInsets.all(17),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(22),
           border: Border.all(color: palette.separator),
         ),
         child: Row(
           children: [
             Container(
-              width: 44,
-              height: 44,
+              width: 54,
+              height: 54,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: palette.accentSoft,
-                borderRadius: BorderRadius.circular(13),
+                borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(Icons.abc_rounded, color: palette.accent, size: 26),
+              child: Icon(Icons.abc_rounded, color: palette.accent, size: 30),
             ),
-            const SizedBox(width: 13),
+            const SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(s.alphabetTitle, style: textTheme.titleMedium),
-                  const SizedBox(height: 2),
+                  Text(
+                    s.alphabetTitle,
+                    style: textTheme.titleMedium?.copyWith(fontSize: 19),
+                  ),
+                  const SizedBox(height: 4),
                   Text(
                     s.alphabetCardSub,
                     style: textTheme.bodySmall?.copyWith(
@@ -356,7 +389,7 @@ class _AlphabetCard extends ConsumerWidget {
             ),
             Icon(
               Icons.chevron_right_rounded,
-              size: 24,
+              size: 27,
               color: palette.textTertiary,
             ),
           ],
