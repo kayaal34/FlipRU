@@ -46,10 +46,6 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     final t = ref.watch(stringsProvider);
     final quiz = ref.watch(quizSummaryProvider);
     final hedef = ref.watch(settingsProvider).dailyGoal;
-    final gunlukTestSayisi = ref
-        .watch(quizStatsProvider)
-        .where((r) => r.kind == 'daily')
-        .length;
 
     // Secilen donemin ham gunluk serisi. Ozet sayilar hep bundan cikiyor.
     final seri = switch (_range) {
@@ -63,8 +59,6 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
     // gosteriliyor.
     final hicVeriYok = total == 0 && !stats.allTimeDaily.any((v) => v > 0);
     final enIyi = seri.isEmpty ? 0 : seri.reduce((a, b) => a > b ? a : b);
-    final aktif = seri.where((v) => v > 0).length;
-    final ortalama = seri.isEmpty ? 0.0 : toplam / seri.length;
     // Secilen donemde gunluk hedefin tutturuldugu gun sayisi.
     final hedefTutan = seri.where((v) => v >= hedef).length;
 
@@ -103,31 +97,9 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: _StatBox(
-                              value: '${stats.thisWeek}',
-                              label: t.statWeek,
-                              color: palette.accent,
-                              icon: Icons.calendar_view_week_rounded,
-                            ),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: _StatBox(
-                              value: '${stats.thisMonth}',
-                              label: t.statMonth,
-                              color: palette.accent,
-                              icon: Icons.calendar_month_rounded,
-                            ),
-                          ),
-                        ],
-                      ),
                       const SizedBox(height: 26),
-                      // Yildizli sayisi burada da duruyordu; ana ekran ve Pratik
-                      // ile birlikte ucuncu kopyaydi, kaldirildi.
+                      // Son 7 / son 30 kutulari kaldirildi: ayni bilgiyi
+                      // asagidaki donem secici ve grafik zaten veriyor.
                       SegmentedSwitch(
                         labels: [t.last7, t.last30, t.allTime],
                         selectedIndex: _range,
@@ -170,6 +142,10 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           compact: _range != 0,
                         ),
                       const SizedBox(height: 22),
+                      // Donem ozeti uc satira indi. Onceden dort satirlik bir
+                      // kart ve yedi satirlik bir test karti daha vardi;
+                      // "gunun testi" ikisinde birden, iki farkli sayiyla
+                      // listeleniyordu.
                       Container(
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -181,92 +157,17 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           children: [
                             _InfoRow(label: t.bestDay, value: t.words(enIyi)),
                             Divider(color: palette.separator, height: 22),
-                            _InfoRow(label: t.activeDays, value: t.days(aktif)),
-                            Divider(color: palette.separator, height: 22),
                             _InfoRow(
                               label: t.goalHitDays,
                               value: t.days(hedefTutan),
                             ),
                             Divider(color: palette.separator, height: 22),
                             _InfoRow(
-                              label: t.dailyAverage,
-                              value:
-                                  '${ortalama.toStringAsFixed(1)} '
-                                  '${t.wordUnit(ortalama.round())}',
+                              label: t.quizCount,
+                              value: '${quiz.count}',
                             ),
                           ],
                         ),
-                      ),
-                      const SizedBox(height: 26),
-                      Text(
-                        t.quizSection,
-                        style: textTheme.labelSmall?.copyWith(
-                          color: palette.textTertiary,
-                        ),
-                      ),
-                      const SizedBox(height: 12),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: palette.surface,
-                          borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: palette.separator),
-                        ),
-                        child: quiz.count == 0
-                            ? Row(
-                                children: [
-                                  Icon(
-                                    Icons.quiz_outlined,
-                                    size: 19,
-                                    color: palette.textTertiary,
-                                  ),
-                                  const SizedBox(width: 11),
-                                  Text(
-                                    t.quizNone,
-                                    style: textTheme.bodyMedium?.copyWith(
-                                      color: palette.textTertiary,
-                                    ),
-                                  ),
-                                ],
-                              )
-                            : Column(
-                                children: [
-                                  _InfoRow(
-                                    label: t.dailyTest,
-                                    value: '${quiz.dailyCount}',
-                                  ),
-                                  Divider(color: palette.separator, height: 22),
-                                  _InfoRow(
-                                    label: t.writingTest,
-                                    value: '${quiz.writingCount}',
-                                  ),
-                                  Divider(color: palette.separator, height: 22),
-                                  _InfoRow(
-                                    label: t.quizCount,
-                                    value: '${quiz.count}',
-                                  ),
-                                  Divider(color: palette.separator, height: 22),
-                                  _InfoRow(
-                                    label: t.dailyTest,
-                                    value: '$gunlukTestSayisi',
-                                  ),
-                                  Divider(color: palette.separator, height: 22),
-                                  _InfoRow(
-                                    label: t.quizAccuracy,
-                                    value: '%${(quiz.accuracy * 100).round()}',
-                                  ),
-                                  Divider(color: palette.separator, height: 22),
-                                  _InfoRow(
-                                    label: t.quizBest,
-                                    value: '%${(quiz.bestRatio * 100).round()}',
-                                  ),
-                                  Divider(color: palette.separator, height: 22),
-                                  _InfoRow(
-                                    label: t.quizLast,
-                                    value: '%${(quiz.lastRatio * 100).round()}',
-                                  ),
-                                ],
-                              ),
                       ),
                     ],
                   ),

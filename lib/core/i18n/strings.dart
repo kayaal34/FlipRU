@@ -48,7 +48,8 @@ class Strings {
     required this.themes,
     required this.deckEmpty,
     required this.wordsOf,
-    required this.allDone,
+    required this.allDoneTemplate,
+    required this.percentBefore,
     required this.unitsDone,
     required this.unit,
     required this.locked,
@@ -312,7 +313,11 @@ class Strings {
   final String todayProgress, goalDone, comeBackTomorrow, learnedWords;
   final String starredTitle, starredEmptyHint, starredWaiting;
   final String levels, themes, deckEmpty;
-  final String wordsOf, allDone, unitsDone, unit, locked, unitLockedHint;
+  final String wordsOf, allDoneTemplate, unitsDone, unit, locked;
+  final String unitLockedHint;
+
+  /// Turkce yuzdeyi basa yazar (%50), Rusca sona (50%).
+  final bool percentBefore;
   final String unitProgress, studyWithCards, test, listen, pronunciation;
   final String starAdd, starRemove, reportWord;
   final String meaning, example, status;
@@ -424,6 +429,12 @@ class Strings {
     return forms[2];
   }
 
+  /// "%50" / "50%"
+  String percent(int n) => percentBefore ? '%$n' : '$n%';
+
+  /// "694 kelimenin tamami tamam" / "Vse 694 slov vyucheny"
+  String allDone(int n) => allDoneTemplate.replaceFirst('{}', '$n');
+
   /// "20 kelime çalış" / "Выучить 20 слов"
   String goalWords(int n) => goalWordsTemplate.replaceFirst('{}', words(n));
 
@@ -489,7 +500,8 @@ class Strings {
     themes: 'Temalar',
     deckEmpty: 'Bu destede henüz kelime yok.',
     wordsOf: 'kelime',
-    allDone: 'kelimenin tamamı tamam',
+    allDoneTemplate: '{} kelimenin tamamı tamam',
+    percentBefore: true,
     unitsDone: 'bölüm tamamlandı',
     unit: 'Bölüm',
     locked: 'Kilitli',
@@ -871,7 +883,8 @@ class Strings {
     themes: 'Темы',
     deckEmpty: 'В этой колоде пока нет слов.',
     wordsOf: 'слов',
-    allDone: 'все слова выучены',
+    allDoneTemplate: 'Все {} слов выучены',
+    percentBefore: false,
     unitsDone: 'разделов пройдено',
     unit: 'Раздел',
     locked: 'Закрыто',

@@ -68,7 +68,7 @@ class DeckRow extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     progress.isComplete
-                        ? '${progress.total} ${s.allDone}'
+                        ? s.allDone(progress.total)
                         : '${progress.learned} / ${progress.total} '
                               '${s.wordUnit(progress.total)}',
                     style: textTheme.bodySmall?.copyWith(
