@@ -1,4 +1,4 @@
-﻿import 'dart:math';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +11,7 @@ import '../../data/models/deck.dart';
 import '../../data/models/word.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
+import '../../providers/quiz_stats_provider.dart';
 import '../quiz/quiz_screen.dart';
 import '../../providers/writing_test_providers.dart';
 import 'writing_tests_screen.dart';
@@ -34,6 +35,7 @@ class TestsScreen extends ConsumerWidget {
     final learnedIds = ref.watch(learnedProvider);
     final starredIds = ref.watch(starredProvider);
     final t = ref.watch(stringsProvider);
+    final dailyDone = ref.watch(dailyTestDoneProvider);
 
     final learned = repository.allWords
         .where((w) => learnedIds.contains(w.id))
@@ -62,10 +64,14 @@ class TestsScreen extends ConsumerWidget {
                 // Gunun testi tam genislikte: gunluk eylem o, digerlerinden
                 // once ve daha gorunur olmali.
                 _TestCard(
-                  icon: Icons.today_rounded,
-                  tint: palette.accent,
+                  icon: dailyDone
+                      ? Icons.check_circle_rounded
+                      : Icons.today_rounded,
+                  tint: dailyDone ? palette.learned : palette.accent,
                   title: t.dailyTest,
-                  subtitle: learned.length < _minLearned
+                  subtitle: dailyDone
+                      ? t.dailyTestDone
+                      : learned.length < _minLearned
                       ? t.needFourLearned
                       : t.dailyTestSub,
                   enabled: learned.length >= _minLearned,
@@ -86,7 +92,7 @@ class TestsScreen extends ConsumerWidget {
                   physics: const NeverScrollableScrollPhysics(),
                   mainAxisSpacing: 12,
                   crossAxisSpacing: 12,
-                  childAspectRatio: 1.32,
+                  childAspectRatio: 1.55,
                   children: [
                     _TestTile(
                       icon: Icons.keyboard_rounded,
