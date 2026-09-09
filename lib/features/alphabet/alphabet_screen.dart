@@ -351,20 +351,18 @@ class _LessonList extends ConsumerWidget {
             ),
             const SizedBox(height: 10),
           ],
-        // Okuma adımı yalnızca Kiril tarafında: seçilen kelimeler Rusça.
-        if (teachesCyrillic)
-          _LessonCard(
-            title: s.alphabetReadTitle,
-            subtitle: s.alphabetReadSub,
-            badge: null,
-            done: done.contains('read'),
-            onTap: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (_) =>
-                    const AlphabetReadingScreen(ttsLanguage: 'ru-RU'),
-              ),
+        _LessonCard(
+          title: s.alphabetReadTitle,
+          subtitle: s.alphabetReadSub,
+          badge: null,
+          done: done.contains('read'),
+          onTap: () => Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) =>
+                  AlphabetReadingScreen(teachesCyrillic: teachesCyrillic),
             ),
           ),
+        ),
       ],
     );
   }

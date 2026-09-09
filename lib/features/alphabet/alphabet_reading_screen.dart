@@ -14,9 +14,11 @@ import '../../providers/settings_provider.dart';
 /// Kelimeler veri setinden geliyor ve okunduğunda anlamı zaten tanıdık
 /// olanlar seçiliyor — öğrenci harfleri sökerek anlamı kendi buluyor.
 class AlphabetReadingScreen extends ConsumerStatefulWidget {
-  const AlphabetReadingScreen({required this.ttsLanguage, super.key});
+  const AlphabetReadingScreen({required this.teachesCyrillic, super.key});
 
-  final String ttsLanguage;
+  /// Kiril ogretiliyorsa Rusca kelimeler okunur, Turk alfabesi
+  /// ogretiliyorsa Turkce kelimeler.
+  final bool teachesCyrillic;
 
   @override
   ConsumerState<AlphabetReadingScreen> createState() =>
@@ -25,7 +27,7 @@ class AlphabetReadingScreen extends ConsumerStatefulWidget {
 
 /// Okunduğunda anlaşılan alıntı kelimeler. Veri setinde bulunmayan olursa
 /// sessizce atlanıyor.
-const _readingWords = <String>[
+const _cyrillicWords = <String>[
   'ресторан',
   'такси',
   'банк',
@@ -42,6 +44,24 @@ const _readingWords = <String>[
   'кино',
 ];
 
+/// Kiril okuruna tanidik gelen Turkce kelimeler.
+const _latinWords = <String>[
+  'telefon',
+  'taksi',
+  'doktor',
+  'restoran',
+  'futbol',
+  'müzik',
+  'banka',
+  'park',
+  'spor',
+  'metro',
+  'otel',
+  'kafe',
+  'bilet',
+  'festival',
+];
+
 class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
   final Set<String> _revealed = {};
 
@@ -51,11 +71,12 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
     final words = ref.watch(wordRepositoryProvider).allWords;
+    final cyrillic = widget.teachesCyrillic;
 
     final items = [
-      for (final target in _readingWords)
+      for (final target in cyrillic ? _cyrillicWords : _latinWords)
         for (final w in words)
-          if (w.russian == target) w,
+          if ((cyrillic ? w.russian : w.turkish) == target) w,
     ];
 
     return Scaffold(
@@ -82,7 +103,10 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
                       setState(() => _revealed.add(word.id));
                       ref
                           .read(speechServiceProvider)
-                          .speak(word.russian, language: widget.ttsLanguage);
+                          .speak(
+                            cyrillic ? word.russian : word.turkish,
+                            language: cyrillic ? 'ru-RU' : 'tr-TR',
+                          );
                     },
                     child: Container(
                       width: double.infinity,
@@ -102,9 +126,11 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  word.accented.isEmpty
-                                      ? word.russian
-                                      : word.accented,
+                                  cyrillic
+                                      ? (word.accented.isEmpty
+                                            ? word.russian
+                                            : word.accented)
+                                      : word.turkish,
                                   style: AppTypography.hero(
                                     palette.textPrimary,
                                   ).copyWith(fontSize: 30),
@@ -112,7 +138,7 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
                                 const SizedBox(height: 4),
                                 Text(
                                   _revealed.contains(word.id)
-                                      ? word.turkish
+                                      ? (cyrillic ? word.turkish : word.russian)
                                       : s.alphabetReadTapHint,
                                   style: textTheme.bodyMedium?.copyWith(
                                     color: _revealed.contains(word.id)
