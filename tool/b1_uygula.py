@@ -92,7 +92,7 @@ for wid, ru in DROP.items():
     row = rows.get(wid)
     if row is None:
         atlanan.append((wid, 'sil', 'kayıt yok (zaten silinmiş olabilir)'))
-    elif bare(row[idx['ru']]) != bare(ru):
+    elif bare(row[idx['ru']]).lower() != bare(ru).lower():
         atlanan.append((wid, 'sil', 'Rusça tutmuyor: %r' % row[idx['ru']]))
     else:
         silinecek.add(wid)
