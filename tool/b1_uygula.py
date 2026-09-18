@@ -67,6 +67,26 @@ for wid, (eski, yeni) in POS.items():
         if UYGULA:
             row[idx['pos']] = yeni
 
+# FIELDS: {id: {alan: (beklenen, yeni)}} — vurgu ve okunuş gibi, tr dışında
+# elle düzeltilmesi gereken alanlar. Yalnızca izin verilen alanlar.
+IZINLI_ALAN = {'accented', 'translit'}
+alan_ok = 0
+for wid, degisim in getattr(mod, 'FIELDS', {}).items():
+    row = rows.get(wid)
+    for alan, (eski, yeni) in degisim.items():
+        if alan not in IZINLI_ALAN:
+            atlanan.append((wid, alan, 'bu alan değiştirilemez'))
+        elif row is None:
+            atlanan.append((wid, alan, 'kayıt yok'))
+        elif row[idx[alan]] != eski:
+            atlanan.append((wid, alan, 'mevcut: %r' % row[idx[alan]]))
+        else:
+            alan_ok += 1
+            if UYGULA:
+                row[idx[alan]] = yeni
+if alan_ok:
+    print('diğer alan düzeltmesi: %d' % alan_ok)
+
 silinecek = set()
 for wid, ru in DROP.items():
     row = rows.get(wid)
