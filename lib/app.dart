@@ -6,6 +6,7 @@ import 'core/utils/widget_service.dart';
 import 'features/splash/splash_screen.dart';
 import 'providers/app_providers.dart';
 import 'providers/daily_provider.dart';
+import 'providers/report_provider.dart';
 import 'providers/settings_provider.dart';
 
 class FlipRuApp extends ConsumerStatefulWidget {
@@ -22,6 +23,9 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       // Seri, uygulamanın açıldığı günlerden hesaplanıyor.
       ref.read(visitProvider.notifier).recordToday();
+      // Ağ yokken cihazda kalan hatalı kelime bildirimleri açılışta sessizce
+      // yeniden deneniyor; kullanıcının ayarlardaki ekrana girmesi gerekmesin.
+      ref.read(reportProvider.notifier).flush();
       _syncReminders();
       _syncWidget();
     });

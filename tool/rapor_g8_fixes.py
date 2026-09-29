@@ -1,0 +1,98 @@
+# -*- coding: utf-8 -*-
+"""Dış inceleme raporu, grup 8."""
+
+FIXES = {
+    'w07119': ('bekâret', 'iffet / namus'),
+    'w07170': ('ovmak', 'ovmak / rendelemek'),
+    'w07202': ('akıtmak', 'dökmek / (içki) doldurmak'),
+    'w07225': ('limonluk', 'sera / limonluk'),
+    'w07263': ('dizgi hatası', 'yazım hatası / dizgi hatası'),
+    'w07269': ('durağan', 'sabit / yerleşik'),
+    'w07278': ('alıkoyma', 'el koyma / alıp götürme'),
+    'w07279': ('erimek', 'çözünmek'),
+    'w07315': ('ibik', 'ibik / deniz tarağı'),
+    'w07326': ('ekümenik', 'evrensel / ekümenik'),
+    'w07347': ('yenileme', 'uzatma'),
+    'w07348': ('ayak yuvarı', 'ped / küçük yastık'),
+    'w07357': ('dizilim', 'dizilim / yerleştirme'),
+    'w07377': ('kasılmak', 'azalmak / kısalmak / kasılmak'),
+    'w07400': ('vatoz', 'vatoz / eğim'),
+    'w07410': ('marmelat', 'meyve jölesi'),
+    'w07415': ('dulavratotu', 'dulavratotu / (argo) salak'),
+    'w07421': ('püskül', 'fırça (küçük) / püskül'),
+    'w07443': ('kaplama', 'döşeme kumaşı / döşeme'),
+    'w07460': ('duraklama', 'sükûnet / durgunluk'),
+    'w07481': ('geri dönüşüm', 'geri dönüşüm / bertaraf'),
+    'w07498': ('temiz', 'derli toplu / düzgün'),
+    'w07510': ('profilaksi', 'korunma / önleme'),
+    'w07516': ('kabuk', 'bakla kabuğu'),
+    'w07521': ('artık', 'fazla / gereğinden fazla'),
+    'w07530': ('mabet', 'kutsal şey / mukaddes'),
+    'w07544': ('akgünlük', 'günlük / buhur'),
+    'w07557': ('ceza', 'tahsilat / (disiplin) cezası'),
+    'w07568': ('gevezelik etmek', 'gevezelik etmek / sallamak'),
+    'w07580': ('bir araya getirme', 'seçim / derleme'),
+    'w07596': ('fesat', 'kargaşa / karışıklık'),
+    'w07597': ('kolombiyalı', 'Kolombiyalı'),
+    'w07615': ('boncuk (dizi) / boncuk kolye', 'boncuk dizisi'),
+    'w07617': ('ölçmek', '(giysiyi) denemek / ölçmek'),
+    'w07645': ('çapraz', 'enine / karşıdan karşıya'),
+    'w07663': ('tasarımcı', 'yapı oyuncağı (Lego) / tasarımcı'),
+    'w07723': ('cızırdamak', 'tıslamak / cızırdamak'),
+    'w07730': ('bütünleşik', 'kapsamlı / bütünsel'),
+    'w07742': ('toprak', 'bölgesel / karasal'),
+    'w07745': ('servis', 'takım (yemek / çay)'),
+    'w07769': ('başvurmak', 'aracı olmak / ricada bulunmak'),
+    'w07775': ('istikrar', 'dayanıklılık / istikrar'),
+    'w07785': ('fosil', 'maden / fosil'),
+    'w07788': ('ihracat', 'götürme / ihracat'),
+    'w07810': ('hazırlanmak', 'silahlanmak / donanmak'),
+    'w07833': ('vaşak (Kuzey) / gulo', 'susak (wolverine) / gulo'),
+    'w07842': ('insanüstü', 'insanlık dışı / dayanılmaz'),
+    'w07876': ('kıskanç', 'haset eden / kıskanç'),
+    'w07881': ('çekişmek', 'ters cevap vermek / itiraz etmek'),
+    'w07887': ('kamp yatağı', 'katlanır yatak / (telefon) kapaklı'),
+    'w07898': ('tek kullanımlık', 'tek seferlik'),
+    'w07920': ('entrika çevirmek', 'merak uyandırmak / ilgi çekmek'),
+    'w07951': ('düpedüz', 'doğrudan / kestirmeden'),
+    'w07980': ('ana yol / güzergâh', 'ana yol / (sindirim) sistemi'),
+    'w08005': ('şart koşmak', 'öngörmek / içermek'),
+    'w08023': ('tatbiki', 'uygulamalı'),
+    'w08034': ('kesit', 'parça / aralık'),
+    'w08057': ('filotilla', 'küçük filo / filotilla'),
+    'w08060': ('cılız', 'güçsüz / halsiz'),
+    'w08105': ('küçük', 'kompakt / küçük'),
+    'w08125': ('mezar', 'türbe / anıtmezar'),
+    'w08132': ('erişmek', 'yetişmek'),
+    'w08139': ('evlek', 'karık / iz'),
+}
+
+EXTR = {
+    'w07347': ('Altı ay içerisinde yenilenebilir bir anlaşma yaptık sanki.', 'Sanki altı ay sonra uzatılabilen bir sözleşme gibi.'),
+    'w07410': ('Bana reçeli uzatıverin.', 'Bana meyve jölesini uzatın.'),
+    'w07516': ('Sen ve ben aynı fasulyenin tohumuyuz.', 'Sen ve ben aynı kabuktaki bezelye taneleri gibiyiz.'),
+    'w07530': ('O benim sığınağım.', 'Bu benim kutsalımdır.'),
+    'w07602': ('Ve bu işe yarar – blöfçülerin blöfçü olmayanlara nazaran evlerini korumaları daha muhtemeldir.', 'Ve bu işe yarıyor: küstah "hileciler", "dürüst" kardeşlerinden daha sık yuvalarını koruyabiliyor.'),
+    'w07605': ('Filimde de söylediği gibi bu güzel bir oyuncak.', 'Filmde söylendiği gibi, bu "akıllı bir velet".'),
+    'w07745': ('Kısa süre içinde, aristokratların evlerinde çikolata servisi eksik olmazdı.', 'Kısa süre sonra hiçbir aristokrat ailesi çikolata takımı olmadan edemez oldu.'),
+    'w07755': ('Tom anlık bir tepki verdi.', 'Tom belirsiz bir ünlem çıkardı.'),
+    'w07760': ('Khadija kimlik kartı için sekiz sene uğraştı ve başarısız oldu.', 'Hadija sekiz yıl boyunca pasaport almaya çalıştı ama başaramadı.'),
+    'w07769': ('Charlie konusunda neden ısrar ediyorsun?', 'Charlie için neden aracılık ediyorsun?'),
+    'w07785': ('Fosil yakıtlarından sonra hayat nasıl olacak?', 'Faydalı madenlerin kaynakları tükendiğinde hayat nasıl olacak?'),
+    'w07842': ('Böylesine olağanüstü şeylere şahit olmak zordur.', 'Bu tür insanlık dışı acılara tanık olmak çok zordur.'),
+    'w07881': ('Çekişme, kabul etmeme ve daha az para kazanma ihtimalleri var.', 'Ters cevap veriyor, tartışıyor ve daha az parayla kalıyorlar.'),
+    'w07951': ('Dönsün mü, yürüyüp geçsin mi, bilemez.', 'Ve bataklığı dolaşsın mı yoksa doğrudan mı geçsin diye düşündü.'),
+    'w08005': ('Ve yerel finansman, donanım projelerini destekleyen ekosistemin bir parçası değil.', 'Yerel bütçe, ekipman oluşturma projelerinin desteklenmesini öngörmüyor.'),
+    'w08060': ('Tom kendini kaldırmak için çok cılız.', 'Tom tek başına kalkamayacak kadar güçsüz.'),
+    'w08105': ('İkincisi, yeni mantramız: Küçük şeyler çekicidir.', 'İkincisi, yeni mantramız: kompakt olan çekicidir.'),
+}
+
+EXDROP = {
+}
+
+DROP = {
+}
+
+FIELDS = {}
+
+POS = {'w07615': ('adj', 'noun')}

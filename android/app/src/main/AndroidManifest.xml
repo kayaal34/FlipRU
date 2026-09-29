@@ -1,4 +1,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Hatalı kelime bildirimlerini forma göndermek için. Flutter bu izni
+         yalnızca hata ayıklama derlemesine ekliyor; yayın sürümünde burada
+         olmazsa bildirimler ağ hatası verip cihazda kalıyor. -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <!-- Günlük çalışma hatırlatması için (Android 13+ çalışma zamanı izni). -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
