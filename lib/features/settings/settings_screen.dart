@@ -180,6 +180,43 @@ class SettingsScreen extends ConsumerWidget {
                             }
                           : null,
                     ),
+                    SettingsSwitch(
+                      title: t.wordOfDayToggle,
+                      subtitle: t.wordOfDayToggleSub,
+                      icon: PhosphorIconsRegular.sunHorizon,
+                      value: settings.wordOfDayEnabled,
+                      onChanged: (v) async {
+                        if (v) {
+                          await ref
+                              .read(notificationServiceProvider)
+                              .requestPermission();
+                        }
+                        notifier.update((s) => s.copyWith(wordOfDayEnabled: v));
+                      },
+                    ),
+                    SettingsRow(
+                      title: t.wordOfDayTime,
+                      icon: PhosphorIconsRegular.clock,
+                      trailing: settings.wordOfDayLabel,
+                      onTap: settings.wordOfDayEnabled
+                          ? () async {
+                              final picked = await showTimePicker(
+                                context: context,
+                                initialTime: TimeOfDay(
+                                  hour: settings.wordOfDayHour,
+                                  minute: settings.wordOfDayMinute,
+                                ),
+                              );
+                              if (picked == null) return;
+                              notifier.update(
+                                (s) => s.copyWith(
+                                  wordOfDayHour: picked.hour,
+                                  wordOfDayMinute: picked.minute,
+                                ),
+                              );
+                            }
+                          : null,
+                    ),
                   ],
                 ),
 

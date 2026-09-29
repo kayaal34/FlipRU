@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/i18n/strings.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/widget_service.dart';
 import 'features/splash/splash_screen.dart';
@@ -53,16 +54,19 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
     final settings = ref.read(settingsProvider);
     final service = ref.read(notificationServiceProvider);
 
-    if (!settings.reminderEnabled) {
-      await service.cancelAll();
-      return;
-    }
     // Hatirlatma artik varsayilan olarak acik geliyor, yani izni kullanicinin
     // bir dugmeye basmasindan once istemek gerekiyor. Tanitim bitene kadar
     // beklemek sart: ilk karsilama ekraninin uzerine sistem izin penceresi
     // acmak, uygulamanin ne oldugunu anlamadan karar vermek demek.
-    if (settings.onboardingDone) {
+    if (settings.onboardingDone &&
+        (settings.reminderEnabled || settings.wordOfDayEnabled)) {
       await service.requestPermission();
+    }
+    await _syncWordOfDay();
+
+    if (!settings.reminderEnabled) {
+      await service.cancelReminders();
+      return;
     }
     await service.scheduleDaily(
       hour: settings.reminderHour,
@@ -72,6 +76,50 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
       streak: ref.read(streakProvider),
       studiedToday: ref.read(studiedTodayProvider),
       strings: ref.read(stringsProvider),
+    );
+  }
+
+  /// Her sabah günün kelimesi bildirimi.
+  ///
+  /// Kelime widget'taki günlük kelimeyle aynı hesaptan: bildirime dokunup
+  /// widget'a bakan kullanıcı aynı kelimeyi görüyor. Rusça arayüzde (Türkçe
+  /// öğrenen) başlıkta Türkçe kelime, gövdede okunuşu ve Rusçası var.
+  Future<void> _syncWordOfDay() async {
+    final settings = ref.read(settingsProvider);
+    final service = ref.read(notificationServiceProvider);
+    if (!settings.wordOfDayEnabled || !settings.onboardingDone) {
+      await service.cancelWordOfDay();
+      return;
+    }
+    final pool = ref.read(wordRepositoryProvider).allWords;
+    if (pool.isEmpty) return;
+    final s = ref.read(stringsProvider);
+    final learningTurkish = settings.language == AppLanguage.ru;
+
+    await service.scheduleWordOfDay(
+      hour: settings.wordOfDayHour,
+      minute: settings.wordOfDayMinute,
+      strings: s,
+      wordFor: (when) {
+        final word = WidgetService.wordFor(
+          pool,
+          WidgetService.windowSeed(when, 24),
+        );
+        if (learningTurkish) {
+          final head = word.turkish.split(' / ').first;
+          final reading = word.turkishTranslit.isEmpty
+              ? ''
+              : '${word.turkishTranslit} · ';
+          return (
+            s.wordOfDayNotifTitle.replaceFirst('{}', head),
+            '$reading${word.russian}',
+          );
+        }
+        return (
+          s.wordOfDayNotifTitle.replaceFirst('{}', word.accented),
+          '${word.transliteration} · ${word.turkish}',
+        );
+      },
     );
   }
 
@@ -86,6 +134,10 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
           s.reminderMinute,
           s.dailyGoal,
           s.onboardingDone,
+          s.wordOfDayEnabled,
+          s.wordOfDayHour,
+          s.wordOfDayMinute,
+          s.language,
         ),
       ),
       (_, _) => _syncReminders(),

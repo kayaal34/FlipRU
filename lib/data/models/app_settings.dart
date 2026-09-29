@@ -55,6 +55,9 @@ class AppSettings {
     this.reminderHour = 20,
     this.reminderMinute = 0,
     this.widgetRefresh = WidgetRefresh.daily,
+    this.wordOfDayEnabled = true,
+    this.wordOfDayHour = 9,
+    this.wordOfDayMinute = 0,
   });
 
   /// Arayüz dili. Kelime verisi her hâlükârda Rusça-Türkçe.
@@ -100,6 +103,15 @@ class AppSettings {
   /// Ana ekran widget'ındaki kelime kaç saatte bir değişsin.
   final WidgetRefresh widgetRefresh;
 
+  /// Her sabah günün kelimesini bildirim olarak gönder.
+  final bool wordOfDayEnabled;
+  final int wordOfDayHour;
+  final int wordOfDayMinute;
+
+  String get wordOfDayLabel =>
+      '${wordOfDayHour.toString().padLeft(2, '0')}:'
+      '${wordOfDayMinute.toString().padLeft(2, '0')}';
+
   /// Günlük hatırlatma bildirimi.
   final bool reminderEnabled;
   final int reminderHour;
@@ -134,6 +146,9 @@ class AppSettings {
     int? reminderHour,
     int? reminderMinute,
     WidgetRefresh? widgetRefresh,
+    bool? wordOfDayEnabled,
+    int? wordOfDayHour,
+    int? wordOfDayMinute,
   }) {
     return AppSettings(
       language: language ?? this.language,
@@ -156,6 +171,9 @@ class AppSettings {
       reminderHour: reminderHour ?? this.reminderHour,
       reminderMinute: reminderMinute ?? this.reminderMinute,
       widgetRefresh: widgetRefresh ?? this.widgetRefresh,
+      wordOfDayEnabled: wordOfDayEnabled ?? this.wordOfDayEnabled,
+      wordOfDayHour: wordOfDayHour ?? this.wordOfDayHour,
+      wordOfDayMinute: wordOfDayMinute ?? this.wordOfDayMinute,
     );
   }
 
@@ -180,6 +198,9 @@ class AppSettings {
     'reminderHour': reminderHour,
     'reminderMinute': reminderMinute,
     'widgetRefresh': widgetRefresh.name,
+    'wodOn': wordOfDayEnabled,
+    'wodHour': wordOfDayHour,
+    'wodMinute': wordOfDayMinute,
   };
 
   factory AppSettings.fromMap(Map<String, Object?> map) {
@@ -221,6 +242,9 @@ class AppSettings {
         map['widgetRefresh'],
         WidgetRefresh.daily,
       ),
+      wordOfDayEnabled: map['wodOn'] as bool? ?? true,
+      wordOfDayHour: map['wodHour'] as int? ?? 9,
+      wordOfDayMinute: map['wodMinute'] as int? ?? 0,
     );
   }
 }

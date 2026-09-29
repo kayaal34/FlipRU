@@ -345,6 +345,11 @@ class Strings {
     required this.tutDoneTitle,
     required this.tutDoneBody,
     required this.tutDoneStart,
+    required this.prevQuestion,
+    required this.wordOfDayNotifTitle,
+    required this.wordOfDayToggle,
+    required this.wordOfDayToggleSub,
+    required this.wordOfDayTime,
   });
 
   final String tabHome, tabTests, tabStats, tabSettings;
@@ -486,6 +491,11 @@ class Strings {
       tutDoneTitle,
       tutDoneBody,
       tutDoneStart;
+  final String prevQuestion,
+      wordOfDayNotifTitle,
+      wordOfDayToggle,
+      wordOfDayToggleSub,
+      wordOfDayTime;
   final String widgetEvery6h, widgetEvery12h, widgetDaily, widgetFooter;
   final String deckEmptyHint, singleSourceWarning;
 
@@ -929,6 +939,11 @@ class Strings {
     tutDoneBody:
         'Serin başladı. Her gün en az bir kelime öğren ya da bir test çöz, alev büyümeye devam etsin.',
     tutDoneStart: 'Hadi başlayalım',
+    prevQuestion: 'Önceki soru',
+    wordOfDayNotifTitle: 'Günün kelimesi: {}',
+    wordOfDayToggle: 'Günün kelimesi bildirimi',
+    wordOfDayToggleSub: 'Her sabah yeni bir kelime, uygulamayı açmadan',
+    wordOfDayTime: 'Günün kelimesi saati',
     widgetEvery6h: '6 saatte bir',
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
@@ -1356,6 +1371,11 @@ class Strings {
     tutDoneBody:
         'Серия началась. Учи хотя бы одно слово или проходи тест каждый день, чтобы огонёк не погас.',
     tutDoneStart: 'Поехали',
+    prevQuestion: 'Предыдущий вопрос',
+    wordOfDayNotifTitle: 'Слово дня: {}',
+    wordOfDayToggle: 'Уведомление «Слово дня»',
+    wordOfDayToggleSub: 'Каждое утро новое слово — без открытия приложения',
+    wordOfDayTime: 'Время «Слова дня»',
     widgetEvery6h: 'Каждые 6 часов',
     widgetEvery12h: 'Каждые 12 часов',
     widgetDaily: 'Раз в день',

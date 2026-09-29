@@ -30,8 +30,16 @@ class StudyScreen extends ConsumerStatefulWidget {
     this.accent,
     this.nextLabel,
     this.onNext,
+    this.unlearnedFirst = false,
     super.key,
   });
+
+  /// Bölüm çalışması: öğrenilmemiş kelime kaldıysa yalnızca onlar gelsin.
+  ///
+  /// 20 kelimelik bölümde 3 kelime kalmışsa bütün bölümü baştan açmak,
+  /// bilinen 17 kelimeyi tekrar kaydırtıyordu. Bölüm tamamen bittiyse
+  /// tekrar için hepsi açılıyor.
+  final bool unlearnedFirst;
 
   final String title;
   final List<Word> words;
@@ -80,7 +88,7 @@ class _StudyScreenState extends ConsumerState<StudyScreen> {
     final learned = ref.read(learnedProvider);
     var list = [...widget.words];
 
-    if (_settings.hideLearned) {
+    if (widget.unlearnedFirst || _settings.hideLearned) {
       final remaining = list
           .where((word) => !learned.contains(word.id))
           .toList();
@@ -512,7 +520,11 @@ class _EmptyDeckState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(PhosphorIconsRegular.cards, size: 54, color: palette.textTertiary),
+            Icon(
+              PhosphorIconsRegular.cards,
+              size: 54,
+              color: palette.textTertiary,
+            ),
             const SizedBox(height: 18),
             Text(strings.deckEmpty, style: textTheme.titleLarge),
             const SizedBox(height: 8),

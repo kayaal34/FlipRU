@@ -84,12 +84,85 @@ class NotificationService {
     }
   }
 
-  Future<void> cancelAll() async {
+  /// Günlük hatırlatmaları ve seri uyarısını siler; günün kelimesine
+  /// dokunmaz. İki tür birbirinden bağımsız açılıp kapanabiliyor.
+  Future<void> cancelReminders() async {
     await _ensureInitialized();
     if (!_available) return;
     try {
-      await _plugin.cancelAll();
+      for (var day = 0; day < _horizonDays; day++) {
+        await _plugin.cancel(id: day);
+      }
+      await _plugin.cancel(id: _streakId);
     } catch (_) {}
+  }
+
+  Future<void> cancelWordOfDay() async {
+    await _ensureInitialized();
+    if (!_available) return;
+    try {
+      for (var day = 0; day < _horizonDays; day++) {
+        await _plugin.cancel(id: _wordOfDayId + day);
+      }
+    } catch (_) {}
+  }
+
+  /// Günün kelimesi bildirimleri; kimlikleri hatırlatmalarla çakışmasın.
+  static const _wordOfDayId = 200;
+  static const _wordChannelId = 'word_of_day';
+
+  /// Önümüzdeki günlerin kelimesini [hour]:[minute] saatine kurar.
+  ///
+  /// Arka planda çalışan bir şey olmadığı için bir haftalık bildirim
+  /// peşinen kuruluyor ve her açılışta tazeleniyor. [wordFor] o günün
+  /// saatinde gösterilecek (başlık, gövde) çiftini veriyor; kelime widget'taki
+  /// günün kelimesiyle aynı hesaptan geliyor.
+  Future<void> scheduleWordOfDay({
+    required int hour,
+    required int minute,
+    required (String, String) Function(DateTime when) wordFor,
+    required Strings strings,
+  }) async {
+    await _ensureInitialized();
+    if (!_available) return;
+
+    try {
+      await cancelWordOfDay();
+      final details = NotificationDetails(
+        android: AndroidNotificationDetails(
+          _wordChannelId,
+          strings.wordOfDayToggle,
+          channelDescription: strings.wordOfDayToggleSub,
+          importance: Importance.defaultImportance,
+          priority: Priority.defaultPriority,
+        ),
+        iOS: const DarwinNotificationDetails(),
+      );
+
+      final now = tz.TZDateTime.now(tz.local);
+      for (var day = 0; day < _horizonDays; day++) {
+        final when = tz.TZDateTime(
+          tz.local,
+          now.year,
+          now.month,
+          now.day + day,
+          hour,
+          minute,
+        );
+        if (!when.isAfter(now)) continue;
+        final (title, body) = wordFor(when);
+        await _plugin.zonedSchedule(
+          id: _wordOfDayId + day,
+          title: title,
+          body: body,
+          scheduledDate: when,
+          notificationDetails: details,
+          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+        );
+      }
+    } catch (_) {
+      // Bildirim kurulamazsa uygulama çalışmaya devam etsin.
+    }
   }
 
   /// [hour]:[minute] saatinde, önümüzdeki [_horizonDays] gün için hatırlatma
@@ -114,7 +187,7 @@ class NotificationService {
     if (!_available) return;
 
     try {
-      await _plugin.cancelAll();
+      await cancelReminders();
 
       final details = NotificationDetails(
         android: AndroidNotificationDetails(

@@ -10,6 +10,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flipru/providers/writing_test_providers.dart';
 import 'package:flipru/app.dart';
 import 'package:flipru/data/models/app_settings.dart';
+import 'package:flipru/core/theme/app_theme.dart';
+import 'package:flipru/features/quiz/quiz_screen.dart';
 import 'package:flipru/features/settings/settings_screen.dart';
 import 'package:flipru/core/i18n/strings.dart';
 import 'package:flipru/data/models/deck.dart';
@@ -651,6 +653,43 @@ void main() {
     });
   });
 
+  group('test ekranı', () {
+    testWidgets('doğru cevapta kendiliğinden geçer, önceki soruya dönülür', (
+      tester,
+    ) async {
+      final words = repository.allWords.take(4).toList();
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            sharedPreferencesProvider.overrideWithValue(prefs),
+            wordRepositoryProvider.overrideWithValue(repository),
+          ],
+          child: MaterialApp(
+            theme: AppTheme.light(),
+            home: QuizScreen(title: 'T', words: words, questionCount: 4),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('Soru 1 / 4'), findsOneWidget);
+
+      // Ekrandaki sorunun doğru şıkkına dokun.
+      final soru = words.firstWhere(
+        (w) => find.text(w.accented).evaluate().isNotEmpty,
+      );
+      await tester.tap(find.text(soru.turkish));
+      await tester.pump(const Duration(milliseconds: 900));
+      await tester.pumpAndSettle();
+      expect(find.text('Soru 2 / 4'), findsOneWidget);
+
+      // Önceki soruya dön: cevabıyla birlikte görünüyor.
+      await tester.tap(find.byIcon(PhosphorIconsRegular.caretLeft));
+      await tester.pumpAndSettle();
+      expect(find.text('Soru 1 / 4'), findsOneWidget);
+      expect(find.byIcon(PhosphorIconsFill.checkCircle), findsWidgets);
+    });
+  });
+
   group('ilk ders', () {
     testWidgets('tanıtım bitince el ele ilk derse girilir', (tester) async {
       SharedPreferences.setMockInitialValues({});
@@ -665,9 +704,15 @@ void main() {
       await tester.pumpAndSettle();
 
       // Tanıtımın üç sayfası da "ileri" ile geçiliyor.
-      for (var i = 0; i < 3; i++) {
+      for (var i = 0; i < 2; i++) {
         await tester.tap(find.byType(FilledButton).last);
         await tester.pumpAndSettle();
+      }
+      // İlk derste kartın üstündeki yönerge sürekli hareket ediyor; ekran
+      // hiç "durulmadığı" için bundan sonra sabit süre bekleniyor.
+      await tester.tap(find.byType(FilledButton).last);
+      for (var i = 0; i < 20; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
       }
 
       expect(find.text('İlk dersin'), findsOneWidget);

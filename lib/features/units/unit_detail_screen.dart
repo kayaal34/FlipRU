@@ -136,6 +136,7 @@ class UnitDetailScreen extends ConsumerWidget {
                           builder: (_) => StudyScreen(
                             title: '${deck.titleOf(s)} · ${unit.titleOf(s)}',
                             words: unit.words,
+                            unlearnedFirst: true,
                             accent: deck.tint,
                             nextLabel: next == null
                                 ? null

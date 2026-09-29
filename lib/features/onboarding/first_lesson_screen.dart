@@ -312,81 +312,20 @@ class _FirstLessonScreenState extends ConsumerState<FirstLessonScreen> {
 
   Widget _buildCards(BuildContext context) {
     final s = ref.watch(stringsProvider);
-    final palette = context.palette;
 
-    final (IconData icon, String text) = switch (_step) {
-      0 => (PhosphorIconsRegular.handTap, s.tutTap),
-      1 => (PhosphorIconsRegular.arrowRight, s.tutRight),
-      2 => (PhosphorIconsRegular.arrowLeft, s.tutLeft),
-      _ => (PhosphorIconsRegular.arrowsLeftRight, s.tutFree),
+    // Yönerge kartın üzerinde duruyor: hareketi gösteren el ve kısa bir
+    // etiket. Üstte ayrı bir bantta yazmak kullanıcının gözünü karttan
+    // kaçırıyordu.
+    final (_Gesture gesture, String text) = switch (_step) {
+      0 => (_Gesture.tap, s.tutTap),
+      1 => (_Gesture.right, s.tutRight),
+      2 => (_Gesture.left, s.tutLeft),
+      _ => (_Gesture.both, s.tutFree),
     };
-    final warning = _nudge != null;
 
     return Column(
       key: const ValueKey('cards'),
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 8, 20, 0),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 220),
-            padding: const EdgeInsets.fromLTRB(14, 12, 14, 12),
-            decoration: BoxDecoration(
-              color: warning ? palette.reviewSoft : palette.accentSoft,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(
-                color: (warning ? palette.review : palette.accent).withValues(
-                  alpha: 0.45,
-                ),
-              ),
-            ),
-            child: Row(
-              children: [
-                _Nudging(
-                  // Kaydırma adımlarında ok, gösterdiği yöne hafifçe sallanıyor.
-                  dx: switch (_step) {
-                    1 => 1.0,
-                    2 => -1.0,
-                    _ => 0.0,
-                  },
-                  child: Icon(
-                    warning ? PhosphorIconsRegular.warningCircle : icon,
-                    size: 24,
-                    color: warning ? palette.review : palette.accent,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 320),
-                    switchInCurve: Curves.easeOutCubic,
-                    transitionBuilder: (child, animation) => FadeTransition(
-                      opacity: animation,
-                      child: SlideTransition(
-                        position: Tween(
-                          begin: const Offset(0.06, 0),
-                          end: Offset.zero,
-                        ).animate(animation),
-                        child: child,
-                      ),
-                    ),
-                    layoutBuilder: (current, previous) => Stack(
-                      alignment: Alignment.centerLeft,
-                      children: [...previous, ?current],
-                    ),
-                    child: Text(
-                      _nudge ?? text,
-                      key: ValueKey(_nudge ?? text),
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: palette.textPrimary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
         Expanded(
           // Kartlar ekrana alttan süzülerek geliyor.
           child: _Entrance(
@@ -415,7 +354,7 @@ class _FirstLessonScreenState extends ConsumerState<FirstLessonScreen> {
                 cardBuilder: (context, index, horizontalOffset, _) {
                   final word = _words[index];
                   final isTop = index == _top;
-                  return Flashcard(
+                  final card = Flashcard(
                     key: ValueKey(word.id),
                     strings: s,
                     word: word,
@@ -432,6 +371,30 @@ class _FirstLessonScreenState extends ConsumerState<FirstLessonScreen> {
                         .read(speechServiceProvider)
                         .speak(text, language: language),
                     onReport: () {},
+                  );
+                  if (!isTop) return card;
+                  // Yönerge üstteki kartın üzerinde; kart sürüklendikçe
+                  // soluyor ve kartla birlikte uçup gidiyor. Dokunuşları
+                  // engellemesin diye IgnorePointer içinde.
+                  final drag = (horizontalOffset.abs() / 60).clamp(0.0, 1.0);
+                  return Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      card,
+                      Align(
+                        alignment: const Alignment(0, 0.62),
+                        child: IgnorePointer(
+                          child: Opacity(
+                            opacity: 1 - drag,
+                            child: _CoachMark(
+                              gesture: gesture,
+                              label: _nudge ?? text,
+                              warning: _nudge != null,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -454,23 +417,34 @@ class _FirstLessonScreenState extends ConsumerState<FirstLessonScreen> {
   }
 }
 
-/// Çocuğunu [dx] yönünde gidip gelen küçük bir harekete sokar.
-class _Nudging extends StatefulWidget {
-  const _Nudging({required this.dx, required this.child});
+enum _Gesture { tap, right, left, both }
 
-  final double dx;
-  final Widget child;
+/// Kartın üzerinde, yapılacak hareketi canlandıran yönerge.
+///
+/// Dokunma adımında atan bir halka ve el; kaydırma adımlarında gösterdiği
+/// yöne süzülüp kaybolan bir el. Altında kısa bir etiket var; yanlış
+/// hamlede etiket kırmızıya dönüp ne yapılacağını söylüyor.
+class _CoachMark extends StatefulWidget {
+  const _CoachMark({
+    required this.gesture,
+    required this.label,
+    required this.warning,
+  });
+
+  final _Gesture gesture;
+  final String label;
+  final bool warning;
 
   @override
-  State<_Nudging> createState() => _NudgingState();
+  State<_CoachMark> createState() => _CoachMarkState();
 }
 
-class _NudgingState extends State<_Nudging>
+class _CoachMarkState extends State<_CoachMark>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     vsync: this,
-    duration: const Duration(milliseconds: 700),
-  )..repeat(reverse: true);
+    duration: const Duration(milliseconds: 1500),
+  )..repeat();
 
   @override
   void dispose() {
@@ -480,19 +454,172 @@ class _NudgingState extends State<_Nudging>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.dx == 0) return widget.child;
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) => Transform.translate(
-        offset: Offset(
-          widget.dx * 5 * Curves.easeInOut.transform(_controller.value),
-          0,
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final tint = widget.warning ? palette.review : palette.accent;
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        SizedBox(
+          width: 200,
+          height: 72,
+          child: AnimatedBuilder(
+            animation: _controller,
+            builder: (context, _) => _glyph(tint),
+          ),
         ),
-        child: child,
-      ),
-      child: widget.child,
+        const SizedBox(height: 6),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 240),
+          curve: Curves.easeOutCubic,
+          constraints: const BoxConstraints(maxWidth: 290),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            color: widget.warning ? palette.review : const Color(0xE6171722),
+            borderRadius: BorderRadius.circular(22),
+            boxShadow: const [
+              BoxShadow(
+                color: Color(0x33000000),
+                blurRadius: 18,
+                offset: Offset(0, 6),
+              ),
+            ],
+          ),
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 260),
+            transitionBuilder: (child, animation) => FadeTransition(
+              opacity: animation,
+              child: ScaleTransition(
+                scale: Tween(begin: 0.94, end: 1.0).animate(animation),
+                child: child,
+              ),
+            ),
+            child: Text(
+              widget.label,
+              key: ValueKey(widget.label),
+              textAlign: TextAlign.center,
+              style: textTheme.bodyMedium?.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                height: 1.35,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
+
+  Widget _glyph(Color tint) {
+    final v = _controller.value;
+    switch (widget.gesture) {
+      case _Gesture.tap:
+        // Parmak iner (küçülür), halka dışa yayılıp söner.
+        final press = v < 0.3 ? Curves.easeOut.transform(v / 0.3) : 1.0;
+        final ring = v < 0.3 ? 0.0 : Curves.easeOut.transform((v - 0.3) / 0.7);
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            Transform.scale(
+              scale: 0.6 + 0.9 * ring,
+              child: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: tint.withValues(alpha: 0.28 * (1 - ring)),
+                ),
+              ),
+            ),
+            Transform.scale(
+              scale: 1 - 0.14 * press + 0.14 * ring,
+              child: Icon(PhosphorIconsFill.handTap, size: 46, color: tint),
+            ),
+          ],
+        );
+      case _Gesture.right:
+      case _Gesture.left:
+        final dir = widget.gesture == _Gesture.right ? 1.0 : -1.0;
+        // El merkezin gerisinden başlayıp gösterdiği yöne süzülür; sonda
+        // solup başa döner. Arkasında giderek uzayan bir iz var.
+        final move = Curves.easeInOut.transform(v.clamp(0.0, 0.8) / 0.8);
+        final fade = v < 0.1
+            ? v / 0.1
+            : v > 0.8
+            ? (1 - (v - 0.8) / 0.2)
+            : 1.0;
+        final x = dir * (-44 + 88 * move);
+        return Opacity(
+          opacity: fade.clamp(0.0, 1.0),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Transform.translate(
+                offset: Offset(dir * (-44 + 44 * move), 0),
+                child: Container(
+                  width: 88 * move + 1,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                    gradient: LinearGradient(
+                      colors: dir > 0
+                          ? [
+                              tint.withValues(alpha: 0),
+                              tint.withValues(alpha: 0.55),
+                            ]
+                          : [
+                              tint.withValues(alpha: 0.55),
+                              tint.withValues(alpha: 0),
+                            ],
+                    ),
+                  ),
+                ),
+              ),
+              Transform.translate(
+                offset: Offset(x, 0),
+                child: Icon(
+                  dir > 0
+                      ? PhosphorIconsFill.handSwipeRight
+                      : PhosphorIconsFill.handSwipeLeft,
+                  size: 46,
+                  color: tint,
+                ),
+              ),
+            ],
+          ),
+        );
+      case _Gesture.both:
+        // İki ok sırayla iki yana esniyor: "istediğin yöne".
+        final swing = Curves.easeInOut.transform(v < 0.5 ? v * 2 : (1 - v) * 2);
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Transform.translate(
+              offset: Offset(-10 * swing, 0),
+              child: Icon(
+                PhosphorIconsBold.arrowLeft,
+                size: 30,
+                color: palette.review,
+              ),
+            ),
+            const SizedBox(width: 14),
+            Icon(PhosphorIconsFill.handGrabbing, size: 40, color: tint),
+            const SizedBox(width: 14),
+            Transform.translate(
+              offset: Offset(10 * swing, 0),
+              child: Icon(
+                PhosphorIconsBold.arrowRight,
+                size: 30,
+                color: palette.learned,
+              ),
+            ),
+          ],
+        );
+    }
+  }
+
+  AppPalette get palette => context.palette;
 }
 
 /// Yumuşak sayfa geçişi: yeni sayfa hafifçe büyüyerek belirir.
@@ -644,23 +771,33 @@ class _PulseState extends State<_Pulse> with SingleTickerProviderStateMixin {
       animation: _controller,
       builder: (context, child) {
         final t = Curves.easeOut.transform(_controller.value);
-        return Stack(
-          alignment: Alignment.center,
-          children: [
-            // Dışa doğru büyüyüp sönen halka.
-            Container(
-              width: 116 + 44 * t,
-              height: 116 + 44 * t,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: widget.color.withValues(alpha: 0.35 * (1 - t)),
-                  width: 2,
+        // Kutu sabit boyutta. Önceden halka büyüdükçe kutu da büyüyordu ve
+        // alttaki başlıkla düğmeyi her atışta aşağı itip geri zıplatıyordu.
+        return SizedBox(
+          width: 116,
+          height: 116,
+          child: Stack(
+            alignment: Alignment.center,
+            clipBehavior: Clip.none,
+            children: [
+              // Dışa doğru büyüyüp sönen halka; yerleşimi etkilemiyor.
+              Transform.scale(
+                scale: 1 + 0.38 * t,
+                child: Container(
+                  width: 116,
+                  height: 116,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: widget.color.withValues(alpha: 0.35 * (1 - t)),
+                      width: 2,
+                    ),
+                  ),
                 ),
               ),
-            ),
-            child!,
-          ],
+              child!,
+            ],
+          ),
         );
       },
       child: widget.child,
@@ -745,8 +882,10 @@ class _InfoPanel extends StatelessWidget {
                   // İkon: yaylanarak büyüyor.
                   TweenAnimationBuilder<double>(
                     tween: Tween(begin: 0, end: 1),
-                    duration: const Duration(milliseconds: 900),
-                    curve: Curves.elasticOut,
+                    // Tek, hafif bir taşma: elasticOut birkaç kez
+                    // sallanıyordu ve tedirgin duruyordu.
+                    duration: const Duration(milliseconds: 700),
+                    curve: Curves.easeOutBack,
                     builder: (context, value, child) =>
                         Transform.scale(scale: value, child: child),
                     child: pulse ? _Pulse(color: tint, child: circle) : circle,

@@ -61,8 +61,20 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   /// Yanlis cevaplanan kelimeler. Test sonunda "Yanlislarina don" bu listeyi
   /// yeni bir tur olarak aciyor.
   final _wrong = <Word>[];
-  String? _picked;
-  bool _revealed = false;
+
+  /// Her sorunun verilen cevabı. Önceki soruya dönülünce cevabıyla birlikte,
+  /// değiştirilemez hâlde gösteriliyor.
+  late final List<String?> _answers = List.filled(_questions.length, null);
+
+  /// Sorular arası kayma yönü: ileri giderken soldan, geri dönerken sağdan.
+  bool _forward = true;
+
+  String? get _picked => _answers[_index];
+  bool get _revealed => _answers[_index] != null;
+
+  /// Doğru cevaptan sonra otomatik geçişe kadar geçen süre: yeşil onayı
+  /// görecek kadar, beklemekten sıkılmayacak kadar.
+  static const _autoAdvance = Duration(milliseconds: 800);
 
   List<_Question> _build() {
     final repository = ref.read(wordRepositoryProvider);
@@ -74,8 +86,7 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     pool.shuffle(_random);
 
     final istenen =
-        widget.questionCount ??
-        ref.read(settingsProvider).quizQuestionCount;
+        widget.questionCount ?? ref.read(settingsProvider).quizQuestionCount;
     final count = min(istenen, pool.length);
 
     return [
@@ -95,28 +106,51 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
 
     isCorrect ? Haptics.medium() : Haptics.heavy();
     setState(() {
-      _picked = option.turkish;
-      _revealed = true;
+      _answers[_index] = option.turkish;
       if (isCorrect) {
         _correct++;
       } else {
         _wrong.add(question.word);
       }
     });
+
+    // Doğruysa sıradaki soruya kendiliğinden geç. Yanlışta bekle: kullanıcı
+    // doğru cevabı görsün, hazır olunca kendisi geçsin. Bu arada önceki
+    // soruya dönülürse geçiş iptal.
+    if (isCorrect) {
+      final at = _index;
+      Future.delayed(_autoAdvance, () {
+        if (mounted && _index == at) _next();
+      });
+    }
   }
 
   void _next() {
+    // Sonuç ekranındayken (otomatik geçiş ile düğme üst üste gelirse)
+    // sonucu ikinci kez kaydetme.
+    if (_index >= _questions.length) return;
     if (_index + 1 >= _questions.length) {
       _finish();
       setState(() => _index = _questions.length);
       return;
     }
     setState(() {
+      _forward = true;
       _index++;
-      _picked = null;
-      _revealed = false;
       // Joker her soru icin yeniden hakki: onceden bir kez kullanilinca
       // testin sonuna kadar kapali kaliyordu.
+      _jokerUsed = false;
+      _eliminated = const {};
+    });
+  }
+
+  /// Önceki soruya dön: cevabıyla birlikte, salt okunur.
+  void _previous() {
+    if (_index == 0) return;
+    Haptics.light();
+    setState(() {
+      _forward = false;
+      _index--;
       _jokerUsed = false;
       _eliminated = const {};
     });
@@ -271,74 +305,140 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                   ),
                 ),
                 Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 10),
-                        Text(
-                          s.quizQuestion,
-                          style: textTheme.bodySmall?.copyWith(
-                            color: palette.textTertiary,
-                          ),
+                  // Soru değişince yeni soru ilerleme yönünden kayarak gelir.
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 380),
+                    switchInCurve: Curves.easeOutCubic,
+                    switchOutCurve: Curves.easeInCubic,
+                    transitionBuilder: (child, animation) {
+                      final incoming = child.key == ValueKey(_index);
+                      final dx =
+                          (_forward ? 1 : -1) * (incoming ? 0.12 : -0.12);
+                      return FadeTransition(
+                        opacity: animation,
+                        child: SlideTransition(
+                          position: Tween(
+                            begin: Offset(dx, 0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
                         ),
-                        const SizedBox(height: 14),
-                        Text(
-                          question.word.accented,
-                          textAlign: TextAlign.center,
-                          style: textTheme.displayLarge?.copyWith(
-                            fontSize: question.word.russian.length > 13
-                                ? 30
-                                : 38,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          question.word.transliteration,
-                          style: textTheme.bodySmall?.copyWith(
-                            color: palette.textTertiary,
-                          ),
-                        ),
-                        const SizedBox(height: 28),
-                        for (final option in question.options)
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10),
-                            child: _OptionTile(
-                              label: option.turkish,
-                              state: _stateOf(option, question),
-                              onTap: () => _pick(option),
+                      );
+                    },
+                    child: SingleChildScrollView(
+                      key: ValueKey(_index),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          const SizedBox(height: 10),
+                          Text(
+                            s.quizQuestion,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: palette.textTertiary,
                             ),
                           ),
-                        // Joker siklarin altinda, saga yaslanmis: ustteki
-                        // ilerleme satirinda kayboluyordu, asil kullanildigi
-                        // yer ise burasi.
-                        if (!_revealed)
-                          Align(
-                            alignment: Alignment.centerRight,
-                            child: _JokerButton(
-                              used: _jokerUsed,
-                              disabled: _revealed,
-                              onTap: _useJoker,
+                          const SizedBox(height: 14),
+                          Text(
+                            question.word.accented,
+                            textAlign: TextAlign.center,
+                            style: textTheme.displayLarge?.copyWith(
+                              fontSize: question.word.russian.length > 13
+                                  ? 30
+                                  : 38,
                             ),
                           ),
-                        const SizedBox(height: 12),
-                      ],
-                    ),
-                  ),
-                ),
-                if (_revealed)
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
-                    child: FilledButton(
-                      style: FilledButton.styleFrom(backgroundColor: tint),
-                      onPressed: _next,
-                      child: Text(
-                        _index + 1 >= _questions.length
-                            ? s.seeResult
-                            : s.nextQuestion,
+                          const SizedBox(height: 6),
+                          Text(
+                            question.word.transliteration,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: palette.textTertiary,
+                            ),
+                          ),
+                          const SizedBox(height: 28),
+                          for (final option in question.options)
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: _OptionTile(
+                                label: option.turkish,
+                                state: _stateOf(option, question),
+                                onTap: () => _pick(option),
+                              ),
+                            ),
+                          // Joker siklarin altinda, saga yaslanmis: ustteki
+                          // ilerleme satirinda kayboluyordu, asil kullanildigi
+                          // yer ise burasi.
+                          if (!_revealed)
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: _JokerButton(
+                                used: _jokerUsed,
+                                disabled: _revealed,
+                                onTap: _useJoker,
+                              ),
+                            ),
+                          const SizedBox(height: 12),
+                        ],
                       ),
                     ),
                   ),
+                ),
+                // Alt satır: önceki soru (varsa) ve cevaplanınca "sonraki".
+                // Doğru cevapta geçiş zaten kendiliğinden oluyor; düğme
+                // beklemek istemeyene ve yanlış cevaplara.
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 220),
+                  curve: Curves.easeOutCubic,
+                  child: (_index > 0 || _revealed)
+                      ? Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+                          child: Row(
+                            children: [
+                              if (_index > 0) ...[
+                                SizedBox(
+                                  width: 54,
+                                  height: 54,
+                                  child: OutlinedButton(
+                                    style: OutlinedButton.styleFrom(
+                                      padding: EdgeInsets.zero,
+                                      side: BorderSide(
+                                        color: palette.separator,
+                                      ),
+                                      foregroundColor: palette.textPrimary,
+                                    ),
+                                    onPressed: _previous,
+                                    child: Tooltip(
+                                      message: s.prevQuestion,
+                                      child: const Icon(
+                                        PhosphorIconsRegular.caretLeft,
+                                        size: 22,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                              ],
+                              if (_revealed)
+                                Expanded(
+                                  child: FilledButton(
+                                    style: FilledButton.styleFrom(
+                                      backgroundColor: tint,
+                                      minimumSize: const Size.fromHeight(54),
+                                    ),
+                                    onPressed: _next,
+                                    child: Text(
+                                      _index + 1 >= _questions.length
+                                          ? s.seeResult
+                                          : s.nextQuestion,
+                                    ),
+                                  ),
+                                )
+                              else
+                                const Spacer(),
+                            ],
+                          ),
+                        )
+                      : const SizedBox(width: double.infinity),
+                ),
               ],
             ),
           ),
