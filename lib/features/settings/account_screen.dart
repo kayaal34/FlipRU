@@ -86,7 +86,7 @@ class AccountScreen extends ConsumerWidget {
                                 ref
                                     .read(dailyProgressProvider.notifier)
                                     .clear();
-                                ref.read(visitProvider.notifier).clear();
+                                ref.read(studyDayProvider.notifier).clear();
                                 ref.read(passedUnitsProvider.notifier).clear();
                               },
                               strings: t,
@@ -127,7 +127,7 @@ class AccountScreen extends ConsumerWidget {
                           ref.read(learnedProvider.notifier).clear();
                           ref.read(starredProvider.notifier).clear();
                           ref.read(dailyProgressProvider.notifier).clear();
-                          ref.read(visitProvider.notifier).clear();
+                          ref.read(studyDayProvider.notifier).clear();
                           ref.read(passedUnitsProvider.notifier).clear();
                           ref.read(reportProvider.notifier).clear();
                           ref.read(settingsProvider.notifier).reset();

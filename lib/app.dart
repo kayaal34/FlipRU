@@ -21,8 +21,6 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Seri, uygulamanın açıldığı günlerden hesaplanıyor.
-      ref.read(visitProvider.notifier).recordToday();
       // Ağ yokken cihazda kalan hatalı kelime bildirimleri açılışta sessizce
       // yeniden deneniyor; kullanıcının ayarlardaki ekrana girmesi gerekmesin.
       ref.read(reportProvider.notifier).flush();
@@ -31,16 +29,17 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
     });
   }
 
-  /// Ana ekran widget'ındaki kelimeyi tazeler.
+  /// Ana ekran widget'ının verisini yazar.
   ///
-  /// Widget'ın kendi zamanlayıcısı yok; uygulama açıldığında hangi zaman
-  /// penceresinde olduğumuza bakıp kelimeyi yazıyoruz. Aralık ayarı
-  /// değiştiğinde de çağrılıyor, yoksa kullanıcı seçimini bir sonraki
-  /// açılışa kadar göremezdi.
+  /// Önümüzdeki dönemlerin kelimeleri peşinen yazılıyor; widget her
+  /// yenilendiğinde saate bakıp sırası gelen kelimeyi kendisi seçiyor. Yani
+  /// uygulama hiç açılmasa da kelime değişmeye devam ediyor. Aralık ayarı ya
+  /// da seri değiştiğinde de çağrılıyor.
   void _syncWidget() {
-    const WidgetService().updateDailyWord(
+    const WidgetService().updateSchedule(
       ref.read(wordRepositoryProvider).allWords,
       streak: ref.read(streakProvider),
+      lastStudyDay: ref.read(lastStudyDayProvider),
       refreshHours: ref.read(settingsProvider).widgetRefresh.hours,
     );
   }
@@ -71,6 +70,7 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
       skipToday: ref.read(dailySummaryProvider).goalReached,
       goal: settings.dailyGoal,
       streak: ref.read(streakProvider),
+      studiedToday: ref.read(studiedTodayProvider),
       strings: ref.read(stringsProvider),
     );
   }
@@ -98,6 +98,12 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
       settingsProvider.select((s) => s.widgetRefresh),
       (_, _) => _syncWidget(),
     );
+    // Bugünün ilk çalışması seriyi uzatıyor: bu akşamki "serin tehlikede"
+    // uyarısı iptal edilmeli, widget'taki alev de güncellenmeli.
+    ref.listen(studiedTodayProvider, (_, _) {
+      _syncReminders();
+      _syncWidget();
+    });
 
     return MaterialApp(
       title: 'FlipRU',

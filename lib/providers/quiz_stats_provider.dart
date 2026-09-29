@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_providers.dart';
+import 'daily_provider.dart';
 
 /// Çözülen bir testin sonucu.
 @immutable
@@ -75,6 +76,8 @@ class QuizStatsNotifier extends Notifier<List<QuizResult>> {
       ),
     ];
     _persist(next.length > _keep ? next.sublist(next.length - _keep) : next);
+    // Bitirilen her test o günü çalışılmış sayar; seri devam eder.
+    ref.read(studyDayProvider.notifier).recordToday();
   }
 
   void clear() => _persist(const []);
@@ -97,13 +100,15 @@ final quizStatsProvider = NotifierProvider<QuizStatsNotifier, List<QuizResult>>(
 /// kez çözülmesi mümkün ama hedef bir kez tamamlandığında işaretleniyor.
 final dailyTestDoneProvider = Provider<bool>((ref) {
   final now = DateTime.now();
-  return ref.watch(quizStatsProvider).any(
-    (r) =>
-        r.kind == 'daily' &&
-        r.at.year == now.year &&
-        r.at.month == now.month &&
-        r.at.day == now.day,
-  );
+  return ref
+      .watch(quizStatsProvider)
+      .any(
+        (r) =>
+            r.kind == 'daily' &&
+            r.at.year == now.year &&
+            r.at.month == now.month &&
+            r.at.day == now.day,
+      );
 });
 
 @immutable

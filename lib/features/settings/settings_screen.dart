@@ -4,12 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/i18n/strings.dart';
 import '../../core/theme/app_palette.dart';
-import '../../core/utils/haptics.dart';
 import '../../data/models/app_settings.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/report_provider.dart';
 import '../../providers/settings_provider.dart';
 import 'account_screen.dart';
+import 'advanced_settings_screen.dart';
 import 'stats_screen.dart';
 import 'legal_screen.dart';
 import 'reports_screen.dart';
@@ -126,16 +126,6 @@ class SettingsScreen extends ConsumerWidget {
                           notifier.update((s) => s.copyWith(direction: d)),
                     ),
                     SettingsOptions<int>(
-                      title: t.sessionSize,
-                      subtitle: t.sessionSizeSub,
-                      icon: PhosphorIconsRegular.cards,
-                      options: AppSettings.sessionSizeOptions,
-                      selected: settings.sessionSize,
-                      labelOf: (n) => n == 0 ? t.allCards : '$n ${t.cards}',
-                      onChanged: (n) =>
-                          notifier.update((s) => s.copyWith(sessionSize: n)),
-                    ),
-                    SettingsOptions<int>(
                       title: t.dailyGoal,
                       subtitle: t.dailyGoalSub,
                       icon: PhosphorIconsRegular.flag,
@@ -144,51 +134,6 @@ class SettingsScreen extends ConsumerWidget {
                       labelOf: (n) => '$n',
                       onChanged: (n) =>
                           notifier.update((s) => s.copyWith(dailyGoal: n)),
-                    ),
-                    SettingsOptions<int>(
-                      title: t.quizLength,
-                      subtitle: t.quizLengthSub,
-                      icon: PhosphorIconsRegular.exam,
-                      options: AppSettings.quizCountOptions,
-                      selected: settings.quizQuestionCount,
-                      labelOf: (n) => '$n',
-                      onChanged: (n) => notifier.update(
-                        (s) => s.copyWith(quizQuestionCount: n),
-                      ),
-                    ),
-                    SettingsSwitch(
-                      title: t.stressMarks,
-                      subtitle: t.stressMarksSub,
-                      icon: PhosphorIconsRegular.textAUnderline,
-                      value: settings.showStressMarks,
-                      onChanged: (v) => notifier.update(
-                        (s) => s.copyWith(showStressMarks: v),
-                      ),
-                    ),
-                    SettingsSwitch(
-                      title: t.translitTitle,
-                      subtitle: t.translitSub,
-                      icon: PhosphorIconsRegular.microphoneStage,
-                      value: settings.showTransliteration,
-                      onChanged: (v) => notifier.update(
-                        (s) => s.copyWith(showTransliteration: v),
-                      ),
-                    ),
-                    SettingsSwitch(
-                      title: t.shuffle,
-                      subtitle: t.shuffleSub,
-                      icon: PhosphorIconsRegular.shuffle,
-                      value: settings.shuffle,
-                      onChanged: (v) =>
-                          notifier.update((s) => s.copyWith(shuffle: v)),
-                    ),
-                    SettingsSwitch(
-                      title: t.skipLearned,
-                      subtitle: t.skipLearnedSub,
-                      icon: PhosphorIconsRegular.funnel,
-                      value: settings.hideLearned,
-                      onChanged: (v) =>
-                          notifier.update((s) => s.copyWith(hideLearned: v)),
                     ),
                   ],
                 ),
@@ -238,29 +183,7 @@ class SettingsScreen extends ConsumerWidget {
                   ],
                 ),
 
-                // ───────────────────── Ana ekran widget'ı ───────────────────
-                SettingsSection(
-                  title: t.widgetSection,
-                  footer: t.widgetFooter,
-                  children: [
-                    SettingsOptions<WidgetRefresh>(
-                      title: t.widgetRefreshTitle,
-                      subtitle: t.widgetRefreshSub,
-                      icon: PhosphorIconsRegular.squaresFour,
-                      options: WidgetRefresh.values,
-                      selected: settings.widgetRefresh,
-                      labelOf: (r) => switch (r) {
-                        WidgetRefresh.every6h => t.widgetEvery6h,
-                        WidgetRefresh.every12h => t.widgetEvery12h,
-                        WidgetRefresh.daily => t.widgetDaily,
-                      },
-                      onChanged: (r) =>
-                          notifier.update((s) => s.copyWith(widgetRefresh: r)),
-                    ),
-                  ],
-                ),
-
-                // ────────────────────── Ses & Titreşim ─────────────────────
+                // ──────────────────────────── Ses ────────────────────────────
                 SettingsSection(
                   title: t.soundVibration,
                   footer: t.soundFooter,
@@ -290,15 +213,25 @@ class SettingsScreen extends ConsumerWidget {
                           ..speak('Привет');
                       },
                     ),
-                    SettingsSwitch(
-                      title: t.haptics,
-                      subtitle: t.hapticsSub,
-                      icon: PhosphorIconsRegular.vibrate,
-                      value: settings.hapticsEnabled,
-                      onChanged: (v) {
-                        notifier.update((s) => s.copyWith(hapticsEnabled: v));
-                        if (v) Haptics.medium();
-                      },
+                  ],
+                ),
+
+                // ───────────────────────── Gelişmiş ────────────────────────
+                //
+                // Varsayilani zaten iyi olan, bir kez kurulup unutulan
+                // secenekler burada toplu: yeni kullaniciyi ilk ekranda
+                // anlamadigi on ayarla karsilamiyoruz.
+                SettingsSection(
+                  children: [
+                    SettingsRow(
+                      title: t.advanced,
+                      subtitle: t.advancedSub,
+                      icon: PhosphorIconsRegular.slidersHorizontal,
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const AdvancedSettingsScreen(),
+                        ),
+                      ),
                     ),
                   ],
                 ),

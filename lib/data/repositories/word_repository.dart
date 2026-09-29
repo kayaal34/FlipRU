@@ -88,22 +88,69 @@ class WordRepository {
     };
   }
 
-  /// Quiz çeldiricileri: aynı seviyeden rastgele kelimeler (yakın seviye,
-  /// şıkları makul zorlukta tutuyor).
+  /// Quiz çeldiricileri.
+  ///
+  /// Rastgele kelime seçmek testi kolaylaştırıyordu: "не" sorusuna
+  /// "telefon" şıkkı gelince cevap eleyerek bulunuyordu. Artık şıklar
+  /// hedefe benziyor: önce aynı konu ve aynı türden (fiile fiil, isme isim),
+  /// yetmezse aynı türden, o da yetmezse aynı seviyeden seçiliyor. Seviye
+  /// hep aynı kalıyor ki zorluk tutarlı olsun.
+  ///
+  /// İlk anlamı hedefle aynı olan adaylar atlanıyor: "ev" sorusunda
+  /// "ev / yuva" şıkkı çıkarsa iki doğru cevap olurdu.
   List<Word> randomDistractors(Word target, int count, Random random) {
-    final pool = _byLevel[target.level]!;
-    // Seviyeden yeterli aday çıkmazsa tüm havuza düş.
-    final source = pool.length > count * 4 ? pool : _words;
+    final level = _byLevel[target.level]!;
+    final hedef = _firstSense(target.turkish);
+
+    bool uygun(Word w) =>
+        w.id != target.id &&
+        w.turkish != target.turkish &&
+        _firstSense(w.turkish) != hedef;
+
+    final sameKind = [
+      for (final w in level)
+        if (w.partOfSpeech == target.partOfSpeech && uygun(w)) w,
+    ];
+    final sameTheme = target.theme == null
+        ? const <Word>[]
+        : [
+            for (final w in sameKind)
+              if (w.theme == target.theme) w,
+          ];
 
     final picked = <Word>[];
     final seen = <String>{target.id};
-    var attempts = 0;
-    while (picked.length < count && attempts < count * 40) {
-      attempts++;
-      final candidate = source[random.nextInt(source.length)];
-      if (candidate.turkish == target.turkish) continue;
-      if (seen.add(candidate.id)) picked.add(candidate);
+    void draw(List<Word> source, int upTo) {
+      if (source.isEmpty) return;
+      var attempts = 0;
+      while (picked.length < upTo && attempts < upTo * 40) {
+        attempts++;
+        final candidate = source[random.nextInt(source.length)];
+        if (!uygun(candidate)) continue;
+        // Aynı ilk anlamlı iki çeldirici de olmasın.
+        if (picked.any(
+          (p) => _firstSense(p.turkish) == _firstSense(candidate.turkish),
+        )) {
+          continue;
+        }
+        if (seen.add(candidate.id)) picked.add(candidate);
+      }
     }
+
+    // En fazla ikisi aynı konudan: hepsi aynı konudan gelince (üç meyve
+    // adı) soru bu kez gereğinden zorlaşıyor.
+    draw(sameTheme, count > 1 ? count - 1 : count);
+    draw(sameKind, count);
+    draw(level, count);
+    draw(_words, count);
     return picked;
   }
+
+  /// "ev / yuva" → "ev"; parantez içi açıklamalar da atılıyor.
+  static String _firstSense(String turkish) => turkish
+      .split(RegExp(r'\s*[/;,]\s*'))
+      .first
+      .replaceAll(RegExp(r'\s*\(.*?\)\s*'), ' ')
+      .trim()
+      .toLowerCase();
 }

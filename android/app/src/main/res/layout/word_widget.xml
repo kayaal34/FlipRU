@@ -3,6 +3,7 @@
      Kompakt tutuluyor: ana ekranda az yer kaplasin diye dolgu ve punto
      olculeri sikilastirildi. Seri ise en gorunur oge oldugu icin buyuk. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"

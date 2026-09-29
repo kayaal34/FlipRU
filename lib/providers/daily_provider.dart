@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'app_providers.dart';
+import 'quiz_stats_provider.dart';
 import 'settings_provider.dart';
 
 String _dayKey(DateTime date) =>
@@ -54,19 +55,35 @@ final dailyProgressProvider =
       DailyProgressNotifier.new,
     );
 
-/// Uygulamanın açıldığı günler. Seri (streak) buradan hesaplanıyor:
-/// kullanıcı bir gün hiç girmezse seri sıfırlanır.
-class VisitNotifier extends Notifier<Set<String>> {
-  static const _key = 'visit_days';
+/// Çalışılan günler. Seri (streak) buradan hesaplanıyor.
+///
+/// Bir gün "çalışılmış" sayılıyor: en az bir kelime öğrenildiyse, bir test
+/// çözüldüyse ya da bir alfabe dersi bitirildiyse. Uygulamayı açıp kapamak
+/// seriyi sürdürmüyor; ama eşik de bilerek düşük: tek bir kelime yetiyor.
+///
+/// Eskiden seri yalnızca açılış günlerinden sayılıyordu. İlk okumada
+/// geçmiş, kelime ve test kayıtlarından kuruluyor ki güncelleyen
+/// kullanıcının gerçekten çalıştığı günlerin serisi kaybolmasın.
+class StudyDayNotifier extends Notifier<Set<String>> {
+  static const _key = 'study_days';
   static const _keepDays = 400;
 
   @override
   Set<String> build() {
-    final stored = ref.read(sharedPreferencesProvider).getStringList(_key);
-    return {...?stored};
+    final prefs = ref.read(sharedPreferencesProvider);
+    final stored = prefs.getStringList(_key);
+    if (stored != null) return {...stored};
+
+    final seeded = {
+      for (final entry in ref.read(dailyProgressProvider).entries)
+        if (entry.value > 0) entry.key,
+      for (final result in ref.read(quizStatsProvider)) _dayKey(result.at),
+    };
+    prefs.setStringList(_key, seeded.toList());
+    return seeded;
   }
 
-  /// Uygulama her açıldığında çağrılır.
+  /// Bir kelime öğrenildiğinde, test bittiğinde ya da ders tamamlandığında.
   void recordToday() {
     final key = _dayKey(DateTime.now());
     if (state.contains(key)) return;
@@ -86,26 +103,39 @@ class VisitNotifier extends Notifier<Set<String>> {
   }
 }
 
-final visitProvider = NotifierProvider<VisitNotifier, Set<String>>(
-  VisitNotifier.new,
+final studyDayProvider = NotifierProvider<StudyDayNotifier, Set<String>>(
+  StudyDayNotifier.new,
 );
 
-/// Kesintisiz giriş serisi.
+/// Bugün seriyi sürdürecek bir şey yapıldı mı?
+final studiedTodayProvider = Provider<bool>(
+  (ref) => ref.watch(studyDayProvider).contains(_dayKey(DateTime.now())),
+);
+
+/// Ardışık çalışma günü serisi.
+///
+/// Bugün henüz çalışılmadıysa dünden saymaya başlıyor: gün bitmeden seri
+/// bozulmuş sayılmaz, kullanıcının akşama kadar vakti var.
 final streakProvider = Provider<int>((ref) {
-  final visits = ref.watch(visitProvider);
-  if (visits.isEmpty) return 0;
+  final days = ref.watch(studyDayProvider);
+  if (days.isEmpty) return 0;
 
   var streak = 0;
   var cursor = DateTime.now();
-  // Bugün henüz girilmemişse dünden saymaya başla; gün bitmeden seri bozulmaz.
-  if (!visits.contains(_dayKey(cursor))) {
+  if (!days.contains(_dayKey(cursor))) {
     cursor = cursor.subtract(const Duration(days: 1));
   }
-  while (visits.contains(_dayKey(cursor))) {
+  while (days.contains(_dayKey(cursor))) {
     streak++;
     cursor = cursor.subtract(const Duration(days: 1));
   }
   return streak;
+});
+
+/// Serinin son çalışma günü (widget, seri koptu mu diye kendisi bakabilsin).
+final lastStudyDayProvider = Provider<String?>((ref) {
+  final days = ref.watch(studyDayProvider).toList()..sort();
+  return days.isEmpty ? null : days.last;
 });
 
 /// İstatistik ekranı için haftalık / aylık toplamlar.

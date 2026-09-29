@@ -11,6 +11,7 @@ import '../../core/utils/haptics.dart';
 import '../../core/widgets/pressable.dart';
 import '../../data/models/alphabet_letter.dart';
 import '../../providers/app_providers.dart';
+import '../../providers/daily_provider.dart';
 import '../../providers/settings_provider.dart';
 
 /// Bir harf grubunun dersi: önce harfler tek tek, sonra kısa bir sınav.
@@ -96,6 +97,8 @@ class _AlphabetLessonScreenState extends ConsumerState<AlphabetLessonScreen> {
         .update(
           (s) => s.copyWith(alphabetDone: {...s.alphabetDone, widget.groupKey}),
         );
+    // Alfabe çalışan yeni başlayanın da serisi yürüsün.
+    ref.read(studyDayProvider.notifier).recordToday();
     Navigator.of(context).pop(true);
   }
 

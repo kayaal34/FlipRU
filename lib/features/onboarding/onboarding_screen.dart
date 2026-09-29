@@ -11,6 +11,7 @@ import '../../data/models/app_settings.dart';
 import '../../providers/settings_provider.dart';
 import '../alphabet/alphabet_screen.dart';
 import '../shell/app_shell.dart';
+import 'first_lesson_screen.dart';
 
 /// İlk açılış tanıtımı.
 ///
@@ -42,7 +43,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   void _next() {
     Haptics.light();
     if (_page + 1 >= _pages) {
-      _finish();
+      _finish(withLesson: true);
       return;
     }
     _controller.nextPage(
@@ -51,7 +52,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
   }
 
-  void _finish() {
+  /// [withLesson]: tanıtımı sonuna kadar izleyen kullanıcı el ele ilk derse
+  /// giriyor; üstteki "Atla" ise doğrudan ana ekrana götürüyor.
+  void _finish({bool withLesson = false}) {
     ref
         .read(settingsProvider.notifier)
         .update((s) => s.copyWith(onboardingDone: true));
@@ -60,6 +63,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     // coktan kapanmis oluyor ve olu bir context'e dokunuluyordu.
     if (!mounted) return;
     final navigator = Navigator.of(context);
+    if (withLesson) {
+      navigator.pushReplacement(
+        softRoute(FirstLessonScreen(openAlphabetAfter: _startWithAlphabet)),
+      );
+      return;
+    }
     navigator.pushReplacement(
       MaterialPageRoute(builder: (_) => const AppShell()),
     );
@@ -87,7 +96,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: _finish,
+                    onPressed: () => _finish(),
                     child: Text(s.onboardSkip),
                   ),
                 ),
@@ -178,9 +187,9 @@ class _Slide extends StatelessWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+    return _Fit(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -235,9 +244,9 @@ class _AlphabetSlide extends StatelessWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+    return _Fit(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -248,7 +257,11 @@ class _AlphabetSlide extends StatelessWidget {
               color: palette.learned.withValues(alpha: 0.14),
               shape: BoxShape.circle,
             ),
-            child: Icon(PhosphorIconsRegular.textAa, size: 60, color: palette.learned),
+            child: Icon(
+              PhosphorIconsRegular.textAa,
+              size: 60,
+              color: palette.learned,
+            ),
           ),
           const SizedBox(height: 34),
           Text(
@@ -355,9 +368,9 @@ class _GoalSlide extends StatelessWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+    return _Fit(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
@@ -368,7 +381,11 @@ class _GoalSlide extends StatelessWidget {
               color: palette.star.withValues(alpha: 0.16),
               shape: BoxShape.circle,
             ),
-            child: Icon(PhosphorIconsRegular.flag, size: 54, color: palette.star),
+            child: Icon(
+              PhosphorIconsRegular.flag,
+              size: 54,
+              color: palette.star,
+            ),
           ),
           const SizedBox(height: 34),
           Text(
@@ -424,6 +441,29 @@ class _GoalSlide extends StatelessWidget {
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// Tanıtım sayfalarının kabı.
+///
+/// Sayfa sığıyorsa içerik dikeyde ortalanıyor; küçük ekranlarda (ya da büyük
+/// yazı ölçeğinde) taşmak yerine kaydırılıyor.
+class _Fit extends StatelessWidget {
+  const _Fit({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) => SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 28),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: constraints.maxHeight),
+          child: Center(child: child),
+        ),
       ),
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
@@ -19,6 +21,7 @@ import 'package:flipru/providers/unit_providers.dart';
 import 'package:flipru/providers/app_providers.dart';
 import 'package:flipru/providers/daily_provider.dart';
 import 'package:flipru/providers/library_providers.dart';
+import 'package:flipru/providers/quiz_stats_provider.dart';
 import 'package:flipru/providers/settings_provider.dart';
 
 /// Testler asset'e bağlı kalmasın diye sentetik bir havuz kuruyoruz.
@@ -32,18 +35,18 @@ String _ek(int i) {
 }
 
 Word _word(int i, WordLevel level, WordTheme? theme) => Word(
-      id: 'w${i.toString().padLeft(3, '0')}',
-      russian: 'слово${_ek(i)}',
-      accented: 'сло́во${_ek(i)}',
-      transliteration: 'SLO-va${_ek(i)}',
-      turkish: 'kelime${_ek(i)}',
-      exampleRu: 'Это слово${_ek(i)}.',
-      exampleTr: 'Bu kelime${_ek(i)}.',
-      level: level,
-      theme: theme,
-      partOfSpeech: PartOfSpeech.noun,
-      confidence: 3,
-    );
+  id: 'w${i.toString().padLeft(3, '0')}',
+  russian: 'слово${_ek(i)}',
+  accented: 'сло́во${_ek(i)}',
+  transliteration: 'SLO-va${_ek(i)}',
+  turkish: 'kelime${_ek(i)}',
+  exampleRu: 'Это слово${_ek(i)}.',
+  exampleTr: 'Bu kelime${_ek(i)}.',
+  level: level,
+  theme: theme,
+  partOfSpeech: PartOfSpeech.noun,
+  confidence: 3,
+);
 
 List<Word> _buildWords() {
   final words = <Word>[];
@@ -74,19 +77,19 @@ void main() {
   });
 
   ProviderContainer container() => ProviderContainer.test(
-        overrides: [
-          sharedPreferencesProvider.overrideWithValue(prefs),
-          wordRepositoryProvider.overrideWithValue(repository),
-        ],
-      );
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+      wordRepositoryProvider.overrideWithValue(repository),
+    ],
+  );
 
   Widget harness() => ProviderScope(
-        overrides: [
-          sharedPreferencesProvider.overrideWithValue(prefs),
-          wordRepositoryProvider.overrideWithValue(repository),
-        ],
-        child: const FlipRuApp(),
-      );
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+      wordRepositoryProvider.overrideWithValue(repository),
+    ],
+    child: const FlipRuApp(),
+  );
 
   /// Açılış animasyonunu atlayıp doğrudan sekmelere geçer.
   ///
@@ -102,9 +105,17 @@ void main() {
   group('veri katmanı', () {
     test('satır dizisinden kelime çözümlenir', () {
       final word = Word.fromRow([
-        'w00042', 'возможность', 'возмо́жность', "vaz-MOJ-nast'",
-        'imkân, olanak', 'noun', 'b1', 'economy',
-        'У нас есть возможность.', 'Bir imkânımız var.', 3,
+        'w00042',
+        'возможность',
+        'возмо́жность',
+        "vaz-MOJ-nast'",
+        'imkân, olanak',
+        'noun',
+        'b1',
+        'economy',
+        'У нас есть возможность.',
+        'Bir imkânımız var.',
+        3,
       ]);
 
       expect(word.russian, 'возможность');
@@ -116,7 +127,17 @@ void main() {
 
     test('boş tema alanı null olur ve renk seviyeden gelir', () {
       final word = Word.fromRow([
-        'w1', 'дом', 'дом', 'DOM', 'ev', 'noun', 'a1', '', '', '', 2,
+        'w1',
+        'дом',
+        'дом',
+        'DOM',
+        'ev',
+        'noun',
+        'a1',
+        '',
+        '',
+        '',
+        2,
       ]);
 
       expect(word.theme, isNull);
@@ -134,7 +155,6 @@ void main() {
       final ids = repository.themeDecks.map((d) => d.theme).toSet();
       expect(ids, {WordTheme.economy});
     });
-
   });
 
   group('kütüphane mantığı', () {
@@ -155,10 +175,9 @@ void main() {
       expect(c.read(deckWordsProvider(Deck.starred.id)), isEmpty);
 
       c.read(starredProvider.notifier).toggle('w005');
-      expect(
-        c.read(deckWordsProvider(Deck.starred.id)).map((w) => w.id),
-        ['w005'],
-      );
+      expect(c.read(deckWordsProvider(Deck.starred.id)).map((w) => w.id), [
+        'w005',
+      ]);
     });
 
     test('öğrenilen kelime deste ilerlemesini yükseltir', () {
@@ -243,7 +262,9 @@ void main() {
       final c = container();
       // Yıldızlı deste 100 kelime alacak sekilde dolduruluyor.
       for (var i = 0; i < 100; i++) {
-        c.read(starredProvider.notifier).toggle('w${i.toString().padLeft(3, '0')}');
+        c
+            .read(starredProvider.notifier)
+            .toggle('w${i.toString().padLeft(3, '0')}');
       }
       final units = c.read(deckUnitsProvider('starred'));
       expect(units, hasLength(5));
@@ -255,7 +276,9 @@ void main() {
     test('bölüm geçilince açık pencere bir bölüm ilerler', () {
       final c = container();
       for (var i = 0; i < 100; i++) {
-        c.read(starredProvider.notifier).toggle('w${i.toString().padLeft(3, '0')}');
+        c
+            .read(starredProvider.notifier)
+            .toggle('w${i.toString().padLeft(3, '0')}');
       }
       final first = c.read(deckUnitsProvider('starred')).first.unit;
 
@@ -277,7 +300,9 @@ void main() {
       final c = container();
       final word = repository.allWords.first;
 
-      c.read(reportProvider.notifier).add(
+      c
+          .read(reportProvider.notifier)
+          .add(
             WordReport(
               wordId: word.id,
               russian: word.russian,
@@ -319,11 +344,19 @@ void main() {
     // altina aliyoruz ki ileride yanlislikla yeniden kilitlenmesin.
     test('her seviyenin kelimeleri ve ilk bolumu acik', () {
       final c = container();
-      for (final id in ['level_a1', 'level_a2', 'level_b1', 'level_b2',
-                        'level_c1']) {
+      for (final id in [
+        'level_a1',
+        'level_a2',
+        'level_b1',
+        'level_b2',
+        'level_c1',
+      ]) {
         expect(c.read(deckWordsProvider(id)), isNotEmpty, reason: id);
-        expect(c.read(deckUnitsProvider(id)).first.unlocked, isTrue,
-            reason: id);
+        expect(
+          c.read(deckUnitsProvider(id)).first.unlocked,
+          isTrue,
+          reason: id,
+        );
       }
     });
 
@@ -332,8 +365,11 @@ void main() {
       final temalar = c.read(themeDecksProvider);
       expect(temalar, isNotEmpty);
       for (final deck in temalar) {
-        expect(c.read(deckUnitsProvider(deck.id)).first.unlocked, isTrue,
-            reason: deck.id);
+        expect(
+          c.read(deckUnitsProvider(deck.id)).first.unlocked,
+          isTrue,
+          reason: deck.id,
+        );
       }
     });
   });
@@ -368,8 +404,10 @@ void main() {
         for (final w in t.words) {
           expect(w.level.name, isNot('c1'));
           expect(w.level.name, isNot('b2'));
-          expect(w.russian.replaceAll(RegExp(r'[ -]'), '').length,
-              inInclusiveRange(3, 10));
+          expect(
+            w.russian.replaceAll(RegExp(r'[ -]'), '').length,
+            inInclusiveRange(3, 10),
+          );
         }
       }
       // Siralama once seviyeye, sonra uzunluga bakiyor; ikisi de geriye
@@ -382,9 +420,12 @@ void main() {
         expect(s, greaterThanOrEqualTo(oncekiSeviye));
         oncekiSeviye = s;
       }
-      expect(seviye.indexOf(testler.last.words.first.level.name),
-          greaterThanOrEqualTo(
-              seviye.indexOf(testler.first.words.first.level.name)));
+      expect(
+        seviye.indexOf(testler.last.words.first.level.name),
+        greaterThanOrEqualTo(
+          seviye.indexOf(testler.first.words.first.level.name),
+        ),
+      );
     });
   });
 
@@ -397,10 +438,16 @@ void main() {
         for (final w in t.words) {
           // Virgullu, parantezli ya da Turkce alfabede olmayan harf tasiyan
           // karsiliklar harf harf yazdirilamaz.
-          expect(RegExp(r'^[a-zçğıöşü ]+$').hasMatch(w.turkish.toLowerCase()),
-              isTrue, reason: w.turkish);
-          expect(w.turkish.replaceAll(' ', '').length,
-              inInclusiveRange(3, 10), reason: w.turkish);
+          expect(
+            RegExp(r'^[a-zçğıöşü ]+$').hasMatch(w.turkish.toLowerCase()),
+            isTrue,
+            reason: w.turkish,
+          );
+          expect(
+            w.turkish.replaceAll(' ', '').length,
+            inInclusiveRange(3, 10),
+            reason: w.turkish,
+          );
         }
       }
     });
@@ -412,10 +459,14 @@ void main() {
       expect(yazma.first.id, isNot(anlam.first.id));
 
       c.read(passedUnitsProvider.notifier).markPassed(yazma.first.id);
-      expect(c.read(writingTestsProvider(WritingDirection.trToRu))[1].unlocked,
-          isTrue);
-      expect(c.read(writingTestsProvider(WritingDirection.ruToTr))[1].unlocked,
-          isFalse);
+      expect(
+        c.read(writingTestsProvider(WritingDirection.trToRu))[1].unlocked,
+        isTrue,
+      );
+      expect(
+        c.read(writingTestsProvider(WritingDirection.ruToTr))[1].unlocked,
+        isFalse,
+      );
     });
   });
 
@@ -423,7 +474,9 @@ void main() {
     test('testi geçmek bölümü tamamlar ve sonrakini açar', () {
       final c = container();
       for (var i = 0; i < 100; i++) {
-        c.read(starredProvider.notifier).toggle('w${i.toString().padLeft(3, '0')}');
+        c
+            .read(starredProvider.notifier)
+            .toggle('w${i.toString().padLeft(3, '0')}');
       }
       expect(c.read(deckUnitsProvider('starred'))[1].unlocked, isFalse);
 
@@ -441,7 +494,9 @@ void main() {
   group('ayarlar', () {
     test('değişiklikler kalıcı olarak saklanır', () {
       final c = container();
-      c.read(settingsProvider.notifier).update(
+      c
+          .read(settingsProvider.notifier)
+          .update(
             (s) => s.copyWith(
               sessionSize: 30,
               direction: StudyDirection.trToRu,
@@ -467,8 +522,9 @@ void main() {
   });
 
   group('tanıtım ekranı', () {
-    testWidgets('ilk açılışta gösterilir, atlanınca bir daha çıkmaz',
-        (tester) async {
+    testWidgets('ilk açılışta gösterilir, atlanınca bir daha çıkmaz', (
+      tester,
+    ) async {
       // Varsayilan: onboardingDone = false
       SharedPreferences.setMockInitialValues({});
       prefs = await SharedPreferences.getInstance();
@@ -518,9 +574,159 @@ void main() {
     });
   });
 
+  group('seri', () {
+    test('uygulamayı açmak seriyi başlatmaz, kelime öğrenmek başlatır', () {
+      final c = container();
+      expect(c.read(streakProvider), 0);
+      expect(c.read(studiedTodayProvider), isFalse);
+
+      c.read(learnedProvider.notifier).markLearned('w000');
+      expect(c.read(studiedTodayProvider), isTrue);
+      expect(c.read(streakProvider), 1);
+    });
+
+    test('bitirilen test de o günü çalışılmış sayar', () {
+      final c = container();
+      c.read(quizStatsProvider.notifier).record(3, 3);
+      expect(c.read(streakProvider), 1);
+    });
+
+    test('güncellemede seri eski kelime kayıtlarından kurulur', () async {
+      String gun(int geri) {
+        final d = DateTime.now().subtract(Duration(days: geri));
+        return '${d.year.toString().padLeft(4, '0')}-'
+            '${d.month.toString().padLeft(2, '0')}-'
+            '${d.day.toString().padLeft(2, '0')}';
+      }
+
+      SharedPreferences.setMockInitialValues({
+        'app_settings': '{"onboardingDone":true}',
+        'daily_progress': '{"${gun(1)}":4,"${gun(2)}":2,"${gun(4)}":1}',
+      });
+      prefs = await SharedPreferences.getInstance();
+
+      // Bugün henüz çalışılmadı ama seri dünden sayılıyor: dün + önceki gün.
+      // Üç gün önce boşluk olduğu için dört gün önceki gün seriye girmiyor.
+      final c = container();
+      expect(c.read(studiedTodayProvider), isFalse);
+      expect(c.read(streakProvider), 2);
+    });
+  });
+
+  group('çeldiriciler', () {
+    test('aynı türden seçilir ve ilk anlamı hedefle aynı olan elenir', () {
+      Word kelime(String id, String tr, PartOfSpeech pos) => Word(
+        id: id,
+        russian: 'слово$id',
+        accented: 'слово$id',
+        transliteration: id,
+        turkish: tr,
+        exampleRu: '',
+        exampleTr: '',
+        level: WordLevel.a1,
+        theme: null,
+        partOfSpeech: pos,
+        confidence: 3,
+      );
+
+      final hedef = kelime('h', 'ev', PartOfSpeech.noun);
+      final repo = WordRepository.fromWords([
+        hedef,
+        kelime('es', 'ev / yuva', PartOfSpeech.noun),
+        for (var i = 0; i < 6; i++)
+          kelime('n$i', 'isim${_ek(i)}', PartOfSpeech.noun),
+        for (var i = 0; i < 20; i++)
+          kelime('v$i', 'fiil${_ek(i)}', PartOfSpeech.verb),
+      ]);
+
+      for (var seed = 0; seed < 30; seed++) {
+        final secilen = repo.randomDistractors(hedef, 3, Random(seed));
+        expect(secilen, hasLength(3));
+        expect(
+          secilen.every((w) => w.partOfSpeech == PartOfSpeech.noun),
+          isTrue,
+        );
+        expect(secilen.any((w) => w.id == 'es'), isFalse);
+      }
+    });
+  });
+
+  group('ilk ders', () {
+    testWidgets('tanıtım bitince el ele ilk derse girilir', (tester) async {
+      SharedPreferences.setMockInitialValues({});
+      prefs = await SharedPreferences.getInstance();
+
+      await tester.pumpWidget(harness());
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pump(const Duration(seconds: 2));
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.text('Rusça öğreniyorum'));
+      await tester.pumpAndSettle();
+
+      // Tanıtımın üç sayfası da "ileri" ile geçiliyor.
+      for (var i = 0; i < 3; i++) {
+        await tester.tap(find.byType(FilledButton).last);
+        await tester.pumpAndSettle();
+      }
+
+      expect(find.text('İlk dersin'), findsOneWidget);
+      expect(find.text('Karta dokun: anlamını gör.'), findsOneWidget);
+
+      // Kaydırma adımlarında ok sürekli sallandığı için ekran hiç
+      // "durulmuyor"; burada sabit süre bekleniyor.
+      await tester.tap(find.byType(CardSwiper));
+      await tester.pump(const Duration(seconds: 1));
+      expect(
+        find.text('Bu kelimeyi öğrendin. Kartı sağa kaydır.'),
+        findsOneWidget,
+      );
+
+      // Yanlış yöne (sola) kaydırmak iptal ediliyor ve uyarı çıkıyor.
+      // Sürüklemeler parmak hızında: tek hamlelik ani sürükleme kütüphanede
+      // kaydırma sayılmıyor.
+      await tester.timedDrag(
+        find.byType(CardSwiper),
+        const Offset(-320, 0),
+        const Duration(milliseconds: 300),
+      );
+      await tester.pump(const Duration(milliseconds: 600));
+      expect(find.text('Bu sefer sağa kaydır.'), findsOneWidget);
+      // Uyarı kendiliğinden kaybolsun, kart yerine otursun.
+      await tester.pump(const Duration(seconds: 3));
+
+      // Doğru yöne kaydırınca ikinci adıma geçiliyor ve kelime öğrenilmiş
+      // sayılıyor; seri de başlıyor.
+      await tester.timedDrag(
+        find.byType(CardSwiper),
+        const Offset(320, 0),
+        const Duration(milliseconds: 300),
+      );
+      // Kartın uçma animasyonu kare kare bitsin, ardından adım değişsin.
+      for (var i = 0; i < 12; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      expect(
+        find.text(
+          'Emin değilsen sola kaydır; kelime sonra yine karşına çıkar.',
+        ),
+        findsOneWidget,
+      );
+      final c = container();
+      expect(c.read(learnedProvider), hasLength(1));
+      expect(c.read(streakProvider), 1);
+
+      // Atla her an ana ekrana götürüyor.
+      await tester.tap(find.text('Atla'));
+      await tester.pumpAndSettle();
+      expect(find.text('Rus Alfabesi'), findsOneWidget);
+    });
+  });
+
   group('ekranlar', () {
-    testWidgets('ana ekran seviyeleri ve alfabe kartını gösterir',
-        (tester) async {
+    testWidgets('ana ekran seviyeleri ve alfabe kartını gösterir', (
+      tester,
+    ) async {
       await boot(tester);
 
       expect(find.byType(CardSwiper), findsNothing);
@@ -540,8 +746,9 @@ void main() {
       expect(find.text('Ekonomi'), findsOneWidget);
     });
 
-    testWidgets('alt menüden ayarlara geçilir ve tema değiştirilebilir',
-        (tester) async {
+    testWidgets('alt menüden ayarlara geçilir ve tema değiştirilebilir', (
+      tester,
+    ) async {
       await boot(tester);
 
       // Alt menüdeki "Ayarlar" sekmesi.
@@ -583,8 +790,9 @@ void main() {
       expect(find.text('Günlük hedef'), findsOneWidget);
     });
 
-    testWidgets('deste bölüm listesini açar, bölüm kelimeleri gösterir',
-        (tester) async {
+    testWidgets('deste bölüm listesini açar, bölüm kelimeleri gösterir', (
+      tester,
+    ) async {
       await boot(tester);
 
       await tester.ensureVisible(find.text('Başlangıç'));
@@ -603,8 +811,9 @@ void main() {
       expect(find.byIcon(PhosphorIconsRegular.star), findsWidgets);
     });
 
-    testWidgets('bölümden kart çalışması başlar ve kart çevrilir',
-        (tester) async {
+    testWidgets('bölümden kart çalışması başlar ve kart çevrilir', (
+      tester,
+    ) async {
       await boot(tester);
 
       await tester.ensureVisible(find.text('Başlangıç'));

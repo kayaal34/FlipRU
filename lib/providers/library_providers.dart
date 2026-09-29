@@ -60,6 +60,7 @@ class LearnedNotifier extends Notifier<Set<String>> {
     _persist(state);
     // Günlük hedef sayacı yalnızca kelime *ilk kez* öğrenildiğinde artar.
     ref.read(dailyProgressProvider.notifier).record();
+    ref.read(studyDayProvider.notifier).recordToday();
   }
 
   /// Sola kaydırma: kelime "tekrar edilecek" havuzuna döner, yani

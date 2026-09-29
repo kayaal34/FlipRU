@@ -97,6 +97,8 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           ),
                         ],
                       ),
+                      const SizedBox(height: 14),
+                      _LevelProgressCard(last30: stats.last30),
                       const SizedBox(height: 26),
                       // Son 7 / son 30 kutulari kaldirildi: ayni bilgiyi
                       // asagidaki donem secici ve grafik zaten veriyor.
@@ -183,6 +185,205 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
       for (var i = 6; i >= 0; i--)
         names[now.subtract(Duration(days: i)).weekday - 1],
     ];
+  }
+}
+
+/// Seviye seviye ilerleme ve üzerinde çalışılan seviyenin tahmini bitişi.
+///
+/// "8819 kelimeden 1240'ı" soyut kalıyor; "A1 %100, B1 %38" ise kullanıcıya
+/// neyi başardığını gösteriyor. Tahmin son 14 günün ortalama hızından:
+/// bitmemiş ilk seviye için "bu hızla X günde bitirirsin". Hesap ucuz ama
+/// hedefi somutlaştırıyor.
+class _LevelProgressCard extends ConsumerWidget {
+  const _LevelProgressCard({required this.last30});
+
+  final List<int> last30;
+
+  /// Tahmin için gereken asgari hız: günde yarım kelimenin altında sayı
+  /// yüzlerce güne çıkıyor ve motive etmek yerine caydırıyor.
+  static const _minPace = 0.5;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final t = ref.watch(stringsProvider);
+    final decks = ref.watch(levelDecksProvider);
+
+    final last14 = last30.length > 14
+        ? last30.sublist(last30.length - 14)
+        : last30;
+    final pace = last14.isEmpty ? 0.0 : last14.fold(0, (a, b) => a + b) / 14;
+
+    // Üzerinde çalışılan seviye: bitmemiş ilk seviye.
+    String? estimate;
+    for (final deck in decks) {
+      final progress = ref.watch(deckProgressProvider(deck.id));
+      if (progress.isComplete) continue;
+      if (pace >= _minPace) {
+        final days = (progress.remaining / pace).ceil();
+        estimate = days <= 2
+            ? t.finishEstimateSoon.replaceFirst('{}', deck.titleOf(t))
+            : t.finishEstimate
+                  .replaceFirst('{}', deck.titleOf(t))
+                  .replaceFirst('{}', '$days');
+      }
+      break;
+    }
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(16, 15, 16, 14),
+      decoration: BoxDecoration(
+        color: palette.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: palette.separator),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(t.levelProgressTitle, style: textTheme.titleSmall),
+          const SizedBox(height: 12),
+          for (final deck in decks) ...[
+            _LevelBar(
+              label: deck.titleOf(t),
+              name: deck.subtitleOf(t),
+              tint: deck.tint,
+              progress: ref.watch(deckProgressProvider(deck.id)),
+              completeLabel: t.levelComplete,
+            ),
+            const SizedBox(height: 11),
+          ],
+          Divider(color: palette.separator, height: 14),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                PhosphorIconsRegular.flagCheckered,
+                size: 19,
+                color: estimate == null ? palette.textTertiary : palette.accent,
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      estimate ?? t.paceNone,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: estimate == null
+                            ? palette.textTertiary
+                            : palette.textPrimary,
+                      ),
+                    ),
+                    if (pace > 0) ...[
+                      const SizedBox(height: 3),
+                      Text(
+                        t.paceLine.replaceFirst(
+                          '{}',
+                          pace.toStringAsFixed(1).replaceAll('.', ','),
+                        ),
+                        style: textTheme.bodySmall?.copyWith(
+                          color: palette.textTertiary,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LevelBar extends StatelessWidget {
+  const _LevelBar({
+    required this.label,
+    required this.name,
+    required this.tint,
+    required this.progress,
+    required this.completeLabel,
+  });
+
+  final String label;
+  final String name;
+  final Color tint;
+  final DeckProgress progress;
+  final String completeLabel;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final percent = (progress.ratio * 100).floor();
+
+    return Row(
+      children: [
+        Container(
+          width: 38,
+          height: 26,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: tint.withValues(alpha: 0.15),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Text(
+            label,
+            style: textTheme.labelMedium?.copyWith(
+              color: tint,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+        const SizedBox(width: 11),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      name,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: palette.textSecondary,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    progress.isComplete
+                        ? completeLabel
+                        : '%$percent · ${progress.learned}/${progress.total}',
+                    style: textTheme.labelSmall?.copyWith(
+                      color: progress.isComplete
+                          ? palette.learned
+                          : palette.textTertiary,
+                      letterSpacing: 0,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 5),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: LinearProgressIndicator(
+                  value: progress.ratio,
+                  minHeight: 6,
+                  backgroundColor: palette.track,
+                  valueColor: AlwaysStoppedAnimation(
+                    progress.isComplete ? palette.learned : tint,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
 

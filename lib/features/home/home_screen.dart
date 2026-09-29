@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_palette.dart';
 import '../../core/i18n/strings.dart';
 import '../../core/theme/app_typography.dart';
+import '../../core/utils/haptics.dart';
+import '../../core/utils/widget_service.dart';
 import '../../core/widgets/pressable.dart';
 import '../../core/widgets/progress_ring.dart';
 import '../../core/widgets/segmented_switch.dart';
@@ -295,7 +297,168 @@ class _HomeHeader extends ConsumerWidget {
         ),
         const SizedBox(height: 10),
         const _DailyTestCard(),
+        const _WidgetTipCard(),
       ],
+    );
+  }
+}
+
+/// Widget önerisi bir kez gösterildi mi (eklendi ya da "şimdi değil" dendi)?
+class WidgetTipNotifier extends Notifier<bool> {
+  static const _key = 'widget_tip_done';
+
+  @override
+  bool build() => ref.read(sharedPreferencesProvider).getBool(_key) ?? false;
+
+  void markDone() {
+    state = true;
+    ref.read(sharedPreferencesProvider).setBool(_key, true);
+  }
+}
+
+final widgetTipDoneProvider = NotifierProvider<WidgetTipNotifier, bool>(
+  WidgetTipNotifier.new,
+);
+
+/// Tek seferlik öneri: "günün kelimesini ana ekranına ekle".
+///
+/// Widget'ın varlığı yalnızca ayarlarda anlatılıyordu ve neredeyse kimse
+/// görmüyordu. Kart, kullanıcı ilk kez bir şey çalıştıktan sonra çıkıyor —
+/// uygulamayı daha tanımadan widget önermek erken olurdu. Ana ekranda zaten
+/// bir FlipRU widget'ı varsa hiç görünmüyor; kapatıldıysa bir daha gelmiyor.
+class _WidgetTipCard extends ConsumerStatefulWidget {
+  const _WidgetTipCard();
+
+  @override
+  ConsumerState<_WidgetTipCard> createState() => _WidgetTipCardState();
+}
+
+class _WidgetTipCardState extends ConsumerState<_WidgetTipCard> {
+  /// Kurulu mu diye sormadan kartı çizmeyelim: widget'ı olan kullanıcıya
+  /// bir anlığına bile öneri göstermek tuhaf durur.
+  bool _checked = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _check();
+  }
+
+  Future<void> _check() async {
+    if (ref.read(widgetTipDoneProvider)) return;
+    final installed = await const WidgetService().isInstalled();
+    if (!mounted) return;
+    if (installed) {
+      ref.read(widgetTipDoneProvider.notifier).markDone();
+      return;
+    }
+    setState(() => _checked = true);
+  }
+
+  Future<void> _add() async {
+    Haptics.light();
+    final service = const WidgetService();
+    final notifier = ref.read(widgetTipDoneProvider.notifier);
+    if (await service.canPin()) {
+      await service.requestPin();
+      notifier.markDone();
+      return;
+    }
+    // Launcher tek dokunuşla eklemeyi desteklemiyorsa elle nasıl
+    // ekleneceğini anlat.
+    if (!mounted) return;
+    final s = ref.read(stringsProvider);
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(s.widgetTipManualTitle),
+        content: Text(s.widgetTipManualBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: Text(s.gotIt),
+          ),
+        ],
+      ),
+    );
+    notifier.markDone();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final done = ref.watch(widgetTipDoneProvider);
+    final studied = ref.watch(studyDayProvider).isNotEmpty;
+    if (done || !studied || !_checked) return const SizedBox.shrink();
+
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(16, 15, 16, 8),
+        decoration: BoxDecoration(
+          color: palette.accentSoft,
+          borderRadius: BorderRadius.circular(18),
+          border: Border.all(color: palette.accent.withValues(alpha: 0.35)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 44,
+                  height: 44,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    color: palette.surface,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    PhosphorIconsRegular.squaresFour,
+                    size: 24,
+                    color: palette.accent,
+                  ),
+                ),
+                const SizedBox(width: 13),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(s.widgetTipTitle, style: textTheme.labelLarge),
+                      const SizedBox(height: 3),
+                      Text(
+                        s.widgetTipBody,
+                        style: textTheme.bodySmall?.copyWith(
+                          color: palette.textSecondary,
+                          height: 1.4,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Haptics.light();
+                    ref.read(widgetTipDoneProvider.notifier).markDone();
+                  },
+                  child: Text(s.widgetTipLater),
+                ),
+                const SizedBox(width: 4),
+                FilledButton(onPressed: _add, child: Text(s.widgetTipAdd)),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -389,7 +552,11 @@ class _AlphabetCard extends ConsumerWidget {
                 color: palette.accentSoft,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(PhosphorIconsRegular.textAa, color: palette.accent, size: 30),
+              child: Icon(
+                PhosphorIconsRegular.textAa,
+                color: palette.accent,
+                size: 30,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -419,7 +586,11 @@ class _AlphabetCard extends ConsumerWidget {
               color: palette.accent,
               size: 48,
               child: done == total
-                  ? Icon(PhosphorIconsBold.check, size: 23, color: palette.accent)
+                  ? Icon(
+                      PhosphorIconsBold.check,
+                      size: 23,
+                      color: palette.accent,
+                    )
                   : Text(
                       '${(ratio * 100).round()}',
                       style: textTheme.labelSmall?.copyWith(
@@ -471,11 +642,8 @@ class _DailyTestCard extends ConsumerWidget {
         final secilen = <Word>[...learned]..shuffle();
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (_) => QuizScreen(
-              title: s.dailyTest,
-              words: secilen,
-              kind: 'daily',
-            ),
+            builder: (_) =>
+                QuizScreen(title: s.dailyTest, words: secilen, kind: 'daily'),
           ),
         );
       },

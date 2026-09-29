@@ -95,18 +95,19 @@ class NotificationService {
   /// [hour]:[minute] saatinde, önümüzdeki [_horizonDays] gün için hatırlatma
   /// kurar. [skipToday] bugünün hedefi tamamlandığında true geçilir.
   ///
-  /// [streak] sıfırdan büyükse yarın akşam için ayrıca bir "serin tehlikede"
-  /// uyarısı kuruluyor. Arka planda çalışan bir şey olmadığı için bu uyarı
-  /// yalnızca yarını kapsıyor: kullanıcı yarın uygulamayı açarsa bütün
-  /// bildirimler silinip yeniden kuruluyor, yani uyarı sadece gelmediği gün
-  /// çalıyor. Öbür günü de kurmanın anlamı yok — seri o noktada zaten kopmuş
-  /// olur ve "serini kaybetme" demek yanlış olurdu.
+  /// [streak] sıfırdan büyükse ayrıca bir "serin tehlikede" uyarısı
+  /// kuruluyor: bugün henüz çalışılmadıysa ([studiedToday] false) bu akşama,
+  /// çalışıldıysa yarın akşama. Uygulama açılıp bir şey yapıldığında bütün
+  /// bildirimler yeniden kuruluyor, yani uyarı yalnızca gerçekten çalışılmayan
+  /// gün çalıyor. Daha ileriye kurmanın anlamı yok — seri o noktada zaten
+  /// kopmuş olur ve "serini kaybetme" demek yanlış olurdu.
   Future<void> scheduleDaily({
     required int hour,
     required int minute,
     required bool skipToday,
     required int goal,
     required int streak,
+    required bool studiedToday,
     required Strings strings,
   }) async {
     await _ensureInitialized();
@@ -156,14 +157,17 @@ class NotificationService {
         if (uyariSaat < 21) uyariSaat = 21;
         if (uyariSaat > 23) uyariSaat = 23;
 
-        final uyari = tz.TZDateTime(
+        var uyari = tz.TZDateTime(
           tz.local,
           now.year,
           now.month,
-          now.day + 1,
+          now.day + (studiedToday ? 1 : 0),
           uyariSaat,
           30,
         );
+        // Bugünün uyarı saati geçtiyse (gece yarısına az kala açıldı) yarına
+        // kurmak yanlış olur: seri o zaman bu gece kopmuş olacak.
+        if (!uyari.isAfter(now)) return;
         await _plugin.zonedSchedule(
           id: _streakId,
           title: strings.streakNotifTitle,

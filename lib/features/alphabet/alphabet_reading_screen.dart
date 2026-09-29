@@ -7,6 +7,7 @@ import '../../core/theme/app_typography.dart';
 import '../../core/utils/haptics.dart';
 import '../../core/widgets/pressable.dart';
 import '../../providers/app_providers.dart';
+import '../../providers/daily_provider.dart';
 import '../../providers/settings_provider.dart';
 
 /// Harfleri öğrendikten sonraki ödül: gerçek kelimeleri okuma.
@@ -177,6 +178,7 @@ class _AlphabetReadingScreenState extends ConsumerState<AlphabetReadingScreen> {
                             },
                           ),
                         );
+                    ref.read(studyDayProvider.notifier).recordToday();
                     Navigator.of(context).pop(true);
                   },
                   child: Text(s.finish),
