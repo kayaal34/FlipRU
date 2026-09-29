@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/config/qa_mode.dart';
 import '../../core/i18n/strings.dart';
+import '../../core/utils/word_of_day.dart';
+import '../../providers/daily_provider.dart';
 import '../../core/theme/app_palette.dart';
 import '../../data/models/app_settings.dart';
 import '../../providers/app_providers.dart';
@@ -217,6 +220,27 @@ class SettingsScreen extends ConsumerWidget {
                             }
                           : null,
                     ),
+                    // Yalnızca QA derlemesinde: bildirimleri saatini
+                    // beklemeden görmek için. Play sürümünde qaMode hep false.
+                    if (qaMode)
+                      SettingsRow(
+                        title: 'QA: Test bildirimlerini gönder',
+                        icon: PhosphorIconsRegular.bellSimpleRinging,
+                        onTap: () => ref
+                            .read(notificationServiceProvider)
+                            .showTestNotifications(
+                              wordOfDay: wordOfDayContent(
+                                pool: ref.read(wordRepositoryProvider).allWords,
+                                when: DateTime.now(),
+                                strings: t,
+                                learningTurkish:
+                                    settings.language == AppLanguage.ru,
+                              ),
+                              goal: settings.dailyGoal,
+                              streak: ref.read(streakProvider),
+                              strings: t,
+                            ),
+                      ),
                   ],
                 ),
 

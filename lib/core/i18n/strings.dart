@@ -776,7 +776,7 @@ class Strings {
     shuffleSub: 'Kapalıysa kelimeler en sık kullanılandan başlar',
     quizLength: 'Testteki soru sayısı',
     quizLengthSub: 'Öğrendiklerim, yıldızlılar ve günün testi için',
-    streakNotifTitle: 'Seri bozulmak üzere',
+    streakNotifTitle: 'Seri bozulmak üzere 🔥',
     streakNotifBody:
         '{} günlük serin devam etsin: bugün bir kelime öğren ya da bir test çöz.',
     skipLearned: 'Bildiklerimi tekrar sorma',
@@ -809,7 +809,7 @@ class Strings {
     accountSub: 'İlerlemeni sıfırla, verilerini sil',
     about: 'Hakkında',
     appSubtitle: 'Rusça kelime öğrenme uygulaması',
-    version: 'Sürüm 1.2.0',
+    version: 'Sürüm 1.3.0',
     privacy: 'Gizlilik Politikası',
     terms: 'Hizmet Kullanım Şartları',
     aboutFooter:
@@ -1210,7 +1210,7 @@ class Strings {
     shuffleSub: 'Если выключено — слова идут от самых частых',
     quizLength: 'Вопросов в тесте',
     quizLengthSub: 'Для выученных, избранных и теста дня',
-    streakNotifTitle: 'Серия под угрозой',
+    streakNotifTitle: 'Серия под угрозой 🔥',
     streakNotifBody:
         'Не прерывай серию ({} дн.): выучи сегодня слово или пройди тест.',
     skipLearned: 'Не повторять выученные',
@@ -1241,7 +1241,7 @@ class Strings {
     accountSub: 'Сброс прогресса и удаление данных',
     about: 'О приложении',
     appSubtitle: 'Приложение для изучения русских слов',
-    version: 'Версия 1.2.0',
+    version: 'Версия 1.3.0',
     privacy: 'Политика конфиденциальности',
     terms: 'Условия использования',
     aboutFooter:

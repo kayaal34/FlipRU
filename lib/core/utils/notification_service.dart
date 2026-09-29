@@ -107,6 +107,88 @@ class NotificationService {
     } catch (_) {}
   }
 
+  /// Yalnızca QA derlemesi: üç bildirim türünü gerçek içerikleriyle hemen
+  /// gösterir. Saatini beklemeden görünüşü ve metni kontrol etmek için.
+  Future<void> showTestNotifications({
+    required (String, String) wordOfDay,
+    required int goal,
+    required int streak,
+    required Strings strings,
+  }) async {
+    await _ensureInitialized();
+    if (!_available) return;
+    await requestPermission();
+
+    NotificationDetails details(String channel, String name, String desc) =>
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel,
+            name,
+            channelDescription: desc,
+            importance: Importance.defaultImportance,
+            priority: Priority.defaultPriority,
+          ),
+          iOS: const DarwinNotificationDetails(),
+        );
+
+    try {
+      await _plugin.show(
+        id: 900,
+        title: wordOfDay.$1,
+        body: wordOfDay.$2,
+        notificationDetails: _expand(
+          details(
+            _wordChannelId,
+            strings.wordOfDayToggle,
+            strings.wordOfDayToggleSub,
+          ),
+          wordOfDay.$2,
+        ),
+      );
+      await _plugin.show(
+        id: 901,
+        title: strings.notificationTitle,
+        body: strings.notificationBody.replaceFirst('{}', '$goal'),
+        notificationDetails: _expand(
+          details(_channelId, strings.notifChannel, strings.notifChannelDesc),
+          strings.notificationBody.replaceFirst('{}', '$goal'),
+        ),
+      );
+      await _plugin.show(
+        id: 902,
+        title: strings.streakNotifTitle,
+        body: strings.streakNotifBody.replaceFirst(
+          '{}',
+          '${streak > 0 ? streak : 5}',
+        ),
+        notificationDetails: _expand(
+          details(_channelId, strings.notifChannel, strings.notifChannelDesc),
+          strings.streakNotifBody.replaceFirst(
+            '{}',
+            '${streak > 0 ? streak : 5}',
+          ),
+        ),
+      );
+    } catch (_) {}
+  }
+
+  /// Uzun gövde tek satırda kesiliyordu ("...bir t.."); bildirim aşağı
+  /// çekilince metnin tamamı görünsün.
+  NotificationDetails _expand(NotificationDetails base, String body) {
+    final a = base.android!;
+    return NotificationDetails(
+      android: AndroidNotificationDetails(
+        a.channelId,
+        a.channelName,
+        channelDescription: a.channelDescription,
+        importance: a.importance,
+        priority: a.priority,
+        styleInformation: BigTextStyleInformation(body),
+      ),
+      iOS: base.iOS,
+    );
+  }
+
   /// Günün kelimesi bildirimleri; kimlikleri hatırlatmalarla çakışmasın.
   static const _wordOfDayId = 200;
   static const _wordChannelId = 'word_of_day';
@@ -156,7 +238,7 @@ class NotificationService {
           title: title,
           body: body,
           scheduledDate: when,
-          notificationDetails: details,
+          notificationDetails: _expand(details, body),
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         );
       }
@@ -218,7 +300,10 @@ class NotificationService {
           title: strings.notificationTitle,
           body: strings.notificationBody.replaceFirst('{}', '$goal'),
           scheduledDate: when,
-          notificationDetails: details,
+          notificationDetails: _expand(
+            details,
+            strings.notificationBody.replaceFirst('{}', '$goal'),
+          ),
           // Kesin alarm izni istemiyoruz; birkaç dakika sapma sorun değil.
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         );
@@ -246,7 +331,10 @@ class NotificationService {
           title: strings.streakNotifTitle,
           body: strings.streakNotifBody.replaceFirst('{}', '$streak'),
           scheduledDate: uyari,
-          notificationDetails: details,
+          notificationDetails: _expand(
+            details,
+            strings.streakNotifBody.replaceFirst('{}', '$streak'),
+          ),
           androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
         );
       }

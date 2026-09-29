@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'core/i18n/strings.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/widget_service.dart';
+import 'core/utils/word_of_day.dart';
 import 'features/splash/splash_screen.dart';
 import 'providers/app_providers.dart';
 import 'providers/daily_provider.dart';
@@ -100,26 +101,12 @@ class _FlipRuAppState extends ConsumerState<FlipRuApp> {
       hour: settings.wordOfDayHour,
       minute: settings.wordOfDayMinute,
       strings: s,
-      wordFor: (when) {
-        final word = WidgetService.wordFor(
-          pool,
-          WidgetService.windowSeed(when, 24),
-        );
-        if (learningTurkish) {
-          final head = word.turkish.split(' / ').first;
-          final reading = word.turkishTranslit.isEmpty
-              ? ''
-              : '${word.turkishTranslit} · ';
-          return (
-            s.wordOfDayNotifTitle.replaceFirst('{}', head),
-            '$reading${word.russian}',
-          );
-        }
-        return (
-          s.wordOfDayNotifTitle.replaceFirst('{}', word.accented),
-          '${word.transliteration} · ${word.turkish}',
-        );
-      },
+      wordFor: (when) => wordOfDayContent(
+        pool: pool,
+        when: when,
+        strings: s,
+        learningTurkish: learningTurkish,
+      ),
     );
   }
 
