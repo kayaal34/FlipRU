@@ -878,7 +878,7 @@ class Strings {
     accountSub: 'İlerlemeni sıfırla, verilerini sil',
     about: 'Hakkında',
     appSubtitle: 'Rusça kelime öğrenme uygulaması',
-    version: 'Sürüm 1.3.0',
+    version: 'Sürüm 1.4.0',
     privacy: 'Gizlilik Politikası',
     terms: 'Hizmet Kullanım Şartları',
     aboutFooter:
@@ -1356,7 +1356,7 @@ class Strings {
     accountSub: 'Сброс прогресса и удаление данных',
     about: 'О приложении',
     appSubtitle: 'Приложение для изучения русских слов',
-    version: 'Версия 1.3.0',
+    version: 'Версия 1.4.0',
     privacy: 'Политика конфиденциальности',
     terms: 'Условия использования',
     aboutFooter:

@@ -242,7 +242,7 @@ class _HomeHeader extends ConsumerWidget {
                           ),
                     ),
                   ),
-                  const SizedBox(height: 6),
+                  const SizedBox(height: 12),
                   Text(
                     s.dateLine(DateTime.now()),
                     style: textTheme.bodyMedium?.copyWith(
@@ -250,7 +250,7 @@ class _HomeHeader extends ConsumerWidget {
                       fontSize: 15,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 16),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -286,7 +286,7 @@ class _HomeHeader extends ConsumerWidget {
             _StreakBadge(days: streak),
           ],
         ),
-        const SizedBox(height: 26),
+        const SizedBox(height: 28),
         const _WeekStrip(),
         const _ReminderCard(),
         const _ResumeCard(),
