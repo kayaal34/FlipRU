@@ -109,7 +109,7 @@ class TestsScreen extends ConsumerWidget {
                       tint: palette.learned,
                       title: t.myLearned,
                       subtitle: t.learnedListSub,
-                      count: learnedCount,
+                      count: t.number(learnedCount),
                       caption: t.wordUnit(learnedCount),
                       enabled: true,
                       onTap: () => Navigator.of(context).push(
@@ -122,7 +122,7 @@ class TestsScreen extends ConsumerWidget {
                       icon: PhosphorIconsFill.star,
                       tint: palette.star,
                       title: t.starredTitle,
-                      count: starred.length,
+                      count: t.number(starred.length),
                       caption: t.wordUnit(starred.length),
                       subtitle: starred.isEmpty
                           ? t.starredEmptyHint
@@ -181,7 +181,7 @@ class _LevelTestRow extends ConsumerWidget {
       title: '${deck.titleOf(t)} · ${deck.subtitleOf(t)}',
       subtitle: known.length < _minLearned
           ? t.levelTestNeed
-          : '${known.length} ${t.levelTestKnown}',
+          : '${t.number(known.length)} ${t.levelTestKnown}',
       enabled: enabled,
       compact: true,
       // Dogrudan teste girmek yerine bolum listesine gidiyoruz: B2'de 2.500
@@ -190,7 +190,7 @@ class _LevelTestRow extends ConsumerWidget {
         MaterialPageRoute(builder: (_) => LevelTestUnitsScreen(deck: deck)),
       ),
       trailing: Text(
-        '${known.length}/${words.length}',
+        '${t.number(known.length)}/${t.number(words.length)}',
         style: textTheme.bodySmall?.copyWith(color: palette.textTertiary),
       ),
     );
@@ -336,7 +336,7 @@ class _TestTile extends StatelessWidget {
   final String? caption;
 
   /// Varsa ikon yerine büyük sayı: listede kaç kelime olduğu bir bakışta.
-  final int? count;
+  final String? count;
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +368,7 @@ class _TestTile extends StatelessWidget {
             children: [
               if (count != null)
                 Text(
-                  '$count',
+                  count!,
                   style: textTheme.headlineMedium?.copyWith(height: 1),
                 )
               else
@@ -469,9 +469,10 @@ class _DailyTestHero extends ConsumerWidget {
                   ),
                   const SizedBox(height: 14),
                   Container(
+                    // 13 + 18 + 13: en az 44 px dokunma alanı.
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 18,
-                      vertical: 9,
+                      horizontal: 24,
+                      vertical: 13,
                     ),
                     decoration: BoxDecoration(
                       color: done ? const Color(0xFF32D373) : palette.accent,

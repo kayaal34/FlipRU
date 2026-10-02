@@ -69,12 +69,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 640),
             child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
+              padding: const EdgeInsets.fromLTRB(24, 8, 24, 48),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const _HomeHeader(),
-                  const SizedBox(height: 26),
+                  const SizedBox(height: 32),
                   // Yildizli/Ogrendigim kartlari burada degil, Pratik
                   // sekmesinde duruyor: ana ekran "bugun ne yapmaliyim"
                   // sorusuna ve destelere ayrildi.
@@ -83,7 +83,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                     selectedIndex: _tab,
                     onChanged: (index) => setState(() => _tab = index),
                   ),
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 16),
                   AnimatedSize(
                     duration: const Duration(milliseconds: 320),
                     curve: Curves.easeOutCubic,
@@ -114,7 +114,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 // ince bir satır olarak listenin sonuna iniyor.
                                 if (!alphabetCompact) ...[
                                   _AlphabetCard(onTap: _openAlphabet),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 8),
                                 ],
                                 for (final deck in levelDecks) ...[
                                   DeckRow(
@@ -124,7 +124,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                     ),
                                     onTap: () => _openDeck(deck),
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 8),
                                 ],
                                 if (alphabetCompact)
                                   _AlphabetCard(
@@ -211,6 +211,7 @@ class _HomeHeader extends ConsumerWidget {
     final overall = ref.watch(overallProgressProvider);
     final daily = ref.watch(dailySummaryProvider);
     final streak = ref.watch(streakProvider);
+    final dayDone = daily.goalReached && ref.watch(dailyTestDoneProvider);
     final s = ref.watch(stringsProvider);
 
     return Column(
@@ -242,7 +243,7 @@ class _HomeHeader extends ConsumerWidget {
                           ),
                     ),
                   ),
-                  const SizedBox(height: 12),
+                  const SizedBox(height: 8),
                   Text(
                     s.dateLine(DateTime.now()),
                     style: textTheme.bodyMedium?.copyWith(
@@ -262,7 +263,7 @@ class _HomeHeader extends ConsumerWidget {
                           color: palette.accent,
                         ),
                       ),
-                      const SizedBox(width: 7),
+                      const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           _motivation(
@@ -282,85 +283,92 @@ class _HomeHeader extends ConsumerWidget {
                 ],
               ),
             ),
-            const SizedBox(width: 12),
+            const SizedBox(width: 16),
             _StreakBadge(days: streak),
           ],
         ),
-        const SizedBox(height: 28),
+        const SizedBox(height: 24),
         const _WeekStrip(),
         const _ReminderCard(),
         const _ResumeCard(),
-        const SizedBox(height: 30),
+        const SizedBox(height: 32),
         Text(s.todayProgress, style: textTheme.titleMedium),
-        const SizedBox(height: 12),
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 14, 16, 15),
-          decoration: BoxDecoration(
-            color: palette.surface,
-            borderRadius: BorderRadius.circular(22),
-          ),
-          child: Row(
-            children: [
-              ProgressRing(
-                value: daily.ratio,
-                color: daily.goalReached ? palette.learned : _flame,
-                size: 52,
-                strokeWidth: 5,
-                child: daily.goalReached
-                    ? Icon(
-                        PhosphorIconsBold.check,
-                        size: 22,
-                        color: palette.learned,
-                      )
-                    : Text(
-                        s.percent((daily.ratio * 100).round()),
-                        style: textTheme.labelMedium?.copyWith(
-                          color: palette.textPrimary,
+        const SizedBox(height: 16),
+        // Hedef ve günün testi ikisi de bittiyse tek kart: aynı ekranda
+        // iki ayrı "tamam" kartı ve iki ayrı devam düğmesi kalabalık ediyordu.
+        if (dayDone)
+          const _DayDoneCard()
+        else ...[
+          Container(
+            padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
+            decoration: BoxDecoration(
+              color: palette.surface,
+              borderRadius: BorderRadius.circular(22),
+            ),
+            child: Row(
+              children: [
+                ProgressRing(
+                  value: daily.ratio,
+                  color: daily.goalReached ? palette.learned : _flame,
+                  size: 52,
+                  strokeWidth: 5,
+                  child: daily.goalReached
+                      ? Icon(
+                          PhosphorIconsBold.check,
+                          size: 22,
+                          color: palette.learned,
+                        )
+                      : Text(
+                          s.percent((daily.ratio * 100).round()),
+                          style: textTheme.labelMedium?.copyWith(
+                            color: palette.textPrimary,
+                          ),
+                        ),
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        daily.goalReached
+                            ? s.goalDone
+                            // "Bugün" bölüm başlığında; burada tekrar etmiyor.
+                            : '${daily.today} / ${daily.goal} '
+                                  '${s.wordUnit(daily.goal)}',
+                        style: textTheme.labelLarge,
+                      ),
+                      const SizedBox(height: 3),
+                      Text(
+                        // Teşvik mesajı günün ilerlemesine göre değişiyor.
+                        daily.goalReached
+                            ? s.comeBackTomorrow
+                            : switch (daily.ratio) {
+                                >= 0.5 => s.encourageAlmost,
+                                > 0 => s.encourageGoing,
+                                _ => s.encourageStart,
+                              },
+                        style: textTheme.bodySmall?.copyWith(
+                          color: palette.textSecondary,
                         ),
                       ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      daily.goalReached
-                          ? s.goalDone
-                          // "Bugün" bölüm başlığında; burada tekrar etmiyor.
-                          : '${daily.today} / ${daily.goal} '
-                                '${s.wordUnit(daily.goal)}',
-                      style: textTheme.labelLarge,
-                    ),
-                    const SizedBox(height: 3),
-                    Text(
-                      // Teşvik mesajı günün ilerlemesine göre değişiyor.
-                      daily.goalReached
-                          ? s.comeBackTomorrow
-                          : switch (daily.ratio) {
-                              >= 0.5 => s.encourageAlmost,
-                              > 0 => s.encourageGoing,
-                              _ => s.encourageStart,
-                            },
-                      style: textTheme.bodySmall?.copyWith(
-                        color: palette.textSecondary,
+                      const SizedBox(height: 2),
+                      Text(
+                        '${s.totalLearned} · ${s.number(overall.learned)} '
+                        '${s.wordUnit(overall.learned)}',
+                        style: textTheme.bodySmall?.copyWith(
+                          color: palette.textTertiary,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      '${s.words(overall.learned)} ${s.learnedWords}',
-                      style: textTheme.bodySmall?.copyWith(
-                        color: palette.textTertiary,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        const SizedBox(height: 10),
-        const _DailyTestCard(),
+          const SizedBox(height: 8),
+          const _DailyTestCard(),
+        ],
         const _WidgetTipCard(),
       ],
     );
@@ -459,9 +467,9 @@ class _WidgetTipCardState extends ConsumerState<_WidgetTipCard> {
     final s = ref.watch(stringsProvider);
 
     return Padding(
-      padding: const EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 8),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 15, 16, 8),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
         decoration: BoxDecoration(
           color: palette.accentSoft,
           borderRadius: BorderRadius.circular(18),
@@ -487,7 +495,7 @@ class _WidgetTipCardState extends ConsumerState<_WidgetTipCard> {
                     color: palette.accent,
                   ),
                 ),
-                const SizedBox(width: 13),
+                const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -548,7 +556,7 @@ class _StreakBadge extends ConsumerWidget {
     final color = active ? _flame : palette.textTertiary;
 
     return Container(
-      padding: const EdgeInsets.fromLTRB(14, 10, 18, 10),
+      padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       decoration: BoxDecoration(
         color: active ? _flameSoft(palette) : palette.surfaceSunken,
         borderRadius: BorderRadius.circular(99),
@@ -557,7 +565,7 @@ class _StreakBadge extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Icon(PhosphorIconsFill.fire, size: 30, color: color),
-          const SizedBox(width: 6),
+          const SizedBox(width: 8),
           Text(
             '$days',
             style: textTheme.titleLarge?.copyWith(
@@ -762,7 +770,7 @@ class _ReminderCardState extends ConsumerState<_ReminderCard> {
           : Padding(
               padding: const EdgeInsets.only(top: 16),
               child: Container(
-                padding: const EdgeInsets.fromLTRB(18, 16, 12, 16),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
                 decoration: BoxDecoration(
                   color: dark
                       ? _flame.withValues(alpha: 0.16)
@@ -789,13 +797,14 @@ class _ReminderCardState extends ConsumerState<_ReminderCard> {
                               height: 1.4,
                             ),
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 16),
                           Pressable(
                             onTap: _enable,
                             child: Container(
+                              // 13 + 18 + 13: en az 44 px dokunma alanı.
                               padding: const EdgeInsets.symmetric(
-                                horizontal: 18,
-                                vertical: 9,
+                                horizontal: 24,
+                                vertical: 13,
                               ),
                               decoration: BoxDecoration(
                                 color: dark ? _flame : const Color(0xFF3B1B0A),
@@ -857,7 +866,7 @@ class _AlphabetCard extends ConsumerWidget {
       return Pressable(
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.fromLTRB(12, 10, 16, 10),
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
           decoration: BoxDecoration(
             color: palette.surface,
             borderRadius: BorderRadius.circular(16),
@@ -878,7 +887,7 @@ class _AlphabetCard extends ConsumerWidget {
                   size: 20,
                 ),
               ),
-              const SizedBox(width: 12),
+              const SizedBox(width: 16),
               Expanded(
                 child: Text(s.alphabetTitle, style: textTheme.labelLarge),
               ),
@@ -895,7 +904,7 @@ class _AlphabetCard extends ConsumerWidget {
                     color: palette.textTertiary,
                   ),
                 ),
-              const SizedBox(width: 6),
+              const SizedBox(width: 8),
               Icon(
                 PhosphorIconsRegular.caretRight,
                 size: 18,
@@ -911,7 +920,7 @@ class _AlphabetCard extends ConsumerWidget {
       onTap: onTap,
       child: Container(
         // Seviye satirlariyla ayni olculer: ikisi de ayni listede.
-        padding: const EdgeInsets.all(17),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: palette.surface,
           borderRadius: BorderRadius.circular(22),
@@ -932,7 +941,7 @@ class _AlphabetCard extends ConsumerWidget {
                 size: 30,
               ),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1022,7 +1031,7 @@ class _DailyTestCard extends ConsumerWidget {
         );
       },
       child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 16),
         decoration: BoxDecoration(
           color: palette.surface,
           borderRadius: BorderRadius.circular(22),
@@ -1043,7 +1052,7 @@ class _DailyTestCard extends ConsumerWidget {
                 color: done ? palette.learned : palette.textSecondary,
               ),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: 16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1083,7 +1092,10 @@ class _ResumeCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final target = ref.watch(resumeProvider);
-    if (target == null) return const SizedBox.shrink();
+    final dayDone =
+        ref.watch(dailySummaryProvider).goalReached &&
+        ref.watch(dailyTestDoneProvider);
+    if (target == null || dayDone) return const SizedBox.shrink();
 
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
@@ -1124,30 +1136,17 @@ class _ResumeCard extends ConsumerWidget {
         ? s.resumeDoneNote('${s.unit} ${unit.index}', unit.titleOf(s))
         : null;
 
-    void open() {
-      Haptics.light();
-      ref.read(lastUnitProvider.notifier).set(unit.id);
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (_) => StudyScreen(
-            title: '${target.deck.titleOf(s)} · ${unit.titleOf(s)}',
-            words: unit.words,
-            unlearnedFirst: true,
-            accent: target.deck.tint,
-          ),
-        ),
-      );
-    }
+    void open() => _openResume(context, ref, target);
 
     return Padding(
-      padding: const EdgeInsets.only(top: 22),
+      padding: const EdgeInsets.only(top: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Pressable(
             onTap: open,
             child: Container(
-              padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+              padding: const EdgeInsets.fromLTRB(24, 24, 24, 24),
               decoration: BoxDecoration(
                 color: palette.isDark ? palette.surfaceRaised : _ink,
                 borderRadius: BorderRadius.circular(26),
@@ -1187,7 +1186,7 @@ class _ResumeCard extends ConsumerWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 8),
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     alignment: Alignment.centerLeft,
@@ -1208,7 +1207,7 @@ class _ResumeCard extends ConsumerWidget {
                       color: const Color(0xFFD8CFC6),
                     ),
                   ),
-                  const SizedBox(height: 14),
+                  const SizedBox(height: 16),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(3),
                     child: LinearProgressIndicator(
@@ -1220,9 +1219,10 @@ class _ResumeCard extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   Container(
+                    // 15 + 18 + 15: 48 px yüksekliğinde ana eylem.
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 11,
+                      horizontal: 24,
+                      vertical: 15,
                     ),
                     decoration: BoxDecoration(
                       color: palette.accent,
@@ -1241,7 +1241,7 @@ class _ResumeCard extends ConsumerWidget {
           ),
           if (doneNote != null)
             Padding(
-              padding: const EdgeInsets.only(top: 9),
+              padding: const EdgeInsets.only(top: 8),
               child: Text(
                 doneNote,
                 textAlign: TextAlign.center,
@@ -1252,6 +1252,227 @@ class _ResumeCard extends ConsumerWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+/// "Kaldığın yer" bölümünü kartlarla açar; ana karttan ve "Ekstra pratik"ten.
+void _openResume(BuildContext context, WidgetRef ref, ResumeTarget target) {
+  Haptics.light();
+  final s = ref.read(stringsProvider);
+  final unit = target.progress.unit;
+  ref.read(lastUnitProvider.notifier).set(unit.id);
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (_) => StudyScreen(
+        title: '${target.deck.titleOf(s)} · ${unit.titleOf(s)}',
+        words: unit.words,
+        unlearnedFirst: true,
+        accent: target.deck.tint,
+      ),
+    ),
+  );
+}
+
+/// Günün hedefi ve testi bitince "Bugün" bölümünün yerini alan tek kart.
+///
+/// Kullanıcıyı "yarın gel" diye bırakmak yerine iki net seçenek sunuyor:
+/// yeni kelimeyle devam (Ekstra pratik) ya da öğrendiklerini pekiştirme
+/// (Tekrar). Bu sırada "Kaldığın yer" kartı gizli, aynı iş iki yerde durmasın.
+class _DayDoneCard extends ConsumerWidget {
+  const _DayDoneCard();
+
+  static const _reviewSize = 20;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+    final learnedIds = ref.watch(learnedProvider);
+    final target = ref.watch(resumeProvider);
+
+    void review() {
+      Haptics.light();
+      final pool =
+          ref
+              .read(wordRepositoryProvider)
+              .allWords
+              .where((w) => learnedIds.contains(w.id))
+              .toList()
+            ..shuffle();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => StudyScreen(
+            title: s.reviewAction,
+            words: pool.take(_reviewSize).toList(growable: false),
+          ),
+        ),
+      );
+    }
+
+    Widget stat(String label, Widget value) => Expanded(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label,
+            style: textTheme.bodySmall?.copyWith(color: palette.textTertiary),
+          ),
+          const SizedBox(height: 4),
+          value,
+        ],
+      ),
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    width: 48,
+                    height: 48,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: palette.learnedSoft,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      PhosphorIconsBold.check,
+                      size: 24,
+                      color: palette.learned,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(s.dayDoneTitle, style: textTheme.titleMedium),
+                        const SizedBox(height: 4),
+                        Text(
+                          s.dayDoneBody,
+                          style: textTheme.bodySmall?.copyWith(
+                            color: palette.textSecondary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Divider(height: 1, color: palette.separator),
+              const SizedBox(height: 16),
+              IntrinsicHeight(
+                child: Row(
+                  children: [
+                    stat(
+                      s.dailyTest,
+                      Row(
+                        children: [
+                          Icon(
+                            PhosphorIconsBold.check,
+                            size: 16,
+                            color: palette.learned,
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            s.solvedShort,
+                            style: textTheme.labelLarge?.copyWith(
+                              color: palette.learned,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    VerticalDivider(width: 32, color: palette.separator),
+                    stat(
+                      s.totalLearned,
+                      Text(
+                        '${s.number(learnedIds.length)} '
+                        '${s.wordUnit(learnedIds.length)}',
+                        style: textTheme.labelLarge,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            if (target != null) ...[
+              Expanded(
+                child: Pressable(
+                  onTap: () => _openResume(context, ref, target),
+                  child: Container(
+                    height: 52,
+                    decoration: BoxDecoration(
+                      color: palette.accent,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Icon(
+                          PhosphorIconsBold.lightning,
+                          size: 18,
+                          color: Colors.white,
+                        ),
+                        const SizedBox(width: 8),
+                        Text(
+                          s.extraPractice,
+                          style: textTheme.labelLarge?.copyWith(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 16),
+            ],
+            Expanded(
+              child: Pressable(
+                onTap: review,
+                child: Container(
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: palette.surface,
+                    borderRadius: BorderRadius.circular(18),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        PhosphorIconsBold.arrowsClockwise,
+                        size: 18,
+                        color: palette.textPrimary,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(s.reviewAction, style: textTheme.labelLarge),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

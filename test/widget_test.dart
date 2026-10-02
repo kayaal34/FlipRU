@@ -12,6 +12,8 @@ import 'package:flipru/app.dart';
 import 'package:flipru/data/models/app_settings.dart';
 import 'package:flipru/core/theme/app_theme.dart';
 import 'package:flipru/features/quiz/quiz_screen.dart';
+import 'package:flipru/core/config/qa_mode.dart';
+import 'package:flipru/features/home/home_screen.dart';
 import 'package:flipru/features/settings/settings_screen.dart';
 import 'package:flipru/core/i18n/strings.dart';
 import 'package:flipru/data/models/deck.dart';
@@ -779,6 +781,42 @@ void main() {
       expect(find.text('Başlangıç'), findsOneWidget);
       // Yildizli/Ogrendigim artik yalnizca Pratik sekmesinde.
       expect(find.text('Yıldızlı Kelimelerim'), findsNothing);
+    });
+
+    testWidgets('QA verisiyle ana ekran hatasız çizilir', (tester) async {
+      tester.view.physicalSize = const Size(1440, 2960);
+      tester.view.devicePixelRatio = 3.5;
+      addTearDown(tester.view.reset);
+      seedQaProgress(container());
+      await boot(tester);
+      expect(tester.takeException(), isNull);
+      expect(find.text('Seviyeler'), findsOneWidget);
+
+      final kaydirma = find
+          .descendant(
+            of: find.byType(HomeScreen),
+            matching: find.byType(Scrollable),
+          )
+          .first;
+      await tester.drag(kaydirma, const Offset(0, -300));
+      await tester.pumpAndSettle();
+      expect(
+        tester.state<ScrollableState>(kaydirma).position.pixels,
+        greaterThan(0),
+      );
+    });
+
+    testWidgets('ana ekran aşağı kaydırılabiliyor', (tester) async {
+      await boot(tester);
+
+      final kaydirma = find.descendant(
+        of: find.byType(HomeScreen),
+        matching: find.byType(Scrollable),
+      );
+      final once = tester.state<ScrollableState>(kaydirma.first).position;
+      await tester.drag(kaydirma.first, const Offset(0, -400));
+      await tester.pumpAndSettle();
+      expect(once.pixels, greaterThan(0));
     });
 
     testWidgets('temalar sekmesine geçilebiliyor', (tester) async {

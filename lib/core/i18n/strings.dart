@@ -362,6 +362,13 @@ class Strings {
     required this.resumeAction,
     required this.resumeLeftTemplate,
     required this.resumeNextLabel,
+    required this.totalLearned,
+    required this.dayDoneTitle,
+    required this.dayDoneBody,
+    required this.solvedShort,
+    required this.extraPractice,
+    required this.reviewAction,
+    required this.thousandsSeparator,
     required this.resumeNextAction,
     required this.resumeStartAction,
     required this.resumeNewTemplate,
@@ -536,6 +543,27 @@ class Strings {
   String resumeLeft(int n) => resumeLeftTemplate.replaceFirst('{}', words(n));
 
   final String resumeNextLabel, resumeNextAction, resumeStartAction;
+
+  /// "Toplam öğrenilen" / "Всего выучено"
+  final String totalLearned;
+
+  /// Hedef + günün testi bitince çıkan birleşik kart.
+  final String dayDoneTitle, dayDoneBody, solvedShort;
+  final String extraPractice, reviewAction;
+
+  /// Binlik ayırıcı: Türkçede nokta (8.817), Rusçada boşluk (8 817).
+  final String thousandsSeparator;
+
+  /// Binlik ayırıcılı sayı.
+  String number(int n) {
+    final digits = n.abs().toString();
+    final out = StringBuffer(n < 0 ? '-' : '');
+    for (var i = 0; i < digits.length; i++) {
+      if (i > 0 && (digits.length - i) % 3 == 0) out.write(thousandsSeparator);
+      out.write(digits[i]);
+    }
+    return out.toString();
+  }
 
   /// `{n}` sayı, `{w}` sayıya uyan "kelime" biçimi.
   final String resumeNewTemplate, resumeFirstTemplate;
@@ -878,7 +906,7 @@ class Strings {
     accountSub: 'İlerlemeni sıfırla, verilerini sil',
     about: 'Hakkında',
     appSubtitle: 'Rusça kelime öğrenme uygulaması',
-    version: 'Sürüm 1.4.0',
+    version: 'Sürüm 1.4.1',
     privacy: 'Gizlilik Politikası',
     terms: 'Hizmet Kullanım Şartları',
     aboutFooter:
@@ -1026,6 +1054,13 @@ class Strings {
     resumeAction: 'Devam et',
     resumeLeftTemplate: '{} kaldı',
     resumeNextLabel: 'Sıradaki bölüm',
+    totalLearned: 'Toplam öğrenilen',
+    dayDoneTitle: 'Bugünkü hedef tamam',
+    dayDoneBody: 'Harika iş! Serin yarın da devam edecek.',
+    solvedShort: 'Çözüldü',
+    extraPractice: 'Ekstra pratik',
+    reviewAction: 'Tekrar',
+    thousandsSeparator: '.',
     resumeNextAction: 'Hadi devam edelim',
     resumeStartAction: 'İlk derse başla',
     resumeNewTemplate: '{n} yeni {w}',
@@ -1356,7 +1391,7 @@ class Strings {
     accountSub: 'Сброс прогресса и удаление данных',
     about: 'О приложении',
     appSubtitle: 'Приложение для изучения русских слов',
-    version: 'Версия 1.4.0',
+    version: 'Версия 1.4.1',
     privacy: 'Политика конфиденциальности',
     terms: 'Условия использования',
     aboutFooter:
@@ -1505,6 +1540,13 @@ class Strings {
     resumeAction: 'Продолжить',
     resumeLeftTemplate: 'осталось {}',
     resumeNextLabel: 'Следующий урок',
+    totalLearned: 'Всего выучено',
+    dayDoneTitle: 'Цель на сегодня выполнена',
+    dayDoneBody: 'Отлично! Завтра серия продолжится.',
+    solvedShort: 'Пройден',
+    extraPractice: 'Ещё практика',
+    reviewAction: 'Повторить',
+    thousandsSeparator: ' ',
     resumeNextAction: 'Поехали дальше',
     resumeStartAction: 'Начать первый урок',
     resumeNewTemplate: '{n} новых {w}',

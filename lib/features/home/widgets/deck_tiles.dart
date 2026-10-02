@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/theme/app_palette.dart';
 import '../../../core/widgets/pressable.dart';
-import '../../../core/widgets/progress_ring.dart';
 import '../../../data/models/deck.dart';
 import '../../../providers/library_providers.dart';
 import '../../../providers/settings_provider.dart';
@@ -28,24 +26,27 @@ class DeckRow extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
 
+    final percent = (progress.ratio * 100).round();
+    final status = progress.isComplete ? s.levelComplete : s.percent(percent);
+
     return Pressable(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.all(17),
+        padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(22),
+          borderRadius: BorderRadius.circular(24),
           boxShadow: palette.ambientShadow,
         ),
         child: Row(
           children: [
             Container(
-              width: 54,
-              height: 54,
+              width: 56,
+              height: 56,
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 color: deck.tint.withValues(alpha: 0.14),
-                borderRadius: BorderRadius.circular(14),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Text(
                 deck.titleOf(s),
@@ -56,7 +57,9 @@ class DeckRow extends ConsumerWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 14),
+            const SizedBox(width: 16),
+            // Halka yerine yazı + çubuk: "692 / 692 kelime · Tamamlandı"
+            // tek bakışta okunuyor, "tamamının tamamı tamam" tekrarı yok.
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,34 +70,26 @@ class DeckRow extends ConsumerWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    progress.isComplete
-                        ? s.allDone(progress.total)
-                        : '${progress.learned} / ${progress.total} '
-                              '${s.wordUnit(progress.total)}',
+                    '${s.number(progress.learned)} / '
+                    '${s.number(progress.total)} '
+                    '${s.wordUnit(progress.total)} · $status',
                     style: textTheme.bodySmall?.copyWith(
                       color: palette.textTertiary,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(4),
+                    child: LinearProgressIndicator(
+                      value: progress.ratio,
+                      minHeight: 6,
+                      color: deck.tint,
+                      backgroundColor: palette.track,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(width: 10),
-            ProgressRing(
-              value: progress.ratio,
-              color: deck.tint,
-              size: 48,
-              child: progress.isComplete
-                  ? Icon(PhosphorIconsBold.check, size: 23, color: deck.tint)
-                  : Text(
-                      '${(progress.ratio * 100).round()}',
-                      style: textTheme.labelSmall?.copyWith(
-                        color: palette.textSecondary,
-                        fontSize: 12,
-                        letterSpacing: 0,
-                      ),
-                    ),
-            ),
-            const SizedBox(width: 4),
           ],
         ),
       ),
