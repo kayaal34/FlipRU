@@ -37,6 +37,7 @@ class TestsScreen extends ConsumerWidget {
     final starredIds = ref.watch(starredProvider);
     final t = ref.watch(stringsProvider);
 
+    final learnedCount = ref.watch(learnedProvider).length;
     final starred = repository.allWords
         .where((w) => starredIds.contains(w.id))
         .toList(growable: false);
@@ -75,6 +76,7 @@ class TestsScreen extends ConsumerWidget {
                       tint: palette.star,
                       title: t.writingTest,
                       subtitle: t.writingTestSub,
+                      caption: 'TR → RU',
                       enabled: true,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -89,6 +91,7 @@ class TestsScreen extends ConsumerWidget {
                       tint: palette.review,
                       title: t.writingTestRu,
                       subtitle: t.writingTestRuSub,
+                      caption: 'RU → TR',
                       enabled: true,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -106,6 +109,8 @@ class TestsScreen extends ConsumerWidget {
                       tint: palette.learned,
                       title: t.myLearned,
                       subtitle: t.learnedListSub,
+                      count: learnedCount,
+                      caption: t.wordUnit(learnedCount),
                       enabled: true,
                       onTap: () => Navigator.of(context).push(
                         MaterialPageRoute(
@@ -117,6 +122,8 @@ class TestsScreen extends ConsumerWidget {
                       icon: PhosphorIconsFill.star,
                       tint: palette.star,
                       title: t.starredTitle,
+                      count: starred.length,
+                      caption: t.wordUnit(starred.length),
                       subtitle: starred.isEmpty
                           ? t.starredEmptyHint
                           : t.starredTestSub,
@@ -131,12 +138,7 @@ class TestsScreen extends ConsumerWidget {
                 ),
 
                 const SizedBox(height: 26),
-                Text(
-                  t.levelTests,
-                  style: textTheme.labelSmall?.copyWith(
-                    color: palette.textTertiary,
-                  ),
-                ),
+                Text(t.levelTests, style: textTheme.titleMedium),
                 const SizedBox(height: 10),
                 for (final deck in ref.watch(levelDecksProvider))
                   Padding(
@@ -246,8 +248,7 @@ class _TestCard extends StatelessWidget {
           padding: EdgeInsets.all(compact ? 13 : 16),
           decoration: BoxDecoration(
             color: palette.surface,
-            borderRadius: BorderRadius.circular(compact ? 16 : 20),
-            border: Border.all(color: palette.separator),
+            borderRadius: BorderRadius.circular(compact ? 20 : 22),
           ),
           child: Row(
             children: [
@@ -320,6 +321,8 @@ class _TestTile extends StatelessWidget {
     required this.subtitle,
     required this.enabled,
     required this.onTap,
+    this.caption,
+    this.count,
   });
 
   final IconData icon;
@@ -328,6 +331,12 @@ class _TestTile extends StatelessWidget {
   final String subtitle;
   final bool enabled;
   final VoidCallback onTap;
+
+  /// Başlığın altındaki kısa satır ("TR → RU", "kelime").
+  final String? caption;
+
+  /// Varsa ikon yerine büyük sayı: listede kaç kelime olduğu bir bakışta.
+  final int? count;
 
   @override
   Widget build(BuildContext context) {
@@ -350,35 +359,39 @@ class _TestTile extends StatelessWidget {
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
             color: palette.surface,
-            borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: palette.separator),
+            borderRadius: BorderRadius.circular(22),
           ),
-          // Alt yazi yok: kare kartta iki satir aciklama hem tasiyordu hem
-          // de kartlari buyutuyordu. Basliklar zaten kendini anlatiyor,
-          // kapali durumun gerekcesi dokununca bildirimde cikiyor.
+          // Uzun açıklama yok: kare kartta taşıyordu. Yerine tek kısa satır;
+          // kapalı durumun gerekçesi dokununca bildirimde çıkıyor.
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                width: 38,
-                height: 38,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: tint.withValues(alpha: 0.14),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(icon, color: tint, size: 21),
-              ),
+              if (count != null)
+                Text(
+                  '$count',
+                  style: textTheme.headlineMedium?.copyWith(height: 1),
+                )
+              else
+                Icon(icon, color: palette.accent, size: 24),
               const Spacer(),
               // Flexible: buyuk yazi olceginde bile tasmak yerine kirpiliyor.
               Flexible(
                 child: Text(
                   title,
-                  maxLines: 2,
+                  maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.titleMedium?.copyWith(height: 1.15),
                 ),
               ),
+              if (caption != null)
+                Text(
+                  caption!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: palette.textTertiary,
+                  ),
+                ),
             ],
           ),
         ),
@@ -392,8 +405,8 @@ class _TestTile extends StatelessWidget {
 class _DailyTestHero extends ConsumerWidget {
   const _DailyTestHero();
 
-  static const _ink = Color(0xFF26215C);
-  static const _light = Color(0xFFEEEDFE);
+  static const _ink = Color(0xFF1E1B18);
+  static const _light = Color(0xFFF6F2EE);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -425,12 +438,15 @@ class _DailyTestHero extends ConsumerWidget {
       );
     }
 
+    final palette = context.palette;
+
     return Pressable(
       onTap: start,
       child: Container(
         padding: const EdgeInsets.fromLTRB(20, 18, 14, 18),
         decoration: BoxDecoration(
-          color: _ink,
+          // Koyu modda zeminle karışmasın diye bir ton açık yüzey.
+          color: palette.isDark ? palette.surfaceRaised : _ink,
           borderRadius: BorderRadius.circular(24),
         ),
         child: Row(
@@ -447,7 +463,7 @@ class _DailyTestHero extends ConsumerWidget {
                   Text(
                     t.dailyTestSub,
                     style: textTheme.bodySmall?.copyWith(
-                      color: const Color(0xFFCECBF6),
+                      color: const Color(0xFFBDB4AA),
                       height: 1.4,
                     ),
                   ),
@@ -458,7 +474,7 @@ class _DailyTestHero extends ConsumerWidget {
                       vertical: 9,
                     ),
                     decoration: BoxDecoration(
-                      color: done ? const Color(0xFF32D373) : _light,
+                      color: done ? const Color(0xFF32D373) : palette.accent,
                       borderRadius: BorderRadius.circular(99),
                     ),
                     child: Row(
@@ -475,7 +491,9 @@ class _DailyTestHero extends ConsumerWidget {
                         Text(
                           done ? t.dailyTestDone : t.startAction,
                           style: textTheme.labelLarge?.copyWith(
-                            color: done ? const Color(0xFF0B3D1E) : _ink,
+                            color: done
+                                ? const Color(0xFF0B3D1E)
+                                : Colors.white,
                           ),
                         ),
                       ],
@@ -488,7 +506,7 @@ class _DailyTestHero extends ConsumerWidget {
             Icon(
               done ? PhosphorIconsFill.sealCheck : PhosphorIconsFill.target,
               size: 76,
-              color: const Color(0xFFAFA9EC),
+              color: palette.accent,
             ),
           ],
         ),

@@ -101,6 +101,13 @@ class StudyDayNotifier extends Notifier<Set<String>> {
     state = const {};
     ref.read(sharedPreferencesProvider).setStringList(_key, const []);
   }
+
+  /// Yalnızca QA derlemesi için: verilen günleri çalışılmış sayar.
+  void seedDays(Iterable<DateTime> days) {
+    final next = {...state, for (final d in days) _dayKey(d)};
+    state = next;
+    ref.read(sharedPreferencesProvider).setStringList(_key, next.toList());
+  }
 }
 
 final studyDayProvider = NotifierProvider<StudyDayNotifier, Set<String>>(

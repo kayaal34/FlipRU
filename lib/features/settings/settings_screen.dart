@@ -9,6 +9,7 @@ import '../../providers/library_providers.dart';
 import '../../core/utils/word_of_day.dart';
 import '../../providers/daily_provider.dart';
 import '../../core/theme/app_palette.dart';
+import '../../core/theme/app_typography.dart';
 import '../../data/models/app_settings.dart';
 import '../../providers/app_providers.dart';
 import '../../providers/report_provider.dart';
@@ -32,10 +33,6 @@ class SettingsScreen extends ConsumerWidget {
     final t = ref.watch(stringsProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(t.settingsTitle),
-        automaticallyImplyLeading: false,
-      ),
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
@@ -43,7 +40,14 @@ class SettingsScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
               children: [
-                const SizedBox(height: 8),
+                // Diğer sekmeler gibi solda büyük başlık.
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, bottom: 18),
+                  child: Text(
+                    t.settingsTitle,
+                    style: AppTypography.largeTitle(palette.textPrimary),
+                  ),
+                ),
                 const _StreakCard(),
                 const SizedBox(height: 16),
                 // ───────────────────── Hesap ve veri ───────────────────────
@@ -404,7 +408,6 @@ class _StreakCard extends ConsumerWidget {
         decoration: BoxDecoration(
           color: palette.surface,
           borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: palette.separator),
         ),
         child: Row(
           children: [
@@ -441,9 +444,9 @@ class _StreakCard extends ConsumerWidget {
               ),
             ),
             Icon(
-              PhosphorIconsRegular.chartBar,
-              size: 24,
-              color: palette.accent,
+              PhosphorIconsRegular.caretRight,
+              size: 20,
+              color: palette.textTertiary,
             ),
           ],
         ),

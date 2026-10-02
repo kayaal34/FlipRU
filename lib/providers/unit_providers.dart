@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../data/models/deck.dart';
 import '../data/models/study_unit.dart';
 import 'app_providers.dart';
 import 'library_providers.dart';
@@ -130,4 +132,75 @@ final deckUnitsProvider = Provider.family<List<UnitProgress>, String>((
         pendingWrong: pendingWrong[units[i].id]?.length ?? 0,
       ),
   ];
+});
+
+/// Kullanıcının en son çalışmaya başladığı bölüm ("Kaldığın yer").
+class LastUnitNotifier extends Notifier<String?> {
+  static const _key = 'last_unit';
+
+  @override
+  String? build() => ref.read(sharedPreferencesProvider).getString(_key);
+
+  void set(String unitId) {
+    if (state == unitId) return;
+    state = unitId;
+    ref.read(sharedPreferencesProvider).setString(_key, unitId);
+  }
+}
+
+final lastUnitProvider = NotifierProvider<LastUnitNotifier, String?>(
+  LastUnitNotifier.new,
+);
+
+/// Ana ekrandaki "Kaldığın yer" kartının hedefi.
+@immutable
+class ResumeTarget {
+  const ResumeTarget({
+    required this.deck,
+    required this.progress,
+    required this.resumed,
+  });
+
+  final Deck deck;
+  final UnitProgress progress;
+
+  /// true: kullanıcının yarım bıraktığı bölüm. false: hiç başlanmamış,
+  /// sıradaki ilk bölüm ("Buradan başla").
+  final bool resumed;
+}
+
+/// Önce son açılan bölüm; bittiyse aynı destenin sıradaki açık bölümü;
+/// hiçbiri yoksa seviye sırasındaki ilk bitmemiş bölüm. Her şey bittiyse null.
+final resumeProvider = Provider<ResumeTarget?>((ref) {
+  final decks = [
+    ...ref.watch(levelDecksProvider),
+    ...ref.watch(themeDecksProvider),
+  ];
+  bool unfinished(UnitProgress p) =>
+      p.unlocked && p.learned < p.unit.words.length;
+
+  final last = ref.watch(lastUnitProvider);
+  if (last != null) {
+    final cut = last.lastIndexOf('_u');
+    final deckId = cut < 0 ? '' : last.substring(0, cut);
+    final index = cut < 0 ? -1 : int.tryParse(last.substring(cut + 2)) ?? -1;
+    final deck = decks.where((d) => d.id == deckId).firstOrNull;
+    if (deck != null && index >= 0) {
+      final units = ref.watch(deckUnitsProvider(deck.id));
+      for (var i = index; i < units.length; i++) {
+        if (unfinished(units[i])) {
+          return ResumeTarget(deck: deck, progress: units[i], resumed: true);
+        }
+      }
+    }
+  }
+
+  for (final deck in ref.watch(levelDecksProvider)) {
+    for (final unit in ref.watch(deckUnitsProvider(deck.id))) {
+      if (unfinished(unit)) {
+        return ResumeTarget(deck: deck, progress: unit, resumed: false);
+      }
+    }
+  }
+  return null;
 });

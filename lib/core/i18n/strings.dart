@@ -357,6 +357,10 @@ class Strings {
     required this.startAction,
     required this.longestStreakTemplate,
     required this.streakTitleTemplate,
+    required this.resumeLabel,
+    required this.resumeStartLabel,
+    required this.resumeAction,
+    required this.resumeLeftTemplate,
   });
 
   final String tabHome, tabTests, tabStats, tabSettings;
@@ -512,6 +516,12 @@ class Strings {
   /// Seri kartı başlığı: `{n}` çıplak sayı, `{d}` sayı uyumlu gün
   /// ("12 günlük seri" / "12 дней подряд").
   final String streakTitleTemplate;
+  final String resumeLabel, resumeStartLabel, resumeAction;
+
+  /// "12 kelime kaldı" / "осталось 12 слов"
+  final String resumeLeftTemplate;
+
+  String resumeLeft(int n) => resumeLeftTemplate.replaceFirst('{}', words(n));
 
   String streakTitle(int n) => streakTitleTemplate
       .replaceFirst('{n}', '$n')
@@ -722,7 +732,7 @@ class Strings {
     needFourLearned: 'En az 20 kelime öğrenince açılır',
     starredTestSub: 'Yıldızladığın kelimelerle test',
     unitTestsTitle: 'BÖLÜM TESTLERİ',
-    levelTests: 'SEVİYE TESTLERİ',
+    levelTests: 'Seviye testleri',
     levelTestNeed: 'Bu seviyeden en az 20 kelime öğren',
     levelTestKnown: 'öğrenilmiş kelime',
     statsTitle: 'İstatistikler',
@@ -976,6 +986,10 @@ class Strings {
     startAction: 'Başla',
     longestStreakTemplate: 'En uzun seri {} · {}',
     streakTitleTemplate: '{n} günlük seri',
+    resumeLabel: 'Kaldığın yer',
+    resumeStartLabel: 'Buradan başla',
+    resumeAction: 'Devam et',
+    resumeLeftTemplate: '{} kaldı',
     widgetEvery6h: '6 saatte bir',
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
@@ -1164,7 +1178,7 @@ class Strings {
     needFourLearned: 'Откроется после 20 выученных слов',
     starredTestSub: 'Тест по избранным словам',
     unitTestsTitle: 'ТЕСТЫ ПО РАЗДЕЛАМ',
-    levelTests: 'ТЕСТЫ ПО УРОВНЯМ',
+    levelTests: 'Тесты по уровням',
     levelTestNeed: 'Выучи хотя бы 20 слов этого уровня',
     levelTestKnown: 'выученных слов',
     statsTitle: 'Статистика',
@@ -1417,6 +1431,10 @@ class Strings {
     startAction: 'Начать',
     longestStreakTemplate: 'Рекорд {} · {}',
     streakTitleTemplate: '{d} подряд',
+    resumeLabel: 'Продолжить',
+    resumeStartLabel: 'Начни отсюда',
+    resumeAction: 'Продолжить',
+    resumeLeftTemplate: 'осталось {}',
     widgetEvery6h: 'Каждые 6 часов',
     widgetEvery12h: 'Каждые 12 часов',
     widgetDaily: 'Раз в день',

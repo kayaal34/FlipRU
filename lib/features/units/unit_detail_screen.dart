@@ -125,6 +125,8 @@ class UnitDetailScreen extends ConsumerWidget {
                   child: FilledButton(
                     style: FilledButton.styleFrom(backgroundColor: deck.tint),
                     onPressed: () {
+                      // Ana ekrandaki "Kaldığın yer" kartı buradan besleniyor.
+                      ref.read(lastUnitProvider.notifier).set(unit.id);
                       // Seans bitiminde kullanıcıyı bir sonraki bölüme
                       // taşıyabilmek için sıradaki bölümü şimdiden bakıyoruz.
                       final units = ref.read(deckUnitsProvider(deck.id));

@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 /// (Кириллица) desteği tam, vurgu işaretini (U+0301) doğru konumlandırıyor ve
 /// SF Pro'ya çok yakın metrikleri var. Gömülü olduğu için ilk açılışta ağ
 /// gerekmiyor.
+///
+/// Başlıklar Outfit: yuvarlak hatları ekrana daha sıcak ve ferah bir hava
+/// veriyor. Outfit'te Kiril yok; Rusça başlıklar Inter'e düşüyor.
 abstract final class AppTypography {
   static const family = 'Inter';
+  static const displayFamily = 'Outfit';
 
   static TextStyle _base({
     required double size,
@@ -15,8 +19,10 @@ abstract final class AppTypography {
     required double spacing,
     required double height,
     required Color color,
+    bool display = false,
   }) => TextStyle(
-    fontFamily: family,
+    fontFamily: display ? displayFamily : family,
+    fontFamilyFallback: display ? const [family] : null,
     fontSize: size,
     fontWeight: weight,
     letterSpacing: spacing,
@@ -36,48 +42,54 @@ abstract final class AppTypography {
   /// Ana ekran büyük başlığı (iOS Large Title).
   static TextStyle largeTitle(Color color) => _base(
     size: 34,
-    weight: FontWeight.w800,
-    spacing: -1.1,
+    weight: FontWeight.w600,
+    spacing: -0.6,
     height: 1.12,
     color: color,
+    display: true,
   );
 
   static TextTheme textTheme(Color primary, Color secondary) {
     return TextTheme(
       displayLarge: _base(
         size: 40,
-        weight: FontWeight.w800,
-        spacing: -1.4,
+        weight: FontWeight.w700,
+        spacing: -0.8,
         height: 1.1,
         color: primary,
+        display: true,
       ),
       headlineLarge: _base(
         size: 30,
-        weight: FontWeight.w700,
-        spacing: -0.9,
+        weight: FontWeight.w600,
+        spacing: -0.5,
         height: 1.16,
         color: primary,
+        display: true,
       ),
       headlineMedium: _base(
         size: 24,
-        weight: FontWeight.w700,
-        spacing: -0.6,
+        weight: FontWeight.w600,
+        spacing: -0.3,
         height: 1.2,
         color: primary,
+        display: true,
       ),
       titleLarge: _base(
         size: 19,
-        weight: FontWeight.w700,
-        spacing: -0.4,
+        weight: FontWeight.w600,
+        spacing: -0.2,
         height: 1.25,
         color: primary,
+        display: true,
       ),
       titleMedium: _base(
         size: 17,
         weight: FontWeight.w600,
-        spacing: -0.3,
+        spacing: -0.1,
         height: 1.3,
         color: primary,
+        display: true,
       ),
       bodyLarge: _base(
         size: 17,

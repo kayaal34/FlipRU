@@ -31,19 +31,15 @@ class SettingsSection extends StatelessWidget {
           const SizedBox(height: 26)
         else
           Padding(
-            padding: const EdgeInsets.fromLTRB(4, 26, 4, 9),
-            child: Text(
-              title!.toUpperCase(),
-              style: textTheme.labelSmall?.copyWith(
-                color: palette.textTertiary,
-              ),
-            ),
+            // Büyük harfli küçük etiket yerine sade grup başlığı: ana
+            // ekrandaki "Bugün" ile aynı dil.
+            padding: const EdgeInsets.fromLTRB(4, 26, 4, 10),
+            child: Text(title!, style: textTheme.titleMedium),
           ),
         DecoratedBox(
           decoration: BoxDecoration(
             color: palette.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: palette.separator),
+            borderRadius: BorderRadius.circular(22),
           ),
           child: Column(
             children: [
@@ -97,7 +93,7 @@ class SettingsSwitch extends StatelessWidget {
       child: Row(
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: palette.textSecondary),
+            SettingsIconBox(icon: icon!),
             const SizedBox(width: 13),
           ],
           Expanded(
@@ -166,7 +162,7 @@ class SettingsOptions<T> extends StatelessWidget {
           Row(
             children: [
               if (icon != null) ...[
-                Icon(icon, size: 20, color: palette.textSecondary),
+                SettingsIconBox(icon: icon!),
                 const SizedBox(width: 13),
               ],
               Expanded(
@@ -232,13 +228,13 @@ class _OptionChip extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
         decoration: BoxDecoration(
-          color: selected ? palette.accent : palette.surfaceSunken,
+          color: selected ? palette.textPrimary : palette.surfaceSunken,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Text(
           label,
           style: Theme.of(context).textTheme.labelMedium?.copyWith(
-            color: selected ? Colors.white : palette.textSecondary,
+            color: selected ? palette.canvas : palette.textSecondary,
             fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
           ),
         ),
@@ -285,12 +281,21 @@ class SettingsRow extends StatelessWidget {
         child: Row(
           children: [
             if (icon != null) ...[
-              Icon(
-                icon,
-                size: 20,
-                color: danger ? color : palette.textSecondary,
+              Container(
+                width: 32,
+                height: 32,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: palette.surfaceSunken,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  icon,
+                  size: 18,
+                  color: danger ? color : palette.textSecondary,
+                ),
               ),
-              const SizedBox(width: 13),
+              const SizedBox(width: 12),
             ],
             Expanded(
               child: Column(
@@ -330,6 +335,28 @@ class SettingsRow extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Ayar satırlarının solundaki yumuşak kutulu ikon.
+class SettingsIconBox extends StatelessWidget {
+  const SettingsIconBox({required this.icon, super.key});
+
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    return Container(
+      width: 32,
+      height: 32,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: palette.surfaceSunken,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Icon(icon, size: 18, color: palette.textSecondary),
     );
   }
 }

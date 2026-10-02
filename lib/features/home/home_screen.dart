@@ -18,6 +18,8 @@ import '../../providers/library_providers.dart';
 import '../../providers/quiz_stats_provider.dart';
 import '../alphabet/alphabet_screen.dart';
 import '../quiz/quiz_screen.dart';
+import '../study/study_screen.dart';
+import '../../providers/unit_providers.dart';
 import '../units/unit_list_screen.dart';
 import 'widgets/deck_tiles.dart';
 import '../../providers/settings_provider.dart';
@@ -231,6 +233,7 @@ class _HomeHeader extends ConsumerWidget {
         const SizedBox(height: 26),
         const _WeekStrip(),
         const _ReminderCard(),
+        const _ResumeCard(),
         const SizedBox(height: 30),
         Text(s.todayProgress, style: textTheme.titleMedium),
         const SizedBox(height: 12),
@@ -488,25 +491,22 @@ class _StreakBadge extends ConsumerWidget {
     final active = days > 0;
     final color = active ? _flame : palette.textTertiary;
 
-    // Yuvarlak rozet, alev üstte sayı altta: selamlamanın karşısında
-    // bir avatar gibi duruyor.
     return Container(
-      width: 64,
-      height: 64,
+      padding: const EdgeInsets.fromLTRB(14, 10, 18, 10),
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
         color: active ? _flameSoft(palette) : palette.surfaceSunken,
+        borderRadius: BorderRadius.circular(99),
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(PhosphorIconsFill.fire, size: 24, color: color),
-          const SizedBox(height: 1),
+          Icon(PhosphorIconsFill.fire, size: 30, color: color),
+          const SizedBox(width: 6),
           Text(
             '$days',
-            style: textTheme.titleMedium?.copyWith(
+            style: textTheme.titleLarge?.copyWith(
               color: color,
-              fontWeight: FontWeight.w700,
+              fontSize: 26,
               height: 1,
             ),
           ),
@@ -1010,6 +1010,125 @@ class _DailyTestCard extends ConsumerWidget {
                 color: palette.textTertiary,
               ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// "Kaldığın yer": açınca tek eylem. Son çalışılan bölümün sıradaki
+/// kelimesini gösteriyor, "Devam et" doğrudan karta götürüyor.
+class _ResumeCard extends ConsumerWidget {
+  const _ResumeCard();
+
+  static const _ink = Color(0xFF1E1B18);
+  static const _paper = Color(0xFFF6F2EE);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final target = ref.watch(resumeProvider);
+    if (target == null) return const SizedBox.shrink();
+
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+    final learningRussian =
+        ref.watch(settingsProvider.select((x) => x.language)) == AppLanguage.tr;
+    final learned = ref.watch(learnedProvider);
+
+    final unit = target.progress.unit;
+    final total = unit.words.length;
+    final done = target.progress.learned;
+    final next = unit.words.firstWhere(
+      (w) => !learned.contains(w.id),
+      orElse: () => unit.words.first,
+    );
+    final headline = learningRussian ? next.accented : next.turkish;
+    final meaning = learningRussian ? next.turkish : next.accented;
+    final label = target.resumed ? s.resumeLabel : s.resumeStartLabel;
+
+    void open() {
+      Haptics.light();
+      ref.read(lastUnitProvider.notifier).set(unit.id);
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => StudyScreen(
+            title: '${target.deck.titleOf(s)} · ${unit.titleOf(s)}',
+            words: unit.words,
+            unlearnedFirst: true,
+            accent: target.deck.tint,
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 22),
+      child: Pressable(
+        onTap: open,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+          decoration: BoxDecoration(
+            color: palette.isDark ? palette.surfaceRaised : _ink,
+            borderRadius: BorderRadius.circular(26),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '$label · ${target.deck.titleOf(s)} · ${unit.titleOf(s)}',
+                style: textTheme.bodySmall?.copyWith(
+                  color: const Color(0xFFBDB4AA),
+                ),
+              ),
+              const SizedBox(height: 10),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  headline,
+                  maxLines: 1,
+                  style: AppTypography.hero(
+                    _paper,
+                  ).copyWith(fontSize: 34, letterSpacing: -0.8),
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                '$meaning · ${s.resumeLeft(total - done)}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: const Color(0xFFD8CFC6),
+                ),
+              ),
+              const SizedBox(height: 14),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(3),
+                child: LinearProgressIndicator(
+                  value: total == 0 ? 0 : done / total,
+                  minHeight: 5,
+                  backgroundColor: const Color(0xFF3A3530),
+                  color: palette.accent,
+                ),
+              ),
+              const SizedBox(height: 16),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 22,
+                  vertical: 11,
+                ),
+                decoration: BoxDecoration(
+                  color: palette.accent,
+                  borderRadius: BorderRadius.circular(99),
+                ),
+                child: Text(
+                  s.resumeAction,
+                  style: textTheme.labelLarge?.copyWith(color: Colors.white),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
