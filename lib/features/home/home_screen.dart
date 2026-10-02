@@ -169,6 +169,33 @@ class _HomeHeader extends ConsumerWidget {
 
   /// Uygulama adı açılış ekranında ve ayarlarda; burada onu tekrar etmek
   /// yerine kullanıcıyı selamlıyoruz.
+  /// Duruma göre bir söz listesi seçip, yılın gününe göre birini alıyor:
+  /// gün içinde sabit kalır, ertesi gün değişir, arka arkaya aynısı gelmez.
+  String _motivation(
+    Strings s, {
+    required bool goalDone,
+    required int streak,
+    required bool everStudied,
+  }) {
+    final now = DateTime.now();
+    final List<String> pool;
+    if (!everStudied) {
+      pool = s.motivFirst;
+    } else if (goalDone) {
+      pool = s.motivGoalDone;
+    } else if (streak == 0) {
+      pool = s.motivComeback;
+    } else if (now.hour < 11) {
+      pool = s.motivMorning;
+    } else if (now.hour >= 19) {
+      pool = s.motivEvening;
+    } else {
+      pool = s.motivStreak;
+    }
+    final dayOfYear = now.difference(DateTime(now.year)).inDays;
+    return pool[dayOfYear % pool.length];
+  }
+
   String _greeting(Strings s) {
     final hour = DateTime.now().hour;
     if (hour < 6) return s.greetingNight;
@@ -222,6 +249,35 @@ class _HomeHeader extends ConsumerWidget {
                       color: palette.textTertiary,
                       fontSize: 15,
                     ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 2),
+                        child: Icon(
+                          PhosphorIconsFill.sparkle,
+                          size: 16,
+                          color: palette.accent,
+                        ),
+                      ),
+                      const SizedBox(width: 7),
+                      Expanded(
+                        child: Text(
+                          _motivation(
+                            s,
+                            goalDone: daily.goalReached,
+                            streak: streak,
+                            everStudied: ref.watch(studyDayProvider).isNotEmpty,
+                          ),
+                          style: textTheme.bodyMedium?.copyWith(
+                            color: palette.textSecondary,
+                            height: 1.35,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -1045,7 +1101,28 @@ class _ResumeCard extends ConsumerWidget {
     );
     final headline = learningRussian ? next.accented : next.turkish;
     final meaning = learningRussian ? next.turkish : next.accented;
-    final label = target.resumed ? s.resumeLabel : s.resumeStartLabel;
+    final (label, action, detail) = switch (target.kind) {
+      ResumeKind.inProgress => (
+        s.resumeLabel,
+        s.resumeAction,
+        s.resumeLeft(total - done),
+      ),
+      ResumeKind.next => (
+        s.resumeNextLabel,
+        s.resumeNextAction,
+        s.resumeNew(total),
+      ),
+      ResumeKind.start => (
+        s.resumeStartLabel,
+        s.resumeStartAction,
+        s.resumeFirst(total),
+      ),
+    };
+    // "Bölüm 7 tamamlandı · sıradaki: Bölüm 8" yalnızca aynı destede bir
+    // önceki bölüm varsa; yeni bir seviyeye geçerken anlamsız olur.
+    final doneNote = target.kind == ResumeKind.next && unit.index > 0
+        ? s.resumeDoneNote('${s.unit} ${unit.index}', unit.titleOf(s))
+        : null;
 
     void open() {
       Haptics.light();
@@ -1064,72 +1141,116 @@ class _ResumeCard extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.only(top: 22),
-      child: Pressable(
-        onTap: open,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
-          decoration: BoxDecoration(
-            color: palette.isDark ? palette.surfaceRaised : _ink,
-            borderRadius: BorderRadius.circular(26),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Pressable(
+            onTap: open,
+            child: Container(
+              padding: const EdgeInsets.fromLTRB(20, 18, 20, 20),
+              decoration: BoxDecoration(
+                color: palette.isDark ? palette.surfaceRaised : _ink,
+                borderRadius: BorderRadius.circular(26),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        child: Text(
+                          label,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.bodySmall?.copyWith(
+                            color: const Color(0xFFBDB4AA),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 9,
+                          vertical: 3,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFF3A3530),
+                          borderRadius: BorderRadius.circular(99),
+                        ),
+                        child: Text(
+                          '${target.deck.titleOf(s)} · ${unit.titleOf(s)}',
+                          style: textTheme.bodySmall?.copyWith(
+                            color: const Color(0xFFF2C4A4),
+                            fontSize: 11.5,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      headline,
+                      maxLines: 1,
+                      style: AppTypography.hero(
+                        _paper,
+                      ).copyWith(fontSize: 34, letterSpacing: -0.8),
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    '$meaning · $detail',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: const Color(0xFFD8CFC6),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(3),
+                    child: LinearProgressIndicator(
+                      value: total == 0 ? 0 : done / total,
+                      minHeight: 5,
+                      backgroundColor: const Color(0xFF3A3530),
+                      color: palette.accent,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 22,
+                      vertical: 11,
+                    ),
+                    decoration: BoxDecoration(
+                      color: palette.accent,
+                      borderRadius: BorderRadius.circular(99),
+                    ),
+                    child: Text(
+                      action,
+                      style: textTheme.labelLarge?.copyWith(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                '$label · ${target.deck.titleOf(s)} · ${unit.titleOf(s)}',
+          if (doneNote != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 9),
+              child: Text(
+                doneNote,
+                textAlign: TextAlign.center,
                 style: textTheme.bodySmall?.copyWith(
-                  color: const Color(0xFFBDB4AA),
+                  color: palette.textTertiary,
                 ),
               ),
-              const SizedBox(height: 10),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  headline,
-                  maxLines: 1,
-                  style: AppTypography.hero(
-                    _paper,
-                  ).copyWith(fontSize: 34, letterSpacing: -0.8),
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                '$meaning · ${s.resumeLeft(total - done)}',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: const Color(0xFFD8CFC6),
-                ),
-              ),
-              const SizedBox(height: 14),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(3),
-                child: LinearProgressIndicator(
-                  value: total == 0 ? 0 : done / total,
-                  minHeight: 5,
-                  backgroundColor: const Color(0xFF3A3530),
-                  color: palette.accent,
-                ),
-              ),
-              const SizedBox(height: 16),
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 22,
-                  vertical: 11,
-                ),
-                decoration: BoxDecoration(
-                  color: palette.accent,
-                  borderRadius: BorderRadius.circular(99),
-                ),
-                child: Text(
-                  s.resumeAction,
-                  style: textTheme.labelLarge?.copyWith(color: Colors.white),
-                ),
-              ),
-            ],
-          ),
-        ),
+            ),
+        ],
       ),
     );
   }

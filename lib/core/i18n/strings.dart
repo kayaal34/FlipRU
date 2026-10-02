@@ -361,6 +361,18 @@ class Strings {
     required this.resumeStartLabel,
     required this.resumeAction,
     required this.resumeLeftTemplate,
+    required this.resumeNextLabel,
+    required this.resumeNextAction,
+    required this.resumeStartAction,
+    required this.resumeNewTemplate,
+    required this.resumeFirstTemplate,
+    required this.resumeDoneNoteTemplate,
+    required this.motivStreak,
+    required this.motivGoalDone,
+    required this.motivComeback,
+    required this.motivFirst,
+    required this.motivMorning,
+    required this.motivEvening,
   });
 
   final String tabHome, tabTests, tabStats, tabSettings;
@@ -522,6 +534,29 @@ class Strings {
   final String resumeLeftTemplate;
 
   String resumeLeft(int n) => resumeLeftTemplate.replaceFirst('{}', words(n));
+
+  final String resumeNextLabel, resumeNextAction, resumeStartAction;
+
+  /// `{n}` sayı, `{w}` sayıya uyan "kelime" biçimi.
+  final String resumeNewTemplate, resumeFirstTemplate;
+
+  /// `{a}` biten bölüm, `{b}` sıradaki bölüm.
+  final String resumeDoneNoteTemplate;
+
+  String resumeNew(int n) => resumeNewTemplate
+      .replaceFirst('{n}', '$n')
+      .replaceFirst('{w}', wordUnit(n));
+  String resumeFirst(int n) => resumeFirstTemplate
+      .replaceFirst('{n}', '$n')
+      .replaceFirst('{w}', wordUnit(n));
+  String resumeDoneNote(String done, String next) => resumeDoneNoteTemplate
+      .replaceFirst('{a}', done)
+      .replaceFirst('{b}', next);
+
+  /// Selamlamanın altındaki motivasyon sözü; duruma göre bir liste seçilir,
+  /// listeden her gün başka biri gelir.
+  final List<String> motivStreak, motivGoalDone, motivComeback;
+  final List<String> motivFirst, motivMorning, motivEvening;
 
   String streakTitle(int n) => streakTitleTemplate
       .replaceFirst('{n}', '$n')
@@ -987,9 +1022,43 @@ class Strings {
     longestStreakTemplate: 'En uzun seri {} · {}',
     streakTitleTemplate: '{n} günlük seri',
     resumeLabel: 'Kaldığın yer',
-    resumeStartLabel: 'Buradan başla',
+    resumeStartLabel: 'Hadi başlayalım',
     resumeAction: 'Devam et',
     resumeLeftTemplate: '{} kaldı',
+    resumeNextLabel: 'Sıradaki bölüm',
+    resumeNextAction: 'Hadi devam edelim',
+    resumeStartAction: 'İlk derse başla',
+    resumeNewTemplate: '{n} yeni {w}',
+    resumeFirstTemplate: 'ilk {n} {w}n',
+    resumeDoneNoteTemplate: '{a} tamamlandı · sıradaki: {b}',
+    motivStreak: [
+      'Hedefine her gün biraz daha yaklaşıyorsun.',
+      'Küçük adımlar, büyük yol. Bugün de bir adım.',
+      'Serin büyüyor, Rusçan da onunla.',
+      'Her gün beş kelime, yılda iki bin kelime eder.',
+    ],
+    motivGoalDone: [
+      'Bugünün işi tamam. Yarın görüşürüz.',
+      'Hedef tamam! Bugünlük harika iş çıkardın.',
+      'Bugünkü kelimeler cepte. Dinlenmeyi hak ettin.',
+    ],
+    motivComeback: [
+      'Yeniden başlamak için en iyi gün bugün.',
+      'Ara verdin, sorun değil. Bir kelimeyle geri dön.',
+      'Seri yeniden başlıyor, ilk alev bugün yansın.',
+    ],
+    motivFirst: [
+      'Rusçaya ilk adım bugün. Hadi başlayalım.',
+      'Her dil tek bir kelimeyle başlar.',
+    ],
+    motivMorning: [
+      'Bir kahve, beş kelime. Güne iyi başla.',
+      'Günaydın! Zihnin şu an en taze hâlinde.',
+    ],
+    motivEvening: [
+      'Uyumadan önce bir tur? Seri seni bekliyor.',
+      'Günü birkaç kelimeyle kapatmaya ne dersin?',
+    ],
     widgetEvery6h: '6 saatte bir',
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
@@ -1431,10 +1500,44 @@ class Strings {
     startAction: 'Начать',
     longestStreakTemplate: 'Рекорд {} · {}',
     streakTitleTemplate: '{d} подряд',
-    resumeLabel: 'Продолжить',
-    resumeStartLabel: 'Начни отсюда',
+    resumeLabel: 'Ты остановился здесь',
+    resumeStartLabel: 'Давай начнём',
     resumeAction: 'Продолжить',
     resumeLeftTemplate: 'осталось {}',
+    resumeNextLabel: 'Следующий урок',
+    resumeNextAction: 'Поехали дальше',
+    resumeStartAction: 'Начать первый урок',
+    resumeNewTemplate: '{n} новых {w}',
+    resumeFirstTemplate: 'первые {n} {w}',
+    resumeDoneNoteTemplate: '{a} пройден · дальше: {b}',
+    motivStreak: [
+      'С каждым днём ты всё ближе к цели.',
+      'Маленькие шаги — большой путь. Сегодня ещё один.',
+      'Серия растёт, а вместе с ней и твой турецкий.',
+      'Пять слов в день — почти две тысячи в год.',
+    ],
+    motivGoalDone: [
+      'На сегодня всё готово. До завтра!',
+      'Цель выполнена! Отличная работа сегодня.',
+      'Сегодняшние слова уже твои. Можно отдохнуть.',
+    ],
+    motivComeback: [
+      'Лучший день, чтобы начать снова, — сегодня.',
+      'Был перерыв — не страшно. Вернись с одним словом.',
+      'Серия начинается заново: зажги первый огонёк сегодня.',
+    ],
+    motivFirst: [
+      'Первый шаг в турецкий — сегодня. Давай начнём.',
+      'Любой язык начинается с одного слова.',
+    ],
+    motivMorning: [
+      'Чашка кофе и пять слов. Хорошего утра!',
+      'Доброе утро! Сейчас голова самая свежая.',
+    ],
+    motivEvening: [
+      'Ещё один круг перед сном? Серия ждёт.',
+      'Как насчёт закончить день парой слов?',
+    ],
     widgetEvery6h: 'Каждые 6 часов',
     widgetEvery12h: 'Каждые 12 часов',
     widgetDaily: 'Раз в день',

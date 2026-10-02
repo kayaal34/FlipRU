@@ -152,21 +152,30 @@ final lastUnitProvider = NotifierProvider<LastUnitNotifier, String?>(
   LastUnitNotifier.new,
 );
 
+/// "Kaldığın yer" kartının hangi hâlde göründüğü.
+enum ResumeKind {
+  /// Bölüme başlanmış ama bitmemiş: "Kaldığın yer".
+  inProgress,
+
+  /// Son bölüm bitmiş, sıradaki hiç açılmamış: "Sıradaki bölüm".
+  next,
+
+  /// Kullanıcı henüz hiçbir kelime öğrenmemiş: "Hadi başlayalım".
+  start,
+}
+
 /// Ana ekrandaki "Kaldığın yer" kartının hedefi.
 @immutable
 class ResumeTarget {
   const ResumeTarget({
     required this.deck,
     required this.progress,
-    required this.resumed,
+    required this.kind,
   });
 
   final Deck deck;
   final UnitProgress progress;
-
-  /// true: kullanıcının yarım bıraktığı bölüm. false: hiç başlanmamış,
-  /// sıradaki ilk bölüm ("Buradan başla").
-  final bool resumed;
+  final ResumeKind kind;
 }
 
 /// Önce son açılan bölüm; bittiyse aynı destenin sıradaki açık bölümü;
@@ -178,6 +187,16 @@ final resumeProvider = Provider<ResumeTarget?>((ref) {
   ];
   bool unfinished(UnitProgress p) =>
       p.unlocked && p.learned < p.unit.words.length;
+  final anyLearned = ref.watch(learnedProvider).isNotEmpty;
+  ResumeTarget target(Deck deck, UnitProgress p) => ResumeTarget(
+    deck: deck,
+    progress: p,
+    kind: p.learned > 0
+        ? ResumeKind.inProgress
+        : anyLearned
+        ? ResumeKind.next
+        : ResumeKind.start,
+  );
 
   final last = ref.watch(lastUnitProvider);
   if (last != null) {
@@ -189,7 +208,7 @@ final resumeProvider = Provider<ResumeTarget?>((ref) {
       final units = ref.watch(deckUnitsProvider(deck.id));
       for (var i = index; i < units.length; i++) {
         if (unfinished(units[i])) {
-          return ResumeTarget(deck: deck, progress: units[i], resumed: true);
+          return target(deck, units[i]);
         }
       }
     }
@@ -198,7 +217,7 @@ final resumeProvider = Provider<ResumeTarget?>((ref) {
   for (final deck in ref.watch(levelDecksProvider)) {
     for (final unit in ref.watch(deckUnitsProvider(deck.id))) {
       if (unfinished(unit)) {
-        return ResumeTarget(deck: deck, progress: unit, resumed: false);
+        return target(deck, unit);
       }
     }
   }
