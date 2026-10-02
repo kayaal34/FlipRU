@@ -49,14 +49,16 @@ class SegmentedSwitch extends StatelessWidget {
                   width: segmentWidth,
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    color: palette.accent,
+                    // Seçili sekme sade beyaz bir hap: ekranda tek vurgu
+                    // rengi kalsın, seçici onunla yarışmasın.
+                    color: palette.surfaceRaised,
                     borderRadius: BorderRadius.circular(11),
                     boxShadow: [
                       BoxShadow(
-                        color: palette.accent.withValues(alpha: 0.3),
-                        blurRadius: 12,
-                        offset: const Offset(0, 4),
-                        spreadRadius: -4,
+                        color: Colors.black.withValues(alpha: 0.08),
+                        blurRadius: 10,
+                        offset: const Offset(0, 3),
+                        spreadRadius: -3,
                       ),
                     ],
                   ),
@@ -86,7 +88,7 @@ class SegmentedSwitch extends StatelessWidget {
                                 style: textTheme.labelLarge!.copyWith(
                                   fontSize: 15,
                                   color: i == selectedIndex
-                                      ? Colors.white
+                                      ? palette.textPrimary
                                       : palette.textSecondary,
                                   fontWeight: i == selectedIndex
                                       ? FontWeight.w700

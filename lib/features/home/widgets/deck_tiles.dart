@@ -35,7 +35,6 @@ class DeckRow extends ConsumerWidget {
         decoration: BoxDecoration(
           color: palette.surface,
           borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: palette.separator),
           boxShadow: palette.ambientShadow,
         ),
         child: Row(
@@ -129,7 +128,6 @@ class DeckCard extends ConsumerWidget {
         decoration: BoxDecoration(
           color: palette.surface,
           borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: palette.separator),
           boxShadow: palette.ambientShadow,
         ),
         child: Column(

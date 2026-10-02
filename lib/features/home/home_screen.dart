@@ -175,14 +175,6 @@ class _HomeHeader extends ConsumerWidget {
     return s.greetingEvening;
   }
 
-  IconData _greetingIcon() {
-    final hour = DateTime.now().hour;
-    if (hour < 6) return PhosphorIconsFill.moon;
-    if (hour < 12) return PhosphorIconsFill.sunHorizon;
-    if (hour < 18) return PhosphorIconsFill.sun;
-    return PhosphorIconsFill.moonStars;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = context.palette;
@@ -204,28 +196,24 @@ class _HomeHeader extends ConsumerWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Icon(_greetingIcon(), size: 32, color: palette.star),
-                      const SizedBox(width: 10),
-                      // Uzun selamlama ("Добрый вечер") dar ekranda iki
-                      // satıra kaymasın, sığacak kadar küçülsün.
-                      Flexible(
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            _greeting(s),
-                            maxLines: 1,
-                            style: AppTypography.largeTitle(
-                              palette.textPrimary,
-                            ).copyWith(fontSize: 40),
+                  // Uzun selamlama ("Добрый вечер") dar ekranda iki
+                  // satıra kaymasın, sığacak kadar küçülsün. Kalın değil
+                  // yarı kalın: ekranın ferah durmasını sağlayan bu.
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      _greeting(s),
+                      maxLines: 1,
+                      style: AppTypography.largeTitle(palette.textPrimary)
+                          .copyWith(
+                            fontSize: 34,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: -0.6,
                           ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 6),
                   Text(
                     s.dateLine(DateTime.now()),
                     style: textTheme.bodyMedium?.copyWith(
@@ -240,30 +228,23 @@ class _HomeHeader extends ConsumerWidget {
             _StreakBadge(days: streak),
           ],
         ),
-        const SizedBox(height: 18),
+        const SizedBox(height: 26),
         const _WeekStrip(),
         const _ReminderCard(),
-        const SizedBox(height: 20),
-        Text(
-          s.dailyGoalsTitle,
-          style: textTheme.labelSmall?.copyWith(
-            color: palette.textTertiary,
-            letterSpacing: 0.6,
-          ),
-        ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 30),
+        Text(s.todayProgress, style: textTheme.titleMedium),
+        const SizedBox(height: 12),
         Container(
           padding: const EdgeInsets.fromLTRB(16, 14, 16, 15),
           decoration: BoxDecoration(
             color: palette.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: palette.separator),
+            borderRadius: BorderRadius.circular(22),
           ),
           child: Row(
             children: [
               ProgressRing(
                 value: daily.ratio,
-                color: daily.goalReached ? palette.learned : palette.accent,
+                color: daily.goalReached ? palette.learned : _flame,
                 size: 52,
                 strokeWidth: 5,
                 child: daily.goalReached
@@ -287,7 +268,8 @@ class _HomeHeader extends ConsumerWidget {
                     Text(
                       daily.goalReached
                           ? s.goalDone
-                          : '${s.todayProgress} ${daily.today} / ${daily.goal} '
+                          // "Bugün" bölüm başlığında; burada tekrar etmiyor.
+                          : '${daily.today} / ${daily.goal} '
                                 '${s.wordUnit(daily.goal)}',
                       style: textTheme.labelLarge,
                     ),
@@ -506,22 +488,25 @@ class _StreakBadge extends ConsumerWidget {
     final active = days > 0;
     final color = active ? _flame : palette.textTertiary;
 
+    // Yuvarlak rozet, alev üstte sayı altta: selamlamanın karşısında
+    // bir avatar gibi duruyor.
     return Container(
-      padding: const EdgeInsets.fromLTRB(14, 10, 18, 10),
+      width: 64,
+      height: 64,
       decoration: BoxDecoration(
+        shape: BoxShape.circle,
         color: active ? _flameSoft(palette) : palette.surfaceSunken,
-        borderRadius: BorderRadius.circular(99),
       ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(PhosphorIconsFill.fire, size: 30, color: color),
-          const SizedBox(width: 6),
+          Icon(PhosphorIconsFill.fire, size: 24, color: color),
+          const SizedBox(height: 1),
           Text(
             '$days',
-            style: textTheme.titleLarge?.copyWith(
+            style: textTheme.titleMedium?.copyWith(
               color: color,
-              fontSize: 26,
+              fontWeight: FontWeight.w700,
               height: 1,
             ),
           ),
@@ -531,8 +516,8 @@ class _StreakBadge extends ConsumerWidget {
   }
 }
 
-/// Bu haftanın günleri (pazartesiden pazara). Çalışılan günler alevli,
-/// bugün koyu, kaçırılan günler soluk, gelecek günler boş.
+/// Bu haftanın günleri (pazartesiden pazara). Yalnızca iki şey öne
+/// çıkıyor: çalışılan günler alevli, bugün koyu. Geri kalanı sade beyaz.
 class _WeekStrip extends ConsumerWidget {
   const _WeekStrip();
 
@@ -592,7 +577,6 @@ class _DayCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isToday = day == today;
-    final isFuture = day.isAfter(today);
 
     final Color background;
     final Color foreground;
@@ -605,12 +589,9 @@ class _DayCell extends StatelessWidget {
     } else if (done) {
       background = _flameSoft(palette);
       foreground = _flame;
-    } else if (isFuture) {
+    } else {
       background = palette.surface;
       foreground = palette.textSecondary;
-    } else {
-      background = palette.surfaceSunken;
-      foreground = palette.textTertiary;
     }
 
     return Column(
@@ -619,36 +600,28 @@ class _DayCell extends StatelessWidget {
           label,
           style: textTheme.labelSmall?.copyWith(
             color: isToday ? palette.textPrimary : palette.textTertiary,
-            fontWeight: isToday ? FontWeight.w700 : null,
+            fontWeight: isToday ? FontWeight.w700 : FontWeight.w500,
             letterSpacing: 0,
           ),
         ),
-        const SizedBox(height: 6),
+        const SizedBox(height: 8),
         AnimatedContainer(
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOutCubic,
           width: 40,
-          height: 50,
-          decoration: BoxDecoration(
-            color: background,
-            borderRadius: BorderRadius.circular(20),
-            border: isFuture ? Border.all(color: palette.separator) : null,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              if (done)
-                Icon(PhosphorIconsFill.fire, size: 18, color: foreground),
-              Text(
-                '${day.day}',
-                style: textTheme.labelMedium?.copyWith(
-                  color: foreground,
-                  fontSize: done ? 11 : 14,
-                  height: 1.1,
+          height: 40,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(color: background, shape: BoxShape.circle),
+          // Alevli günde sayı yerine alev: referanstaki gibi tek simge.
+          child: done
+              ? Icon(PhosphorIconsFill.fire, size: 19, color: foreground)
+              : Text(
+                  '${day.day}',
+                  style: textTheme.labelMedium?.copyWith(
+                    color: foreground,
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-            ],
-          ),
         ),
       ],
     );
@@ -832,7 +805,6 @@ class _AlphabetCard extends ConsumerWidget {
           decoration: BoxDecoration(
             color: palette.surface,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: palette.separator),
           ),
           child: Row(
             children: [
@@ -887,7 +859,6 @@ class _AlphabetCard extends ConsumerWidget {
         decoration: BoxDecoration(
           color: palette.surface,
           borderRadius: BorderRadius.circular(22),
-          border: Border.all(color: palette.separator),
         ),
         child: Row(
           children: [
@@ -998,8 +969,8 @@ class _DailyTestCard extends ConsumerWidget {
         padding: const EdgeInsets.fromLTRB(16, 15, 16, 15),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: done ? palette.learned : palette.separator),
+          borderRadius: BorderRadius.circular(22),
+          border: done ? Border.all(color: palette.learned) : null,
         ),
         child: Row(
           children: [
@@ -1007,13 +978,13 @@ class _DailyTestCard extends ConsumerWidget {
             // durdugu icin ayni gorsel dili konusmalari gerekiyor.
             ProgressRing(
               value: done ? 1 : 0,
-              color: done ? palette.learned : palette.accent,
+              color: done ? palette.learned : palette.textTertiary,
               size: 52,
               strokeWidth: 5,
               child: Icon(
                 done ? PhosphorIconsBold.check : PhosphorIconsRegular.exam,
                 size: 22,
-                color: done ? palette.learned : palette.accent,
+                color: done ? palette.learned : palette.textSecondary,
               ),
             ),
             const SizedBox(width: 14),

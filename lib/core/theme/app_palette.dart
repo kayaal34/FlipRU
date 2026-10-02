@@ -72,12 +72,13 @@ class AppPalette extends ThemeExtension<AppPalette> {
   final List<BoxShadow> ambientShadow;
 
   static const light = AppPalette(
-    canvas: Color(0xFFF4F4F7),
+    // Sıcak, kırık beyaz zemin: soğuk gri ekranı sıkışık gösteriyordu.
+    canvas: Color(0xFFF6F2EE),
     surface: Color(0xFFFFFFFF),
     surfaceRaised: Color(0xFFFFFFFF),
-    surfaceSunken: Color(0xFFEAEAF0),
-    track: Color(0xFFDCDCE6),
-    separator: Color(0xFFE4E4EB),
+    surfaceSunken: Color(0xFFEFE9E3),
+    track: Color(0xFFE6DFD8),
+    separator: Color(0xFFEBE5DF),
     textPrimary: Color(0xFF0B0B0F),
     textSecondary: Color(0xFF5C5C68),
     textTertiary: Color(0xFF6F6F7B),
