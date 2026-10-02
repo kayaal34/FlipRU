@@ -11,7 +11,11 @@ import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../learned/learned_screen.dart';
 import '../starred/starred_screen.dart';
+import '../../providers/quiz_stats_provider.dart';
 import '../../providers/writing_test_providers.dart';
+import '../../core/utils/haptics.dart';
+import '../../data/models/word.dart';
+import '../quiz/quiz_screen.dart';
 import 'writing_tests_screen.dart';
 import 'level_test_units_screen.dart';
 
@@ -52,11 +56,12 @@ class TestsScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(t.testsSubtitle, style: textTheme.bodyMedium),
-                const SizedBox(height: 22),
+                const SizedBox(height: 18),
+                const _DailyTestHero(),
+                const SizedBox(height: 12),
 
                 // Pratik yollari kare izgarada; kareler kucuk tutuldu ki
-                // seviye testleri de ayni ekranda gorunsun. Gunun testi
-                // burada degil ana ekrandaki gunluk hedefler kutusunda.
+                // seviye testleri de ayni ekranda gorunsun.
                 GridView.count(
                   crossAxisCount: 2,
                   shrinkWrap: true,
@@ -145,7 +150,6 @@ class TestsScreen extends ConsumerWidget {
       ),
     );
   }
-
 }
 
 class _LevelTestRow extends ConsumerWidget {
@@ -377,6 +381,116 @@ class _TestTile extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+/// Günün testi: Pratik'in en üstündeki koyu kart. Ana ekrandaki "Kaldığın
+/// yer" ile aynı dil; çözüldüyse düğme yerine yeşil bir onay çıkıyor.
+class _DailyTestHero extends ConsumerWidget {
+  const _DailyTestHero();
+
+  static const _ink = Color(0xFF26215C);
+  static const _light = Color(0xFFEEEDFE);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textTheme = Theme.of(context).textTheme;
+    final t = ref.watch(stringsProvider);
+    final done = ref.watch(dailyTestDoneProvider);
+    final learnedIds = ref.watch(learnedProvider);
+    final learned = ref
+        .watch(wordRepositoryProvider)
+        .allWords
+        .where((w) => learnedIds.contains(w.id))
+        .toList(growable: false);
+
+    void start() {
+      if (done) return;
+      Haptics.light();
+      if (learned.length < _minLearned) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(SnackBar(content: Text(t.needFourLearned)));
+        return;
+      }
+      final words = <Word>[...learned]..shuffle();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) =>
+              QuizScreen(title: t.dailyTest, words: words, kind: 'daily'),
+        ),
+      );
+    }
+
+    return Pressable(
+      onTap: start,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(20, 18, 14, 18),
+        decoration: BoxDecoration(
+          color: _ink,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    t.dailyTest,
+                    style: textTheme.titleLarge?.copyWith(color: _light),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    t.dailyTestSub,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: const Color(0xFFCECBF6),
+                      height: 1.4,
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 18,
+                      vertical: 9,
+                    ),
+                    decoration: BoxDecoration(
+                      color: done ? const Color(0xFF32D373) : _light,
+                      borderRadius: BorderRadius.circular(99),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (done) ...[
+                          const Icon(
+                            PhosphorIconsBold.check,
+                            size: 16,
+                            color: Color(0xFF0B3D1E),
+                          ),
+                          const SizedBox(width: 6),
+                        ],
+                        Text(
+                          done ? t.dailyTestDone : t.startAction,
+                          style: textTheme.labelLarge?.copyWith(
+                            color: done ? const Color(0xFF0B3D1E) : _ink,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Icon(
+              done ? PhosphorIconsFill.sealCheck : PhosphorIconsFill.target,
+              size: 76,
+              color: const Color(0xFFAFA9EC),
+            ),
+          ],
         ),
       ),
     );

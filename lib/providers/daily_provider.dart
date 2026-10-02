@@ -132,6 +132,28 @@ final streakProvider = Provider<int>((ref) {
   return streak;
 });
 
+/// Çalışma günü anahtarı ("2026-10-02"); hafta şeridi gün gün bakıyor.
+String studyDayKey(DateTime date) => _dayKey(date);
+
+/// Şimdiye kadarki en uzun ardışık çalışma serisi.
+final longestStreakProvider = Provider<int>((ref) {
+  final days = ref.watch(studyDayProvider).toList()..sort();
+  var best = 0;
+  var run = 0;
+  DateTime? previous;
+  for (final key in days) {
+    final day = DateTime.tryParse(key);
+    if (day == null) continue;
+    final consecutive =
+        previous != null &&
+        DateTime(previous.year, previous.month, previous.day + 1) == day;
+    run = consecutive ? run + 1 : 1;
+    if (run > best) best = run;
+    previous = day;
+  }
+  return best;
+});
+
 /// Serinin son çalışma günü (widget, seri koptu mu diye kendisi bakabilsin).
 final lastStudyDayProvider = Provider<String?>((ref) {
   final days = ref.watch(studyDayProvider).toList()..sort();

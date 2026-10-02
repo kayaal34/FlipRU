@@ -350,6 +350,13 @@ class Strings {
     required this.wordOfDayToggle,
     required this.wordOfDayToggleSub,
     required this.wordOfDayTime,
+    required this.reminderCardTitle,
+    required this.reminderCardBody,
+    required this.reminderCardAction,
+    required this.reminderCardBlocked,
+    required this.startAction,
+    required this.longestStreakTemplate,
+    required this.streakTitleTemplate,
   });
 
   final String tabHome, tabTests, tabStats, tabSettings;
@@ -496,6 +503,23 @@ class Strings {
       wordOfDayToggle,
       wordOfDayToggleSub,
       wordOfDayTime;
+  final String reminderCardTitle, reminderCardBody, reminderCardAction;
+  final String reminderCardBlocked, startAction;
+
+  /// "En uzun seri {} · {}": gün sayısı, öğrenilen kelime.
+  final String longestStreakTemplate;
+
+  /// Seri kartı başlığı: `{n}` çıplak sayı, `{d}` sayı uyumlu gün
+  /// ("12 günlük seri" / "12 дней подряд").
+  final String streakTitleTemplate;
+
+  String streakTitle(int n) => streakTitleTemplate
+      .replaceFirst('{n}', '$n')
+      .replaceFirst('{d}', days(n));
+
+  String longestStreak(int days, int learned) => longestStreakTemplate
+      .replaceFirst('{}', this.days(days))
+      .replaceFirst('{}', words(learned));
   final String widgetEvery6h, widgetEvery12h, widgetDaily, widgetFooter;
   final String deckEmptyHint, singleSourceWarning;
 
@@ -944,6 +968,14 @@ class Strings {
     wordOfDayToggle: 'Günün kelimesi bildirimi',
     wordOfDayToggleSub: 'Her sabah yeni bir kelime, uygulamayı açmadan',
     wordOfDayTime: 'Günün kelimesi saati',
+    reminderCardTitle: 'Hatırlatıcıyı aç',
+    reminderCardBody: 'Serin bozulmasın. Her gün bir bildirimle hatırlatalım.',
+    reminderCardAction: 'Şimdi aç',
+    reminderCardBlocked:
+        'Bildirimler telefon ayarlarından kapalı. Ayarlar › Uygulamalar › FlipRU › Bildirimler',
+    startAction: 'Başla',
+    longestStreakTemplate: 'En uzun seri {} · {}',
+    streakTitleTemplate: '{n} günlük seri',
     widgetEvery6h: '6 saatte bir',
     widgetEvery12h: '12 saatte bir',
     widgetDaily: 'Günde bir',
@@ -1376,6 +1408,15 @@ class Strings {
     wordOfDayToggle: 'Уведомление «Слово дня»',
     wordOfDayToggleSub: 'Каждое утро новое слово — без открытия приложения',
     wordOfDayTime: 'Время «Слова дня»',
+    reminderCardTitle: 'Включи напоминания',
+    reminderCardBody:
+        'Чтобы серия не прервалась, напомним уведомлением каждый день.',
+    reminderCardAction: 'Включить',
+    reminderCardBlocked:
+        'Уведомления выключены в настройках телефона. Настройки › Приложения › FlipRU › Уведомления',
+    startAction: 'Начать',
+    longestStreakTemplate: 'Рекорд {} · {}',
+    streakTitleTemplate: '{d} подряд',
     widgetEvery6h: 'Каждые 6 часов',
     widgetEvery12h: 'Каждые 12 часов',
     widgetDaily: 'Раз в день',

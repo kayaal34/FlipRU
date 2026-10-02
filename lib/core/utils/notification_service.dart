@@ -84,6 +84,30 @@ class NotificationService {
     }
   }
 
+  /// Sistem bildirim izni açık mı? Okunamazsa açık sayıyoruz: emin
+  /// olmadığımız durumda kullanıcıya boşuna hatırlatıcı kartı göstermeyelim.
+  Future<bool> areEnabled() async {
+    await _ensureInitialized();
+    if (!_available) return true;
+    try {
+      final android = _plugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+      if (android != null) {
+        return await android.areNotificationsEnabled() ?? true;
+      }
+      final ios = _plugin
+          .resolvePlatformSpecificImplementation<
+            IOSFlutterLocalNotificationsPlugin
+          >();
+      final options = await ios?.checkPermissions();
+      return options?.isEnabled ?? true;
+    } catch (_) {
+      return true;
+    }
+  }
+
   /// Günlük hatırlatmaları ve seri uyarısını siler; günün kelimesine
   /// dokunmaz. İki tür birbirinden bağımsız açılıp kapanabiliyor.
   Future<void> cancelReminders() async {

@@ -47,11 +47,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     ).push(MaterialPageRoute(builder: (_) => UnitListScreen(deck: deck)));
   }
 
+  void _openAlphabet() => Navigator.of(
+    context,
+  ).push(MaterialPageRoute(builder: (_) => const AlphabetScreen()));
+
   @override
   Widget build(BuildContext context) {
     final s = ref.watch(stringsProvider);
     final levelDecks = ref.watch(levelDecksProvider);
     final themeDecks = ref.watch(themeDecksProvider);
+    final alphabetCompact =
+        _alphabetDone(ref) == _alphabetSteps ||
+        ref.watch(learnedProvider).length >= 20;
 
     return Scaffold(
       body: SafeArea(
@@ -100,14 +107,13 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                 // Alfabe seviyelerin basinda: A1'den once
                                 // ogrenilmesi gereken sey o. Temalar
                                 // sekmesinde yeri yok.
-                                _AlphabetCard(
-                                  onTap: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (_) => const AlphabetScreen(),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
+                                // Yeni başlayana büyük kart en üstte; alfabe
+                                // bittiyse ya da kullanıcı zaten okuyabiliyorsa
+                                // ince bir satır olarak listenin sonuna iniyor.
+                                if (!alphabetCompact) ...[
+                                  _AlphabetCard(onTap: _openAlphabet),
+                                  const SizedBox(height: 10),
+                                ],
                                 for (final deck in levelDecks) ...[
                                   DeckRow(
                                     deck: deck,
@@ -118,6 +124,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   ),
                                   const SizedBox(height: 10),
                                 ],
+                                if (alphabetCompact)
+                                  _AlphabetCard(
+                                    onTap: _openAlphabet,
+                                    compact: true,
+                                  ),
                               ],
                             )
                           : GridView.count(
@@ -184,9 +195,8 @@ class _HomeHeader extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Selamlama ve seri aynı satırda: seri tek başına bir satır
-        // kaplıyordu ve üst taraf boş görünüyordu. Saate göre değişen
-        // simge ve tarih satırı, tek başına duran selamlamaya can veriyor.
+        // Selamlama solda, toplam seri sağ üstte; altında haftanın günleri.
+        // Seriyi sürdürdüğün günler alevle işaretli, bugün koyu.
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -196,21 +206,31 @@ class _HomeHeader extends ConsumerWidget {
                 children: [
                   Row(
                     children: [
-                      Icon(_greetingIcon(), size: 26, color: palette.star),
-                      const SizedBox(width: 9),
+                      Icon(_greetingIcon(), size: 32, color: palette.star),
+                      const SizedBox(width: 10),
+                      // Uzun selamlama ("Добрый вечер") dar ekranda iki
+                      // satıra kaymasın, sığacak kadar küçülsün.
                       Flexible(
-                        child: Text(
-                          _greeting(s),
-                          style: AppTypography.largeTitle(palette.textPrimary),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            _greeting(s),
+                            maxLines: 1,
+                            style: AppTypography.largeTitle(
+                              palette.textPrimary,
+                            ).copyWith(fontSize: 40),
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: 5),
                   Text(
                     s.dateLine(DateTime.now()),
-                    style: textTheme.bodySmall?.copyWith(
+                    style: textTheme.bodyMedium?.copyWith(
                       color: palette.textTertiary,
+                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -220,6 +240,9 @@ class _HomeHeader extends ConsumerWidget {
             _StreakBadge(days: streak),
           ],
         ),
+        const SizedBox(height: 18),
+        const _WeekStrip(),
+        const _ReminderCard(),
         const SizedBox(height: 20),
         Text(
           s.dailyGoalsTitle,
@@ -463,8 +486,14 @@ class _WidgetTipCardState extends ConsumerState<_WidgetTipCard> {
   }
 }
 
-/// Ardışık gün serisi. Uygulamanın en görünür motivasyon öğesi olduğu için
-/// başlıkla aynı ağırlıkta duruyor.
+/// Alev rengi: seri rozeti, hafta şeridi ve hatırlatıcı kartı ortak
+/// kullanıyor. Paletteki yıldız sarısından ayrı: alev daha sıcak durmalı.
+const _flame = Color(0xFFF0762A);
+
+Color _flameSoft(AppPalette palette) =>
+    palette.isDark ? _flame.withValues(alpha: 0.18) : const Color(0xFFFFE9D6);
+
+/// Ardışık gün serisi, sağ üstte. Uygulamanın en görünür motivasyon öğesi.
 class _StreakBadge extends ConsumerWidget {
   const _StreakBadge({required this.days});
 
@@ -475,35 +504,24 @@ class _StreakBadge extends ConsumerWidget {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final active = days > 0;
+    final color = active ? _flame : palette.textTertiary;
 
-    // Yalnızca alev + sayı: "günlük seri" yazısı her açılışta aynı şeyi
-    // tekrar ediyor ve selamlamanın yanında yer kaplıyordu.
     return Container(
-      padding: const EdgeInsets.fromLTRB(11, 7, 14, 7),
+      padding: const EdgeInsets.fromLTRB(14, 10, 18, 10),
       decoration: BoxDecoration(
-        color: active
-            ? palette.star.withValues(alpha: 0.15)
-            : palette.surfaceSunken,
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(
-          color: active
-              ? palette.star.withValues(alpha: 0.45)
-              : Colors.transparent,
-        ),
+        color: active ? _flameSoft(palette) : palette.surfaceSunken,
+        borderRadius: BorderRadius.circular(99),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
-            PhosphorIconsFill.fire,
-            size: 23,
-            color: active ? palette.star : palette.textTertiary,
-          ),
+          Icon(PhosphorIconsFill.fire, size: 30, color: color),
           const SizedBox(width: 6),
           Text(
             '$days',
             style: textTheme.titleLarge?.copyWith(
-              color: active ? palette.star : palette.textTertiary,
+              color: color,
+              fontSize: 26,
               height: 1,
             ),
           ),
@@ -513,24 +531,353 @@ class _StreakBadge extends ConsumerWidget {
   }
 }
 
-class _AlphabetCard extends ConsumerWidget {
-  const _AlphabetCard({required this.onTap});
-
-  final VoidCallback onTap;
+/// Bu haftanın günleri (pazartesiden pazara). Çalışılan günler alevli,
+/// bugün koyu, kaçırılan günler soluk, gelecek günler boş.
+class _WeekStrip extends ConsumerWidget {
+  const _WeekStrip();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final s = ref.watch(stringsProvider);
+    final studied = ref.watch(studyDayProvider);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final monday = DateTime(
+      today.year,
+      today.month,
+      today.day - (today.weekday - 1),
+    );
+
+    return Row(
+      children: [
+        for (var i = 0; i < 7; i++)
+          Expanded(
+            child: _DayCell(
+              label: s.weekdays[i],
+              day: DateTime(monday.year, monday.month, monday.day + i),
+              today: today,
+              done: studied.contains(
+                studyDayKey(
+                  DateTime(monday.year, monday.month, monday.day + i),
+                ),
+              ),
+              palette: palette,
+              textTheme: textTheme,
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+class _DayCell extends StatelessWidget {
+  const _DayCell({
+    required this.label,
+    required this.day,
+    required this.today,
+    required this.done,
+    required this.palette,
+    required this.textTheme,
+  });
+
+  final String label;
+  final DateTime day;
+  final DateTime today;
+  final bool done;
+  final AppPalette palette;
+  final TextTheme textTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    final isToday = day == today;
+    final isFuture = day.isAfter(today);
+
+    final Color background;
+    final Color foreground;
+    if (isToday && done) {
+      background = _flame;
+      foreground = Colors.white;
+    } else if (isToday) {
+      background = palette.textPrimary;
+      foreground = palette.canvas;
+    } else if (done) {
+      background = _flameSoft(palette);
+      foreground = _flame;
+    } else if (isFuture) {
+      background = palette.surface;
+      foreground = palette.textSecondary;
+    } else {
+      background = palette.surfaceSunken;
+      foreground = palette.textTertiary;
+    }
+
+    return Column(
+      children: [
+        Text(
+          label,
+          style: textTheme.labelSmall?.copyWith(
+            color: isToday ? palette.textPrimary : palette.textTertiary,
+            fontWeight: isToday ? FontWeight.w700 : null,
+            letterSpacing: 0,
+          ),
+        ),
+        const SizedBox(height: 6),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOutCubic,
+          width: 40,
+          height: 50,
+          decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(20),
+            border: isFuture ? Border.all(color: palette.separator) : null,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (done)
+                Icon(PhosphorIconsFill.fire, size: 18, color: foreground),
+              Text(
+                '${day.day}',
+                style: textTheme.labelMedium?.copyWith(
+                  color: foreground,
+                  fontSize: done ? 11 : 14,
+                  height: 1.1,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Bildirimler kapalıysa (uygulama içinde ya da telefonda) seriyi korumak
+/// için hatırlatıcıyı açmayı öneren kart. Açılınca kendiliğinden kalkıyor.
+class _ReminderCard extends ConsumerStatefulWidget {
+  const _ReminderCard();
+
+  @override
+  ConsumerState<_ReminderCard> createState() => _ReminderCardState();
+}
+
+class _ReminderCardState extends ConsumerState<_ReminderCard> {
+  /// Sistem izni; okunana kadar null ve kart görünmüyor.
+  bool? _systemEnabled;
+  late final AppLifecycleListener _lifecycle;
+
+  @override
+  void initState() {
+    super.initState();
+    _check();
+    // Telefon ayarlarından izin verip dönünce kart hemen kalksın.
+    _lifecycle = AppLifecycleListener(onResume: _check);
+  }
+
+  @override
+  void dispose() {
+    _lifecycle.dispose();
+    super.dispose();
+  }
+
+  Future<void> _check() async {
+    final enabled = await ref.read(notificationServiceProvider).areEnabled();
+    if (mounted) setState(() => _systemEnabled = enabled);
+  }
+
+  Future<void> _enable() async {
+    Haptics.light();
+    final service = ref.read(notificationServiceProvider);
+    ref
+        .read(settingsProvider.notifier)
+        .update((s) => s.copyWith(reminderEnabled: true));
+    await service.requestPermission();
+    final enabled = await service.areEnabled();
+    if (!mounted) return;
+    setState(() => _systemEnabled = enabled);
+    if (!enabled) {
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            content: Text(ref.read(stringsProvider).reminderCardBlocked),
+          ),
+        );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final settings = ref.watch(settingsProvider);
-    // Uc harf grubu + okuma adimi.
-    const total = 4;
-    final prefix = settings.language == AppLanguage.tr ? 'ru' : 'tr';
-    final done = settings.alphabetDone
-        .where((k) => k.startsWith('$prefix:'))
-        .length;
+    final system = _systemEnabled;
+    final show =
+        settings.onboardingDone &&
+        system != null &&
+        (!settings.reminderEnabled || !system);
+
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+    final dark = palette.isDark;
+    final ink = dark ? palette.textPrimary : const Color(0xFF3B1B0A);
+
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 320),
+      curve: Curves.easeOutCubic,
+      alignment: Alignment.topCenter,
+      child: !show
+          ? const SizedBox(width: double.infinity)
+          : Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: Container(
+                padding: const EdgeInsets.fromLTRB(18, 16, 12, 16),
+                decoration: BoxDecoration(
+                  color: dark
+                      ? _flame.withValues(alpha: 0.16)
+                      : const Color(0xFFFFE3D2),
+                  borderRadius: BorderRadius.circular(22),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            s.reminderCardTitle,
+                            style: textTheme.titleMedium?.copyWith(color: ink),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            s.reminderCardBody,
+                            style: textTheme.bodySmall?.copyWith(
+                              color: dark
+                                  ? palette.textSecondary
+                                  : const Color(0xFF7A4A2E),
+                              height: 1.4,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Pressable(
+                            onTap: _enable,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 18,
+                                vertical: 9,
+                              ),
+                              decoration: BoxDecoration(
+                                color: dark ? _flame : const Color(0xFF3B1B0A),
+                                borderRadius: BorderRadius.circular(99),
+                              ),
+                              child: Text(
+                                s.reminderCardAction,
+                                style: textTheme.labelLarge?.copyWith(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    const Icon(
+                      PhosphorIconsFill.bellRinging,
+                      size: 68,
+                      color: _flame,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+    );
+  }
+}
+
+/// Alfabe dersinin adım sayısı: üç harf grubu + okuma adımı.
+const _alphabetSteps = 4;
+
+/// Öğrenilen dilin alfabesinden kaç adım bitti.
+int _alphabetDone(WidgetRef ref) {
+  final settings = ref.watch(settingsProvider);
+  final prefix = settings.language == AppLanguage.tr ? 'ru' : 'tr';
+  return settings.alphabetDone.where((k) => k.startsWith('$prefix:')).length;
+}
+
+class _AlphabetCard extends ConsumerWidget {
+  const _AlphabetCard({required this.onTap, this.compact = false});
+
+  final VoidCallback onTap;
+
+  /// Alfabe bittiyse ya da kullanıcı zaten okuyabiliyorsa tek satırlık hâl.
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final s = ref.watch(stringsProvider);
+    const total = _alphabetSteps;
+    final done = _alphabetDone(ref);
     final ratio = done / total;
+
+    if (compact) {
+      return Pressable(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.fromLTRB(12, 10, 16, 10),
+          decoration: BoxDecoration(
+            color: palette.surface,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: palette.separator),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 34,
+                height: 34,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: palette.accentSoft,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Icon(
+                  PhosphorIconsRegular.textAa,
+                  color: palette.accent,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(s.alphabetTitle, style: textTheme.labelLarge),
+              ),
+              if (done == total)
+                Icon(
+                  PhosphorIconsBold.checkCircle,
+                  size: 20,
+                  color: palette.accent,
+                )
+              else
+                Text(
+                  s.percent((ratio * 100).round()),
+                  style: textTheme.labelMedium?.copyWith(
+                    color: palette.textTertiary,
+                  ),
+                ),
+              const SizedBox(width: 6),
+              Icon(
+                PhosphorIconsRegular.caretRight,
+                size: 18,
+                color: palette.textTertiary,
+              ),
+            ],
+          ),
+        ),
+      );
+    }
 
     return Pressable(
       onTap: onTap,

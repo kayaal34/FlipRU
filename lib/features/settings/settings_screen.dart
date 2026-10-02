@@ -4,6 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/config/qa_mode.dart';
 import '../../core/i18n/strings.dart';
+import '../../core/widgets/pressable.dart';
+import '../../providers/library_providers.dart';
 import '../../core/utils/word_of_day.dart';
 import '../../providers/daily_provider.dart';
 import '../../core/theme/app_palette.dart';
@@ -41,6 +43,8 @@ class SettingsScreen extends ConsumerWidget {
             child: ListView(
               padding: const EdgeInsets.fromLTRB(20, 0, 20, 40),
               children: [
+                const SizedBox(height: 8),
+                const _StreakCard(),
                 const SizedBox(height: 16),
                 // ───────────────────── Hesap ve veri ───────────────────────
                 //
@@ -372,6 +376,78 @@ class _LegalLinks extends StatelessWidget {
         Text('·', style: style?.copyWith(decoration: TextDecoration.none)),
         link(LegalDocument.contact),
       ],
+    );
+  }
+}
+
+/// Ayarların en üstünde seri özeti; dokununca istatistik ekranı açılıyor.
+class _StreakCard extends ConsumerWidget {
+  const _StreakCard();
+
+  static const _flame = Color(0xFFF0762A);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final palette = context.palette;
+    final textTheme = Theme.of(context).textTheme;
+    final t = ref.watch(stringsProvider);
+    final streak = ref.watch(streakProvider);
+    final longest = ref.watch(longestStreakProvider);
+    final learned = ref.watch(learnedProvider).length;
+
+    return Pressable(
+      onTap: () => Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (_) => const StatsScreen())),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: palette.surface,
+          borderRadius: BorderRadius.circular(22),
+          border: Border.all(color: palette.separator),
+        ),
+        child: Row(
+          children: [
+            Container(
+              width: 52,
+              height: 52,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: palette.isDark
+                    ? _flame.withValues(alpha: 0.18)
+                    : const Color(0xFFFFE9D6),
+              ),
+              child: Icon(
+                PhosphorIconsFill.fire,
+                size: 28,
+                color: streak > 0 ? _flame : palette.textTertiary,
+              ),
+            ),
+            const SizedBox(width: 14),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(t.streakTitle(streak), style: textTheme.titleMedium),
+                  const SizedBox(height: 3),
+                  Text(
+                    t.longestStreak(longest, learned),
+                    style: textTheme.bodySmall?.copyWith(
+                      color: palette.textSecondary,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Icon(
+              PhosphorIconsRegular.chartBar,
+              size: 24,
+              color: palette.accent,
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
