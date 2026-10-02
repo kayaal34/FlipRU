@@ -79,8 +79,7 @@ class WritingTestsScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: palette.surface,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: palette.separator),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: Row(
                     children: [
@@ -169,9 +168,13 @@ class _TestKutusu extends ConsumerWidget {
         child: Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: palette.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: test.passed ? renk : palette.separator),
+            color: test.passed
+                ? Color.alphaBlend(
+                    renk.withValues(alpha: 0.14),
+                    palette.surface,
+                  )
+                : palette.surface,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -181,7 +184,11 @@ class _TestKutusu extends ConsumerWidget {
               else if (test.passed)
                 Icon(PhosphorIconsFill.checkCircle, size: 24, color: renk)
               else if (pendingCount > 0)
-                Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 22, color: renk)
+                Icon(
+                  PhosphorIconsRegular.arrowCounterClockwise,
+                  size: 22,
+                  color: renk,
+                )
               else
                 Text(
                   '${test.index}',

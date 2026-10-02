@@ -126,8 +126,7 @@ class _LetterTile extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: palette.separator),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -398,8 +397,9 @@ class _LessonCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: done ? palette.learned : palette.separator),
+          borderRadius: BorderRadius.circular(20),
+          // Çerçeve yalnızca bitince: diğer kartlar gibi düz yüzey.
+          border: done ? Border.all(color: palette.learned) : null,
         ),
         child: Row(
           children: [

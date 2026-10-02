@@ -124,8 +124,7 @@ class _ReportsScreenState extends ConsumerState<ReportsScreen> {
                         padding: const EdgeInsets.fromLTRB(15, 12, 8, 12),
                         decoration: BoxDecoration(
                           color: palette.surface,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: palette.separator),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
                           children: [

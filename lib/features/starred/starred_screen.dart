@@ -170,8 +170,7 @@ class _StarredRow extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 13, 8, 13),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: palette.separator),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
           children: [

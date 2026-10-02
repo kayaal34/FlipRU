@@ -140,8 +140,7 @@ class _LanguageOption extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 17),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: palette.separator),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
           children: [

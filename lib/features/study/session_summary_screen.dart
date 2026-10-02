@@ -197,7 +197,6 @@ class _StatTile extends StatelessWidget {
       decoration: BoxDecoration(
         color: palette.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: palette.separator),
       ),
       child: Column(
         children: [

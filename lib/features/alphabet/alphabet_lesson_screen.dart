@@ -170,8 +170,7 @@ class _AlphabetLessonScreenState extends ConsumerState<AlphabetLessonScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
               decoration: BoxDecoration(
                 color: palette.surface,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: palette.separator),
+                borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,

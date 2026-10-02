@@ -7,6 +7,7 @@ import '../../../core/utils/haptics.dart';
 import '../../../core/i18n/strings.dart';
 import '../../../data/models/word.dart';
 import 'flip_card.dart';
+import '../../../core/utils/text_case.dart';
 
 /// Kaydırılabilir desteyi oluşturan tek bir kelime kartı.
 ///
@@ -560,7 +561,7 @@ class _Chip extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        label.toUpperCase(),
+        upperTr(label),
         style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color),
       ),
     );

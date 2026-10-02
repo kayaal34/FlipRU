@@ -239,12 +239,7 @@ class _WordRow extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(14, 11, 6, 11),
         decoration: BoxDecoration(
           color: palette.surface,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: isLearned
-                ? palette.learned.withValues(alpha: 0.4)
-                : palette.separator,
-          ),
+          borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
           children: [

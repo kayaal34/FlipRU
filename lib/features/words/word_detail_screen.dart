@@ -11,6 +11,7 @@ import '../../providers/app_providers.dart';
 import '../../providers/library_providers.dart';
 import '../../providers/settings_provider.dart';
 import '../study/widgets/report_sheet.dart';
+import '../../core/utils/text_case.dart';
 
 /// Tek bir kelimenin tam sayfası.
 ///
@@ -296,8 +297,7 @@ class _Section extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: palette.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: palette.separator),
+            borderRadius: BorderRadius.circular(20),
           ),
           child: child,
         ),
@@ -360,7 +360,7 @@ class _Chip extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(
-        label.toUpperCase(),
+        upperTr(label),
         style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color),
       ),
     );

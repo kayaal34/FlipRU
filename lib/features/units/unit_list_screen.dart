@@ -53,8 +53,7 @@ class UnitListScreen extends ConsumerWidget {
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
                         color: palette.surface,
-                        borderRadius: BorderRadius.circular(18),
-                        border: Border.all(color: palette.separator),
+                        borderRadius: BorderRadius.circular(20),
                       ),
                       child: Row(
                         children: [
@@ -166,14 +165,15 @@ class _UnitTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(11),
           decoration: BoxDecoration(
-            color: palette.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: progress.passed
-                  ? tint.withValues(alpha: 0.5)
-                  : palette.separator,
-              width: progress.passed ? 1.5 : 1,
-            ),
+            // Bitmiş bölüm çerçeveyle değil, destenin renginde hafif
+            // dolguyla ayrışıyor: uygulamanın geri kalanı da çerçevesiz.
+            color: progress.passed
+                ? Color.alphaBlend(
+                    tint.withValues(alpha: 0.14),
+                    palette.surface,
+                  )
+                : palette.surface,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

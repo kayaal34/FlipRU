@@ -91,7 +91,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                             child: _StatBox(
                               value: '$streak',
                               label: t.statStreak,
-                              color: palette.star,
+                              color: palette.accent,
                               icon: PhosphorIconsFill.fire,
                             ),
                           ),
@@ -115,8 +115,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                           padding: const EdgeInsets.all(16),
                           decoration: BoxDecoration(
                             color: palette.surface,
-                            borderRadius: BorderRadius.circular(18),
-                            border: Border.all(color: palette.separator),
+                            borderRadius: BorderRadius.circular(20),
                           ),
                           child: Row(
                             children: [
@@ -152,8 +151,7 @@ class _StatsScreenState extends ConsumerState<StatsScreen> {
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: palette.surface,
-                          borderRadius: BorderRadius.circular(18),
-                          border: Border.all(color: palette.separator),
+                          borderRadius: BorderRadius.circular(20),
                         ),
                         child: Column(
                           children: [
@@ -235,8 +233,7 @@ class _LevelProgressCard extends ConsumerWidget {
       padding: const EdgeInsets.fromLTRB(16, 15, 16, 14),
       decoration: BoxDecoration(
         color: palette.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: palette.separator),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -488,8 +485,7 @@ class _StatBox extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 14),
       decoration: BoxDecoration(
         color: palette.surface,
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: palette.separator),
+        borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [

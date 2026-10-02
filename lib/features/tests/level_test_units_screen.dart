@@ -26,7 +26,6 @@ class LevelTestUnitsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final palette = context.palette;
     final textTheme = Theme.of(context).textTheme;
     final units = ref.watch(deckUnitsProvider(deck.id));
     final s = ref.watch(stringsProvider);
@@ -51,12 +50,7 @@ class LevelTestUnitsScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        Text(
-                          s.unitTestsTitle,
-                          style: textTheme.labelSmall?.copyWith(
-                            color: palette.textTertiary,
-                          ),
-                        ),
+                        Text(s.unitTestsTitle, style: textTheme.titleMedium),
                       ],
                     ),
                   ),
@@ -180,14 +174,13 @@ class _UnitTestTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(11),
           decoration: BoxDecoration(
-            color: palette.surface,
-            borderRadius: BorderRadius.circular(18),
-            border: Border.all(
-              color: progress.testPassed
-                  ? tint.withValues(alpha: 0.5)
-                  : palette.separator,
-              width: progress.testPassed ? 1.5 : 1,
-            ),
+            color: progress.testPassed
+                ? Color.alphaBlend(
+                    tint.withValues(alpha: 0.14),
+                    palette.surface,
+                  )
+                : palette.surface,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -197,7 +190,11 @@ class _UnitTestTile extends StatelessWidget {
               else if (progress.testPassed)
                 Icon(PhosphorIconsFill.medal, size: 24, color: color)
               else if (progress.pendingWrong > 0)
-                Icon(PhosphorIconsRegular.arrowCounterClockwise, size: 22, color: color)
+                Icon(
+                  PhosphorIconsRegular.arrowCounterClockwise,
+                  size: 22,
+                  color: color,
+                )
               else
                 Icon(PhosphorIconsRegular.exam, size: 22, color: color),
               const SizedBox(height: 7),
