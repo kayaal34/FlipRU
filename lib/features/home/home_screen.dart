@@ -1279,6 +1279,8 @@ void _openResume(BuildContext context, WidgetRef ref, ResumeTarget target) {
 /// Kullanıcıyı "yarın gel" diye bırakmak yerine iki net seçenek sunuyor:
 /// yeni kelimeyle devam (Ekstra pratik) ya da öğrendiklerini pekiştirme
 /// (Tekrar). Bu sırada "Kaldığın yer" kartı gizli, aynı iş iki yerde durmasın.
+/// Övgü üstteki motivasyon sözünde; kart yalnızca sayı veriyor, aynı "harika
+/// iş" iki kez yazmasın.
 class _DayDoneCard extends ConsumerWidget {
   const _DayDoneCard();
 
@@ -1291,6 +1293,7 @@ class _DayDoneCard extends ConsumerWidget {
     final s = ref.watch(stringsProvider);
     final learnedIds = ref.watch(learnedProvider);
     final target = ref.watch(resumeProvider);
+    final summary = ref.watch(dailySummaryProvider);
 
     void review() {
       Haptics.light();
@@ -1358,10 +1361,15 @@ class _DayDoneCard extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(s.dayDoneTitle, style: textTheme.titleMedium),
+                        Text(
+                          s.dayDoneTitleTemplate
+                              .replaceFirst('{n}', s.number(summary.today))
+                              .replaceFirst('{w}', s.wordUnit(summary.today)),
+                          style: textTheme.titleMedium,
+                        ),
                         const SizedBox(height: 4),
                         Text(
-                          s.dayDoneBody,
+                          '${s.number(summary.streak)} ${s.streakDays}',
                           style: textTheme.bodySmall?.copyWith(
                             color: palette.textSecondary,
                           ),

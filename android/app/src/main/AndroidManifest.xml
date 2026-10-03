@@ -7,6 +7,10 @@
     <!-- Günlük çalışma hatırlatması için (Android 13+ çalışma zamanı izni). -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- Esnek alarmlara Android saatlerce pencere veriyor (20:00 hatırlatması
+         gece 2'de gelebiliyordu). Android 12-13'te kendiliğinden verilir,
+         14+'ta verilmemişse esnek alarma düşüyoruz. -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 
     <application
         android:label="${appLabel}"
@@ -34,6 +38,25 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- Zamanlanmış bildirimler (hatırlatma, seri uyarısı, günün kelimesi).
+             flutter_local_notifications bu alıcıları kendi manifest'inde
+             tanımlamıyor; burada olmazsa alarm çalar ama bildirim hiç
+             görünmez. Boot alıcısı yeniden başlatma ve güncelleme sonrası
+             alarmları geri kuruyor. -->
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver
+            android:exported="false"
+            android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
+
         <!-- Ana ekran widget'i: günün kelimesi -->
         <receiver
             android:name=".WordWidgetProvider"

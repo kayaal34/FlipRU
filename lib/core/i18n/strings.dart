@@ -363,8 +363,7 @@ class Strings {
     required this.resumeLeftTemplate,
     required this.resumeNextLabel,
     required this.totalLearned,
-    required this.dayDoneTitle,
-    required this.dayDoneBody,
+    required this.dayDoneTitleTemplate,
     required this.solvedShort,
     required this.extraPractice,
     required this.reviewAction,
@@ -548,7 +547,7 @@ class Strings {
   final String totalLearned;
 
   /// Hedef + günün testi bitince çıkan birleşik kart.
-  final String dayDoneTitle, dayDoneBody, solvedShort;
+  final String dayDoneTitleTemplate, solvedShort;
   final String extraPractice, reviewAction;
 
   /// Binlik ayırıcı: Türkçede nokta (8.817), Rusçada boşluk (8 817).
@@ -906,7 +905,7 @@ class Strings {
     accountSub: 'İlerlemeni sıfırla, verilerini sil',
     about: 'Hakkında',
     appSubtitle: 'Rusça kelime öğrenme uygulaması',
-    version: 'Sürüm 1.4.1',
+    version: 'Sürüm 1.4.2',
     privacy: 'Gizlilik Politikası',
     terms: 'Hizmet Kullanım Şartları',
     aboutFooter:
@@ -987,7 +986,7 @@ class Strings {
     retryWrong: 'Yanlışlarına dön',
     quizWrong: 'yanlış',
     perfectScore: 'Kusursuz! Hepsi doğru.',
-    encourageStart: 'Bugüne başlamadın, hadi bir kelime!',
+    encourageStart: 'Bugün henüz başlamadın. İlk kelimeyi öğrenelim!',
     encourageGoing: 'İyi gidiyorsun, devam et',
     encourageAlmost: 'Harika gidiyorsun, az kaldı!',
     notificationTitle: 'Bugünkü çalışman seni bekliyor',
@@ -1055,8 +1054,7 @@ class Strings {
     resumeLeftTemplate: '{} kaldı',
     resumeNextLabel: 'Sıradaki bölüm',
     totalLearned: 'Toplam öğrenilen',
-    dayDoneTitle: 'Bugünkü hedef tamam',
-    dayDoneBody: 'Harika iş! Serin yarın da devam edecek.',
+    dayDoneTitleTemplate: 'Bugün {n} {w} öğrendin',
     solvedShort: 'Çözüldü',
     extraPractice: 'Ekstra pratik',
     reviewAction: 'Tekrar',
@@ -1069,7 +1067,7 @@ class Strings {
     motivStreak: [
       'Hedefine her gün biraz daha yaklaşıyorsun.',
       'Küçük adımlar, büyük yol. Bugün de bir adım.',
-      'Serin büyüyor, Rusçan da onunla.',
+      'Serin büyüyor, Rusçan da onunla birlikte.',
       'Her gün beş kelime, yılda iki bin kelime eder.',
     ],
     motivGoalDone: [
@@ -1391,7 +1389,7 @@ class Strings {
     accountSub: 'Сброс прогресса и удаление данных',
     about: 'О приложении',
     appSubtitle: 'Приложение для изучения русских слов',
-    version: 'Версия 1.4.1',
+    version: 'Версия 1.4.2',
     privacy: 'Политика конфиденциальности',
     terms: 'Условия использования',
     aboutFooter:
@@ -1541,8 +1539,7 @@ class Strings {
     resumeLeftTemplate: 'осталось {}',
     resumeNextLabel: 'Следующий урок',
     totalLearned: 'Всего выучено',
-    dayDoneTitle: 'Цель на сегодня выполнена',
-    dayDoneBody: 'Отлично! Завтра серия продолжится.',
+    dayDoneTitleTemplate: 'Сегодня выучено: {n} {w}',
     solvedShort: 'Пройден',
     extraPractice: 'Ещё практика',
     reviewAction: 'Повторить',

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -36,8 +37,7 @@ class NotificationService {
 
     try {
       tzdata.initializeTimeZones();
-      // Cihazın yerel saatini kullanmak için UTC yerine local konum.
-      tz.setLocalLocation(tz.getLocation(await _deviceTimeZone()));
+      await _syncLocalZone();
 
       await _plugin.initialize(
         settings: const InitializationSettings(
@@ -51,13 +51,32 @@ class NotificationService {
     }
   }
 
-  /// Cihaz saat dilimi okunamazsa Türkiye'ye düşüyoruz.
-  Future<String> _deviceTimeZone() async {
+  /// Bildirim saatlerini cihazın kendi saat dilimine bağlar.
+  ///
+  /// Eskiden herkes için İstanbul kabul ediliyordu: Berlin'deki kullanıcının
+  /// 20:00 hatırlatması 19:00'da geliyordu. Artık cihazın IANA adı okunuyor
+  /// (ör. "Europe/Berlin"); yaz saati geçişlerini de timezone paketi biliyor.
+  /// Her planlamadan önce yeniden okunuyor, kullanıcı başka şehre gidip
+  /// uygulamayı açtığında bildirimler yeni yerel saate kayıyor.
+  Future<void> _syncLocalZone() async {
+    tz.Location? location;
     try {
-      final offset = DateTime.now().timeZoneOffset;
-      if (offset == const Duration(hours: 3)) return 'Europe/Istanbul';
-    } catch (_) {}
-    return 'Europe/Istanbul';
+      final info = await FlutterTimezone.getLocalTimezone();
+      location = tz.getLocation(info.identifier);
+    } catch (_) {
+      location = _locationForOffset(DateTime.now().timeZoneOffset);
+    }
+    tz.setLocalLocation(location);
+  }
+
+  /// Ad okunamaz ya da veritabanında yoksa şu anki farkı tutan bir bölge;
+  /// o da yoksa UTC. Yaz saati geçişini kaçırabilir ama saat bugün doğru.
+  tz.Location _locationForOffset(Duration offset) {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    for (final loc in tz.timeZoneDatabase.locations.values) {
+      if (loc.timeZone(now).offset == offset) return loc;
+    }
+    return tz.UTC;
   }
 
   Future<bool> requestPermission() async {
@@ -193,7 +212,42 @@ class NotificationService {
           ),
         ),
       );
+      // Anında gösterim zamanlanmış yolu sınamıyor: alıcı eksikken bile
+      // yukarıdakiler görünüyordu. Bu bildirim bir dakika sonra çalmalı.
+      await _plugin.zonedSchedule(
+        id: 903,
+        title: strings.notificationTitle,
+        body: '⏰ ${strings.notificationBody.replaceFirst('{}', '$goal')}',
+        scheduledDate: tz.TZDateTime.now(
+          tz.local,
+        ).add(const Duration(minutes: 1)),
+        notificationDetails: details(
+          _channelId,
+          strings.notifChannel,
+          strings.notifChannelDesc,
+        ),
+        androidScheduleMode: await _scheduleMode(),
+      );
     } catch (_) {}
+  }
+
+  /// Tam saatli alarm izni varsa onu, yoksa esnek alarmı kullan.
+  ///
+  /// Esnek alarmın penceresi kurulduğu andan çalacağı ana kadarki sürenin
+  /// dörtte üçü kadar: akşam 20:00'ye kurulan hatırlatma gece 2'de, 22:30'daki
+  /// seri uyarısı ertesi sabah (seri kopmuşken) gelebiliyordu. Android 12-13'te
+  /// izin kendiliğinden verilir; 14+'ta kullanıcı vermediyse esneğe düşüyoruz.
+  Future<AndroidScheduleMode> _scheduleMode() async {
+    try {
+      final android = _plugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >();
+      if (await android?.canScheduleExactNotifications() ?? false) {
+        return AndroidScheduleMode.exactAllowWhileIdle;
+      }
+    } catch (_) {}
+    return AndroidScheduleMode.inexactAllowWhileIdle;
   }
 
   /// Uzun gövde tek satırda kesiliyordu ("...bir t.."); bildirim aşağı
@@ -233,6 +287,7 @@ class NotificationService {
     if (!_available) return;
 
     try {
+      await _syncLocalZone();
       await cancelWordOfDay();
       final details = NotificationDetails(
         android: AndroidNotificationDetails(
@@ -245,6 +300,7 @@ class NotificationService {
         iOS: const DarwinNotificationDetails(),
       );
 
+      final mode = await _scheduleMode();
       final now = tz.TZDateTime.now(tz.local);
       for (var day = 0; day < _horizonDays; day++) {
         final when = tz.TZDateTime(
@@ -263,7 +319,7 @@ class NotificationService {
           body: body,
           scheduledDate: when,
           notificationDetails: _expand(details, body),
-          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          androidScheduleMode: mode,
         );
       }
     } catch (_) {
@@ -293,6 +349,7 @@ class NotificationService {
     if (!_available) return;
 
     try {
+      await _syncLocalZone();
       await cancelReminders();
 
       final details = NotificationDetails(
@@ -306,6 +363,7 @@ class NotificationService {
         iOS: const DarwinNotificationDetails(),
       );
 
+      final mode = await _scheduleMode();
       final now = tz.TZDateTime.now(tz.local);
       for (var day = 0; day < _horizonDays; day++) {
         var when = tz.TZDateTime(
@@ -328,8 +386,7 @@ class NotificationService {
             details,
             strings.notificationBody.replaceFirst('{}', '$goal'),
           ),
-          // Kesin alarm izni istemiyoruz; birkaç dakika sapma sorun değil.
-          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          androidScheduleMode: mode,
         );
       }
 
@@ -359,7 +416,7 @@ class NotificationService {
             details,
             strings.streakNotifBody.replaceFirst('{}', '$streak'),
           ),
-          androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
+          androidScheduleMode: mode,
         );
       }
     } catch (_) {
